@@ -1,6 +1,6 @@
-# booktrackerv2
+# BookTracker Fschmtz
 
-Tracker para livros.
+Tracker simples para livros.
 
 Criado com o Android em mente, não foi testado para IOS.
 
