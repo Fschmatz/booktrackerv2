@@ -60,10 +60,10 @@ class _CardLivroState extends State<CardLivro> {
       elevation: 3.0,
       title: Text(
         "Confirmação ",//
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
       ),
       content: Text(
-        "Deletar Livro ?",
+        "\nDeletar Livro ?",
         style: TextStyle(
           fontSize: 18,
         ),

@@ -110,6 +110,40 @@ class _AddLivroState extends State<AddLivro> {
     );
   }
 
+
+  var _tapPosition;
+  _showPopupMenuRemoverCapa() async {
+    final RenderBox overlay = Overlay.of(context).context.findRenderObject();
+    await showMenu(
+      color: widget.tema ? Color(0xFF2A2A2B) : Color(0xFFE9E9EF),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      context: context,
+      position: RelativeRect.fromRect(
+          _tapPosition & Size(40, 40),
+          Offset.zero & overlay.size),
+      items: [
+        PopupMenuItem(
+            value: 1,
+            child: Text("Remover Capa")
+        ),
+      ],
+      elevation: 2.0,
+    ).then((value) => {
+      if (value == 1)
+        {
+          setState(() {
+            capa = null;
+          })
+        }
+    });
+  }
+
+  void _storePosition(TapDownDetails details) {
+    _tapPosition = details.globalPosition;
+  }
+
   @override
   Widget build(BuildContext context) {
     final node = FocusScope.of(context);
@@ -245,7 +279,11 @@ class _AddLivroState extends State<AddLivro> {
                   ),
                   elevation: 0,
                   child: InkWell(
+
                     onTap: pickGallery,
+                    onTapDown: _storePosition,
+                    onLongPress:  _showPopupMenuRemoverCapa,
+
                     customBorder: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),

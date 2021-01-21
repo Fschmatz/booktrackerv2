@@ -50,8 +50,6 @@ class _UpdateLivroState extends State<UpdateLivro> {
     customControllerNomeLivro.text = widget.livro.nome;
     customControllerPaginas.text = widget.livro.numPaginas.toString();
     customControllerAutor.text = widget.livro.autor;
-    //capa = File.();
-    //capaImage = Image.memory(widget.livro.capa);
   }
 
 
@@ -124,6 +122,42 @@ class _UpdateLivroState extends State<UpdateLivro> {
     );
   }
 
+
+  var _tapPosition;
+  _showPopupMenuRemoverCapa() async {
+    final RenderBox overlay = Overlay.of(context).context.findRenderObject();
+    await showMenu(
+      color: widget.tema ? Color(0xFF2A2A2B) : Color(0xFFE9E9EF),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      context: context,
+      position: RelativeRect.fromRect(
+          _tapPosition & Size(40, 40),
+          Offset.zero & overlay.size),
+      items: [
+        PopupMenuItem(
+          value: 1,
+          child: Text("Remover Capa")
+        ),
+      ],
+      elevation: 2.0,
+    ).then((value) => {
+      if (value == 1)
+        {
+        setState(() {
+          capaFoiEditada = false;
+          widget.livro.capa = null;
+          })
+        }
+    });
+  }
+
+  void _storePosition(TapDownDetails details) {
+    _tapPosition = details.globalPosition;
+  }
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -152,7 +186,6 @@ class _UpdateLivroState extends State<UpdateLivro> {
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
               controller: customControllerNomeLivro,
-              autofocus: true,
               onEditingComplete: () => node.nextFocus(),
               decoration: InputDecoration(
                   prefixIcon: Icon(Icons.article),
@@ -189,7 +222,6 @@ class _UpdateLivroState extends State<UpdateLivro> {
               keyboardType:
               TextInputType.numberWithOptions(decimal: false),
               controller: customControllerPaginas,
-              autofocus: true,
               onEditingComplete: () => node.nextFocus(),
               decoration: InputDecoration(
                   prefixIcon: Icon(Icons.book),
@@ -261,6 +293,10 @@ class _UpdateLivroState extends State<UpdateLivro> {
                   elevation: 0,
                   child: InkWell(
                     onTap: pickGallery,
+                    onTapDown: _storePosition,
+                    onLongPress:  _showPopupMenuRemoverCapa ,
+
+
                     customBorder: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
