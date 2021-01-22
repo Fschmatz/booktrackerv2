@@ -34,19 +34,16 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
+    getExibirLidos();
     getAllLivros();
     getTema();
-    getExibirLidos();
     super.initState();
   }
 
   Future<void> getExibirLidos() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    if(exibirLidos == null){
-      exibirLidos = false;
-      prefs.setBool('valorExibirLidos', exibirLidos);
-    }
+
     setState(() {
       exibirLidos = prefs.getBool('valorExibirLidos');
       if(exibirLidos){

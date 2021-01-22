@@ -1,6 +1,6 @@
+import 'package:booktrackerv2/util/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'file:///H:/FlutterApps/booktrackerfschmtz/lib/util/theme.dart';
 import '../util/versaoNomeChangelog.dart';
 import 'package:provider/provider.dart';
 
@@ -25,12 +25,6 @@ class _ConfigsState extends State<Configs> {
   Future<void>  getExibirLidos() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     exibirLidos = prefs.getBool('valorExibirLidos');
-
-    if(exibirLidos == null){
-      exibirLidos = false;
-        prefs.setBool('valorExibirLidos', exibirLidos);
-    }
-    print(exibirLidos);
     setState(() {});
   }
 

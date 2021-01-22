@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
-//https://stackoverflow.com/questions/54300081/flutter-popupmenu-on-long-press
 
 class CardLivro extends StatefulWidget {
   @override
