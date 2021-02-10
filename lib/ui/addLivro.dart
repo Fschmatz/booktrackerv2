@@ -1,10 +1,10 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:booktrackerv2/db/livroDao.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_native_image/flutter_native_image.dart';
 
 class AddLivro extends StatefulWidget {
   @override
@@ -30,12 +30,15 @@ class _AddLivroState extends State<AddLivro> {
 
   pickGallery() async {
     final pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
-    final file = File(pickedFile.path);
-    if (file == null) {
+
+    File compressedFile = await FlutterNativeImage.compressImage(pickedFile.path, quality: 95,
+        targetWidth: 325, targetHeight: 475);
+
+    if (compressedFile == null) {
       return;
     } else {
       setState(() {
-        capa = file;
+        capa = compressedFile;
       });
     }
   }

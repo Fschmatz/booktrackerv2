@@ -4,6 +4,7 @@ import 'package:booktrackerv2/db/livroDao.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_native_image/flutter_native_image.dart';
 
 class UpdateLivro extends StatefulWidget {
   @override
@@ -26,18 +27,20 @@ class _UpdateLivroState extends State<UpdateLivro> {
   //IMAGEM
   final imagePicker = ImagePicker();
   File capa;
- //Image capaImage;
   bool capaFoiEditada = false;
 
   pickGallery() async {
     final pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
-    final file = File(pickedFile.path);
-    if (file == null) {
+
+    File compressedFile = await FlutterNativeImage.compressImage(pickedFile.path, quality: 95,
+        targetWidth: 325, targetHeight: 475);
+
+    if (compressedFile == null) {
       return;
     } else {
       setState(() {
         capaFoiEditada = true;
-        capa = file;
+        capa = compressedFile;
         widget.livro.capa = capa.readAsBytesSync();
       });
     }
