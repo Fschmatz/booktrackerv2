@@ -62,12 +62,12 @@ class LivroDao {
 
   Future<List<Map<String, dynamic>>> queryAllLivrosParaLer() async {
     Database db = await instance.database;
-    return await db.rawQuery('SELECT * FROM $table WHERE $columnLido=0 ORDER BY $columnIdLivro');
+    return await db.rawQuery('SELECT * FROM $table WHERE $columnLido=0 ORDER BY $columnNome');
   }
 
   Future<List<Map<String, dynamic>>> queryAllLivrosLidos() async {
     Database db = await instance.database;
-    return await db.rawQuery('SELECT * FROM $table WHERE $columnLido=1 ORDER BY $columnIdLivro');
+    return await db.rawQuery('SELECT * FROM $table WHERE $columnLido=1 ORDER BY $columnNome');
   }
 
   Future<int> queryRowCount() async {

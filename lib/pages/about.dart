@@ -44,7 +44,6 @@ MARTELADO E REFEITO DO ZERO:
 1 X POR ENQUANTO !!!
 (Por causa de um problema grave do 
 SDK, culpa do Flutter!)
-
 (Vamos que Vamos, denovo!!!)        
       ''',
                   textAlign: TextAlign.center,
@@ -63,8 +62,7 @@ usado para testes e aprendizado.
  Este aplicativo um dia terá 
 seu código disponibilizado 
 gratuitamente no GitHub e 
-talvez adicionado ao F-Droid. 
-            
+talvez adicionado ao F-Droid.             
       ''',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -78,8 +76,7 @@ talvez adicionado ao F-Droid.
 “The capacity to learn is a gift; 
 the ability to learn is a skill; 
 the willingness to learn is a choice.” 
-– Brian Herbert 
-            
+– Brian Herbert             
       ''',
                   textAlign: TextAlign.center,
                   style: TextStyle(

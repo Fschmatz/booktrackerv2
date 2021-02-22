@@ -196,8 +196,6 @@ class _AddLivroState extends State<AddLivro> {
               height: 10,
             ),
 
-            //NOTA
-
             TextField(
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.allow(
