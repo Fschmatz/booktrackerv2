@@ -162,7 +162,7 @@ class _UpdateLivroState extends State<UpdateLivro> {
         title: Text('Editar Livro'),
         actions: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+            padding: const EdgeInsets.fromLTRB(0, 0, 9, 0),
             child: IconButton(
               icon: Icon(Icons.save_outlined),
               tooltip: 'Salvar',
@@ -351,7 +351,7 @@ class _UpdateLivroState extends State<UpdateLivro> {
                           const SizedBox(
                             width: 1,
                           ),
-                          Text("Editar Capa", style: TextStyle(fontSize: 18),),
+                          Text("Editar Capa", style: TextStyle(fontSize: 18, color: Theme.of(context).hintColor),),
                           const SizedBox(
                             width: 1,
                           ),

@@ -224,12 +224,13 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
         body: ListView(children: <Widget>[
           Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                
+                SizedBox(
+                  height: 5,
+                ),
                 InkWell(
                   onTap: () {
                     animacaoParaLer = !animacaoParaLer;
@@ -240,7 +241,7 @@ class _HomeState extends State<Home> {
                     refreshParaLer();
                   },
                   child: Container(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 2, 0),
+                    padding: const EdgeInsets.fromLTRB(18, 0, 2, 0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

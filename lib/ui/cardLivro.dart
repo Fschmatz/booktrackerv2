@@ -205,7 +205,7 @@ class _CardLivroState extends State<CardLivro> {
                           Text(
                             widget.livro.nome,
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 17,
                             ),
                             textAlign: TextAlign.left,
                           ),
@@ -217,7 +217,7 @@ class _CardLivroState extends State<CardLivro> {
                             child: Text(
                               "Páginas: " + widget.livro.numPaginas.toString(),
                               style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 15.5,
                                   color: Theme.of(context).hintColor),
                             ),
                           ),
@@ -229,7 +229,7 @@ class _CardLivroState extends State<CardLivro> {
                             child: Text(
                               widget.livro.autor,
                               style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 15.5,
                                   color: Theme.of(context).hintColor),
                             ),
                           ),

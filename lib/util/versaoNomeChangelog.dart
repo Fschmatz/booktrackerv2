@@ -1,7 +1,7 @@
 class versaoNomeChangelog{
 
   //se mudar o nome do App não esquecer de alterar, no manifesto
-  static String versaoApp = "3.0";
+  static String versaoApp = "3.0.1";
   static String nomeApp = "BookTracker";
 
   //1espaço acima, nenhum embaixo
@@ -9,7 +9,7 @@ class versaoNomeChangelog{
   
 Versão Atual: 
 
-3.0
+3.0.1
 - Correções
 - Add List Animation
 - Update Flutter 2.0

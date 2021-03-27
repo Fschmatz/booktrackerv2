@@ -145,7 +145,7 @@ class _AddLivroState extends State<AddLivro> {
         title: Text('Adicionar Livro'),
         actions: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+            padding: const EdgeInsets.fromLTRB(0, 0, 9, 0),
             child: IconButton(
               icon: Icon(Icons.save_outlined),
               tooltip: 'Salvar',
@@ -330,7 +330,7 @@ class _AddLivroState extends State<AddLivro> {
                           ),
                           Text(
                             "Adicionar Capa",
-                            style: TextStyle(fontSize: 18),
+                            style: TextStyle(fontSize: 18,color: Theme.of(context).hintColor),
                           ),
                           const SizedBox(
                             width: 1,
