@@ -91,22 +91,22 @@ class _HomeState extends State<Home> {
   refreshLidos() {
     setState(() {
       getTema();
-      getAllLivrosLidos();
     });
+    getAllLivrosLidos();
   }
 
   refreshParaLer() {
     setState(() {
       getTema();
-      getAllLivrosParaLer();
     });
+    getAllLivrosParaLer();
   }
 
   refresh() {
     setState(() {
       getTema();
-      getAllLivros();
     });
+    getAllLivros();
   }
 
   refreshTema() {
@@ -133,7 +133,6 @@ class _HomeState extends State<Home> {
                 //TOPO
 
                 Card(
-                  //elevation: 3.0,
                   margin: EdgeInsets.fromLTRB(50, 15, 50, 20),
                   shape: RoundedRectangleBorder(
                     side: BorderSide(color: Colors.grey[700], width: 2),
@@ -146,7 +145,7 @@ class _HomeState extends State<Home> {
                           versaoNomeChangelog.versaoApp,
                       textAlign: TextAlign.center,
                       style:
-                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -225,14 +224,12 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
+
         body: ListView(children: <Widget>[
           Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                SizedBox(
-                  height: 16,
-                ),
+                
                 InkWell(
                   onTap: () {
                     animacaoParaLer = !animacaoParaLer;
@@ -240,8 +237,6 @@ class _HomeState extends State<Home> {
                     iconSetaParaLer = verParaLer
                         ? Icon(Icons.keyboard_arrow_up_outlined)
                         : Icon(Icons.keyboard_arrow_down_outlined);
-
-                    //refresh();
                     refreshParaLer();
                   },
                   child: Container(
@@ -272,12 +267,12 @@ class _HomeState extends State<Home> {
               ]),
 
           AnimatedSwitcher(
-            duration: Duration(milliseconds: 400),
+            duration: Duration(milliseconds: 450),
             child: animacaoParaLer
                 ? SizedBox.shrink()
                 : ListView.separated(
               separatorBuilder: (BuildContext context, int index) =>
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
               physics: ScrollPhysics(),
@@ -286,6 +281,7 @@ class _HomeState extends State<Home> {
               itemCount: livrosParaLer.length,
               itemBuilder: (context, int index) {
                 return CardLivro(
+                  key: UniqueKey(),
                   livro: new Livro(
                     id: livrosParaLer[index]['idLivro'],
                     nome: livrosParaLer[index]['nome'],
@@ -301,9 +297,7 @@ class _HomeState extends State<Home> {
             ),
           ),
 
-          //LIDOS
-          //Divider(thickness: 2,),
-          SizedBox(height: 15,),
+          const SizedBox(height: 15,),
 
           InkWell(
             onTap: () {
@@ -321,7 +315,7 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Terminados", //.toUpperCase()
+                    "Terminados",
                     textAlign: TextAlign.start,
                     style:TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
@@ -340,81 +334,77 @@ class _HomeState extends State<Home> {
           ),
 
           AnimatedSwitcher(
-            duration: Duration(milliseconds: 400),
+            duration: Duration(milliseconds: 450),
             child: animacao
                 ? SizedBox.shrink()
                 : ListView.separated(
-                    separatorBuilder: (BuildContext context, int index) =>
-                        SizedBox(
-                      height: 8,
-                    ),
-                    physics: ScrollPhysics(),
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-                    itemCount: livrosLidos.length,
-                    itemBuilder: (context, int index) {
-                      return CardLivro(
-                        livro: new Livro(
-                          id: livrosLidos[index]['idLivro'],
-                          nome: livrosLidos[index]['nome'],
-                          numPaginas: livrosLidos[index]['numPaginas'],
-                          autor: livrosLidos[index]['autor'],
-                          lido: livrosLidos[index]['lido'],
-                          capa: livrosLidos[index]['capa'],
-                        ),
-                        tema: tema,
-                        refreshLista: refresh,
-                      );
-                    },
+              separatorBuilder: (BuildContext context, int index) =>
+              const SizedBox(
+                    height: 8,
                   ),
+              physics: ScrollPhysics(),
+              shrinkWrap: true,
+              padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
+              itemCount: livrosLidos.length,
+              itemBuilder: (context, int index) {
+                return CardLivro(
+                  key: UniqueKey(),
+                  livro: new Livro(
+                    id: livrosLidos[index]['idLivro'],
+                    nome: livrosLidos[index]['nome'],
+                    numPaginas: livrosLidos[index]['numPaginas'],
+                    autor: livrosLidos[index]['autor'],
+                    lido: livrosLidos[index]['lido'],
+                    capa: livrosLidos[index]['capa'],
+                  ),
+                  tema: tema,
+                  refreshLista: refresh,
+                );
+              },
+            ),
           ),
 
-          SizedBox(
+          const SizedBox(
             height: 40,
           )
         ]),
 
         //BOTTOMBAR
         floatingActionButton: Container(
-          child: FittedBox(
-            child: FloatingActionButton(
-              backgroundColor: Theme.of(context).accentColor,
-              elevation: 0.0,
-              onPressed: () {
-
-                Navigator.push(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (BuildContext context) => AddLivro(refreshLista: refresh,tema: tema,),
-                      fullscreenDialog: true,
-                    )
-                );
-              },
-              child: Icon(
-                Icons.add,
-                color: Colors.white,
-              ),
+          child: FloatingActionButton(
+            backgroundColor: Theme.of(context).accentColor.withOpacity(0.9),
+            elevation: 0.0,
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => AddLivro(refreshLista: refresh,tema: tema,),
+                    fullscreenDialog: true,
+                  )
+              );
+            },
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
             ),
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         bottomNavigationBar: BottomAppBar(
           child: Container(
-              //height: 50,
               child: Row(
-                  //mainAxisSize: MainAxisSize.max,
-                  //mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                IconButton(
-                    padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
-                    icon: Icon(
-                      Icons.menu,
-                      size: 27,
-                    ),
-                    onPressed: () {
-                      bottomMenu(context);
-                    }),
-              ])),
+                    IconButton(
+                        padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        icon: Icon(
+                          Icons.menu,
+                          size: 25,
+                        ),
+                        onPressed: () {
+                          bottomMenu(context);
+                        }),
+                  ])),
         ));
   }
 }
+

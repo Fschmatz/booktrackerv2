@@ -20,12 +20,6 @@ class CardLivro extends StatefulWidget {
 
 class _CardLivroState extends State<CardLivro> {
 
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   void _deletar(int id) async {
     final dbLivro = LivroDao.instance;
     final deletado = await dbLivro.delete(id);
@@ -102,7 +96,6 @@ class _CardLivroState extends State<CardLivro> {
         PopupMenuItem(
           value: 2,
           child: Text("Editar Livro"),
-          //child: Text("Marcar como Não Lido"),
         ),
         PopupMenuItem(
           value: 3,

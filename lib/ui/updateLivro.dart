@@ -76,15 +76,6 @@ class _UpdateLivroState extends State<UpdateLivro> {
     if (customControllerNomeLivro.text.isEmpty) {
       erros += "Insira um nome\n";
     }
-    if (customControllerNomeLivro.text.length > 50) {
-      erros += "Nome muito extenso\n";
-    }
-    if (customControllerAutor.text.length > 30) {
-      erros += "Autor muito extenso\n";
-    }
-    if (customControllerPaginas.text.length > 5) {
-      erros += "Páginas muito extenso\n";
-    }
     return erros;
   }
 
@@ -169,6 +160,26 @@ class _UpdateLivroState extends State<UpdateLivro> {
       appBar: AppBar(
         elevation: 0.0,
         title: Text('Editar Livro'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+            child: IconButton(
+              icon: Icon(Icons.save_outlined),
+              tooltip: 'Salvar',
+
+              onPressed: () {
+                if (checkProblemas().isEmpty) {
+                  _atualizarLivro(widget.livro.id);
+                  widget.refreshLista();
+                  Navigator.of(context).pop();
+                } else {
+                  showAlertDialogErros(context);
+                }
+
+              },
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -176,7 +187,7 @@ class _UpdateLivroState extends State<UpdateLivro> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
 
@@ -184,7 +195,7 @@ class _UpdateLivroState extends State<UpdateLivro> {
               minLines: 1,
               maxLines: 2,
               maxLength: 50,
-              maxLengthEnforced: true,
+              maxLengthEnforcement: MaxLengthEnforcement.enforced,
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
               controller: customControllerNomeLivro,
@@ -205,7 +216,7 @@ class _UpdateLivroState extends State<UpdateLivro> {
                 fontSize: 19,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
 
@@ -219,7 +230,7 @@ class _UpdateLivroState extends State<UpdateLivro> {
               minLines: 1,
               maxLines: 2,
               maxLength: 5,
-              maxLengthEnforced: true,
+              maxLengthEnforcement: MaxLengthEnforcement.enforced,
               textCapitalization: TextCapitalization.sentences,
               keyboardType:
               TextInputType.numberWithOptions(decimal: false),
@@ -241,7 +252,7 @@ class _UpdateLivroState extends State<UpdateLivro> {
                 fontSize: 19,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
 
@@ -250,7 +261,7 @@ class _UpdateLivroState extends State<UpdateLivro> {
               minLines: 1,
               maxLines: 2,
               maxLength: 30,
-              maxLengthEnforced: true,
+              maxLengthEnforcement: MaxLengthEnforcement.enforced,
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
               controller: customControllerAutor,
@@ -274,79 +285,81 @@ class _UpdateLivroState extends State<UpdateLivro> {
               ),
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
 
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 130, 0),
-              child: Card(
-                  color: Theme.of(context).canvasColor,
-                  margin: EdgeInsets.all(0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    side: BorderSide(
-                      color: widget.tema
-                          ? Colors.black.withOpacity(0.5)
-                          : Colors.grey.withOpacity(0.5),
-                      width: 1.2,
-                    ),
+            Card(
+                color: Theme.of(context).canvasColor,
+                margin: EdgeInsets.all(0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  side: BorderSide(
+                    color: widget.tema
+                        ? Colors.black.withOpacity(0.5)
+                        : Colors.grey.withOpacity(0.5),
+                    width: 1.2,
                   ),
-                  elevation: 0,
-                  child: InkWell(
-                    onTap: pickGallery,
-                    onTapDown: _storePosition,
-                    onLongPress:  _showPopupMenuRemoverCapa ,
+                ),
+                elevation: 0,
+                child: InkWell(
+                  onTap: pickGallery,
+                  onTapDown: _storePosition,
+                  onLongPress:  _showPopupMenuRemoverCapa ,
 
 
-                    customBorder: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Padding(
-                      //padding: const EdgeInsets.all(8),
-                      padding: const EdgeInsets.fromLTRB(0, 4, 3, 4),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                side: BorderSide(
-                                  color: widget.tema
-                                      ? Colors.black.withOpacity(0.5)
-                                      : Colors.grey.withOpacity(0.5),
-                                  width: 1.2,
-                                ),
-                              ),
-                              elevation: 0,
-                              child: widget.livro.capa == null
-                                  ? Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4)),
-                                width: 65,
-                                height: 95,
-                                child: Icon(
-                                  Icons.image,
-                                ),
-                              )
-                                  : ClipRRect(
-                                borderRadius: BorderRadius.circular(4),
-                                child: Image.memory(
-                                  widget.livro.capa,
-                                  width: 65,
-                                  height: 95,
-                                  fit: BoxFit.fill,
-                                ),
+                  customBorder: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Padding(
+                    //padding: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.fromLTRB(0, 4, 3, 4),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              side: BorderSide(
+                                color: widget.tema
+                                    ? Colors.black.withOpacity(0.5)
+                                    : Colors.grey.withOpacity(0.5),
+                                width: 1.2,
                               ),
                             ),
-                            Text("Editar Capa", style: TextStyle(fontSize: 18),),
+                            elevation: 0,
+                            child: widget.livro.capa == null
+                                ? Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4)),
+                              width: 65,
+                              height: 95,
+                              child: Icon(
+                                Icons.image,
+                              ),
+                            )
+                                : ClipRRect(
+                              borderRadius: BorderRadius.circular(4),
+                              child: Image.memory(
+                                widget.livro.capa,
+                                width: 65,
+                                height: 95,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 1,
+                          ),
+                          Text("Editar Capa", style: TextStyle(fontSize: 18),),
+                          const SizedBox(
+                            width: 1,
+                          ),
+                        ]),
+                  ),
+                )),
 
-                          ]),
-                    ),
-                  )),
-            ),
-
-            SizedBox(
+            const SizedBox(
               height: 100,
             ),
 
@@ -355,29 +368,6 @@ class _UpdateLivroState extends State<UpdateLivro> {
         ),
       ),
 
-      floatingActionButton: Container(
-        alignment: Alignment.bottomRight,
-        child: FloatingActionButton(
-          elevation: 0.0,
-          onPressed: () {
-
-            if (checkProblemas().isEmpty) {
-
-              _atualizarLivro(widget.livro.id);
-              widget.refreshLista();
-              Navigator.of(context).pop();
-            } else {
-              showAlertDialogErros(context);
-            }
-
-          },
-          child: Icon(
-            Icons.save_outlined,
-            color: Colors.white,
-          ),
-          // elevation: 5.0,
-        ),
-      ),
     );
   }
 }

@@ -31,8 +31,11 @@ class _AddLivroState extends State<AddLivro> {
   pickGallery() async {
     final pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
 
-    File compressedFile = await FlutterNativeImage.compressImage(pickedFile.path, quality: 95,
-        targetWidth: 325, targetHeight: 475);
+    File compressedFile = await FlutterNativeImage.compressImage(
+        pickedFile.path,
+        quality: 95,
+        targetWidth: 325,
+        targetHeight: 475);
 
     if (compressedFile == null) {
       return;
@@ -43,10 +46,8 @@ class _AddLivroState extends State<AddLivro> {
     }
   }
 
-
   //AUTOR E PAGINAS PODE SER NULO
   void _salvarLivro() async {
-
     Map<String, dynamic> row = {
       LivroDao.columnNome: customControllerNomeLivro.text,
       LivroDao.columnNumPaginas: customControllerPaginas.text.isEmpty
@@ -54,7 +55,7 @@ class _AddLivroState extends State<AddLivro> {
           : int.parse(customControllerPaginas.text),
       LivroDao.columnAutor: customControllerAutor.text,
       LivroDao.columnLido: 0, //sempre 0, = não lido
-      LivroDao.columnCapa :  capa == null ?  null : capa.readAsBytesSync(),
+      LivroDao.columnCapa: capa == null ? null : capa.readAsBytesSync(),
     };
     final id = await dbLivro.insert(row);
     print('id inserido = $id');
@@ -65,15 +66,6 @@ class _AddLivroState extends State<AddLivro> {
     String erros = "";
     if (customControllerNomeLivro.text.isEmpty) {
       erros += "Insira um nome\n";
-    }
-    if (customControllerNomeLivro.text.length > 50) {
-      erros += "Nome muito extenso\n";
-    }
-    if (customControllerAutor.text.length > 30) {
-      erros += "Autor muito extenso\n";
-    }
-    if (customControllerPaginas.text.length > 5) {
-      erros += "Páginas muito extenso\n";
     }
     return erros;
   }
@@ -113,8 +105,8 @@ class _AddLivroState extends State<AddLivro> {
     );
   }
 
-
   var _tapPosition;
+
   _showPopupMenuRemoverCapa() async {
     final RenderBox overlay = Overlay.of(context).context.findRenderObject();
     await showMenu(
@@ -124,23 +116,19 @@ class _AddLivroState extends State<AddLivro> {
       ),
       context: context,
       position: RelativeRect.fromRect(
-          _tapPosition & Size(40, 40),
-          Offset.zero & overlay.size),
+          _tapPosition & Size(40, 40), Offset.zero & overlay.size),
       items: [
-        PopupMenuItem(
-            value: 1,
-            child: Text("Remover Capa")
-        ),
+        PopupMenuItem(value: 1, child: Text("Remover Capa")),
       ],
       elevation: 2.0,
     ).then((value) => {
-      if (value == 1)
-        {
-          setState(() {
-            capa = null;
-          })
-        }
-    });
+          if (value == 1)
+            {
+              setState(() {
+                capa = null;
+              })
+            }
+        });
   }
 
   void _storePosition(TapDownDetails details) {
@@ -155,6 +143,24 @@ class _AddLivroState extends State<AddLivro> {
       appBar: AppBar(
         elevation: 0.0,
         title: Text('Adicionar Livro'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+            child: IconButton(
+              icon: Icon(Icons.save_outlined),
+              tooltip: 'Salvar',
+              onPressed: () {
+                if (checkProblemas().isEmpty) {
+                  _salvarLivro();
+                  widget.refreshLista();
+                  Navigator.of(context).pop();
+                } else {
+                  showAlertDialogErros(context);
+                }
+              },
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -162,7 +168,7 @@ class _AddLivroState extends State<AddLivro> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
 
@@ -170,7 +176,7 @@ class _AddLivroState extends State<AddLivro> {
               minLines: 1,
               maxLines: 2,
               maxLength: 50,
-              maxLengthEnforced: true,
+              maxLengthEnforcement: MaxLengthEnforcement.enforced,
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
               controller: customControllerNomeLivro,
@@ -192,7 +198,7 @@ class _AddLivroState extends State<AddLivro> {
                 fontSize: 19,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
 
@@ -205,7 +211,7 @@ class _AddLivroState extends State<AddLivro> {
               minLines: 1,
               maxLines: 2,
               maxLength: 5,
-              maxLengthEnforced: true,
+              maxLengthEnforcement: MaxLengthEnforcement.enforced,
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.numberWithOptions(decimal: false),
               controller: customControllerPaginas,
@@ -227,7 +233,7 @@ class _AddLivroState extends State<AddLivro> {
                 fontSize: 19,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
 
@@ -236,7 +242,7 @@ class _AddLivroState extends State<AddLivro> {
               minLines: 1,
               maxLines: 2,
               maxLength: 30,
-              maxLengthEnforced: true,
+              maxLengthEnforcement: MaxLengthEnforcement.enforced,
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
               controller: customControllerAutor,
@@ -259,102 +265,84 @@ class _AddLivroState extends State<AddLivro> {
                 fontSize: 19,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
 
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 130, 0),
-              child: Card(
+            Card(
                 color: Theme.of(context).canvasColor,
                 margin: EdgeInsets.all(0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    side: BorderSide(
-                      color: widget.tema
-                          ? Colors.black.withOpacity(0.5)
-                          : Colors.grey.withOpacity(0.5),
-                      width: 1.2,
-                    ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  side: BorderSide(
+                    color: widget.tema
+                        ? Colors.black.withOpacity(0.5)
+                        : Colors.grey.withOpacity(0.5),
+                    width: 1.2,
                   ),
-                  elevation: 0,
-                  child: InkWell(
-
-                    onTap: pickGallery,
-                    onTapDown: _storePosition,
-                    onLongPress:  _showPopupMenuRemoverCapa,
-
-                    customBorder: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 4, 3, 4),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                ),
+                elevation: 0,
+                child: InkWell(
+                  onTap: pickGallery,
+                  onTapDown: _storePosition,
+                  onLongPress: _showPopupMenuRemoverCapa,
+                  customBorder: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 4, 3, 4),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                        Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            side: BorderSide(
-                              color: widget.tema
-                                  ? Colors.black.withOpacity(0.5)
-                                  : Colors.grey.withOpacity(0.5),
-                              width: 1.2,
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              side: BorderSide(
+                                color: widget.tema
+                                    ? Colors.black.withOpacity(0.5)
+                                    : Colors.grey.withOpacity(0.5),
+                                width: 1.2,
+                              ),
                             ),
-                          ),
-                          elevation: 0,
-                          child: capa == null
-                              ? Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4)),
-                                  width: 60,
-                                  height: 90,
-                                  child: Icon(
-                                    Icons.image,
-                                  ),
-                                )
-                              : ClipRRect(
-                                  borderRadius: BorderRadius.circular(4),
-                                  child: Image.file(
-                                    capa,
+                            elevation: 0,
+                            child: capa == null
+                                ? Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4)),
                                     width: 60,
                                     height: 90,
-                                    fit: BoxFit.fill,
+                                    child: Icon(
+                                      Icons.image,
+                                    ),
+                                  )
+                                : ClipRRect(
+                                    borderRadius: BorderRadius.circular(4),
+                                    child: Image.file(
+                                      capa,
+                                      width: 60,
+                                      height: 90,
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
-                                ),
-                        ),
-                        Text("Adicionar Capa", style: TextStyle(fontSize: 18),),
+                          ),
+                          const SizedBox(
+                            width: 1,
+                          ),
+                          Text(
+                            "Adicionar Capa",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          const SizedBox(
+                            width: 1,
+                          ),
+                        ]),
+                  ),
+                )),
 
-                      ]),
-                    ),
-                  )),
-            ),
-
-            SizedBox(
+            const SizedBox(
               height: 100,
             ),
           ],
-        ),
-      ),
-      floatingActionButton: Container(
-        alignment: Alignment.bottomRight,
-        child: FloatingActionButton(
-          elevation: 0.0,
-          onPressed: () {
-            if (checkProblemas().isEmpty) {
-              _salvarLivro();
-              widget.refreshLista();
-              Navigator.of(context).pop();
-            } else {
-              showAlertDialogErros(context);
-            }
-          },
-          child: Icon(
-            Icons.save_outlined,
-            color: Colors.white,
-          ),
-          // elevation: 5.0,
         ),
       ),
     );
