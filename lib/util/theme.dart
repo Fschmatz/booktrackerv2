@@ -17,7 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
     inputDecorationTheme: InputDecorationTheme(
         labelStyle: TextStyle(color: Colors.black),
         focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFF867aa3))),
+            borderSide: BorderSide(color: Color(0xFF7B99CF))),
         enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xFF282828)))),
 
@@ -45,7 +45,7 @@ import 'package:shared_preferences/shared_preferences.dart';
     inputDecorationTheme: InputDecorationTheme(
         labelStyle: TextStyle(color: Colors.white),
         focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFF867aa3))),
+            borderSide: BorderSide(color: Color(0xFF6B89BF))),
         enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xFF282828)))),
 

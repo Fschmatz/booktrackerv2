@@ -68,8 +68,6 @@ class _UpdateLivroState extends State<UpdateLivro> {
   }
 
 
-
-
   //CHECK ERROR NULL
   String checkProblemas(){
     String erros = "";
