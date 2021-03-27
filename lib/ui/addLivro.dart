@@ -11,9 +11,10 @@ class AddLivro extends StatefulWidget {
   _AddLivroState createState() => _AddLivroState();
 
   bool tema;
+  int paginaAtual;
   Function() refreshLista;
 
-  AddLivro({Key key, this.refreshLista, this.tema}) : super(key: key);
+  AddLivro({Key key, this.refreshLista, this.tema,this.paginaAtual}) : super(key: key);
 }
 
 class _AddLivroState extends State<AddLivro> {
@@ -54,7 +55,7 @@ class _AddLivroState extends State<AddLivro> {
           ? 0
           : int.parse(customControllerPaginas.text),
       LivroDao.columnAutor: customControllerAutor.text,
-      LivroDao.columnLido: 0, //sempre 0, = não lido
+      LivroDao.columnLido: widget.paginaAtual,
       LivroDao.columnCapa: capa == null ? null : capa.readAsBytesSync(),
     };
     final id = await dbLivro.insert(row);
@@ -71,7 +72,7 @@ class _AddLivroState extends State<AddLivro> {
   }
 
   showAlertDialogErros(BuildContext context) {
-    Widget okButton = FlatButton(
+    Widget okButton = TextButton(
       child: Text(
         "Ok",
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -145,7 +146,7 @@ class _AddLivroState extends State<AddLivro> {
         title: Text('Adicionar Livro'),
         actions: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 9, 0),
+            padding: const EdgeInsets.fromLTRB(0, 0, 6, 0),
             child: IconButton(
               icon: Icon(Icons.save_outlined),
               tooltip: 'Salvar',

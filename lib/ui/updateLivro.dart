@@ -162,7 +162,7 @@ class _UpdateLivroState extends State<UpdateLivro> {
         title: Text('Editar Livro'),
         actions: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 9, 0),
+            padding: const EdgeInsets.fromLTRB(0, 0, 6, 0),
             child: IconButton(
               icon: Icon(Icons.save_outlined),
               tooltip: 'Salvar',

@@ -72,6 +72,7 @@ talvez adicionado ao F-Droid.
                 ),
 
                 Text( ''' 
+                
                       
 “The capacity to learn is a gift; 
 the ability to learn is a skill; 

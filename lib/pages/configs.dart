@@ -1,3 +1,5 @@
+import 'package:booktrackerv2/pages/about.dart';
+import 'package:booktrackerv2/pages/changelog.dart';
 import 'package:booktrackerv2/util/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,26 +15,6 @@ class Configs extends StatefulWidget {
 }
 
 class _ConfigsState extends State<Configs> {
-  bool exibirLidos = false;
-
-  @override
-  void initState() {
-    getExibirLidos();
-    super.initState();
-  }
-
-  //bool exibirLidos = false;
-  Future<void>  getExibirLidos() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    exibirLidos = prefs.getBool('valorExibirLidos');
-    setState(() {});
-  }
-
-  saveExibirTemas(bool value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('valorExibirLidos', exibirLidos);
-  }
-
 
 
   @override
@@ -68,19 +50,75 @@ class _ConfigsState extends State<Configs> {
 
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40.0,
               ),
-              Text(
-                "Opções: ",
-                style: TextStyle(fontSize: 21),
+              Card(
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  side: BorderSide(
+                    color: Colors.grey.withOpacity(0.3),
+                    width: 1,
+                  ),
+                ),
+                child: ListTile(
+                  leading: Icon(Icons.text_snippet_outlined),
+                  trailing: Icon(Icons.keyboard_arrow_right),
+                  title: Text(
+                    "About",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => About()),
+                    );
+                  },
+                ),
               ),
-              SizedBox(
+              const SizedBox(
+                height: 10,
+              ),
+              Card(
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  side: BorderSide(
+                    color: Colors.grey.withOpacity(0.3),
+                    width: 1,
+                  ),
+                ),
+                child: ListTile(
+                  leading: Icon(Icons.text_snippet_outlined),
+                  trailing: Icon(Icons.keyboard_arrow_right),
+                  title: Text(
+                    "Changelog",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Changelog()),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 40.0,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: Text(
+                  "Opções: ",
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              const SizedBox(
                 height: 15.0,
               ),
-
               ListTile(
-                contentPadding: const EdgeInsets.all(0),
+                contentPadding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                 title: Text(
                   "Tema Escuro",
                   style: TextStyle(fontSize: 18),
@@ -95,32 +133,8 @@ class _ConfigsState extends State<Configs> {
                       }),
                 ),
               ),
-              SizedBox(
-                height: 8,
-              ),
-              ListTile(
-                contentPadding: const EdgeInsets.all(0),
-                title: Text(
-                  "Sempre Exibir Livro Terminados",
-                  style: TextStyle(fontSize: 18),
-                ),
-                trailing:Switch(
-                      activeColor: Colors.blue,
-                      value: exibirLidos,
-                      onChanged: (bool value) {
 
-                        saveExibirTemas(value);
-                        setState(() {
-                          exibirLidos = value;
-                        });
-
-                      }),
-                ),
-
-              /*Divider(
-                thickness: 1,
-              ),*/
-              SizedBox(
+              const SizedBox(
                 height: 15.0,
               ),
             ],

@@ -5,21 +5,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
-
 class CardLivro extends StatefulWidget {
   @override
   _CardLivroState createState() => _CardLivroState();
 
   Livro livro;
   bool tema;
+  int paginaAtual;
   Function() refreshLista;
 
-  CardLivro({Key key, this.livro, this.tema, this.refreshLista})
+  CardLivro(
+      {Key key, this.livro, this.tema, this.refreshLista, this.paginaAtual})
       : super(key: key);
 }
 
 class _CardLivroState extends State<CardLivro> {
-
   void _deletar(int id) async {
     final dbLivro = LivroDao.instance;
     final deletado = await dbLivro.delete(id);
@@ -34,17 +34,157 @@ class _CardLivroState extends State<CardLivro> {
     final atualizar = await dbLivro.update(row);
   }
 
+  void openBottomMenuBookSettings() {
+    showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: const Radius.circular(15.0),
+              topRight: const Radius.circular(15.0)),
+        ),
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext bc) {
+          return Container(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: Wrap(
+                children: <Widget>[
+                  Card(
+                    margin: EdgeInsets.fromLTRB(50, 15, 50, 20),
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                          color: Theme.of(context).accentColor,
+                          width: 1.5),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: ListTile(
+                      title: Text(
+                        widget.livro.nome,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                    visible: widget.paginaAtual != 0,
+                    child: ListTile(
+                      leading: Icon(Icons.book),
+                      title: Text(
+                        "Marcar como Para Ler",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).pop();
+
+                        _marcarLido(widget.livro.id, 0);
+                        widget.refreshLista();
+                      },
+                    ),
+                  ),
+                  Visibility(
+                    visible: widget.paginaAtual != 0,
+                    child: Divider(
+                      thickness: 1,
+                    ),
+                  ),
+                  Visibility(
+                    visible: widget.paginaAtual != 1,
+                    child: ListTile(
+                      leading: Icon(Icons.book),
+                      title: Text(
+                        "Marcar como Lendo",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).pop();
+
+                        _marcarLido(widget.livro.id, 1);
+                        widget.refreshLista();
+                      },
+                    ),
+                  ),
+                  Visibility(
+                    visible: widget.paginaAtual != 1,
+                    child: Divider(
+                      thickness: 1,
+                    ),
+                  ),
+                  Visibility(
+                    visible: widget.paginaAtual != 2,
+                    child: ListTile(
+                      leading: Icon(Icons.book),
+                      title: Text(
+                        "Marcar como Lido",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).pop();
+
+                        _marcarLido(widget.livro.id, 2);
+                        widget.refreshLista();
+                      },
+                    ),
+                  ),
+                  Visibility(
+                    visible: widget.paginaAtual != 2,
+                    child: Divider(
+                      thickness: 1,
+                    ),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.edit_outlined),
+                    title: Text(
+                      "Editar Livro",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pop();
+
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) => UpdateLivro(
+                              livro: widget.livro,
+                              refreshLista: widget.refreshLista,
+                              tema: widget.tema,
+                            ),
+                            fullscreenDialog: true,
+                          ));
+                    },
+                  ),
+                  Divider(
+                    thickness: 1,
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.delete_outline_outlined),
+                    //trailing: Icon(Icons.keyboard_arrow_right),
+                    title: Text(
+                      "Deletar Livro",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pop();
+
+                      showAlertDialogOkDelete(context);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   showAlertDialogOkDelete(BuildContext context) {
-    Widget okButton = FlatButton(
+    Widget okButton = TextButton(
       child: Text(
         "Sim",
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
       onPressed: () {
-
         _deletar(widget.livro.id);
         widget.refreshLista();
-
         Navigator.of(context).pop();
       },
     );
@@ -52,7 +192,7 @@ class _CardLivroState extends State<CardLivro> {
     AlertDialog alert = AlertDialog(
       elevation: 3.0,
       title: Text(
-        "Confirmação ",//
+        "Confirmação ", //
         style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
       ),
       content: Text(
@@ -73,76 +213,6 @@ class _CardLivroState extends State<CardLivro> {
     );
   }
 
-  var _tapPosition;
-
-  _showPopupMenu() async {
-    final RenderBox overlay = Overlay.of(context).context.findRenderObject();
-    await showMenu(
-      color: widget.tema ? Color(0xFF2A2A2B) : Color(0xFFE9E9EF),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-      context: context,
-      position: RelativeRect.fromRect(
-          _tapPosition & Size(40, 40),
-          Offset.zero & overlay.size),
-      items: [
-        PopupMenuItem(
-          value: 1,
-          child: widget.livro.lido == 0
-              ? Text("Marcar como Terminado")
-              : Text("Marcar como Lendo"),
-        ),
-        PopupMenuItem(
-          value: 2,
-          child: Text("Editar Livro"),
-        ),
-        PopupMenuItem(
-          value: 3,
-          child: Text("Deletar Livro"),
-        ),
-      ],
-      elevation: 2.0,
-    ).then((value) => {
-          if (value == 1)
-            {
-              if (widget.livro.lido == 0)
-                {
-                  _marcarLido(widget.livro.id, 1),
-                  widget.refreshLista(),
-                }
-              else
-                {
-                  _marcarLido(widget.livro.id, 0),
-                  widget.refreshLista(),
-                }
-            }
-          else if (value == 2)
-            {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute<void>(
-                    builder: (BuildContext context) => UpdateLivro(
-                      livro: widget.livro,
-                      refreshLista: widget.refreshLista,
-                      tema: widget.tema,
-                    ),
-                    fullscreenDialog: true,
-                  ))
-            }
-          else if (value == 3)
-            {
-              //_deletar(widget.livro.id),
-              //widget.refreshLista(),
-              showAlertDialogOkDelete(context),
-            }
-        });
-  }
-
-  void _storePosition(TapDownDetails details) {
-    _tapPosition = details.globalPosition;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -153,7 +223,7 @@ class _CardLivroState extends State<CardLivro> {
           color: widget.tema
               ? Colors.black.withOpacity(0.5)
               : Colors.grey.withOpacity(0.5),
-          width: 1.2,
+          width: 1.5,
         ),
       ),
       elevation: 0,
@@ -161,8 +231,7 @@ class _CardLivroState extends State<CardLivro> {
         customBorder: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
-        onTapDown: _storePosition,
-        onLongPress: _showPopupMenu,
+        onLongPress: openBottomMenuBookSettings,
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Column(
@@ -173,26 +242,24 @@ class _CardLivroState extends State<CardLivro> {
                     flex: 1,
                     child: Container(
                       alignment: Alignment.centerLeft,
-
-                      child: widget.livro.capa == null ?
-                      Center(
-                        widthFactor: 1.5,
-                        child: Icon(
-                          Icons.book,
-                          size: 40,
-                          color: Theme.of(context).hintColor,// Color(0xFFB4A1E0),//Colors.redAccent[100]
-                        ),
-                      )
-                      :
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(4),
-                        child: Image.memory(
-                          widget.livro.capa,
-                          width: 60,
-                          height: 90,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
+                      child: widget.livro.capa == null
+                          ? Center(
+                              widthFactor: 1.5,
+                              child: Icon(
+                                Icons.book,
+                                size: 40,
+                                color: Theme.of(context).hintColor,
+                              ),
+                            )
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(4),
+                              child: Image.memory(
+                                widget.livro.capa,
+                                width: 60,
+                                height: 90,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
                     ),
                   ),
                   Expanded(
@@ -205,7 +272,7 @@ class _CardLivroState extends State<CardLivro> {
                           Text(
                             widget.livro.nome,
                             style: TextStyle(
-                              fontSize: 17,
+                              fontSize: 16.5,
                             ),
                             textAlign: TextAlign.left,
                           ),
@@ -217,7 +284,7 @@ class _CardLivroState extends State<CardLivro> {
                             child: Text(
                               "Páginas: " + widget.livro.numPaginas.toString(),
                               style: TextStyle(
-                                  fontSize: 15.5,
+                                  fontSize: 15,
                                   color: Theme.of(context).hintColor),
                             ),
                           ),
@@ -229,7 +296,7 @@ class _CardLivroState extends State<CardLivro> {
                             child: Text(
                               widget.livro.autor,
                               style: TextStyle(
-                                  fontSize: 15.5,
+                                  fontSize: 15,
                                   color: Theme.of(context).hintColor),
                             ),
                           ),

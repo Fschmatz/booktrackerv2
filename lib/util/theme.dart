@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
     ThemeData light = ThemeData(
     brightness: Brightness.light,
     primaryColor: Color(0xFFF9F9FF),
-    accentColor: Color(0xFF867aa3),
+    accentColor: Color(0xFF7B99CF),
 
     scaffoldBackgroundColor: Color(0xFFF9F9FF),
     cardTheme: CardTheme(
@@ -31,7 +31,7 @@ import 'package:shared_preferences/shared_preferences.dart';
     ThemeData dark = ThemeData(
     brightness: Brightness.dark,
     primaryColor: Color(0xFF202021),
-    accentColor: Color(0xFF867aa3),//Colors.teal
+    accentColor: Color(0xFF6B89BF),  //0xFF867aa3 roxoneutro
     scaffoldBackgroundColor: Color(0xFF202021),
 
     cardTheme: CardTheme(

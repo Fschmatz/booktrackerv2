@@ -14,7 +14,7 @@ class LivroDao {
   static final columnNome = 'nome';
   static final columnNumPaginas = 'numPaginas';
   static final columnAutor = 'autor';
-  static final columnLido = 'lido'; //0 não 1 sim
+  static final columnLido = 'lido'; // 0 = ler , 1 = lendo , 2 = lido
   static final columnCapa = 'capa';
 
   LivroDao._privateConstructor();
@@ -60,15 +60,11 @@ class LivroDao {
     return await db.query(table);
   }
 
-  Future<List<Map<String, dynamic>>> queryAllLivrosParaLer() async {
+  Future<List<Map<String, dynamic>>> queryAllLivros(int estado) async {
     Database db = await instance.database;
-    return await db.rawQuery('SELECT * FROM $table WHERE $columnLido=0 ORDER BY $columnNome');
+    return await db.rawQuery('SELECT * FROM $table WHERE $columnLido=$estado ORDER BY $columnNome');
   }
 
-  Future<List<Map<String, dynamic>>> queryAllLivrosLidos() async {
-    Database db = await instance.database;
-    return await db.rawQuery('SELECT * FROM $table WHERE $columnLido=1 ORDER BY $columnNome');
-  }
 
   Future<int> queryRowCount() async {
     Database db = await instance.database;
