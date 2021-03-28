@@ -176,7 +176,7 @@ class _AddLivroState extends State<AddLivro> {
             TextField(
               minLines: 1,
               maxLines: 2,
-              maxLength: 50,
+              maxLength: 75,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
@@ -204,9 +204,42 @@ class _AddLivroState extends State<AddLivro> {
             ),
 
             TextField(
+              minLines: 1,
+              maxLines: 2,
+              maxLength: 50,
+              maxLengthEnforcement: MaxLengthEnforcement.enforced,
+              textCapitalization: TextCapitalization.sentences,
+              keyboardType: TextInputType.name,
+              controller: customControllerAutor,
+              decoration: InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.contact_page_outlined,
+                    size: 28,
+                  ),
+                  hintText: "Autor",
+                  contentPadding:
+                  new EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
+                  filled: true,
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(),
+                      borderRadius: BorderRadius.circular(8.0)),
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(),
+                      borderRadius: BorderRadius.circular(8.0))),
+              style: TextStyle(
+                fontSize: 19,
+              ),
+            ),
+
+
+            const SizedBox(
+              height: 10,
+            ),
+
+            TextField(
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.allow(
-                    // RegExp(r'^(\d+)?\.?\d{0,2}'))
+                  // RegExp(r'^(\d+)?\.?\d{0,2}'))
                     RegExp(r'^(\d+)?\d{0,2}'))
               ],
               minLines: 1,
@@ -222,7 +255,7 @@ class _AddLivroState extends State<AddLivro> {
                   prefixIcon: Icon(Icons.book),
                   hintText: "Nº de Páginas",
                   contentPadding:
-                      new EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
+                  new EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
                   filled: true,
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(),
@@ -233,39 +266,8 @@ class _AddLivroState extends State<AddLivro> {
               style: TextStyle(
                 fontSize: 19,
               ),
-            ),
-            const SizedBox(
-              height: 10,
             ),
 
-            //CATEGORIA
-            TextField(
-              minLines: 1,
-              maxLines: 2,
-              maxLength: 30,
-              maxLengthEnforcement: MaxLengthEnforcement.enforced,
-              textCapitalization: TextCapitalization.sentences,
-              keyboardType: TextInputType.name,
-              controller: customControllerAutor,
-              decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.contact_page_outlined,
-                    size: 28,
-                  ),
-                  hintText: "Autor",
-                  contentPadding:
-                      new EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
-                  filled: true,
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(),
-                      borderRadius: BorderRadius.circular(8.0)),
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(),
-                      borderRadius: BorderRadius.circular(8.0))),
-              style: TextStyle(
-                fontSize: 19,
-              ),
-            ),
             const SizedBox(
               height: 10,
             ),

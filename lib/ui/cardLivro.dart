@@ -281,9 +281,9 @@ class _CardLivroState extends State<CardLivro> {
                             height: 7,
                           ),
                           Visibility(
-                            visible: widget.livro.numPaginas != 0,
+                            visible: widget.livro.autor.isNotEmpty,
                             child: Text(
-                              "Páginas: " + widget.livro.numPaginas.toString(),
+                              widget.livro.autor,
                               style: TextStyle(
                                   fontSize: 15,
                                   color: Theme.of(context).hintColor),
@@ -293,9 +293,9 @@ class _CardLivroState extends State<CardLivro> {
                             height: 7,
                           ),
                           Visibility(
-                            visible: widget.livro.autor.isNotEmpty,
+                            visible: widget.livro.numPaginas != 0,
                             child: Text(
-                              widget.livro.autor,
+                              "Páginas: " + widget.livro.numPaginas.toString(),
                               style: TextStyle(
                                   fontSize: 15,
                                   color: Theme.of(context).hintColor),

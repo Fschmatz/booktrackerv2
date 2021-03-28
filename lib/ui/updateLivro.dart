@@ -192,7 +192,7 @@ class _UpdateLivroState extends State<UpdateLivro> {
             TextField(
               minLines: 1,
               maxLines: 2,
-              maxLength: 50,
+              maxLength: 75,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
@@ -218,7 +218,38 @@ class _UpdateLivroState extends State<UpdateLivro> {
               height: 10,
             ),
 
-            //NOTA
+            TextField(
+              minLines: 1,
+              maxLines: 2,
+              maxLength: 50,
+              maxLengthEnforcement: MaxLengthEnforcement.enforced,
+              textCapitalization: TextCapitalization.sentences,
+              keyboardType: TextInputType.name,
+              controller: customControllerAutor,
+              decoration: InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.contact_page_outlined,
+                    size: 28,
+                  ),
+                  hintText: "Autor",
+                  contentPadding: new EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 10.0),
+                  filled: true,
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(),
+                      borderRadius: BorderRadius.circular(8.0)),
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(),
+                      borderRadius: BorderRadius.circular(8.0))),
+              style: TextStyle(
+                fontSize: 19,
+              ),
+            ),
+
+
+            const SizedBox(
+              height: 10,
+            ),
 
             TextField(
               inputFormatters: <TextInputFormatter>[
@@ -237,38 +268,6 @@ class _UpdateLivroState extends State<UpdateLivro> {
               decoration: InputDecoration(
                   prefixIcon: Icon(Icons.book),
                   hintText: "Nº de Paginas",
-                  contentPadding: new EdgeInsets.symmetric(
-                      vertical: 8.0, horizontal: 10.0),
-                  filled: true,
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(),
-                      borderRadius: BorderRadius.circular(8.0)),
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(),
-                      borderRadius: BorderRadius.circular(8.0))),
-              style: TextStyle(
-                fontSize: 19,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-
-            //CATEGORIA
-            TextField(
-              minLines: 1,
-              maxLines: 2,
-              maxLength: 30,
-              maxLengthEnforcement: MaxLengthEnforcement.enforced,
-              textCapitalization: TextCapitalization.sentences,
-              keyboardType: TextInputType.name,
-              controller: customControllerAutor,
-              decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.contact_page_outlined,
-                    size: 28,
-                  ),
-                  hintText: "Autor",
                   contentPadding: new EdgeInsets.symmetric(
                       vertical: 8.0, horizontal: 10.0),
                   filled: true,
