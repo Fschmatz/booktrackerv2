@@ -6,4 +6,5 @@ Criado com o Android em mente, não foi testado para IOS.
 
 APK compartilhado nos releases.
 
-<img src="https://user-images.githubusercontent.com/21291813/105516067-351e9f00-5cb4-11eb-9f12-44971a8f8e44.png" width="30%"></img> <img src="https://user-images.githubusercontent.com/21291813/105516078-3780f900-5cb4-11eb-8e79-f1b6dccfc7b6.png" width="30%"></img> <img src="https://user-images.githubusercontent.com/21291813/105516089-394abc80-5cb4-11eb-916b-352ed06ba2ac.png" width="30%"></img> 
+
+<img src="https://user-images.githubusercontent.com/21291813/112731443-03c18a00-8f16-11eb-8417-01cbf0cefc4d.png" width="30%"></img> <img src="https://user-images.githubusercontent.com/21291813/112731445-058b4d80-8f16-11eb-8d53-73b8f751f8f2.png" width="30%"></img> <img src="https://user-images.githubusercontent.com/21291813/112731448-06bc7a80-8f16-11eb-8db0-2f3e81766a64.png" width="30%"></img> 
