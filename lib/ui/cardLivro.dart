@@ -50,7 +50,7 @@ class _CardLivroState extends State<CardLivro> {
               child: Wrap(
                 children: <Widget>[
                   Card(
-                    margin: EdgeInsets.fromLTRB(50, 15, 50, 20),
+                    margin: EdgeInsets.fromLTRB(50, 15, 50, 25),
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
                           color: Theme.of(context).accentColor,
@@ -58,11 +58,12 @@ class _CardLivroState extends State<CardLivro> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: ListTile(
+                      contentPadding: EdgeInsets.fromLTRB(5, 10, 5, 10),
                       title: Text(
                         widget.livro.nome,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500),
+                            fontSize: 17.5, fontWeight: FontWeight.w500),
                       ),
                     ),
                   ),

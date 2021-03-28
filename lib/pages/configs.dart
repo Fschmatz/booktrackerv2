@@ -37,17 +37,15 @@ class _ConfigsState extends State<Configs> {
               Card(
                 elevation: 3.0,
                 margin: const EdgeInsets.all(2.0),
-                color: Colors.yellow,
+                color: Colors.yellow[600],
                 child: ListTile(
                   title: Text(
-                    "Flutter " +
                         versaoNomeChangelog.nomeApp +
-                        " " +
+                        " Fschmtz " +
                         versaoNomeChangelog.versaoApp,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 18, color: Colors.black),
                   ),
-
                 ),
               ),
               const SizedBox(

@@ -6,7 +6,6 @@ import 'package:booktrackerv2/ui/addLivro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../ui/cardLivro.dart';
 import 'package:booktrackerv2/db/livroDao.dart';
@@ -19,13 +18,13 @@ class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with TickerProviderStateMixin {
   List<Pages> listPages = new Pages().getListPages();
-  bool animacaoLista = true;
-  bool animacaoNomePagina = true;
   List<Map<String, dynamic>> listaLivros = [];
   final dbLivro = LivroDao.instance;
   int paginaAtual;
+  AnimationController _controller;
+  Animation _animation;
 
   @override
   void initState() {
@@ -33,25 +32,36 @@ class _HomeState extends State<Home> {
     getAllLivros();
     getTema();
     super.initState();
+
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 1200),
+      vsync: this,
+    );
+    _animation = Tween(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   Future<void> getAllLivros() async {
     var resp = await dbLivro.queryAllLivros(paginaAtual);
     setState(() {
-      animacaoNomePagina = false;
-      animacaoLista = false;
       listaLivros = resp;
     });
   }
 
-  refresh() {
+  Future<void> refresh() {
+    _controller.reset();
     setState(() {
-      animacaoLista = true;
       getTema();
     });
-    Future.delayed(Duration(milliseconds: 300), () {
-      getAllLivros();
-    });
+    getAllLivros();
   }
 
   bool tema; // 1 = dark
@@ -121,14 +131,9 @@ class _HomeState extends State<Home> {
                     onTap: () {
                       Navigator.of(context).pop();
                       if (paginaAtual != 1) {
-                        setState(() {
-                          animacaoNomePagina = true;
-                          animacaoLista = true;
-                        });
+                        _controller.reset();
                         paginaAtual = 1;
-                        Future.delayed(Duration(milliseconds: 300), () {
-                          getAllLivros();
-                        });
+                        getAllLivros();
                       }
                     },
                   ),
@@ -155,14 +160,9 @@ class _HomeState extends State<Home> {
                       Navigator.of(context).pop();
 
                       if (paginaAtual != 0) {
-                        setState(() {
-                          animacaoNomePagina = true;
-                          animacaoLista = true;
-                        });
+                        _controller.reset();
                         paginaAtual = 0;
-                        Future.delayed(Duration(milliseconds: 300), () {
-                          getAllLivros();
-                        });
+                        getAllLivros();
                       }
                     },
                   ),
@@ -188,14 +188,9 @@ class _HomeState extends State<Home> {
                     onTap: () {
                       Navigator.of(context).pop();
                       if (paginaAtual != 2) {
-                        setState(() {
-                          animacaoNomePagina = true;
-                          animacaoLista = true;
-                        });
+                        _controller.reset();
                         paginaAtual = 2;
-                        Future.delayed(Duration(milliseconds: 300), () {
-                          getAllLivros();
-                        });
+                        getAllLivros();
                       }
                     },
                   ),
@@ -208,61 +203,56 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    _controller.forward();
+
     return Scaffold(
       body: ListView(children: <Widget>[
-        AnimatedSwitcher(
-          duration: Duration(milliseconds: 500),
-          child: animacaoNomePagina
-              ? SizedBox.shrink()
-              : Container(
-                  padding: const EdgeInsets.fromLTRB(20, 15, 20, 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        listPages[paginaAtual].nome, //.toUpperCase()
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        listaLivros.length.toString(),
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  )),
-        ),
-        AnimatedSwitcher(
-          duration: Duration(milliseconds: 500),
-          child: animacaoLista
-              ? SizedBox.shrink()
-              : ListView.separated(
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const SizedBox(
-                    height: 8,
-                  ),
-                  physics: ScrollPhysics(),
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-                  itemCount: listaLivros.length,
-                  itemBuilder: (context, int index) {
-                    return CardLivro(
-                      key: UniqueKey(),
-                      livro: new Livro(
-                        id: listaLivros[index]['idLivro'],
-                        nome: listaLivros[index]['nome'],
-                        numPaginas: listaLivros[index]['numPaginas'],
-                        autor: listaLivros[index]['autor'],
-                        lido: listaLivros[index]['estado'],
-                        capa: listaLivros[index]['capa'],
-                      ),
-                      tema: tema,
-                      refreshLista: refresh,
-                      paginaAtual: paginaAtual,
-                    );
-                  },
+        Container(
+            key: UniqueKey(),
+            padding: const EdgeInsets.fromLTRB(20, 15, 20, 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  listPages[paginaAtual].nome, //.toUpperCase()
+                  textAlign: TextAlign.start,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
+                Text(
+                  listaLivros.length.toString(),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ],
+            )),
+        FadeTransition(
+          opacity: _animation,
+          child: ListView.separated(
+            key: UniqueKey(),
+            separatorBuilder: (BuildContext context, int index) =>
+                const SizedBox(
+              height: 8,
+            ),
+            physics: ScrollPhysics(),
+            shrinkWrap: true,
+            padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
+            itemCount: listaLivros.length,
+            itemBuilder: (context, int index) {
+              return CardLivro(
+                key: UniqueKey(),
+                livro: new Livro(
+                  id: listaLivros[index]['idLivro'],
+                  nome: listaLivros[index]['nome'],
+                  numPaginas: listaLivros[index]['numPaginas'],
+                  autor: listaLivros[index]['autor'],
+                  lido: listaLivros[index]['estado'],
+                  capa: listaLivros[index]['capa'],
+                ),
+                tema: tema,
+                refreshLista: refresh,
+                paginaAtual: paginaAtual,
+              );
+            },
+          ),
         ),
         const SizedBox(
           height: 50,
@@ -277,6 +267,7 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
+                splashRadius: 30,
                 icon: Icon(
                   Icons.add,
                   size: 25,
@@ -294,6 +285,7 @@ class _HomeState extends State<Home> {
                       ));
                 }),
             IconButton(
+                splashRadius: 30,
                 icon: Icon(
                   Icons.menu,
                   size: 25,
@@ -303,6 +295,7 @@ class _HomeState extends State<Home> {
                   openBottomMenuPages(context);
                 }),
             IconButton(
+                splashRadius: 30,
                 icon: Icon(
                   Icons.settings_outlined,
                   size: 24,
