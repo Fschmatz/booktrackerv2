@@ -19,7 +19,7 @@ class About extends StatelessWidget {
           child: ListView(
               children: <Widget>[
 
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Text(versaoNomeChangelog.nomeApp+" " + versaoNomeChangelog.versaoApp,
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -27,11 +27,11 @@ class About extends StatelessWidget {
                     fontWeight: FontWeight.bold
                   ),
                 ),
-                SizedBox(height: 25),
+                const SizedBox(height: 25),
 
                 CircleAvatar(
                   radius: 55,
-                  backgroundColor: Color(0xFF867aa3),
+                  backgroundColor: Colors.yellow[600],
                   child: CircleAvatar(
                     radius: 50,
                     backgroundImage: AssetImage('assets/avatar.jpg'),
@@ -48,7 +48,7 @@ SDK, culpa do Flutter!)
       ''',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 17,
                   ),
                 ),
 
@@ -81,7 +81,7 @@ the willingness to learn is a choice.”
       ''',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 17,
                     fontWeight: FontWeight.bold
                   ),
                 ),

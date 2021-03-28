@@ -34,7 +34,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     super.initState();
 
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 1200),
+      duration: const Duration(milliseconds: 1000),
       vsync: this,
     );
     _animation = Tween(
@@ -270,7 +270,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 splashRadius: 30,
                 icon: Icon(
                   Icons.add,
-                  size: 25,
+                  size: 26,
                   color: Theme.of(context).hintColor,
                 ),
                 onPressed: () {

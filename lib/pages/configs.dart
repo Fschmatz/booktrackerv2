@@ -35,9 +35,9 @@ class _ConfigsState extends State<Configs> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Card(
-                elevation: 3.0,
+                elevation: 2.0,
                 margin: const EdgeInsets.all(2.0),
-                color: Colors.yellow[600],
+                color: Color(0xFF6B89BF),
                 child: ListTile(
                   title: Text(
                         versaoNomeChangelog.nomeApp +
@@ -69,9 +69,11 @@ class _ConfigsState extends State<Configs> {
                   ),
                   onTap: () {
                     Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => About()),
-                    );
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) => About(),
+                          fullscreenDialog: true,
+                        ));
                   },
                 ),
               ),
@@ -96,9 +98,11 @@ class _ConfigsState extends State<Configs> {
                   ),
                   onTap: () {
                     Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Changelog()),
-                    );
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) => Changelog(),
+                          fullscreenDialog: true,
+                        ));
                   },
                 ),
               ),
