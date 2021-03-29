@@ -10,12 +10,11 @@ class CardLivro extends StatefulWidget {
   _CardLivroState createState() => _CardLivroState();
 
   Livro livro;
-  bool tema;
   int paginaAtual;
   Function() refreshLista;
 
   CardLivro(
-      {Key key, this.livro, this.tema, this.refreshLista, this.paginaAtual})
+      {Key key, this.livro, this.refreshLista, this.paginaAtual})
       : super(key: key);
 }
 
@@ -58,7 +57,7 @@ class _CardLivroState extends State<CardLivro> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: ListTile(
-                      contentPadding: EdgeInsets.fromLTRB(5, 10, 5, 10),
+                      contentPadding: EdgeInsets.fromLTRB(10, 3, 10, 3),
                       title: Text(
                         widget.livro.nome,
                         textAlign: TextAlign.center,
@@ -70,7 +69,7 @@ class _CardLivroState extends State<CardLivro> {
                   Visibility(
                     visible: widget.paginaAtual != 0,
                     child: ListTile(
-                      leading: Icon(Icons.book),
+                      leading: Icon(Icons.book,color: Theme.of(context).hintColor),
                       title: Text(
                         "Marcar como Para Ler",
                         style: TextStyle(fontSize: 18),
@@ -92,7 +91,7 @@ class _CardLivroState extends State<CardLivro> {
                   Visibility(
                     visible: widget.paginaAtual != 1,
                     child: ListTile(
-                      leading: Icon(Icons.book),
+                      leading: Icon(Icons.book,color: Theme.of(context).hintColor),
                       title: Text(
                         "Marcar como Lendo",
                         style: TextStyle(fontSize: 18),
@@ -114,7 +113,7 @@ class _CardLivroState extends State<CardLivro> {
                   Visibility(
                     visible: widget.paginaAtual != 2,
                     child: ListTile(
-                      leading: Icon(Icons.book),
+                      leading: Icon(Icons.book,color: Theme.of(context).hintColor),
                       title: Text(
                         "Marcar como Lido",
                         style: TextStyle(fontSize: 18),
@@ -134,7 +133,7 @@ class _CardLivroState extends State<CardLivro> {
                     ),
                   ),
                   ListTile(
-                    leading: Icon(Icons.edit_outlined),
+                    leading: Icon(Icons.edit_outlined,color: Theme.of(context).hintColor),
                     title: Text(
                       "Editar Livro",
                       style: TextStyle(fontSize: 18),
@@ -148,7 +147,6 @@ class _CardLivroState extends State<CardLivro> {
                             builder: (BuildContext context) => UpdateLivro(
                               livro: widget.livro,
                               refreshLista: widget.refreshLista,
-                              tema: widget.tema,
                             ),
                             fullscreenDialog: true,
                           ));
@@ -158,7 +156,7 @@ class _CardLivroState extends State<CardLivro> {
                     thickness: 1,
                   ),
                   ListTile(
-                    leading: Icon(Icons.delete_outline_outlined),
+                    leading: Icon(Icons.delete_outline_outlined,color: Theme.of(context).hintColor),
                     //trailing: Icon(Icons.keyboard_arrow_right),
                     title: Text(
                       "Deletar Livro",
@@ -221,13 +219,11 @@ class _CardLivroState extends State<CardLivro> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
         side: BorderSide(
-          color: widget.tema
-              ? Colors.black.withOpacity(0.5)
-              : Colors.grey.withOpacity(0.5),
-          width: 1.5,
+          color: Colors.grey[600].withOpacity(0.3),
+          width: 1,
         ),
       ),
-      elevation: 0,
+      elevation: 2,
       child: InkWell(
         customBorder: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),

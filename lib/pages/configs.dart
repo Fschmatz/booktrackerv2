@@ -2,7 +2,6 @@ import 'package:booktrackerv2/pages/about.dart';
 import 'package:booktrackerv2/pages/changelog.dart';
 import 'package:booktrackerv2/util/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../util/versaoNomeChangelog.dart';
 import 'package:provider/provider.dart';
 
@@ -10,8 +9,7 @@ class Configs extends StatefulWidget {
   @override
   _ConfigsState createState() => _ConfigsState();
 
-  Function() refreshTema;
-  Configs({Key key,this.refreshTema}) : super(key: key);
+  Configs({Key key}) : super(key: key);
 }
 
 class _ConfigsState extends State<Configs> {
@@ -37,7 +35,7 @@ class _ConfigsState extends State<Configs> {
               Card(
                 elevation: 2.0,
                 margin: const EdgeInsets.all(2.0),
-                color: Color(0xFF6B89BF),
+                color: Theme.of(context).accentColor,
                 child: ListTile(
                   title: Text(
                         versaoNomeChangelog.nomeApp +
@@ -56,7 +54,7 @@ class _ConfigsState extends State<Configs> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                   side: BorderSide(
-                    color: Colors.grey.withOpacity(0.3),
+                    color:  Colors.grey[600].withOpacity(0.3),
                     width: 1,
                   ),
                 ),
@@ -85,7 +83,7 @@ class _ConfigsState extends State<Configs> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                   side: BorderSide(
-                    color: Colors.grey.withOpacity(0.3),
+                    color:  Colors.grey[600].withOpacity(0.3),
                     width: 1,
                   ),
                 ),
@@ -119,6 +117,7 @@ class _ConfigsState extends State<Configs> {
               const SizedBox(
                 height: 15.0,
               ),
+
               ListTile(
                 contentPadding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                 title: Text(
@@ -131,7 +130,6 @@ class _ConfigsState extends State<Configs> {
                       value: notifier.darkTheme,
                       onChanged: (value) {
                         notifier.toggleTheme();
-                        widget.refreshTema();
                       }),
                 ),
               ),

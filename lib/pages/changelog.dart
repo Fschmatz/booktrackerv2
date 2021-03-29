@@ -16,11 +16,11 @@ class Changelog extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
               side: BorderSide(
-                //color: Colors.grey.withOpacity(0.8),
+                color: Colors.grey[600].withOpacity(0.3),
                 width: 1,
               ),
             ),
-            elevation: 0.0,
+            elevation: 2,
             child: Container(
               padding: EdgeInsets.fromLTRB(18, 0, 18, 5),
               child: Text(
@@ -34,7 +34,7 @@ class Changelog extends StatelessWidget {
 
           Divider(thickness: 2,),
           Container(
-            padding: EdgeInsets.fromLTRB(15, 10, 15, 5),
+            padding: EdgeInsets.fromLTRB(20, 10, 20, 5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

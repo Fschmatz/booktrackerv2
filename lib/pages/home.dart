@@ -6,7 +6,6 @@ import 'package:booktrackerv2/ui/addLivro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../ui/cardLivro.dart';
 import 'package:booktrackerv2/db/livroDao.dart';
 import '../util/versaoNomeChangelog.dart';
@@ -30,11 +29,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   void initState() {
     paginaAtual = listPages[1].id;
     getAllLivros();
-    getTema();
     super.initState();
 
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 550),
       vsync: this,
     );
     _animation = Tween(
@@ -58,26 +56,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   Future<void> refresh() {
     _controller.reset();
-    setState(() {
-      getTema();
-    });
     getAllLivros();
   }
 
-  bool tema; // 1 = dark
-  Future<void> getTema() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    tema = prefs.getBool('valorTema');
-    if (tema == null) {
-      tema = true;
-    }
-  }
 
-  refreshTema() {
-    setState(() {
-      getTema();
-    });
-  }
 
   //BOTTOM MENU
   void openBottomMenuPages(context) {
@@ -116,10 +98,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     leading: Icon(Icons.book,
                         color: paginaAtual == 1
                             ? Theme.of(context).accentColor
-                            : Theme.of(context).textTheme.headline6.color),
+                            : Theme.of(context).hintColor),
                     trailing: Visibility(
                         visible: paginaAtual != 1,
-                        child: Icon(Icons.keyboard_arrow_right)),
+                        child: Icon(Icons.keyboard_arrow_right,color: Theme.of(context).hintColor)),
                     title: Text(
                       "Lendo",
                       style: TextStyle(
@@ -144,10 +126,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     leading: Icon(Icons.book,
                         color: paginaAtual == 0
                             ? Theme.of(context).accentColor
-                            : Theme.of(context).textTheme.headline6.color),
+                            : Theme.of(context).hintColor),
                     trailing: Visibility(
                         visible: paginaAtual != 0,
-                        child: Icon(Icons.keyboard_arrow_right)),
+                        child: Icon(Icons.keyboard_arrow_right,color: Theme.of(context).hintColor)),
                     title: Text(
                       "Para Ler",
                       style: TextStyle(
@@ -173,10 +155,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     leading: Icon(Icons.book,
                         color: paginaAtual == 2
                             ? Theme.of(context).accentColor
-                            : Theme.of(context).textTheme.headline6.color),
+                            : Theme.of(context).hintColor),
                     trailing: Visibility(
                         visible: paginaAtual != 2,
-                        child: Icon(Icons.keyboard_arrow_right)),
+                        child: Icon(Icons.keyboard_arrow_right,color: Theme.of(context).hintColor),),
                     title: Text(
                       "Lidos",
                       style: TextStyle(
@@ -229,7 +211,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           child: ListView.separated(
             key: UniqueKey(),
             separatorBuilder: (BuildContext context, int index) =>
-                const SizedBox(
+            const SizedBox(
               height: 8,
             ),
             physics: ScrollPhysics(),
@@ -247,7 +229,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   lido: listaLivros[index]['estado'],
                   capa: listaLivros[index]['capa'],
                 ),
-                tema: tema,
                 refreshLista: refresh,
                 paginaAtual: paginaAtual,
               );
@@ -262,56 +243,55 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       //BOTTOMBAR
       bottomNavigationBar: BottomAppBar(
           child: Padding(
-        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-                splashRadius: 30,
-                icon: Icon(
-                  Icons.add,
-                  size: 26,
-                  color: Theme.of(context).hintColor,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext context) => AddLivro(
-                            refreshLista: refresh,
-                            tema: tema,
-                            paginaAtual: paginaAtual),
-                        fullscreenDialog: true,
-                      ));
-                }),
-            IconButton(
-                splashRadius: 30,
-                icon: Icon(
-                  Icons.menu,
-                  size: 25,
-                  color: Theme.of(context).hintColor,
-                ),
-                onPressed: () {
-                  openBottomMenuPages(context);
-                }),
-            IconButton(
-                splashRadius: 30,
-                icon: Icon(
-                  Icons.settings_outlined,
-                  size: 24,
-                  color: Theme.of(context).hintColor,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext context) => Configs(),
-                        fullscreenDialog: true,
-                      ));
-                }),
-          ],
-        ),
-      )),
+            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                    splashRadius: 30,
+                    icon: Icon(
+                      Icons.add,
+                      size: 26,
+                      color: Theme.of(context).hintColor,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) => AddLivro(
+                                refreshLista: refresh,
+                                paginaAtual: paginaAtual),
+                            fullscreenDialog: true,
+                          ));
+                    }),
+                IconButton(
+                    splashRadius: 30,
+                    icon: Icon(
+                      Icons.menu,
+                      size: 25,
+                      color: Theme.of(context).hintColor,
+                    ),
+                    onPressed: () {
+                      openBottomMenuPages(context);
+                    }),
+                IconButton(
+                    splashRadius: 30,
+                    icon: Icon(
+                      Icons.settings_outlined,
+                      size: 24,
+                      color: Theme.of(context).hintColor,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) => Configs(),
+                            fullscreenDialog: true,
+                          ));
+                    }),
+              ],
+            ),
+          )),
     );
   }
 }

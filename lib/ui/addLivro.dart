@@ -10,11 +10,10 @@ class AddLivro extends StatefulWidget {
   @override
   _AddLivroState createState() => _AddLivroState();
 
-  bool tema;
   int paginaAtual;
   Function() refreshLista;
 
-  AddLivro({Key key, this.refreshLista, this.tema,this.paginaAtual}) : super(key: key);
+  AddLivro({Key key, this.refreshLista,this.paginaAtual}) : super(key: key);
 }
 
 class _AddLivroState extends State<AddLivro> {
@@ -111,7 +110,7 @@ class _AddLivroState extends State<AddLivro> {
   _showPopupMenuRemoverCapa() async {
     final RenderBox overlay = Overlay.of(context).context.findRenderObject();
     await showMenu(
-      color: widget.tema ? Color(0xFF2A2A2B) : Color(0xFFE9E9EF),
+      color: Theme.of(context).bottomAppBarColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
@@ -119,7 +118,7 @@ class _AddLivroState extends State<AddLivro> {
       position: RelativeRect.fromRect(
           _tapPosition & Size(40, 40), Offset.zero & overlay.size),
       items: [
-        PopupMenuItem(value: 1, child: Text("Remover Capa")),
+        PopupMenuItem(value: 1, child: Text("Remover Capa",style: TextStyle(color: Theme.of(context).textTheme.headline6.color))),
       ],
       elevation: 2.0,
     ).then((value) => {
@@ -146,7 +145,7 @@ class _AddLivroState extends State<AddLivro> {
         title: Text('Adicionar Livro'),
         actions: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 6, 0),
+            padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
             child: IconButton(
               icon: Icon(Icons.save_outlined),
               tooltip: 'Salvar',
@@ -184,7 +183,7 @@ class _AddLivroState extends State<AddLivro> {
               autofocus: true,
               onEditingComplete: () => node.nextFocus(),
               decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.article),
+                  prefixIcon: Icon(Icons.article,size: 22),
                   hintText: "Nome do Livro",
                   contentPadding:
                       new EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
@@ -196,7 +195,7 @@ class _AddLivroState extends State<AddLivro> {
                       borderSide: BorderSide(),
                       borderRadius: BorderRadius.circular(8.0))),
               style: TextStyle(
-                fontSize: 19,
+                fontSize: 17,
               ),
             ),
             const SizedBox(
@@ -214,7 +213,7 @@ class _AddLivroState extends State<AddLivro> {
               decoration: InputDecoration(
                   prefixIcon: Icon(
                     Icons.contact_page_outlined,
-                    size: 28,
+                    size: 24,
                   ),
                   hintText: "Autor",
                   contentPadding:
@@ -227,7 +226,7 @@ class _AddLivroState extends State<AddLivro> {
                       borderSide: BorderSide(),
                       borderRadius: BorderRadius.circular(8.0))),
               style: TextStyle(
-                fontSize: 19,
+                fontSize: 17,
               ),
             ),
 
@@ -252,7 +251,7 @@ class _AddLivroState extends State<AddLivro> {
               autofocus: true,
               onEditingComplete: () => node.nextFocus(),
               decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.book),
+                  prefixIcon: Icon(Icons.book,size: 22),
                   hintText: "Nº de Páginas",
                   contentPadding:
                   new EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
@@ -264,7 +263,7 @@ class _AddLivroState extends State<AddLivro> {
                       borderSide: BorderSide(),
                       borderRadius: BorderRadius.circular(8.0))),
               style: TextStyle(
-                fontSize: 19,
+                fontSize: 17,
               ),
             ),
 
@@ -273,15 +272,13 @@ class _AddLivroState extends State<AddLivro> {
             ),
 
             Card(
-                color: Theme.of(context).canvasColor,
+                color: Theme.of(context).inputDecorationTheme.fillColor,
                 margin: EdgeInsets.all(0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                   side: BorderSide(
-                    color: widget.tema
-                        ? Colors.black.withOpacity(0.5)
-                        : Colors.grey.withOpacity(0.5),
-                    width: 1.2,
+                    color: Theme.of(context).canvasColor,
+                    width: 1,
                   ),
                 ),
                 elevation: 0,
@@ -301,10 +298,8 @@ class _AddLivroState extends State<AddLivro> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(4),
                               side: BorderSide(
-                                color: widget.tema
-                                    ? Colors.black.withOpacity(0.5)
-                                    : Colors.grey.withOpacity(0.5),
-                                width: 1.2,
+                                color: Theme.of(context).canvasColor,
+                                width: 1,
                               ),
                             ),
                             elevation: 0,
@@ -333,7 +328,7 @@ class _AddLivroState extends State<AddLivro> {
                           ),
                           Text(
                             "Adicionar Capa",
-                            style: TextStyle(fontSize: 18,color: Theme.of(context).hintColor),
+                            style: TextStyle(fontSize: 17,color: Theme.of(context).hintColor),
                           ),
                           const SizedBox(
                             width: 1,
