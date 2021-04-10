@@ -1,7 +1,7 @@
 class versaoNomeChangelog{
 
   //se mudar o nome do App não esquecer de alterar, no manifesto
-  static String versaoApp = "4.2.1";
+  static String versaoApp = "4.2.3";
   static String nomeApp = "BookTracker";
 
   //1espaço acima, nenhum embaixo
@@ -9,7 +9,7 @@ class versaoNomeChangelog{
   
 Versão Atual: 
 
-4.2.1
+4.2.3
 - Novo Tema
 - Melhorias de Desempenho
 - Alterações UI
