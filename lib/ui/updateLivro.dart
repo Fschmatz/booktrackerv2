@@ -322,8 +322,8 @@ class _UpdateLivroState extends State<UpdateLivro> {
                                 ? Container(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(4)),
-                              width: 65,
-                              height: 95,
+                              width: 70,
+                              height: 105,
                               child: Icon(
                                 Icons.image,
                               ),
@@ -332,8 +332,8 @@ class _UpdateLivroState extends State<UpdateLivro> {
                               borderRadius: BorderRadius.circular(4),
                               child: Image.memory(
                                 widget.livro.capa,
-                                width: 65,
-                                height: 95,
+                                width: 70,
+                                height: 105,
                                 fit: BoxFit.fill,
                               ),
                             ),

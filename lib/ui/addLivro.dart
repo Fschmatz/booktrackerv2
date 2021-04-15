@@ -307,8 +307,8 @@ class _AddLivroState extends State<AddLivro> {
                                 ? Container(
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(4)),
-                                    width: 60,
-                                    height: 90,
+                                    width: 70,
+                                    height: 105,
                                     child: Icon(
                                       Icons.image,
                                     ),
@@ -317,8 +317,8 @@ class _AddLivroState extends State<AddLivro> {
                                     borderRadius: BorderRadius.circular(4),
                                     child: Image.file(
                                       capa,
-                                      width: 60,
-                                      height: 90,
+                                      width: 70,
+                                      height: 105,
                                       fit: BoxFit.fill,
                                     ),
                                   ),

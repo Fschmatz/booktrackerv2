@@ -13,8 +13,7 @@ class CardLivro extends StatefulWidget {
   int paginaAtual;
   Function() refreshLista;
 
-  CardLivro(
-      {Key key, this.livro, this.refreshLista, this.paginaAtual})
+  CardLivro({Key key, this.livro, this.refreshLista, this.paginaAtual})
       : super(key: key);
 }
 
@@ -52,8 +51,7 @@ class _CardLivroState extends State<CardLivro> {
                     margin: EdgeInsets.fromLTRB(50, 15, 50, 25),
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
-                          color: Theme.of(context).accentColor,
-                          width: 1.5),
+                          color: Theme.of(context).accentColor, width: 1.5),
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: ListTile(
@@ -69,7 +67,8 @@ class _CardLivroState extends State<CardLivro> {
                   Visibility(
                     visible: widget.paginaAtual != 0,
                     child: ListTile(
-                      leading: Icon(Icons.book,color: Theme.of(context).hintColor),
+                      leading:
+                          Icon(Icons.book, color: Theme.of(context).hintColor),
                       title: Text(
                         "Marcar como Para Ler",
                         style: TextStyle(fontSize: 18),
@@ -91,7 +90,8 @@ class _CardLivroState extends State<CardLivro> {
                   Visibility(
                     visible: widget.paginaAtual != 1,
                     child: ListTile(
-                      leading: Icon(Icons.book,color: Theme.of(context).hintColor),
+                      leading:
+                          Icon(Icons.book, color: Theme.of(context).hintColor),
                       title: Text(
                         "Marcar como Lendo",
                         style: TextStyle(fontSize: 18),
@@ -113,7 +113,8 @@ class _CardLivroState extends State<CardLivro> {
                   Visibility(
                     visible: widget.paginaAtual != 2,
                     child: ListTile(
-                      leading: Icon(Icons.book,color: Theme.of(context).hintColor),
+                      leading:
+                          Icon(Icons.book, color: Theme.of(context).hintColor),
                       title: Text(
                         "Marcar como Lido",
                         style: TextStyle(fontSize: 18),
@@ -133,7 +134,8 @@ class _CardLivroState extends State<CardLivro> {
                     ),
                   ),
                   ListTile(
-                    leading: Icon(Icons.edit_outlined,color: Theme.of(context).hintColor),
+                    leading: Icon(Icons.edit_outlined,
+                        color: Theme.of(context).hintColor),
                     title: Text(
                       "Editar Livro",
                       style: TextStyle(fontSize: 18),
@@ -156,7 +158,8 @@ class _CardLivroState extends State<CardLivro> {
                     thickness: 1,
                   ),
                   ListTile(
-                    leading: Icon(Icons.delete_outline_outlined,color: Theme.of(context).hintColor),
+                    leading: Icon(Icons.delete_outline_outlined,
+                        color: Theme.of(context).hintColor),
                     //trailing: Icon(Icons.keyboard_arrow_right),
                     title: Text(
                       "Deletar Livro",
@@ -219,7 +222,7 @@ class _CardLivroState extends State<CardLivro> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
         side: BorderSide(
-          color: Colors.grey[600].withOpacity(0.4),
+          color: Colors.grey[600].withOpacity(0.3),
           width: 0.8,
         ),
       ),
@@ -244,17 +247,27 @@ class _CardLivroState extends State<CardLivro> {
                               widthFactor: 1.5,
                               child: Icon(
                                 Icons.book,
-                                size: 40,
+                                size: 42,
                                 color: Theme.of(context).hintColor,
                               ),
                             )
-                          : ClipRRect(
-                              borderRadius: BorderRadius.circular(4),
-                              child: Image.memory(
-                                widget.livro.capa,
-                                width: 60,
-                                height: 90,
-                                fit: BoxFit.fill,
+                          : Card(
+                              elevation: 0.5,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                side: BorderSide(
+                                  color: Colors.grey[600].withOpacity(0.3),
+                                  width: 1,
+                                ),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(4),
+                                child: Image.memory(
+                                  widget.livro.capa,
+                                  width: 70,
+                                  height: 105,
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                             ),
                     ),
