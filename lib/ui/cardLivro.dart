@@ -217,16 +217,16 @@ class _CardLivroState extends State<CardLivro> {
     return Container(
         child: Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(15),
         side: BorderSide(
-          color: Colors.grey[700].withOpacity(0.3),
+          color: Colors.grey[600].withOpacity(0.4),
           width: 0.8,
         ),
       ),
       elevation: 0,
       child: InkWell(
         customBorder: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(15),
         ),
         onTap: openBottomMenuBookSettings,
         child: Padding(
