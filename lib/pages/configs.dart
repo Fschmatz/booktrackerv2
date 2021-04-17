@@ -59,6 +59,9 @@ class _ConfigsState extends State<Configs> {
                   ),
                 ),
                 child: ListTile(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                  ),
                   leading: Icon(Icons.text_snippet_outlined),
                   trailing: Icon(Icons.keyboard_arrow_right),
                   title: Text(
@@ -88,6 +91,9 @@ class _ConfigsState extends State<Configs> {
                   ),
                 ),
                 child: ListTile(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                  ),
                   leading: Icon(Icons.text_snippet_outlined),
                   trailing: Icon(Icons.keyboard_arrow_right),
                   title: Text(

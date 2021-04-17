@@ -222,11 +222,11 @@ class _CardLivroState extends State<CardLivro> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
         side: BorderSide(
-          color: Colors.grey[600].withOpacity(0.3),
+          color: Colors.grey[600].withOpacity(0.4),
           width: 0.8,
         ),
       ),
-      elevation: 0,
+      elevation: 1,
       child: InkWell(
         customBorder: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),

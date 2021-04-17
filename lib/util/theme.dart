@@ -30,9 +30,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 //ESCURO
     ThemeData dark = ThemeData(
     brightness: Brightness.dark,
-    primaryColor: Color(0xFF202124),
+    primaryColor: Color(0xFF1B1C1F),
     accentColor: Color(0xFF66BF72),
-    scaffoldBackgroundColor: Color(0xFF202124),
+    scaffoldBackgroundColor: Color(0xFF1B1C1F),
     canvasColor: Colors.black,
 
     cardTheme: CardTheme(
@@ -51,7 +51,7 @@ import 'package:shared_preferences/shared_preferences.dart';
         enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xFF28282A)))),
 
-    bottomAppBarColor: Color(0xFF18191C),
+    bottomAppBarColor: Color(0xFF17181B),
     bottomSheetTheme:
       BottomSheetThemeData(modalBackgroundColor: Color(0xFF202124))
 
