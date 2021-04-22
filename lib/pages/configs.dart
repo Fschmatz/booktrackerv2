@@ -33,6 +33,9 @@ class _ConfigsState extends State<Configs> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                ),
                 elevation: 2.0,
                 margin: const EdgeInsets.all(2.0),
                 color: Theme.of(context).accentColor,
@@ -54,7 +57,7 @@ class _ConfigsState extends State<Configs> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                   side: BorderSide(
-                    color:  Colors.grey[600].withOpacity(0.3),
+                    color:  Colors.grey[800].withOpacity(0.3),
                     width: 1,
                   ),
                 ),
@@ -86,7 +89,7 @@ class _ConfigsState extends State<Configs> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                   side: BorderSide(
-                    color:  Colors.grey[600].withOpacity(0.3),
+                    color:  Colors.grey[800].withOpacity(0.3),
                     width: 1,
                   ),
                 ),

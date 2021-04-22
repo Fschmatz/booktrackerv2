@@ -48,6 +48,7 @@ class _CardLivroState extends State<CardLivro> {
               child: Wrap(
                 children: <Widget>[
                   Card(
+                     color: Theme.of(context).bottomSheetTheme.modalBackgroundColor,
                     margin: EdgeInsets.fromLTRB(50, 15, 50, 25),
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
@@ -222,11 +223,11 @@ class _CardLivroState extends State<CardLivro> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
         side: BorderSide(
-          color: Colors.grey[600].withOpacity(0.4),
-          width: 0.8,
+          color: Colors.grey[800].withOpacity(0.5),
+          width: 1,
         ),
       ),
-      elevation: 1,
+      elevation: 2,
       child: InkWell(
         customBorder: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
@@ -256,7 +257,7 @@ class _CardLivroState extends State<CardLivro> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4),
                                 side: BorderSide(
-                                  color: Colors.grey[600].withOpacity(0.3),
+                                  color: Colors.grey[800].withOpacity(0.3),
                                   width: 1,
                                 ),
                               ),

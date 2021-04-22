@@ -59,8 +59,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     getAllLivros();
   }
 
-
-
   //BOTTOM MENU
   void openBottomMenuPages(context) {
     showModalBottomSheet(
@@ -78,6 +76,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               child: Wrap(
                 children: <Widget>[
                   Card(
+                    color:
+                        Theme.of(context).bottomSheetTheme.modalBackgroundColor,
                     margin: EdgeInsets.fromLTRB(50, 15, 50, 20),
                     shape: RoundedRectangleBorder(
                       side: BorderSide(color: Colors.grey[700], width: 1.5),
@@ -101,7 +101,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             : Theme.of(context).hintColor),
                     trailing: Visibility(
                         visible: paginaAtual != 1,
-                        child: Icon(Icons.keyboard_arrow_right,color: Theme.of(context).hintColor)),
+                        child: Icon(Icons.keyboard_arrow_right,
+                            color: Theme.of(context).hintColor)),
                     title: Text(
                       "Lendo",
                       style: TextStyle(
@@ -129,7 +130,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             : Theme.of(context).hintColor),
                     trailing: Visibility(
                         visible: paginaAtual != 0,
-                        child: Icon(Icons.keyboard_arrow_right,color: Theme.of(context).hintColor)),
+                        child: Icon(Icons.keyboard_arrow_right,
+                            color: Theme.of(context).hintColor)),
                     title: Text(
                       "Para Ler",
                       style: TextStyle(
@@ -157,8 +159,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             ? Theme.of(context).accentColor
                             : Theme.of(context).hintColor),
                     trailing: Visibility(
-                        visible: paginaAtual != 2,
-                        child: Icon(Icons.keyboard_arrow_right,color: Theme.of(context).hintColor),),
+                      visible: paginaAtual != 2,
+                      child: Icon(Icons.keyboard_arrow_right,
+                          color: Theme.of(context).hintColor),
+                    ),
                     title: Text(
                       "Lidos",
                       style: TextStyle(
@@ -188,30 +192,30 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     _controller.forward();
 
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              listPages[paginaAtual].nome, //.toUpperCase()
+              textAlign: TextAlign.start,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              listaLivros.length.toString(),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      ),
       body: ListView(children: <Widget>[
-        Container(
-            key: UniqueKey(),
-            padding: const EdgeInsets.fromLTRB(20, 15, 20, 5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  listPages[paginaAtual].nome, //.toUpperCase()
-                  textAlign: TextAlign.start,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  listaLivros.length.toString(),
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-              ],
-            )),
         FadeTransition(
           opacity: _animation,
           child: ListView.separated(
             key: UniqueKey(),
             separatorBuilder: (BuildContext context, int index) =>
-            const SizedBox(
+                const SizedBox(
               height: 8,
             ),
             physics: ScrollPhysics(),
@@ -243,55 +247,54 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       //BOTTOMBAR
       bottomNavigationBar: BottomAppBar(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                    splashRadius: 30,
-                    icon: Icon(
-                      Icons.add,
-                      size: 26,
-                      color: Theme.of(context).hintColor,
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (BuildContext context) => AddLivro(
-                                refreshLista: refresh,
-                                paginaAtual: paginaAtual),
-                            fullscreenDialog: true,
-                          ));
-                    }),
-                IconButton(
-                    splashRadius: 30,
-                    icon: Icon(
-                      Icons.menu,
-                      size: 25,
-                      color: Theme.of(context).hintColor,
-                    ),
-                    onPressed: () {
-                      openBottomMenuPages(context);
-                    }),
-                IconButton(
-                    splashRadius: 30,
-                    icon: Icon(
-                      Icons.settings_outlined,
-                      size: 24,
-                      color: Theme.of(context).hintColor,
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (BuildContext context) => Configs(),
-                            fullscreenDialog: true,
-                          ));
-                    }),
-              ],
-            ),
-          )),
+        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+                splashRadius: 30,
+                icon: Icon(
+                  Icons.add,
+                  size: 26,
+                  color: Theme.of(context).hintColor,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) => AddLivro(
+                            refreshLista: refresh, paginaAtual: paginaAtual),
+                        fullscreenDialog: true,
+                      ));
+                }),
+            IconButton(
+                splashRadius: 30,
+                icon: Icon(
+                  Icons.menu,
+                  size: 25,
+                  color: Theme.of(context).hintColor,
+                ),
+                onPressed: () {
+                  openBottomMenuPages(context);
+                }),
+            IconButton(
+                splashRadius: 30,
+                icon: Icon(
+                  Icons.settings_outlined,
+                  size: 24,
+                  color: Theme.of(context).hintColor,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) => Configs(),
+                        fullscreenDialog: true,
+                      ));
+                }),
+          ],
+        ),
+      )),
     );
   }
 }

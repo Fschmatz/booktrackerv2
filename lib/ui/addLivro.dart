@@ -58,7 +58,6 @@ class _AddLivroState extends State<AddLivro> {
       LivroDao.columnCapa: capa == null ? null : capa.readAsBytesSync(),
     };
     final id = await dbLivro.insert(row);
-    print('id inserido = $id');
   }
 
   //CHECK ERROR NULL
