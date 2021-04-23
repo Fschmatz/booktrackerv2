@@ -7,7 +7,6 @@ class Changelog extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text("Changelog"),
-          centerTitle: true,
           elevation: 0.0,
         ),
         body: ListView(children: <Widget>[

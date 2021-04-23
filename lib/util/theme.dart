@@ -36,22 +36,22 @@ import 'package:shared_preferences/shared_preferences.dart';
     canvasColor: Colors.black,
 
     cardTheme: CardTheme(
-      color: Color(0xFF272729),
+      color: Color(0xFF2B2B2D),
     ),
 
     dialogTheme: DialogTheme(
-      backgroundColor: Color(0xFF272729),
+      backgroundColor: Color(0xFF2B2B2D),
     ),
 
     inputDecorationTheme: InputDecorationTheme(
-        fillColor: Color(0xFF343436),
+        fillColor: Color(0xFF353537),
         labelStyle: TextStyle(color: Colors.white),
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xFF66BF72))),
         enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xFF28282A)))),
 
-    bottomAppBarColor: Color(0xFF171719),
+    bottomAppBarColor: Color(0xFF161618),
     bottomSheetTheme:
       BottomSheetThemeData(modalBackgroundColor: Color(0xFF202022))
 

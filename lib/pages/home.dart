@@ -80,8 +80,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         Theme.of(context).bottomSheetTheme.modalBackgroundColor,
                     margin: EdgeInsets.fromLTRB(50, 15, 50, 20),
                     shape: RoundedRectangleBorder(
-                      side: BorderSide(color: Colors.grey[700], width: 1.5),
-                      borderRadius: BorderRadius.circular(10.0),
+                      side: BorderSide(color: Colors.grey[700], width: 1),
+                      borderRadius: BorderRadius.circular(15),
                     ),
                     child: ListTile(
                       title: Text(
@@ -106,7 +106,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     title: Text(
                       "Lendo",
                       style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 17,
                           color: paginaAtual == 1
                               ? Theme.of(context).accentColor
                               : Theme.of(context).textTheme.headline6.color),
@@ -135,7 +135,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     title: Text(
                       "Para Ler",
                       style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 17,
                           color: paginaAtual == 0
                               ? Theme.of(context).accentColor
                               : Theme.of(context).textTheme.headline6.color),
@@ -166,7 +166,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     title: Text(
                       "Lidos",
                       style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 17,
                           color: paginaAtual == 2
                               ? Theme.of(context).accentColor
                               : Theme.of(context).textTheme.headline6.color),
@@ -240,7 +240,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           ),
         ),
         const SizedBox(
-          height: 50,
+          height: 20,
         )
       ]),
 

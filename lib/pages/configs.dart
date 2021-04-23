@@ -21,7 +21,6 @@ class _ConfigsState extends State<Configs> {
 
         appBar: AppBar(
           title: Text("Configurações"),
-          centerTitle: true,
           elevation: 0.0,
         ),
 
@@ -34,7 +33,7 @@ class _ConfigsState extends State<Configs> {
             children: <Widget>[
               Card(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
                 ),
                 elevation: 2.0,
                 margin: const EdgeInsets.all(2.0),
@@ -55,7 +54,7 @@ class _ConfigsState extends State<Configs> {
               Card(
                 elevation: 0,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
                   side: BorderSide(
                     color:  Colors.grey[800].withOpacity(0.3),
                     width: 1,
@@ -63,12 +62,12 @@ class _ConfigsState extends State<Configs> {
                 ),
                 child: ListTile(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
                   ),
                   leading: Icon(Icons.text_snippet_outlined),
                   trailing: Icon(Icons.keyboard_arrow_right),
                   title: Text(
-                    "About",
+                    "Sobre",
                     style: TextStyle(fontSize: 18),
                   ),
                   onTap: () {
@@ -87,7 +86,7 @@ class _ConfigsState extends State<Configs> {
               Card(
                 elevation: 0,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
                   side: BorderSide(
                     color:  Colors.grey[800].withOpacity(0.3),
                     width: 1,
@@ -95,7 +94,7 @@ class _ConfigsState extends State<Configs> {
                 ),
                 child: ListTile(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
                   ),
                   leading: Icon(Icons.text_snippet_outlined),
                   trailing: Icon(Icons.keyboard_arrow_right),

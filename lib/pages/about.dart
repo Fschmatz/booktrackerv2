@@ -10,7 +10,6 @@ class About extends StatelessWidget {
 
         appBar: AppBar(
           title: Text("Sobre"),
-          centerTitle: true,
           elevation: 0.0,
         ),
 

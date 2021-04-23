@@ -52,8 +52,8 @@ class _CardLivroState extends State<CardLivro> {
                     margin: EdgeInsets.fromLTRB(50, 15, 50, 25),
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
-                          color: Theme.of(context).accentColor, width: 1.5),
-                      borderRadius: BorderRadius.circular(10.0),
+                          color: Theme.of(context).accentColor, width: 1),
+                      borderRadius: BorderRadius.circular(15),
                     ),
                     child: ListTile(
                       contentPadding: EdgeInsets.fromLTRB(10, 3, 10, 3),
@@ -61,7 +61,7 @@ class _CardLivroState extends State<CardLivro> {
                         widget.livro.nome,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 17.5, fontWeight: FontWeight.w500),
+                            fontSize: 17, fontWeight: FontWeight.w500),
                       ),
                     ),
                   ),
@@ -95,7 +95,7 @@ class _CardLivroState extends State<CardLivro> {
                           Icon(Icons.book, color: Theme.of(context).hintColor),
                       title: Text(
                         "Marcar como Lendo",
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 17),
                       ),
                       onTap: () {
                         Navigator.of(context).pop();
@@ -118,7 +118,7 @@ class _CardLivroState extends State<CardLivro> {
                           Icon(Icons.book, color: Theme.of(context).hintColor),
                       title: Text(
                         "Marcar como Lido",
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 17),
                       ),
                       onTap: () {
                         Navigator.of(context).pop();
@@ -139,7 +139,7 @@ class _CardLivroState extends State<CardLivro> {
                         color: Theme.of(context).hintColor),
                     title: Text(
                       "Editar Livro",
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 17),
                     ),
                     onTap: () {
                       Navigator.of(context).pop();
@@ -164,7 +164,7 @@ class _CardLivroState extends State<CardLivro> {
                     //trailing: Icon(Icons.keyboard_arrow_right),
                     title: Text(
                       "Deletar Livro",
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 17),
                     ),
                     onTap: () {
                       Navigator.of(context).pop();
@@ -223,11 +223,11 @@ class _CardLivroState extends State<CardLivro> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
         side: BorderSide(
-          color: Colors.grey[800].withOpacity(0.5),
+          color: Colors.grey[700].withOpacity(0.5),
           width: 1,
         ),
       ),
-      elevation: 2,
+      elevation: 1,
       child: InkWell(
         customBorder: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
@@ -257,7 +257,7 @@ class _CardLivroState extends State<CardLivro> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4),
                                 side: BorderSide(
-                                  color: Colors.grey[800].withOpacity(0.3),
+                                  color: Colors.grey[700].withOpacity(0.5),
                                   width: 1,
                                 ),
                               ),
