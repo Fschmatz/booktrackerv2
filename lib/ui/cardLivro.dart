@@ -51,8 +51,7 @@ class _CardLivroState extends State<CardLivro> {
                      color: Theme.of(context).bottomSheetTheme.modalBackgroundColor,
                     margin: EdgeInsets.fromLTRB(50, 15, 50, 25),
                     shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                          color: Theme.of(context).accentColor, width: 1),
+                      side: BorderSide(color: Colors.grey[700], width: 1),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: ListTile(
@@ -61,7 +60,7 @@ class _CardLivroState extends State<CardLivro> {
                         widget.livro.nome,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.w500),
+                            fontSize: 18, fontWeight: FontWeight.w500),
                       ),
                     ),
                   ),
@@ -218,109 +217,110 @@ class _CardLivroState extends State<CardLivro> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Card(
-      shape: RoundedRectangleBorder(
+    return InkWell(
+      customBorder: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
-        side: BorderSide(
-          color: Colors.grey[700].withOpacity(0.5),
-          width: 1,
-        ),
       ),
-      elevation: 1,
-      child: InkWell(
-        customBorder: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        onTap: openBottomMenuBookSettings,
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      child: widget.livro.capa == null
-                          ? Center(
-                              widthFactor: 1.5,
-                              child: Icon(
-                                Icons.book,
-                                size: 42,
-                                color: Theme.of(context).hintColor,
+      onTap: openBottomMenuBookSettings,
+      child: Container(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(4, 5, 4, 8),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        child: widget.livro.capa == null
+                            ? Container(
+                              height: 112,
+                              width: 77,
+                              child: Card(
+                                elevation: 2,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  side: BorderSide(
+                                    color: Colors.grey[700].withOpacity(0.5),
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Icon(
+                                  Icons.book,
+                                  size: 35,
+                                  color: Theme.of(context).hintColor,
+                                ),
                               ),
                             )
-                          : Card(
-                              elevation: 0.5,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                side: BorderSide(
-                                  color: Colors.grey[700].withOpacity(0.5),
-                                  width: 1,
+                            : Card(
+                                elevation: 2,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  side: BorderSide(
+                                    color: Colors.grey[700].withOpacity(0.5),
+                                    width: 1,
+                                  ),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(4),
+                                  child: Image.memory(
+                                    widget.livro.capa,
+                                    height: 105,
+                                    width: 70,
+                                    fit: BoxFit.fill,
+                                  ),
                                 ),
                               ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(4),
-                                child: Image.memory(
-                                  widget.livro.capa,
-                                  width: 70,
-                                  height: 105,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: Container(
-                      //alignment: Alignment.center,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.livro.nome,
-                            style: TextStyle(
-                              fontSize: 16.5,
-                            ),
-                            textAlign: TextAlign.left,
-                          ),
-                          SizedBox(
-                            height: 7,
-                          ),
-                          Visibility(
-                            visible: widget.livro.autor.isNotEmpty,
-                            child: Text(
-                              widget.livro.autor,
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: Theme.of(context).hintColor),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 7,
-                          ),
-                          Visibility(
-                            visible: widget.livro.numPaginas != 0,
-                            child: Text(
-                              "Páginas: " + widget.livro.numPaginas.toString(),
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: Theme.of(context).hintColor),
-                            ),
-                          ),
-                        ],
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    ));
+                    Expanded(
+                      flex: 3,
+                      child: Container(
+                        //alignment: Alignment.center,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              widget.livro.nome,
+                              style: TextStyle(
+                                fontSize: 16.5,
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                            SizedBox(
+                              height: 7,
+                            ),
+                            Visibility(
+                              visible: widget.livro.autor.isNotEmpty,
+                              child: Text(
+                                widget.livro.autor,
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Theme.of(context).hintColor),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 7,
+                            ),
+                            Visibility(
+                              visible: widget.livro.numPaginas != 0,
+                              child: Text(
+                                "Páginas: " + widget.livro.numPaginas.toString(),
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Theme.of(context).hintColor),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          )),
+    );
   }
 }

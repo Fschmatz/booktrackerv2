@@ -200,6 +200,7 @@ class _UpdateLivroState extends State<UpdateLivro> {
               decoration: InputDecoration(
                   prefixIcon: Icon(Icons.article,size: 22),
                   hintText: "Nome do Livro",
+                  helperText: "* Obrigatório",
                   contentPadding: new EdgeInsets.symmetric(
                       vertical: 8.0, horizontal: 10.0),
                   filled: true,
@@ -214,7 +215,7 @@ class _UpdateLivroState extends State<UpdateLivro> {
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 15,
             ),
 
             TextField(
@@ -247,7 +248,7 @@ class _UpdateLivroState extends State<UpdateLivro> {
 
 
             const SizedBox(
-              height: 10,
+              height: 15,
             ),
 
             TextField(
@@ -282,7 +283,7 @@ class _UpdateLivroState extends State<UpdateLivro> {
             ),
 
             const SizedBox(
-              height: 10,
+              height: 15,
             ),
 
             Card(
