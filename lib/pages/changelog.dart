@@ -9,50 +9,39 @@ class Changelog extends StatelessWidget {
           title: Text("Changelog"),
           elevation: 0.0,
         ),
-        body: ListView(children: <Widget>[
-          Card(
-            margin: EdgeInsets.fromLTRB(15, 12, 15, 5),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-              side: BorderSide(
-                color: Colors.grey[600].withOpacity(0.3),
-                width: 1,
+        body: ListView(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
+                child: Text("Versão Atual\n".toUpperCase(),
+                    style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: Theme.of(context).accentColor)),
               ),
-            ),
-            elevation: 2,
-            child: Container(
-              padding: EdgeInsets.fromLTRB(18, 0, 18, 5),
-              child: Text(
-                versaoNomeChangelog.changelogUltimaVersao,
-                style: TextStyle(
-                  fontSize: 18,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: Text(
+                  versaoNomeChangelog.changelogUltimaVersao,
+                  style: TextStyle(fontSize: 16),
                 ),
               ),
-            ),
-          ),
-
-          Divider(thickness: 2,),
-          Container(
-            padding: EdgeInsets.fromLTRB(20, 10, 20, 5),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Versões Anteriores: ",
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-                Text(
+              Divider(),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+                child: Text("Versões Anteriores\n".toUpperCase(),
+                    style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: Theme.of(context).accentColor)),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: Text(
                   versaoNomeChangelog.changelogsAntigos,
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
+                  style: TextStyle(fontSize: 16),
                 ),
-              ],
-            ),
-          ),
-        ]));
+              ),
+            ]));
   }
 }

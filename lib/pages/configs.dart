@@ -1,4 +1,4 @@
-import 'package:booktrackerv2/pages/about.dart';
+import 'package:booktrackerv2/pages/appInfo.dart';
 import 'package:booktrackerv2/pages/changelog.dart';
 import 'package:booktrackerv2/util/theme.dart';
 import 'package:flutter/material.dart';
@@ -27,45 +27,58 @@ class _ConfigsState extends State<Configs> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Card(
+                elevation: 1,
+                margin: const EdgeInsets.fromLTRB(16, 20, 16, 25),
+                color: Theme.of(context).accentColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(15)),
                 ),
-                elevation: 1.0,
-                margin: const EdgeInsets.fromLTRB(16, 20, 16, 30),
-                color: Theme.of(context).accentColor,
                 child: ListTile(
                   title: Text(
-                        versaoNomeChangelog.nomeApp +
-                        " Fschmtz " +
-                        versaoNomeChangelog.versaoApp,
+                    versaoNomeChangelog.nomeApp + " " + versaoNomeChangelog.versaoApp,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 17.5, color: Colors.black),
                   ),
                 ),
               ),
+              const Divider(),
               ListTile(
-                leading: Icon(Icons.info_outline,),
+                leading: SizedBox(height: 0.1,),
+                title:    Text(
+                    "Sobre".toUpperCase(),
+                    style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: Theme.of(context).accentColor)
+                ),
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.info_outline,
+                ),
                 title: Text(
-                  "Sobre",
-                  style: TextStyle(fontSize: 17.5),
+                  "App Info",
+                  style: TextStyle(fontSize: 16),
                 ),
                 onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute<void>(
-                        builder: (BuildContext context) => About(),
+                        builder: (BuildContext context) => AppInfo(),
                         fullscreenDialog: true,
                       ));
                 },
               ),
               const SizedBox(
-                height: 10,
+                height: 10.0,
               ),
               ListTile(
-                leading: Icon(Icons.text_snippet_outlined),
+                leading: Icon(
+                  Icons.text_snippet_outlined,
+                ),
                 title: Text(
                   "Changelog",
-                  style: TextStyle(fontSize: 17.5),
+                  style: TextStyle(fontSize: 16),
                 ),
                 onTap: () {
                   Navigator.push(
@@ -76,33 +89,24 @@ class _ConfigsState extends State<Configs> {
                       ));
                 },
               ),
-              const SizedBox(
-                height: 35.0,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(17, 0, 5, 0),
-                child: Text(
-                    "Geral:",
+              const Divider(),
+              ListTile(
+                leading: SizedBox(height: 0.1,),
+                title:    Text(
+                    "Geral".toUpperCase(),
                     style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      color: Theme.of(context)
-                          .textTheme
-                          .headline6
-                          .color
-                          .withOpacity(0.7),)
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: Theme.of(context).accentColor)
                 ),
               ),
-              const SizedBox(
-                height: 15.0,
-              ),
-
               Consumer<ThemeNotifier>(
                 builder: (context, notifier, child) => SwitchListTile(
                     title: Text(
                       "Tema Escuro",
-                      style: TextStyle(fontSize: 17.5),
+                      style: TextStyle(fontSize: 16),
                     ),
+                    secondary: Icon(Icons.color_lens_outlined),
                     activeColor: Colors.blue,
                     value: notifier.darkTheme,
                     onChanged: (value) {
