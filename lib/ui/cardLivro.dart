@@ -36,8 +36,8 @@ class _CardLivroState extends State<CardLivro> {
     showModalBottomSheet(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-              topLeft: const Radius.circular(15.0),
-              topRight: const Radius.circular(15.0)),
+              topLeft: const Radius.circular(20.0),
+              topRight: const Radius.circular(20.0)),
         ),
         isScrollControlled: true,
         context: context,
@@ -47,23 +47,16 @@ class _CardLivroState extends State<CardLivro> {
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
               child: Wrap(
                 children: <Widget>[
-                  Card(
-                     color: Theme.of(context).bottomSheetTheme.modalBackgroundColor,
-                    margin: EdgeInsets.fromLTRB(50, 15, 50, 25),
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(color: Colors.grey[700], width: 1),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: ListTile(
-                      contentPadding: EdgeInsets.fromLTRB(10, 3, 10, 3),
-                      title: Text(
-                        widget.livro.nome,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500),
-                      ),
+                  ListTile(
+                    contentPadding: EdgeInsets.fromLTRB(10, 3, 10, 3),
+                    title: Text(
+                      widget.livro.nome,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
+                  const Divider(),
                   Visibility(
                     visible: widget.paginaAtual != 0,
                     child: ListTile(
@@ -83,9 +76,7 @@ class _CardLivroState extends State<CardLivro> {
                   ),
                   Visibility(
                     visible: widget.paginaAtual != 0,
-                    child: Divider(
-                      thickness: 1,
-                    ),
+                    child: const Divider(),
                   ),
                   Visibility(
                     visible: widget.paginaAtual != 1,
@@ -106,9 +97,7 @@ class _CardLivroState extends State<CardLivro> {
                   ),
                   Visibility(
                     visible: widget.paginaAtual != 1,
-                    child: Divider(
-                      thickness: 1,
-                    ),
+                    child: const Divider(),
                   ),
                   Visibility(
                     visible: widget.paginaAtual != 2,
@@ -129,9 +118,7 @@ class _CardLivroState extends State<CardLivro> {
                   ),
                   Visibility(
                     visible: widget.paginaAtual != 2,
-                    child: Divider(
-                      thickness: 1,
-                    ),
+                    child: const Divider(),
                   ),
                   ListTile(
                     leading: Icon(Icons.edit_outlined,
@@ -154,9 +141,7 @@ class _CardLivroState extends State<CardLivro> {
                           ));
                     },
                   ),
-                  Divider(
-                    thickness: 1,
-                  ),
+                  const Divider(),
                   ListTile(
                     leading: Icon(Icons.delete_outline_outlined,
                         color: Theme.of(context).hintColor),

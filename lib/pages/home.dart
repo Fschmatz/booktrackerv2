@@ -64,8 +64,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     showModalBottomSheet(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-              topLeft: const Radius.circular(15.0),
-              topRight: const Radius.circular(15.0)),
+              topLeft: const Radius.circular(20.0),
+              topRight: const Radius.circular(20.0)),
         ),
         isScrollControlled: true,
         context: context,
@@ -75,25 +75,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
               child: Wrap(
                 children: <Widget>[
-                  Card(
-                    color:
-                        Theme.of(context).bottomSheetTheme.modalBackgroundColor,
-                    margin: EdgeInsets.fromLTRB(50, 15, 50, 20),
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(color: Colors.grey[700], width: 1),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: ListTile(
-                      title: Text(
-                        versaoNomeChangelog.nomeApp +
-                            " " +
-                            versaoNomeChangelog.versaoApp,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.bold),
-                      ),
+                  ListTile(
+                    title: Text(
+                      versaoNomeChangelog.nomeApp,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
+                  const Divider(),
                   ListTile(
                     leading: Icon(Icons.book,
                         color: paginaAtual == 1
@@ -120,9 +110,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       }
                     },
                   ),
-                  Divider(
-                    thickness: 1,
-                  ),
+                  const Divider(),
                   ListTile(
                     leading: Icon(Icons.book,
                         color: paginaAtual == 0
@@ -150,9 +138,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       }
                     },
                   ),
-                  Divider(
-                    thickness: 1,
-                  ),
+                  const Divider(),
                   ListTile(
                     leading: Icon(Icons.book,
                         color: paginaAtual == 2
@@ -255,8 +241,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 splashRadius: 30,
                 icon: Icon(
                   Icons.add,
-                  size: 26,
-                  color: Theme.of(context).hintColor,
+                  color: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      .color
+                      .withOpacity(0.7),
                 ),
                 onPressed: () {
                   Navigator.push(
@@ -271,8 +260,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 splashRadius: 30,
                 icon: Icon(
                   Icons.menu,
-                  size: 25,
-                  color: Theme.of(context).hintColor,
+                  color: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      .color
+                      .withOpacity(0.7),
                 ),
                 onPressed: () {
                   openBottomMenuPages(context);
@@ -281,8 +273,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 splashRadius: 30,
                 icon: Icon(
                   Icons.settings_outlined,
-                  size: 24,
-                  color: Theme.of(context).hintColor,
+                  color: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      .color
+                      .withOpacity(0.7),
                 ),
                 onPressed: () {
                   Navigator.push(
