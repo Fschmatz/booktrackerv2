@@ -53,6 +53,7 @@ class _CardLivroState extends State<CardLivro> {
                       widget.livro.nome,
                       textAlign: TextAlign.center,
                       style: TextStyle(
+                        color: Theme.of(context).accentColor,
                           fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),

@@ -9,39 +9,46 @@ class Changelog extends StatelessWidget {
           title: Text("Changelog"),
           elevation: 0.0,
         ),
-        body: ListView(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
-                child: Text("Versão Atual\n".toUpperCase(),
-                    style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                        color: Theme.of(context).accentColor)),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: Text(
-                  versaoNomeChangelog.changelogUltimaVersao,
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
-              Divider(),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-                child: Text("Versões Anteriores\n".toUpperCase(),
-                    style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                        color: Theme.of(context).accentColor)),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: Text(
-                  versaoNomeChangelog.changelogsAntigos,
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
-            ]));
+        body: ListView(children: <Widget>[
+          ListTile(
+            leading: Icon(
+              Icons.article_outlined,
+            ),
+            title: Text("Versão Atual".toUpperCase(),
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: Theme.of(context).accentColor)),
+          ),
+          ListTile(
+            leading: SizedBox(
+              height: 0.1,
+            ),
+            title: Text(
+              versaoNomeChangelog.changelogUltimaVersao,
+              style: TextStyle(fontSize: 16),
+            ),
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(
+              Icons.article_outlined,
+            ),
+            title: Text("Versões Anteriores".toUpperCase(),
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: Theme.of(context).accentColor)),
+          ),
+          ListTile(
+            leading: SizedBox(
+              height: 0.1,
+            ),
+            title: Text(
+              versaoNomeChangelog.changelogsAntigos,
+              style: TextStyle(fontSize: 16),
+            ),
+          ),
+        ]));
   }
 }

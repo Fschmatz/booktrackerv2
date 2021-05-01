@@ -106,7 +106,7 @@ class _ConfigsState extends State<Configs> {
                       "Tema Escuro",
                       style: TextStyle(fontSize: 16),
                     ),
-                    secondary: Icon(Icons.color_lens_outlined),
+                    secondary: Icon(Icons.brightness_6_outlined),
                     activeColor: Colors.blue,
                     value: notifier.darkTheme,
                     onChanged: (value) {
