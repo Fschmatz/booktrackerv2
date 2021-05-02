@@ -50,7 +50,7 @@ class AppInfo extends StatelessWidget {
                       color: Theme.of(context).accentColor)),
             ),
             ListTile(
-              leading: Icon(Icons.perm_device_info_outlined),
+              leading: Icon(Icons.info_outline),
               title: Text(
                 "MARTELADO E REFEITO DO ZERO: 1 X POR ENQUANTO !!!( Por causa de um problema grave do SDK, culpa do Flutter! )\nVamos que Vamos, denovo!!!",
                 style: TextStyle(
@@ -82,7 +82,7 @@ class AppInfo extends StatelessWidget {
             ),
             ListTile(
               onTap: () {_launchGithub();},
-              leading: Icon(Icons.open_in_browser_outlined),
+              leading: Icon(Icons.open_in_new_outlined),
               title: Text("https://github.com/Fschmatz/booktrackerv2",
                   style: TextStyle(
                       decoration: TextDecoration.underline,
@@ -100,7 +100,7 @@ class AppInfo extends StatelessWidget {
                       color: Theme.of(context).accentColor)),
             ),
             ListTile(
-              leading: Icon(Icons.messenger_outline_outlined),
+              leading: Icon(Icons.messenger_outline),
               title: Text(
                 ''' 
 “The capacity to learn is a gift; 
