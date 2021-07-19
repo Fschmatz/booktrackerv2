@@ -25,7 +25,7 @@ class Changelog extends StatelessWidget {
               Icons.article_outlined,
             ),
             title: Text(
-              versaoNomeChangelog.changelogUltimaVersao,
+              VersaoNomeChangelog.changelogUltimaVersao,
               style: TextStyle(fontSize: 16),
             ),
           ),
@@ -46,7 +46,7 @@ class Changelog extends StatelessWidget {
             ),
 
             title: Text(
-              versaoNomeChangelog.changelogsAntigos,
+              VersaoNomeChangelog.changelogsAntigos,
               style: TextStyle(fontSize: 16),
             ),
           ),

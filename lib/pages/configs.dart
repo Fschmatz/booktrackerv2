@@ -31,11 +31,11 @@ class _ConfigsState extends State<Configs> {
                 margin: const EdgeInsets.fromLTRB(16, 20, 16, 25),
                 color: Theme.of(context).accentColor,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
                 ),
                 child: ListTile(
                   title: Text(
-                    versaoNomeChangelog.nomeApp + " " + versaoNomeChangelog.versaoApp,
+                    VersaoNomeChangelog.nomeApp + " " + VersaoNomeChangelog.versaoApp,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 17.5, color: Colors.black),
                   ),
@@ -74,7 +74,7 @@ class _ConfigsState extends State<Configs> {
               ),
               ListTile(
                 leading: Icon(
-                  Icons.text_snippet_outlined,
+                  Icons.article_outlined,
                 ),
                 title: Text(
                   "Changelog",

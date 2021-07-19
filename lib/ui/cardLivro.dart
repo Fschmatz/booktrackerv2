@@ -36,8 +36,8 @@ class _CardLivroState extends State<CardLivro> {
     showModalBottomSheet(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-              topLeft: const Radius.circular(20.0),
-              topRight: const Radius.circular(20.0)),
+              topLeft: const Radius.circular(30.0),
+              topRight: const Radius.circular(30.0)),
         ),
         isScrollControlled: true,
         context: context,
@@ -203,13 +203,10 @@ class _CardLivroState extends State<CardLivro> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      customBorder: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
       onTap: openBottomMenuBookSettings,
       child: Container(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(4, 5, 4, 8),
+            padding: const EdgeInsets.fromLTRB(14, 10, 14, 8),
             child: Column(
               children: [
                 Row(
@@ -225,9 +222,9 @@ class _CardLivroState extends State<CardLivro> {
                               child: Card(
                                 elevation: 2,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(4),
+                                  borderRadius: BorderRadius.circular(5),
                                   side: BorderSide(
-                                    color: Colors.grey[700].withOpacity(0.5),
+                                    color: Colors.grey[800],
                                     width: 1,
                                   ),
                                 ),
@@ -241,14 +238,14 @@ class _CardLivroState extends State<CardLivro> {
                             : Card(
                                 elevation: 2,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(4),
+                                  borderRadius: BorderRadius.circular(5),
                                   side: BorderSide(
-                                    color: Colors.grey[700].withOpacity(0.5),
+                                    color: Colors.grey[800],
                                     width: 1,
                                   ),
                                 ),
                                 child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(4),
+                                  borderRadius: BorderRadius.circular(5),
                                   child: Image.memory(
                                     widget.livro.capa,
                                     height: 105,
@@ -269,7 +266,7 @@ class _CardLivroState extends State<CardLivro> {
                             Text(
                               widget.livro.nome,
                               style: TextStyle(
-                                fontSize: 16.5,
+                                fontSize: 16,
                               ),
                               textAlign: TextAlign.left,
                             ),

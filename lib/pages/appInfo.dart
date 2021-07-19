@@ -32,7 +32,7 @@ class AppInfo extends StatelessWidget {
           ),
           const SizedBox(height: 15),
           Center(
-            child: Text((versaoNomeChangelog.nomeApp + " Fschmtz " + versaoNomeChangelog.versaoApp),
+            child: Text((VersaoNomeChangelog.nomeApp + " Fschmtz " + VersaoNomeChangelog.versaoApp),
                 style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w700,
@@ -109,7 +109,7 @@ the ability to learn is a skill;
 the willingness to learn is a choice.” 
 – Brian Herbert             
       ''',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+              style: TextStyle(fontSize: 16),
             ),
           ),
         ]));

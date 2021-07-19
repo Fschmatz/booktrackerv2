@@ -27,7 +27,6 @@ class LivroDao {
     return _database;
   }
 
-  // abre o banco de dados e o cria se ele não existir
   _initDatabase() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, _databaseName);
@@ -36,7 +35,6 @@ class LivroDao {
         onCreate: _onCreate);
   }
 
-  // Código SQL para criar o banco de dados e a tabela
   Future _onCreate(Database db, int version) async {
     await db.execute('''
           CREATE TABLE $table (
@@ -64,7 +62,6 @@ class LivroDao {
     Database db = await instance.database;
     return await db.rawQuery('SELECT * FROM $table WHERE $columnLido=$estado ORDER BY $columnNome');
   }
-
 
   Future<int> queryRowCount() async {
     Database db = await instance.database;
