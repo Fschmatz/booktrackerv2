@@ -178,17 +178,21 @@ class _UpdateLivroState extends State<UpdateLivro> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(
-              height: 5,
+      body: ListView(
+        children: [
+          ListTile(
+            leading: SizedBox(
+              height: 0.1,
             ),
-
-            TextField(
+            title: Text("Nome".toUpperCase(),
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: Theme.of(context).accentColor)),
+          ),
+          ListTile(
+            leading: Icon(Icons.article),
+            title: TextField(
               minLines: 1,
               maxLines: 2,
               maxLength: 75,
@@ -198,27 +202,29 @@ class _UpdateLivroState extends State<UpdateLivro> {
               controller: customControllerNomeLivro,
               onEditingComplete: () => node.nextFocus(),
               decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.article,size: 22),
-                  hintText: "Nome do Livro",
-                  helperText: "* Obrigatório",
-                  contentPadding: new EdgeInsets.symmetric(
-                      vertical: 8.0, horizontal: 10.0),
-                  filled: true,
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(),
-                      borderRadius: BorderRadius.circular(8.0)),
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(),
-                      borderRadius: BorderRadius.circular(8.0))),
+                helperText: "* Obrigatório",
+                filled: true,
+              ),
               style: TextStyle(
                 fontSize: 17,
               ),
             ),
-            const SizedBox(
-              height: 15,
+          ),
+          ListTile(
+            leading: SizedBox(
+              height: 0.1,
             ),
-
-            TextField(
+            title: Text("Autor".toUpperCase(),
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: Theme.of(context).accentColor)),
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.contact_page_outlined,
+            ),
+            title: TextField(
               minLines: 1,
               maxLines: 2,
               maxLength: 50,
@@ -227,33 +233,28 @@ class _UpdateLivroState extends State<UpdateLivro> {
               keyboardType: TextInputType.name,
               controller: customControllerAutor,
               decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.contact_page_outlined,
-                    size: 24,
-                  ),
-                  hintText: "Autor",
-                  contentPadding: new EdgeInsets.symmetric(
-                      vertical: 8.0, horizontal: 10.0),
-                  filled: true,
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(),
-                      borderRadius: BorderRadius.circular(8.0)),
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(),
-                      borderRadius: BorderRadius.circular(8.0))),
+                filled: true,
+              ),
               style: TextStyle(
                 fontSize: 17,
               ),
             ),
-
-
-            const SizedBox(
-              height: 15,
+          ),
+          ListTile(
+            leading: SizedBox(
+              height: 0.1,
             ),
-
-            TextField(
+            title: Text("Nº de Páginas".toUpperCase(),
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: Theme.of(context).accentColor)),
+          ),
+          ListTile(
+            leading: Icon(Icons.book),
+            title: TextField(
               inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.allow( // RegExp(r'^(\d+)?\.?\d{0,2}'))
+                FilteringTextInputFormatter.allow(
                     RegExp(r'^(\d+)?\d{0,2}'))
               ],
               minLines: 1,
@@ -261,78 +262,74 @@ class _UpdateLivroState extends State<UpdateLivro> {
               maxLength: 5,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               textCapitalization: TextCapitalization.sentences,
-              keyboardType:
-              TextInputType.numberWithOptions(decimal: false),
+              keyboardType: TextInputType.numberWithOptions(decimal: false),
               controller: customControllerPaginas,
               onEditingComplete: () => node.nextFocus(),
               decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.book,size: 22),
-                  hintText: "Nº de Páginas",
-                  contentPadding: new EdgeInsets.symmetric(
-                      vertical: 8.0, horizontal: 10.0),
-                  filled: true,
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(),
-                      borderRadius: BorderRadius.circular(8.0)),
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(),
-                      borderRadius: BorderRadius.circular(8.0))),
+                filled: true,
+              ),
               style: TextStyle(
                 fontSize: 17,
               ),
             ),
-
-            const SizedBox(
-              height: 15,
+          ),
+          ListTile(
+            leading: SizedBox(
+              height: 0.1,
             ),
-
-            Card(
+            title: Text("Capa".toUpperCase(),
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: Theme.of(context).accentColor)),
+          ),
+          ListTile(
+            leading: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 38, 0, 0),
+              child: Icon(Icons.image),
+            ),
+            title: Card(
                 color: Theme.of(context).inputDecorationTheme.fillColor,
-                margin: EdgeInsets.all(0),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(10),
                   side: BorderSide(
-                    color: Theme.of(context).canvasColor,
-                    width: 1.0,
+                    color: Colors.grey[800],
+                    width: 1,
                   ),
                 ),
                 elevation: 0,
                 child: InkWell(
                   onTap: pickGallery,
                   onTapDown: _storePosition,
-                  onLongPress:  _showPopupMenuRemoverCapa,
+                  onLongPress: _showPopupMenuRemoverCapa,
                   customBorder: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   child: Padding(
-                    //padding: const EdgeInsets.all(8),
                     padding: const EdgeInsets.fromLTRB(0, 4, 3, 4),
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Card(
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4),
+                              borderRadius: BorderRadius.circular(5),
                               side: BorderSide(
-                                color: Theme.of(context).canvasColor,
-                                width: 1.0,
+                                color: Colors.grey[800],
+                                width: 1,
                               ),
                             ),
                             elevation: 0,
-                            child: widget.livro.capa == null
+                            child: capa == null
                                 ? Container(
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4)),
+                                  borderRadius: BorderRadius.circular(5)),
                               width: 70,
                               height: 105,
-                              child: Icon(
-                                Icons.image,
-                              ),
                             )
                                 : ClipRRect(
-                              borderRadius: BorderRadius.circular(4),
-                              child: Image.memory(
-                                widget.livro.capa,
+                              borderRadius: BorderRadius.circular(5),
+                              child: Image.file(
+                                capa,
                                 width: 70,
                                 height: 105,
                                 fit: BoxFit.fill,
@@ -342,21 +339,22 @@ class _UpdateLivroState extends State<UpdateLivro> {
                           const SizedBox(
                             width: 1,
                           ),
-                          Text("Editar Capa", style: TextStyle(fontSize: 17, color: Theme.of(context).hintColor),),
+                          Text(
+                            "Selecionar Capa",
+                            style: TextStyle(fontSize: 17,color: Theme.of(context).hintColor),
+                          ),
                           const SizedBox(
                             width: 1,
                           ),
                         ]),
                   ),
                 )),
+          ),
 
-            const SizedBox(
-              height: 100,
-            ),
-
-
-          ],
-        ),
+          const SizedBox(
+            height: 100,
+          ),
+        ],
       ),
 
     );

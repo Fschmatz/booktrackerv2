@@ -22,41 +22,27 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   List<Map<String, dynamic>> listaLivros = [];
   final dbLivro = LivroDao.instance;
   int paginaAtual;
-  AnimationController _controller;
-  Animation _animation;
+  bool loading = true;
 
   @override
   void initState() {
     paginaAtual = listPages[1].id;
     getAllLivros();
     super.initState();
-
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 550),
-      vsync: this,
-    );
-    _animation = Tween(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(_controller);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 
   Future<void> getAllLivros() async {
     var resp = await dbLivro.queryAllLivros(paginaAtual);
     setState(() {
       listaLivros = resp;
+      loading = false;
     });
   }
 
-  Future<void> refresh() {
-    _controller.reset();
-    getAllLivros();
+  void refresh(int index) {
+    listaLivros.remove(listaLivros[index]);
+    //loading = true;
+    //getAllLivros();
   }
 
   //BOTTOM MENU
@@ -79,8 +65,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     title: Text(
                       VersaoNomeChangelog.nomeApp,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
                   const Divider(),
@@ -104,7 +90,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     onTap: () {
                       Navigator.of(context).pop();
                       if (paginaAtual != 1) {
-                        _controller.reset();
                         paginaAtual = 1;
                         getAllLivros();
                       }
@@ -132,7 +117,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       Navigator.of(context).pop();
 
                       if (paginaAtual != 0) {
-                        _controller.reset();
                         paginaAtual = 0;
                         getAllLivros();
                       }
@@ -160,7 +144,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     onTap: () {
                       Navigator.of(context).pop();
                       if (paginaAtual != 2) {
-                        _controller.reset();
                         paginaAtual = 2;
                         getAllLivros();
                       }
@@ -175,8 +158,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    _controller.forward();
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -195,39 +176,43 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           ],
         ),
       ),
-      body: ListView(children: <Widget>[
-        FadeTransition(
-          opacity: _animation,
-          child: ListView.separated(
-            key: UniqueKey(),
-            separatorBuilder: (BuildContext context, int index) =>
-                const SizedBox(
-              height: 8,
-            ),
-            physics: ScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: listaLivros.length,
-            itemBuilder: (context, int index) {
-              return CardLivro(
-                key: UniqueKey(),
-                livro: new Livro(
-                  id: listaLivros[index]['idLivro'],
-                  nome: listaLivros[index]['nome'],
-                  numPaginas: listaLivros[index]['numPaginas'],
-                  autor: listaLivros[index]['autor'],
-                  lido: listaLivros[index]['estado'],
-                  capa: listaLivros[index]['capa'],
+      body: AnimatedSwitcher(
+        duration: Duration(milliseconds: 500),
+        child: loading
+            ? Center(
+                child: SizedBox.shrink(),
+              )
+            : ListView(children: <Widget>[
+                ListView.separated(
+                  key: UniqueKey(),
+                  separatorBuilder: (BuildContext context, int index) =>
+                      const SizedBox(
+                    height: 8,
+                  ),
+                  physics: ScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: listaLivros.length,
+                  itemBuilder: (context, int index) {
+                    return CardLivro(
+                      key: UniqueKey(),
+                      livro: new Livro(
+                        id: listaLivros[index]['idLivro'],
+                        nome: listaLivros[index]['nome'],
+                        numPaginas: listaLivros[index]['numPaginas'],
+                        autor: listaLivros[index]['autor'],
+                        lido: listaLivros[index]['estado'],
+                        capa: listaLivros[index]['capa'],
+                      ),
+                      refreshLista: refresh,
+                      paginaAtual: paginaAtual,
+                    );
+                  },
                 ),
-                refreshLista: refresh,
-                paginaAtual: paginaAtual,
-              );
-            },
-          ),
-        ),
-        const SizedBox(
-          height: 20,
-        )
-      ]),
+                const SizedBox(
+                  height: 20,
+                )
+              ]),
+      ),
 
       //BOTTOMBAR
       bottomNavigationBar: BottomAppBar(

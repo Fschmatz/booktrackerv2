@@ -2,60 +2,89 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 //CLARO
-    ThemeData light = ThemeData(
+ThemeData light = ThemeData(
     brightness: Brightness.light,
-    primaryColor: Color(0xFFF1F1F9),
+    primaryColor: Color(0xFFFFFFFF),
     accentColor: Colors.green[700],
     canvasColor: Colors.black,
-    scaffoldBackgroundColor: Color(0xFFF1F1F9),
+    scaffoldBackgroundColor: Color(0xFFFFFFFF),
     cardTheme: CardTheme(
-      color: Color(0xFFF5F5FE), //0xFFFAFAFC
+      color: Color(0xFFFAFAFA), //0xFFFAFAFC
     ),
     dialogTheme: DialogTheme(
-      backgroundColor: Color(0xFFF9F9FF),
+      backgroundColor: Color(0xFFFFFFFF),
     ),
     inputDecorationTheme: InputDecorationTheme(
-        fillColor: Color(0xFFF0F0F6),
-        labelStyle: TextStyle(color: Colors.black),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.green)),
-        enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFF282828)))),
 
-    bottomAppBarColor: Color(0xFFE6E6EF),
-    bottomSheetTheme: BottomSheetThemeData(
-        modalBackgroundColor: Color(0xFFF5F5FE))
-    );
+        fillColor: Color(0xFFFAFAFA),
+        focusColor: Colors.green[700],
+        contentPadding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.green[700],
+          ),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.grey[800],
+            ),
+            borderRadius: BorderRadius.circular(10.0)),
+        border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.grey[800],
+            ),
+            borderRadius: BorderRadius.circular(10.0))),
+    bottomAppBarColor: Color(0xFFE9E9E9),
+    bottomSheetTheme:
+        BottomSheetThemeData(modalBackgroundColor: Color(0xFFFFFFFF)));
 
 //ESCURO
-    ThemeData dark = ThemeData(
+ThemeData dark = ThemeData(
     brightness: Brightness.dark,
     primaryColor: Color(0xFF202022),
     accentColor: Color(0xFF66BF72),
     scaffoldBackgroundColor: Color(0xFF202022),
     canvasColor: Colors.black,
-
     cardTheme: CardTheme(
       color: Color(0xFF2B2B2D),
     ),
-
     dialogTheme: DialogTheme(
       backgroundColor: Color(0xFF2B2B2D),
     ),
-
     inputDecorationTheme: InputDecorationTheme(
+        fillColor: Color(0xFF353537),
+        //labelStyle: TextStyle(color: Colors.white),
+        focusColor: Color(0xFF66BF72),
+        contentPadding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Color(0xFF66BF72),
+          ),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.grey[800],
+            ),
+            borderRadius: BorderRadius.circular(10.0)),
+        border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.grey[800],
+            ),
+            borderRadius: BorderRadius.circular(10.0))),
+
+    /* inputDecorationTheme: InputDecorationTheme(
         fillColor: Color(0xFF353537),
         labelStyle: TextStyle(color: Colors.white),
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xFF66BF72))),
         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFF28282A)))),
+            borderSide: BorderSide(color: Color(0xFF28282A)))),*/
 
     bottomAppBarColor: Color(0xFF161618),
     bottomSheetTheme:
-      BottomSheetThemeData(modalBackgroundColor: Color(0xFF202022))
-
-    );
+        BottomSheetThemeData(modalBackgroundColor: Color(0xFF202022)));
 
 class ThemeNotifier extends ChangeNotifier {
   final String key = 'valorTema';
