@@ -17,7 +17,7 @@ class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
 }
 
-class _HomeState extends State<Home> with TickerProviderStateMixin {
+class _HomeState extends State<Home>{
   List<Pages> listPages = new Pages().getListPages();
   List<Map<String, dynamic>> listaLivros = [];
   final dbLivro = LivroDao.instance;

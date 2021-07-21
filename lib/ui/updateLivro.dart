@@ -206,7 +206,7 @@ class _UpdateLivroState extends State<UpdateLivro> {
                 filled: true,
               ),
               style: TextStyle(
-                fontSize: 17,
+                fontSize: 16,
               ),
             ),
           ),
@@ -236,7 +236,7 @@ class _UpdateLivroState extends State<UpdateLivro> {
                 filled: true,
               ),
               style: TextStyle(
-                fontSize: 17,
+                fontSize: 16,
               ),
             ),
           ),
@@ -269,7 +269,7 @@ class _UpdateLivroState extends State<UpdateLivro> {
                 filled: true,
               ),
               style: TextStyle(
-                fontSize: 17,
+                fontSize: 16,
               ),
             ),
           ),
@@ -341,7 +341,7 @@ class _UpdateLivroState extends State<UpdateLivro> {
                           ),
                           Text(
                             "Selecionar Capa",
-                            style: TextStyle(fontSize: 17,color: Theme.of(context).hintColor),
+                            style: TextStyle(fontSize: 16,color: Theme.of(context).hintColor),
                           ),
                           const SizedBox(
                             width: 1,

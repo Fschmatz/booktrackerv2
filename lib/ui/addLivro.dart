@@ -162,7 +162,6 @@ class _AddLivroState extends State<AddLivro> {
         ],
       ),
       body: ListView(
-
         children: [
           ListTile(
             leading: SizedBox(
@@ -190,7 +189,7 @@ class _AddLivroState extends State<AddLivro> {
                   filled: true,
                  ),
               style: TextStyle(
-                fontSize: 17,
+                fontSize: 16,
               ),
             ),
           ),
@@ -220,7 +219,7 @@ class _AddLivroState extends State<AddLivro> {
                   filled: true,
                   ),
               style: TextStyle(
-                fontSize: 17,
+                fontSize: 16,
               ),
             ),
           ),
@@ -253,7 +252,7 @@ class _AddLivroState extends State<AddLivro> {
                   filled: true,
                   ),
               style: TextStyle(
-                fontSize: 17,
+                fontSize: 16,
               ),
             ),
           ),
@@ -325,7 +324,7 @@ class _AddLivroState extends State<AddLivro> {
                           ),
                           Text(
                             "Selecionar Capa",
-                            style: TextStyle(fontSize: 17,color: Theme.of(context).hintColor),
+                            style: TextStyle(fontSize: 16,color: Theme.of(context).hintColor),
                           ),
                           const SizedBox(
                             width: 1,
