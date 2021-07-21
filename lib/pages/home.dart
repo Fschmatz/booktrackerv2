@@ -177,7 +177,6 @@ class _HomeState extends State<Home>{
       ),
       body: ListView(children: <Widget>[
               ListView.separated(
-                key: UniqueKey(),
                 separatorBuilder: (BuildContext context, int index) =>
                     const SizedBox(
                   height: 8,
