@@ -65,18 +65,12 @@ class _PgEstatisticasState extends State<PgEstatisticas> {
         child: CircularProgressIndicator(color: Theme.of(context).accentColor,),
       ) : ListView(
         children: [
-          cardEstatisticas('Quantidade de Livros', livrosLendo, livrosParaLer , livrosLidos,accent),
-          const SizedBox(
-            height: 10,
-          ),
-          cardEstatisticas('Quantidade de Páginas', paginasLendo, paginasParaLer , paginasLidos, accent),
-          const SizedBox(
-            height: 10,
-          ),
-          cardAutores('Quantidade de Autores', quantAutores, accent),
-          const SizedBox(
-            height: 50,
-          )
+          cardEstatisticas('Livros', livrosLendo, livrosParaLer , livrosLidos,accent),
+         const Divider(),
+          cardEstatisticas('Páginas', paginasLendo, paginasParaLer , paginasLidos, accent),
+          const Divider(),
+          cardAutores('Autores', quantAutores, accent),
+          const SizedBox(height: 50,),
         ],
       ),
     );
@@ -88,39 +82,39 @@ Widget cardEstatisticas(String tituloCard,int? valorLendo, int? valorParaLer, in
   TextStyle styleTrailing = TextStyle(fontSize: 16);
   int soma = (valorLidos! + valorParaLer!  + valorLendo! );
 
-  return Card(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(Radius.circular(15)),
-    ),
-    elevation: 1,
-    margin: const EdgeInsets.fromLTRB(16, 10, 16, 0),
-    child: Column(
-      children: [
-        ListTile(
-          title: Text(tituloCard,style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: accent ),),
+  return Column(
+    children: [
+      ListTile(
+        leading: SizedBox(
+          height: 0.1,
         ),
-        ListTile(
-          leading: Icon(Icons.book_outlined),
-          title: Text('Lendo'),
-          trailing: Text(valorLendo.toString(),style: styleTrailing),
-        ),
-        ListTile(
-          leading: Icon(Icons.bookmark_outline),
-          title: Text('Para Ler'),
-          trailing: Text(valorParaLer.toString(),style: styleTrailing),
-        ),
-        ListTile(
-          leading: Icon(Icons.done_outlined),
-          title: Text('Lidos'),
-          trailing: Text(valorLidos.toString(),style: styleTrailing),
-        ),
-        ListTile(
-          leading: SizedBox.shrink(),
-          title: Text('Total'),
-          trailing: Text(soma.toString(),style: styleTrailing),
-        ),
-      ],
-    ),
+        title: Text(tituloCard.toUpperCase(),
+            style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: accent)),
+      ),
+      ListTile(
+        leading: Icon(Icons.book_outlined),
+        title: Text('Lendo'),
+        trailing: Text(valorLendo.toString(),style: styleTrailing),
+      ),
+      ListTile(
+        leading: Icon(Icons.bookmark_outline),
+        title: Text('Para Ler'),
+        trailing: Text(valorParaLer.toString(),style: styleTrailing),
+      ),
+      ListTile(
+        leading: Icon(Icons.done_outlined),
+        title: Text('Lidos'),
+        trailing: Text(valorLidos.toString(),style: styleTrailing),
+      ),
+      ListTile(
+        leading: SizedBox.shrink(),
+        title: Text('Total'),
+        trailing: Text(soma.toString(),style: styleTrailing),
+      ),
+    ],
   );
 }
 
@@ -131,24 +125,24 @@ Widget cardAutores(String tituloCard,int? valor, Color accent){
   //BANCO CONTA O VALOR VAZIO, QUE ESTÁ CONFIGURADO PARA O LIVRO SEM AUTOR
   int valorCalculado = valor == 0 ? 0 : (valor! - 1);
 
-  return Card(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(Radius.circular(15)),
-    ),
-    elevation: 1,
-    margin: const EdgeInsets.fromLTRB(16, 10, 16, 0),
-    child: Column(
-      children: [
-        ListTile(
-          title: Text(tituloCard,style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700,color: accent ),),
+  return Column(
+    children: [
+      ListTile(
+        leading: SizedBox(
+          height: 0.1,
         ),
-        ListTile(
-          leading: Icon(Icons.person_outline_outlined),
-          title: Text('Autores'),
-          trailing: Text(valorCalculado.toString(),style: styleTrailing),
-        ),
+        title: Text(tituloCard.toUpperCase(),
+            style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: accent)),
+      ),
+      ListTile(
+        leading: Icon(Icons.person_outline_outlined),
+        title: Text('Autores'),
+        trailing: Text(valorCalculado.toString(),style: styleTrailing),
+      ),
 
-      ],
-    ),
+    ],
   );
 }

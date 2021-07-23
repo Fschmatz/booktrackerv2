@@ -55,7 +55,7 @@ class LivroDao {
     return await db.query(table);
   }
 
-  Future<List<Map<String, dynamic>>> queryAllLivros(int estado) async {
+  Future<List<Map<String, dynamic>>> queryAllLivrosEstado(int estado) async {
     Database db = await instance.database;
     return await db.rawQuery('SELECT * FROM $table WHERE $columnLido=$estado ORDER BY $columnNome');
   }

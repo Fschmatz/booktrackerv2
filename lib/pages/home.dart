@@ -3,7 +3,6 @@ import 'package:booktrackerv2/pages/pgEstatisticas.dart';
 import 'package:booktrackerv2/pages/pgLendo.dart';
 import 'package:booktrackerv2/pages/pgLidos.dart';
 import 'package:booktrackerv2/pages/pgParaLer.dart';
-import 'package:booktrackerv2/pages/pgNovoLivro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -16,7 +15,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
-  bool verFab = true;
   List<Widget> _pageList = [PgLendo(),PgParaLer(),PgLidos(),PgEstatisticas()];
 
   @override
@@ -108,11 +106,6 @@ class _HomeState extends State<Home> {
               onTabChange: (index) {
                 setState(() {
                   _currentIndex = index;
-                  if (index == 3) {
-                    verFab = false;
-                  } else {
-                    verFab = true;
-                  }
                 });
               },
             ),

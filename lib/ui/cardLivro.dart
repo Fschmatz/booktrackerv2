@@ -218,7 +218,6 @@ class _CardLivroState extends State<CardLivro> {
   Widget build(BuildContext context) {
 
     return InOutAnimation(
-      autoPlay: InOutAnimationStatus.None,
       key: inOutAnimation,
       inDefinition: FadeInAnimation(),
       outDefinition: FadeOutAnimation(),

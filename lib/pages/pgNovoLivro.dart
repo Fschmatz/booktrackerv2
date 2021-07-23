@@ -174,7 +174,7 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
                     color: Theme.of(context).accentColor)),
           ),
           ListTile(
-            leading: Icon(Icons.text_snippet_outlined),
+            leading: Icon(Icons.notes_outlined),
             title: TextField(
               minLines: 1,
               maxLines: 2,
@@ -186,7 +186,6 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
               onEditingComplete: () => node.nextFocus(),
               decoration: InputDecoration(
                   helperText: "* Obrigatório",
-                  filled: true,
                  ),
               style: TextStyle(
                 fontSize: 16,
@@ -215,9 +214,6 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
               controller: customControllerAutor,
-              decoration: InputDecoration(
-                  filled: true,
-                  ),
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -248,9 +244,6 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
               keyboardType: TextInputType.numberWithOptions(decimal: false),
               controller: customControllerPaginas,
               onEditingComplete: () => node.nextFocus(),
-              decoration: InputDecoration(
-                  filled: true,
-                  ),
               style: TextStyle(
                 fontSize: 16,
               ),
