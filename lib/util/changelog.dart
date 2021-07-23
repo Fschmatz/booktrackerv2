@@ -1,15 +1,20 @@
-class VersaoNomeChangelog{
+class Changelog{
 
-  static String versaoApp = "4.5.0";
+  static String versaoApp = "5.0.0";
   static String nomeApp = "BookTracker";
 
   static String changelogUltimaVersao = '''
-4.5.0
-- Animações Alteradas
-- Alterações UI
+5.0.0
+- Nova Home
+- Flutter 2.0
+- Página de Estatísticas
 ''';
 
   static String changelogsAntigos = '''
+4.5.0
+- Animações Alteradas
+- Alterações UI
+
 4.4.4
 - Removidos Cards da Home
 - Small Fix

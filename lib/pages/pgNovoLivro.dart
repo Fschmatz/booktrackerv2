@@ -1,74 +1,67 @@
 import 'dart:io';
-import 'package:booktrackerv2/class/livro.dart';
 import 'package:booktrackerv2/db/livroDao.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
 
-class UpdateLivro extends StatefulWidget {
+class PgNovoLivro extends StatefulWidget {
   @override
-  _UpdateLivroState createState() => _UpdateLivroState();
+  _PgNovoLivroState createState() => _PgNovoLivroState();
 
-  Function() refreshLista;
-  Livro livro;
-  UpdateLivro({Key key, this.refreshLista,this.livro}) : super(key: key);
+  int paginaAtual;
+  //Function() refreshLista;
+
+  PgNovoLivro({Key? key, required this.paginaAtual}) : super(key: key);
 }
 
-class _UpdateLivroState extends State<UpdateLivro> {
+class _PgNovoLivroState extends State<PgNovoLivro> {
   final dbLivro = LivroDao.instance;
 
   TextEditingController customControllerNomeLivro = TextEditingController();
   TextEditingController customControllerPaginas = TextEditingController();
   TextEditingController customControllerAutor = TextEditingController();
-  FocusNode inputFieldNode;
+  late FocusNode inputFieldNode;
 
   //IMAGEM
   final imagePicker = ImagePicker();
-  File capa;
-  bool capaFoiEditada = false;
+  File? capa;
 
   pickGallery() async {
-    final pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
+    final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
 
-    File compressedFile = await FlutterNativeImage.compressImage(pickedFile.path, quality: 95,
-        targetWidth: 325, targetHeight: 475);
+    File? compressedFile = await FlutterNativeImage.compressImage(
+        pickedFile!.path,
+        quality: 95,
+        targetWidth: 325,
+        targetHeight: 475);
 
     if (compressedFile == null) {
-      return;
+      return 0;
     } else {
       setState(() {
-        capaFoiEditada = true;
         capa = compressedFile;
-        widget.livro.capa = capa.readAsBytesSync();
       });
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    customControllerNomeLivro.text = widget.livro.nome;
-    customControllerPaginas.text = widget.livro.numPaginas.toString();
-    customControllerAutor.text = widget.livro.autor;
-  }
-
-
-  void _atualizarLivro(int id) async {
-    final dbLivro = LivroDao.instance;
+  //AUTOR, PAGINAS E CAPA PODEM SER NULO
+  void _salvarLivro() async {
     Map<String, dynamic> row = {
-      LivroDao.columnIdLivro: id,
       LivroDao.columnNome: customControllerNomeLivro.text,
-      LivroDao.columnNumPaginas: customControllerPaginas.text,
+      LivroDao.columnNumPaginas: customControllerPaginas.text.isEmpty
+          ? 0
+          : int.parse(customControllerPaginas.text),
       LivroDao.columnAutor: customControllerAutor.text,
-      LivroDao.columnCapa : capaFoiEditada ? capa.readAsBytesSync() : widget.livro.capa,
+      LivroDao.columnLido: widget.paginaAtual,
+      LivroDao.columnCapa: capa == null ? null : capa!.readAsBytesSync(),
     };
-    final atualizar = await dbLivro.update(row);
+    final id = await dbLivro.insert(row);
   }
-
 
   //CHECK ERROR NULL
-  String checkProblemas(){
+  String checkProblemas() {
     String erros = "";
     if (customControllerNomeLivro.text.isEmpty) {
       erros += "Insira um nome\n";
@@ -77,8 +70,7 @@ class _UpdateLivroState extends State<UpdateLivro> {
   }
 
   showAlertDialogErros(BuildContext context) {
-
-    Widget okButton = FlatButton(
+    Widget okButton = TextButton(
       child: Text(
         "Ok",
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -112,10 +104,10 @@ class _UpdateLivroState extends State<UpdateLivro> {
     );
   }
 
-
   var _tapPosition;
+
   _showPopupMenuRemoverCapa() async {
-    final RenderBox overlay = Overlay.of(context).context.findRenderObject();
+    final RenderBox overlay = Overlay.of(context)!.context.findRenderObject() as RenderBox;
     await showMenu(
       color: Theme.of(context).bottomAppBarColor,
       shape: RoundedRectangleBorder(
@@ -123,56 +115,47 @@ class _UpdateLivroState extends State<UpdateLivro> {
       ),
       context: context,
       position: RelativeRect.fromRect(
-          _tapPosition & Size(40, 40),
-          Offset.zero & overlay.size),
+          _tapPosition & Size(40, 40), Offset.zero & overlay.size),
       items: [
-        PopupMenuItem(
-          value: 1,
-          child: Text("Remover Capa",style: TextStyle(color: Theme.of(context).textTheme.headline6.color),)
-        ),
+        PopupMenuItem(value: 1, child: Text("Remover Capa",style: TextStyle(color: Theme.of(context).textTheme.headline6!.color))),
       ],
       elevation: 2.0,
     ).then((value) => {
-      if (value == 1)
-        {
-        setState(() {
-          capaFoiEditada = false;
-          widget.livro.capa = null;
-          })
-        }
-    });
+          if (value == 1)
+            {
+              setState(() {
+                capa!.writeAsStringSync('');
+              })
+            }
+        });
   }
 
   void _storePosition(TapDownDetails details) {
     _tapPosition = details.globalPosition;
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     final node = FocusScope.of(context);
 
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        title: Text('Editar Livro'),
+        title: Text('Adicionar Livro'),
         actions: [
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
             child: IconButton(
               icon: Icon(Icons.save_outlined),
               tooltip: 'Salvar',
-
               onPressed: () {
                 if (checkProblemas().isEmpty) {
-                  _atualizarLivro(widget.livro.id);
-                  widget.refreshLista();
+                  _salvarLivro();
+                  //widget.refreshLista();
                   Navigator.of(context).pop();
                 } else {
                   showAlertDialogErros(context);
                 }
-
               },
             ),
           ),
@@ -191,7 +174,7 @@ class _UpdateLivroState extends State<UpdateLivro> {
                     color: Theme.of(context).accentColor)),
           ),
           ListTile(
-            leading: Icon(Icons.article),
+            leading: Icon(Icons.text_snippet_outlined),
             title: TextField(
               minLines: 1,
               maxLines: 2,
@@ -202,9 +185,9 @@ class _UpdateLivroState extends State<UpdateLivro> {
               controller: customControllerNomeLivro,
               onEditingComplete: () => node.nextFocus(),
               decoration: InputDecoration(
-                helperText: "* Obrigatório",
-                filled: true,
-              ),
+                  helperText: "* Obrigatório",
+                  filled: true,
+                 ),
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -222,7 +205,7 @@ class _UpdateLivroState extends State<UpdateLivro> {
           ),
           ListTile(
             leading: Icon(
-              Icons.contact_page_outlined,
+              Icons.person_outline_outlined,
             ),
             title: TextField(
               minLines: 1,
@@ -233,8 +216,8 @@ class _UpdateLivroState extends State<UpdateLivro> {
               keyboardType: TextInputType.name,
               controller: customControllerAutor,
               decoration: InputDecoration(
-                filled: true,
-              ),
+                  filled: true,
+                  ),
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -251,7 +234,7 @@ class _UpdateLivroState extends State<UpdateLivro> {
                     color: Theme.of(context).accentColor)),
           ),
           ListTile(
-            leading: Icon(Icons.book),
+            leading: Icon(Icons.library_books_outlined),
             title: TextField(
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.allow(
@@ -266,8 +249,8 @@ class _UpdateLivroState extends State<UpdateLivro> {
               controller: customControllerPaginas,
               onEditingComplete: () => node.nextFocus(),
               decoration: InputDecoration(
-                filled: true,
-              ),
+                  filled: true,
+                  ),
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -286,14 +269,14 @@ class _UpdateLivroState extends State<UpdateLivro> {
           ListTile(
             leading: Padding(
               padding: const EdgeInsets.fromLTRB(0, 38, 0, 0),
-              child: Icon(Icons.image),
+              child: Icon(Icons.image_outlined),
             ),
             title: Card(
                 color: Theme.of(context).inputDecorationTheme.fillColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                   side: BorderSide(
-                    color: Colors.grey[800],
+                    color: Colors.grey[800]!,
                     width: 1,
                   ),
                 ),
@@ -314,27 +297,27 @@ class _UpdateLivroState extends State<UpdateLivro> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),
                               side: BorderSide(
-                                color: Colors.grey[800],
+                                color: Colors.grey[800]!,
                                 width: 1,
                               ),
                             ),
                             elevation: 0,
                             child: capa == null
                                 ? Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5)),
-                              width: 70,
-                              height: 105,
-                            )
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5)),
+                                    width: 70,
+                                    height: 105,
+                                  )
                                 : ClipRRect(
-                              borderRadius: BorderRadius.circular(5),
-                              child: Image.file(
-                                capa,
-                                width: 70,
-                                height: 105,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
+                                    borderRadius: BorderRadius.circular(5),
+                                    child: Image.file(
+                                      capa!,
+                                      width: 70,
+                                      height: 105,
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
                           ),
                           const SizedBox(
                             width: 1,
@@ -356,7 +339,6 @@ class _UpdateLivroState extends State<UpdateLivro> {
           ),
         ],
       ),
-
     );
   }
 }

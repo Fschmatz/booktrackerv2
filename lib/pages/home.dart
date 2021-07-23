@@ -1,270 +1,129 @@
-import 'dart:ui';
-import 'package:booktrackerv2/class/livro.dart';
-import 'package:booktrackerv2/class/pages.dart';
-import 'package:booktrackerv2/pages/configs.dart';
-import 'package:booktrackerv2/ui/addLivro.dart';
+import 'package:booktrackerv2/pages/configs/pgConfigs.dart';
+import 'package:booktrackerv2/pages/pgEstatisticas.dart';
+import 'package:booktrackerv2/pages/pgLendo.dart';
+import 'package:booktrackerv2/pages/pgLidos.dart';
+import 'package:booktrackerv2/pages/pgParaLer.dart';
+import 'package:booktrackerv2/pages/pgNovoLivro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import '../ui/cardLivro.dart';
-import 'package:booktrackerv2/db/livroDao.dart';
-import '../util/versaoNomeChangelog.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
-
-  Home({Key key}) : super(key: key);
 }
 
-class _HomeState extends State<Home>{
-  List<Pages> listPages = new Pages().getListPages();
-  List<Map<String, dynamic>> listaLivros = [];
-  final dbLivro = LivroDao.instance;
-  int paginaAtual;
+class _HomeState extends State<Home> {
+  int _currentIndex = 0;
+  bool verFab = true;
+  double fontSizeNavBar = 15;
+  List<Widget> _pageList = [PgLendo(),PgParaLer(),PgLidos(),PgEstatisticas()];
 
   @override
   void initState() {
-    paginaAtual = listPages[1].id;
-    getAllLivros();
     super.initState();
   }
 
-
-  Future<void> getAllLivros() async {
-    var resp = await dbLivro.queryAllLivros(paginaAtual);
-    setState(() {
-      listaLivros = resp;
-    });
-  }
-
-  void refresh() {
-    getAllLivros();
-  }
-
-
-  //BOTTOM MENU
-  void openBottomMenuPages(context) {
-    showModalBottomSheet(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: const Radius.circular(30.0),
-              topRight: const Radius.circular(30.0)),
-        ),
-        isScrollControlled: true,
-        context: context,
-        builder: (BuildContext bc) {
-          return Container(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-              child: Wrap(
-                children: <Widget>[
-                  ListTile(
-                    title: Text(
-                      VersaoNomeChangelog.nomeApp,
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  const Divider(),
-                  ListTile(
-                    leading: Icon(Icons.book,
-                        color: paginaAtual == 1
-                            ? Theme.of(context).accentColor
-                            : Theme.of(context).hintColor),
-                    trailing: Visibility(
-                        visible: paginaAtual != 1,
-                        child: Icon(Icons.keyboard_arrow_right,
-                            color: Theme.of(context).hintColor)),
-                    title: Text(
-                      "Lendo",
-                      style: TextStyle(
-                          fontSize: 17,
-                          color: paginaAtual == 1
-                              ? Theme.of(context).accentColor
-                              : Theme.of(context).textTheme.headline6.color),
-                    ),
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      if (paginaAtual != 1) {
-                        paginaAtual = 1;
-                        getAllLivros();
-                      }
-                    },
-                  ),
-                  const Divider(),
-                  ListTile(
-                    leading: Icon(Icons.book,
-                        color: paginaAtual == 0
-                            ? Theme.of(context).accentColor
-                            : Theme.of(context).hintColor),
-                    trailing: Visibility(
-                        visible: paginaAtual != 0,
-                        child: Icon(Icons.keyboard_arrow_right,
-                            color: Theme.of(context).hintColor)),
-                    title: Text(
-                      "Para Ler",
-                      style: TextStyle(
-                          fontSize: 17,
-                          color: paginaAtual == 0
-                              ? Theme.of(context).accentColor
-                              : Theme.of(context).textTheme.headline6.color),
-                    ),
-                    onTap: () {
-                      Navigator.of(context).pop();
-
-                      if (paginaAtual != 0) {
-                        paginaAtual = 0;
-                        getAllLivros();
-                      }
-                    },
-                  ),
-                  const Divider(),
-                  ListTile(
-                    leading: Icon(Icons.book,
-                        color: paginaAtual == 2
-                            ? Theme.of(context).accentColor
-                            : Theme.of(context).hintColor),
-                    trailing: Visibility(
-                      visible: paginaAtual != 2,
-                      child: Icon(Icons.keyboard_arrow_right,
-                          color: Theme.of(context).hintColor),
-                    ),
-                    title: Text(
-                      "Lidos",
-                      style: TextStyle(
-                          fontSize: 17,
-                          color: paginaAtual == 2
-                              ? Theme.of(context).accentColor
-                              : Theme.of(context).textTheme.headline6.color),
-                    ),
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      if (paginaAtual != 2) {
-                        paginaAtual = 2;
-                        getAllLivros();
-                      }
-                    },
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
+  void refreshMain(){
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
 
+    TextStyle styleFontNavBar =
+    TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Theme.of(context).accentColor);
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              listPages[paginaAtual].nome,
-              textAlign: TextAlign.start,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        title: Text(
+          'BookTracker',
+        ),
+        actions: [
+          IconButton(
+              icon: Icon(
+                Icons.settings_outlined,
+                color: Theme.of(context)
+                    .textTheme
+                    .headline6!
+                    .color!
+                    .withOpacity(0.8),
+              ),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context) => PgConfigs(),
+                      fullscreenDialog: true,
+                    )).then((value) => refreshMain());
+              }),
+        ],
+      ),
+      body: _pageList[_currentIndex],
+
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).bottomNavigationBarTheme.backgroundColor!,
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+            child: GNav(
+              rippleColor: Theme.of(context).accentColor.withOpacity(0.4),
+              hoverColor: Theme.of(context).accentColor.withOpacity(0.4),
+              color: Theme.of(context)
+                  .textTheme
+                  .headline6!
+                  .color!
+                  .withOpacity(0.8),
+              gap: 5,
+              activeColor: Theme.of(context).accentColor,
+              iconSize: 24,
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              duration: Duration(milliseconds: 400),
+              tabBackgroundColor:
+                  Theme.of(context).accentColor.withOpacity(0.3),
+              backgroundColor:
+                  Theme.of(context).bottomNavigationBarTheme.backgroundColor!,
+              tabs: [
+                GButton(
+                  icon: Icons.book_outlined,
+                  text: 'Lendo',
+                  textStyle: styleFontNavBar,
+                ),
+                GButton(
+                  icon: Icons.bookmark_outline,
+                  text: 'Para Ler',
+                  textStyle: styleFontNavBar,
+                ),
+                GButton(
+                  icon: Icons.done_outlined,
+                  text: 'Lidos',
+                  textStyle: styleFontNavBar,
+                ),
+                GButton(
+                  icon: Icons.bar_chart_outlined,
+                  text: 'Estatísticas',
+                  textStyle: styleFontNavBar,
+                ),
+              ],
+              selectedIndex: _currentIndex,
+              onTabChange: (index) {
+                setState(() {
+                  _currentIndex = index;
+                  if (index == 3) {
+                    verFab = false;
+                  } else {
+                    verFab = true;
+                  }
+                });
+              },
             ),
-            Text(
-              listaLivros.length.toString(),
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ],
+          ),
         ),
       ),
-      body: ListView(children: <Widget>[
-              ListView.separated(
-                separatorBuilder: (BuildContext context, int index) =>
-                    const SizedBox(
-                  height: 8,
-                ),
-                physics: ScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: listaLivros.length,
-                itemBuilder: (context, int index) {
-                  return CardLivro(
-                    key: UniqueKey(),
-                    livro: new Livro(
-                      id: listaLivros[index]['idLivro'],
-                      nome: listaLivros[index]['nome'],
-                      numPaginas: listaLivros[index]['numPaginas'],
-                      autor: listaLivros[index]['autor'],
-                      lido: listaLivros[index]['estado'],
-                      capa: listaLivros[index]['capa'],
-                    ),
-                    refreshLista: refresh,
-                    paginaAtual: paginaAtual,
-                  );
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              )
-            ]),
-
-      //BOTTOMBAR
-      bottomNavigationBar: BottomAppBar(
-          child: Padding(
-        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-                splashRadius: 30,
-                icon: Icon(
-                  Icons.add,
-                  color: Theme.of(context)
-                      .textTheme
-                      .headline6
-                      .color
-                      .withOpacity(0.8),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext context) => AddLivro(
-                            refreshLista: refresh, paginaAtual: paginaAtual),
-                        fullscreenDialog: true,
-                      ));
-                }),
-            IconButton(
-                splashRadius: 30,
-                icon: Icon(
-                  Icons.menu,
-                  color: Theme.of(context)
-                      .textTheme
-                      .headline6
-                      .color
-                      .withOpacity(0.8),
-                ),
-                onPressed: () {
-                  openBottomMenuPages(context);
-                }),
-            IconButton(
-                splashRadius: 30,
-                icon: Icon(
-                  Icons.settings_outlined,
-                  color: Theme.of(context)
-                      .textTheme
-                      .headline6
-                      .color
-                      .withOpacity(0.8),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext context) => Configs(),
-                        fullscreenDialog: true,
-                      ));
-                }),
-          ],
-        ),
-      )),
     );
   }
 }

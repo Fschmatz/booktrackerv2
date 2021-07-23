@@ -17,15 +17,12 @@ class LivroDao {
   static final columnLido = 'lido'; // 0 = ler , 1 = lendo , 2 = lido
   static final columnCapa = 'capa';
 
+  static Database? _database;
+  Future<Database> get database async =>
+      _database ??= await _initDatabase();
+
   LivroDao._privateConstructor();
   static final LivroDao instance = LivroDao._privateConstructor();
-  static Database _database;
-
-  Future<Database> get database async {
-    if (_database != null) return _database;
-    _database = await _initDatabase();
-    return _database;
-  }
 
   _initDatabase() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
@@ -61,11 +58,6 @@ class LivroDao {
   Future<List<Map<String, dynamic>>> queryAllLivros(int estado) async {
     Database db = await instance.database;
     return await db.rawQuery('SELECT * FROM $table WHERE $columnLido=$estado ORDER BY $columnNome');
-  }
-
-  Future<int> queryRowCount() async {
-    Database db = await instance.database;
-    return Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $table'));
   }
 
   Future<int> update(Map<String, dynamic> row) async {

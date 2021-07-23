@@ -1,8 +1,8 @@
+import 'package:booktrackerv2/util/changelog.dart';
 import 'package:flutter/material.dart';
-import '../util/versaoNomeChangelog.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class AppInfo extends StatelessWidget {
+class PgAppInfo extends StatelessWidget {
 
   _launchGithub() async {
     const url = 'https://github.com/Fschmatz/booktrackerv2';
@@ -32,7 +32,7 @@ class AppInfo extends StatelessWidget {
           ),
           const SizedBox(height: 15),
           Center(
-            child: Text((VersaoNomeChangelog.nomeApp + " Fschmtz " + VersaoNomeChangelog.versaoApp),
+            child: Text(Changelog.nomeApp + " Fschmtz " + Changelog.versaoApp,
                 style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w700,

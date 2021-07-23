@@ -4,38 +4,44 @@ import 'package:shared_preferences/shared_preferences.dart';
 //CLARO
 ThemeData light = ThemeData(
     brightness: Brightness.light,
-    primaryColor: Color(0xFFFFFFFF),
+    primaryColor: Color(0xFFF3F3F3),
     accentColor: Colors.green[700],
     canvasColor: Colors.black,
-    scaffoldBackgroundColor: Color(0xFFFFFFFF),
+    scaffoldBackgroundColor: Color(0xFFF3F3F3),
     cardTheme: CardTheme(
-      color: Color(0xFFFAFAFA), //0xFFFAFAFC
+      color: Color(0xFFFFFFFF), //0xFFFAFAFC
     ),
     dialogTheme: DialogTheme(
       backgroundColor: Color(0xFFFFFFFF),
     ),
     inputDecorationTheme: InputDecorationTheme(
-
         fillColor: Color(0xFFFAFAFA),
         focusColor: Colors.green[700],
         contentPadding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.green[700],
+            color: Colors.green[700]!,
           ),
           borderRadius: BorderRadius.circular(10.0),
         ),
         enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.grey[800],
+              color: Colors.grey[800]!,
             ),
             borderRadius: BorderRadius.circular(10.0)),
         border: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.grey[800],
+              color: Colors.grey[800]!,
             ),
             borderRadius: BorderRadius.circular(10.0))),
     bottomAppBarColor: Color(0xFFE9E9E9),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      selectedIconTheme: IconThemeData(color: Colors.green[700]),
+      selectedLabelStyle: TextStyle(color: Colors.green[700]),
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      backgroundColor: Color(0xFFE5E5E5),
+    ),
     bottomSheetTheme:
         BottomSheetThemeData(modalBackgroundColor: Color(0xFFFFFFFF)));
 
@@ -47,14 +53,13 @@ ThemeData dark = ThemeData(
     scaffoldBackgroundColor: Color(0xFF202022),
     canvasColor: Colors.black,
     cardTheme: CardTheme(
-      color: Color(0xFF2B2B2D),
+      color: Color(0xFF2D2D2F),
     ),
     dialogTheme: DialogTheme(
       backgroundColor: Color(0xFF2B2B2D),
     ),
     inputDecorationTheme: InputDecorationTheme(
         fillColor: Color(0xFF353537),
-        //labelStyle: TextStyle(color: Colors.white),
         focusColor: Color(0xFF66BF72),
         contentPadding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
         focusedBorder: OutlineInputBorder(
@@ -65,31 +70,29 @@ ThemeData dark = ThemeData(
         ),
         enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.grey[800],
+              color: Colors.grey[800]!,
             ),
             borderRadius: BorderRadius.circular(10.0)),
         border: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.grey[800],
+              color: Colors.grey[800]!,
             ),
             borderRadius: BorderRadius.circular(10.0))),
-
-    /* inputDecorationTheme: InputDecorationTheme(
-        fillColor: Color(0xFF353537),
-        labelStyle: TextStyle(color: Colors.white),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFF66BF72))),
-        enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFF28282A)))),*/
-
-    bottomAppBarColor: Color(0xFF161618),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      selectedIconTheme: IconThemeData(color: Color(0xFF66BF72)),
+      selectedLabelStyle: TextStyle(color: Color(0xFF66BF72)),
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      backgroundColor: Color(0xFF151517),
+    ),
+    bottomAppBarColor: Color(0xFF151517),
     bottomSheetTheme:
         BottomSheetThemeData(modalBackgroundColor: Color(0xFF202022)));
 
 class ThemeNotifier extends ChangeNotifier {
   final String key = 'valorTema';
-  SharedPreferences prefs;
-  bool _darkTheme;
+  late SharedPreferences prefs;
+  late bool _darkTheme;
 
   bool get darkTheme => _darkTheme;
 
@@ -105,9 +108,7 @@ class ThemeNotifier extends ChangeNotifier {
   }
 
   _initPrefs() async {
-    if (prefs == null) {
-      prefs = await SharedPreferences.getInstance();
-    }
+    prefs = await SharedPreferences.getInstance();
   }
 
   _loadFromPrefs() async {

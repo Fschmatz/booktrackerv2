@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../util/versaoNomeChangelog.dart';
+import '../../util/changelog.dart';
 
-class Changelog extends StatelessWidget {
+class PgChangelog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +25,7 @@ class Changelog extends StatelessWidget {
               Icons.article_outlined,
             ),
             title: Text(
-              VersaoNomeChangelog.changelogUltimaVersao,
+              Changelog.changelogUltimaVersao,
               style: TextStyle(fontSize: 16),
             ),
           ),
@@ -46,7 +46,7 @@ class Changelog extends StatelessWidget {
             ),
 
             title: Text(
-              VersaoNomeChangelog.changelogsAntigos,
+              Changelog.changelogsAntigos,
               style: TextStyle(fontSize: 16),
             ),
           ),

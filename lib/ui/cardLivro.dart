@@ -1,6 +1,6 @@
 import 'package:booktrackerv2/class/livro.dart';
 import 'package:booktrackerv2/db/livroDao.dart';
-import 'package:booktrackerv2/ui/updateLivro.dart';
+import 'package:booktrackerv2/pages/pgUpdateLivro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -14,7 +14,7 @@ class CardLivro extends StatefulWidget {
   int paginaAtual;
   Function() refreshLista;
 
-  CardLivro({Key key, this.livro, this.refreshLista, this.paginaAtual})
+  CardLivro({Key? key,required this.livro, required this.refreshLista,required this.paginaAtual})
       : super(key: key);
 }
 
@@ -74,7 +74,7 @@ class _CardLivroState extends State<CardLivro> {
                       onTap: () {
                         Navigator.of(context).pop();
                         _mudarEstado(widget.livro.id, 0);
-                        inOutAnimation.currentState.animateOut();
+                        inOutAnimation.currentState!.animateOut();
                         Future.delayed(const Duration(milliseconds: 500), () {
                           widget.refreshLista();
                         });
@@ -97,7 +97,7 @@ class _CardLivroState extends State<CardLivro> {
                       onTap: () {
                         Navigator.of(context).pop();
                         _mudarEstado(widget.livro.id, 1);
-                        inOutAnimation.currentState.animateOut();
+                        inOutAnimation.currentState!.animateOut();
                         Future.delayed(const Duration(milliseconds: 500), () {
                           widget.refreshLista();
                         });
@@ -120,7 +120,7 @@ class _CardLivroState extends State<CardLivro> {
                       onTap: () {
                         Navigator.of(context).pop();
                         _mudarEstado(widget.livro.id, 2);
-                        inOutAnimation.currentState.animateOut();
+                        inOutAnimation.currentState!.animateOut();
 
                         Future.delayed(const Duration(milliseconds: 500), () {
                           widget.refreshLista();
@@ -146,7 +146,7 @@ class _CardLivroState extends State<CardLivro> {
                       Navigator.push(
                           context,
                           MaterialPageRoute<void>(
-                            builder: (BuildContext context) => UpdateLivro(
+                            builder: (BuildContext context) => PgUpdateLivro(
                               livro: widget.livro,
                               refreshLista: widget.refreshLista,
                             ),
@@ -182,7 +182,7 @@ class _CardLivroState extends State<CardLivro> {
       ),
       onPressed: () {
         _deletar(widget.livro.id);
-        inOutAnimation.currentState.animateOut();
+        inOutAnimation.currentState!.animateOut();
         Future.delayed(const Duration(milliseconds: 500), () {
           widget.refreshLista();
         });
@@ -216,6 +216,8 @@ class _CardLivroState extends State<CardLivro> {
 
   @override
   Widget build(BuildContext context) {
+
+    //print('capa pg '+widget.paginaAtual.toString()+' ->      '+widget.livro.capa.toString());
     return InOutAnimation(
       key: inOutAnimation,
       inDefinition: FadeInAnimation(),
@@ -242,7 +244,7 @@ class _CardLivroState extends State<CardLivro> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5),
                                     side: BorderSide(
-                                      color: Colors.grey[800],
+                                      color: Colors.grey[800]!,
                                       width: 1,
                                     ),
                                   ),
@@ -258,14 +260,14 @@ class _CardLivroState extends State<CardLivro> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5),
                                     side: BorderSide(
-                                      color: Colors.grey[800],
+                                      color: Colors.grey[800]!,
                                       width: 1,
                                     ),
                                   ),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(5),
                                     child: Image.memory(
-                                      widget.livro.capa,
+                                      widget.livro.capa!,
                                       height: 105,
                                       width: 70,
                                       fit: BoxFit.fill,
@@ -292,9 +294,9 @@ class _CardLivroState extends State<CardLivro> {
                                 height: 7,
                               ),
                               Visibility(
-                                visible: widget.livro.autor.isNotEmpty,
+                                visible: widget.livro.autor!.isNotEmpty,
                                 child: Text(
-                                  widget.livro.autor,
+                                  widget.livro.autor!,
                                   style: TextStyle(
                                       fontSize: 15,
                                       color: Theme.of(context).hintColor),
