@@ -37,35 +37,40 @@ class _PgLendoState extends State<PgLendo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: [
-          ListView.separated(
-            separatorBuilder: (BuildContext context, int index) => const SizedBox(
-              height: 4,
+      body: AnimatedSwitcher(
+        duration: Duration(milliseconds: 500),
+        child: loading ?  Center(
+          child: SizedBox.shrink(),
+        ) : ListView(
+          children: [
+            ListView.separated(
+              separatorBuilder: (BuildContext context, int index) => const SizedBox(
+                height: 4,
+              ),
+              physics: ScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: listaLivros.length,
+              itemBuilder: (context, int index) {
+                return CardLivro(
+                  key: UniqueKey(),
+                  livro: new Livro(
+                    id: listaLivros[index]['idLivro'],
+                    nome: listaLivros[index]['nome'],
+                    numPaginas: listaLivros[index]['numPaginas'],
+                    autor: listaLivros[index]['autor'],
+                    lido: listaLivros[index]['estado'],
+                    capa: listaLivros[index]['capa'],
+                  ),
+                  refreshLista: refresh,
+                  paginaAtual: 1,
+                );
+              },
             ),
-            physics: ScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: listaLivros.length,
-            itemBuilder: (context, int index) {
-              return CardLivro(
-                key: UniqueKey(),
-                livro: new Livro(
-                  id: listaLivros[index]['idLivro'],
-                  nome: listaLivros[index]['nome'],
-                  numPaginas: listaLivros[index]['numPaginas'],
-                  autor: listaLivros[index]['autor'],
-                  lido: listaLivros[index]['estado'],
-                  capa: listaLivros[index]['capa'],
-                ),
-                refreshLista: refresh,
-                paginaAtual: 1,
-              );
-            },
-          ),
-          const SizedBox(
-            height: 50,
-          )
-        ],
+            const SizedBox(
+              height: 50,
+            )
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).accentColor.withOpacity(0.8),

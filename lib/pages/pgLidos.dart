@@ -14,6 +14,7 @@ class PgLidos extends StatefulWidget {
 class _PgLidosState extends State<PgLidos> {
   List<Map<String, dynamic>> listaLivros = [];
   final dbLivro = LivroDao.instance;
+  bool loading = true;
 
   @override
   void initState() {
@@ -25,6 +26,7 @@ class _PgLidosState extends State<PgLidos> {
     var resp = await dbLivro.queryAllLivros(2);
     setState(() {
       listaLivros = resp;
+      loading = false;
     });
   }
 
@@ -35,35 +37,43 @@ class _PgLidosState extends State<PgLidos> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: [
-          ListView.separated(
-            separatorBuilder: (BuildContext context, int index) => const SizedBox(
-              height: 4,
-            ),
-            physics: ScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: listaLivros.length,
-            itemBuilder: (context, int index) {
-              return CardLivro(
-                key: UniqueKey(),
-                livro: new Livro(
-                  id: listaLivros[index]['idLivro'],
-                  nome: listaLivros[index]['nome'],
-                  numPaginas: listaLivros[index]['numPaginas'],
-                  autor: listaLivros[index]['autor'],
-                  lido: listaLivros[index]['estado'],
-                  capa: listaLivros[index]['capa'],
-                ),
-                refreshLista: refresh,
-                paginaAtual: 2,
-              );
-            },
-          ),
-          const SizedBox(
-            height: 50,
-          )
-        ],
+      body: AnimatedSwitcher(
+        duration: Duration(milliseconds: 500),
+        child: loading
+            ? Center(
+                child: SizedBox.shrink(),
+              )
+            : ListView(
+                children: [
+                  ListView.separated(
+                    separatorBuilder: (BuildContext context, int index) =>
+                        const SizedBox(
+                      height: 4,
+                    ),
+                    physics: ScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: listaLivros.length,
+                    itemBuilder: (context, int index) {
+                      return CardLivro(
+                        key: UniqueKey(),
+                        livro: new Livro(
+                          id: listaLivros[index]['idLivro'],
+                          nome: listaLivros[index]['nome'],
+                          numPaginas: listaLivros[index]['numPaginas'],
+                          autor: listaLivros[index]['autor'],
+                          lido: listaLivros[index]['estado'],
+                          capa: listaLivros[index]['capa'],
+                        ),
+                        refreshLista: refresh,
+                        paginaAtual: 2,
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  )
+                ],
+              ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).accentColor.withOpacity(0.8),
@@ -73,10 +83,7 @@ class _PgLidosState extends State<PgLidos> {
           Navigator.push(
               context,
               MaterialPageRoute<void>(
-                builder: (BuildContext context) =>
-                    PgNovoLivro(
-                        paginaAtual: 2
-                    ),
+                builder: (BuildContext context) => PgNovoLivro(paginaAtual: 2),
                 fullscreenDialog: true,
               )).then((value) => refresh());
         },

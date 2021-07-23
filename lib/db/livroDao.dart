@@ -83,7 +83,7 @@ class LivroDao {
 
   Future<int?> contagemAutores() async {
     Database db = await instance.database;
-    return Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $table GROUP BY $columnAutor'));
+    return Sqflite.firstIntValue(await db.rawQuery('SELECT  COUNT(DISTINCT $columnAutor) FROM $table'));
   }
 
 }

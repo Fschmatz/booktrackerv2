@@ -36,7 +36,6 @@ class _PgEstatisticasState extends State<PgEstatisticas> {
       livrosLendo = respLendo;
       livrosParaLer = respParaLer;
       livrosLidos = respLidos;
-      //loading = false;
     });
   }
 
@@ -129,6 +128,9 @@ Widget cardAutores(String tituloCard,int? valor, Color accent){
 
   TextStyle styleTrailing = TextStyle(fontSize: 16);
 
+  //BANCO CONTA O VALOR VAZIO, QUE ESTÁ CONFIGURADO PARA O LIVRO SEM AUTOR
+  int valorCalculado = valor == 0 ? 0 : (valor! - 1);
+
   return Card(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -143,7 +145,7 @@ Widget cardAutores(String tituloCard,int? valor, Color accent){
         ListTile(
           leading: Icon(Icons.person_outline_outlined),
           title: Text('Autores'),
-          trailing: Text(valor.toString(),style: styleTrailing),
+          trailing: Text(valorCalculado.toString(),style: styleTrailing),
         ),
 
       ],

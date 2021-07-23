@@ -56,7 +56,7 @@ ThemeData dark = ThemeData(
       color: Color(0xFF2D2D2F),
     ),
     dialogTheme: DialogTheme(
-      backgroundColor: Color(0xFF2B2B2D),
+      backgroundColor: Color(0xFF2D2D2F),
     ),
     inputDecorationTheme: InputDecorationTheme(
         fillColor: Color(0xFF353537),

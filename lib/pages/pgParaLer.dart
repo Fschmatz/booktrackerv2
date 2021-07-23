@@ -14,6 +14,7 @@ class PgParaLer extends StatefulWidget {
 class _PgParaLerState extends State<PgParaLer> {
   List<Map<String, dynamic>> listaLivros = [];
   final dbLivro = LivroDao.instance;
+  bool loading = true;
 
   @override
   void initState() {
@@ -25,6 +26,7 @@ class _PgParaLerState extends State<PgParaLer> {
     var resp = await dbLivro.queryAllLivros(0);
     setState(() {
       listaLivros = resp;
+      loading = false;
     });
   }
 
@@ -36,35 +38,40 @@ class _PgParaLerState extends State<PgParaLer> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body: ListView(
-        children: [
-          ListView.separated(
-            separatorBuilder: (BuildContext context, int index) => const SizedBox(
-              height: 4,
+      body: AnimatedSwitcher(
+        duration: Duration(milliseconds: 500),
+        child: loading ?  Center(
+          child: SizedBox.shrink(),
+        ) :  ListView(
+          children: [
+            ListView.separated(
+              separatorBuilder: (BuildContext context, int index) => const SizedBox(
+                height: 4,
+              ),
+              physics: ScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: listaLivros.length,
+              itemBuilder: (context, int index) {
+                return CardLivro(
+                  key: UniqueKey(),
+                  livro: new Livro(
+                    id: listaLivros[index]['idLivro'],
+                    nome: listaLivros[index]['nome'],
+                    numPaginas: listaLivros[index]['numPaginas'],
+                    autor: listaLivros[index]['autor'],
+                    lido: listaLivros[index]['estado'],
+                    capa: listaLivros[index]['capa'],
+                  ),
+                  refreshLista: refresh,
+                  paginaAtual: 0,
+                );
+              },
             ),
-            physics: ScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: listaLivros.length,
-            itemBuilder: (context, int index) {
-              return CardLivro(
-                key: UniqueKey(),
-                livro: new Livro(
-                  id: listaLivros[index]['idLivro'],
-                  nome: listaLivros[index]['nome'],
-                  numPaginas: listaLivros[index]['numPaginas'],
-                  autor: listaLivros[index]['autor'],
-                  lido: listaLivros[index]['estado'],
-                  capa: listaLivros[index]['capa'],
-                ),
-                refreshLista: refresh,
-                paginaAtual: 0,
-              );
-            },
-          ),
-          const SizedBox(
-            height: 50,
-          )
-        ],
+            const SizedBox(
+              height: 50,
+            )
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).accentColor.withOpacity(0.8),

@@ -66,10 +66,10 @@ class _CardLivroState extends State<CardLivro> {
                     visible: widget.paginaAtual != 0,
                     child: ListTile(
                       leading:
-                          Icon(Icons.book, color: Theme.of(context).hintColor),
+                          Icon(Icons.bookmark_outline, color: Theme.of(context).hintColor),
                       title: Text(
                         "Marcar como Para Ler",
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 16),
                       ),
                       onTap: () {
                         Navigator.of(context).pop();
@@ -89,10 +89,10 @@ class _CardLivroState extends State<CardLivro> {
                     visible: widget.paginaAtual != 1,
                     child: ListTile(
                       leading:
-                          Icon(Icons.book, color: Theme.of(context).hintColor),
+                          Icon(Icons.book_outlined, color: Theme.of(context).hintColor),
                       title: Text(
                         "Marcar como Lendo",
-                        style: TextStyle(fontSize: 17),
+                        style: TextStyle(fontSize: 16),
                       ),
                       onTap: () {
                         Navigator.of(context).pop();
@@ -112,10 +112,10 @@ class _CardLivroState extends State<CardLivro> {
                     visible: widget.paginaAtual != 2,
                     child: ListTile(
                       leading:
-                          Icon(Icons.book, color: Theme.of(context).hintColor),
+                          Icon(Icons.done_outlined, color: Theme.of(context).hintColor),
                       title: Text(
                         "Marcar como Lido",
-                        style: TextStyle(fontSize: 17),
+                        style: TextStyle(fontSize: 16),
                       ),
                       onTap: () {
                         Navigator.of(context).pop();
@@ -138,7 +138,7 @@ class _CardLivroState extends State<CardLivro> {
                         color: Theme.of(context).hintColor),
                     title: Text(
                       "Editar Livro",
-                      style: TextStyle(fontSize: 17),
+                      style: TextStyle(fontSize: 16),
                     ),
                     onTap: () {
                       Navigator.of(context).pop();
@@ -160,7 +160,7 @@ class _CardLivroState extends State<CardLivro> {
                         color: Theme.of(context).hintColor),
                     title: Text(
                       "Deletar Livro",
-                      style: TextStyle(fontSize: 17),
+                      style: TextStyle(fontSize: 16),
                     ),
                     onTap: () {
                       Navigator.of(context).pop();
@@ -178,7 +178,7 @@ class _CardLivroState extends State<CardLivro> {
     Widget okButton = TextButton(
       child: Text(
         "Sim",
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Theme.of(context).accentColor),
       ),
       onPressed: () {
         _deletar(widget.livro.id);
@@ -194,12 +194,12 @@ class _CardLivroState extends State<CardLivro> {
       elevation: 3.0,
       title: Text(
         "Confirmação ", //
-        style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
       content: Text(
         "\nDeletar Livro ?",
         style: TextStyle(
-          fontSize: 18,
+          fontSize: 16,
         ),
       ),
       actions: [
@@ -217,8 +217,8 @@ class _CardLivroState extends State<CardLivro> {
   @override
   Widget build(BuildContext context) {
 
-    //print('capa pg '+widget.paginaAtual.toString()+' ->      '+widget.livro.capa.toString());
     return InOutAnimation(
+      autoPlay: InOutAnimationStatus.None,
       key: inOutAnimation,
       inDefinition: FadeInAnimation(),
       outDefinition: FadeOutAnimation(),
@@ -271,6 +271,7 @@ class _CardLivroState extends State<CardLivro> {
                                       height: 105,
                                       width: 70,
                                       fit: BoxFit.fill,
+                                      gaplessPlayback: true,
                                     ),
                                   ),
                                 ),
@@ -279,7 +280,6 @@ class _CardLivroState extends State<CardLivro> {
                       Expanded(
                         flex: 3,
                         child: Container(
-                          //alignment: Alignment.center,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
