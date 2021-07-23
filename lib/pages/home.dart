@@ -17,7 +17,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
   bool verFab = true;
-  double fontSizeNavBar = 15;
   List<Widget> _pageList = [PgLendo(),PgParaLer(),PgLidos(),PgEstatisticas()];
 
   @override
@@ -25,15 +24,11 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
-  void refreshMain(){
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
 
     TextStyle styleFontNavBar =
-    TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Theme.of(context).accentColor);
+    TextStyle(fontSize: 14.5, fontWeight: FontWeight.w600, color: Theme.of(context).accentColor);
 
     return Scaffold(
       appBar: AppBar(
@@ -57,7 +52,7 @@ class _HomeState extends State<Home> {
                     MaterialPageRoute<void>(
                       builder: (BuildContext context) => PgConfigs(),
                       fullscreenDialog: true,
-                    )).then((value) => refreshMain());
+                    ));
               }),
         ],
       ),

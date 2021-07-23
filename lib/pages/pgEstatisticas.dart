@@ -60,7 +60,7 @@ class _PgEstatisticasState extends State<PgEstatisticas> {
     Color accent = Theme.of(context).accentColor;
 
     return AnimatedSwitcher(
-      duration: Duration(milliseconds: 500),
+      duration: Duration(milliseconds: 600),
       child: loading ?  Center(
         child: CircularProgressIndicator(color: Theme.of(context).accentColor,),
       ) : ListView(

@@ -38,7 +38,7 @@ class _PgLendoState extends State<PgLendo> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AnimatedSwitcher(
-        duration: Duration(milliseconds: 500),
+        duration: Duration(milliseconds: 600),
         child: loading ?  Center(
           child: SizedBox.shrink(),
         ) : ListView(

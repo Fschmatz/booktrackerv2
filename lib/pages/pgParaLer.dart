@@ -39,7 +39,7 @@ class _PgParaLerState extends State<PgParaLer> {
 
     return Scaffold(
       body: AnimatedSwitcher(
-        duration: Duration(milliseconds: 500),
+        duration: Duration(milliseconds: 600),
         child: loading ?  Center(
           child: SizedBox.shrink(),
         ) :  ListView(

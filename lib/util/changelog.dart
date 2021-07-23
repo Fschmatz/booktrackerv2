@@ -49,7 +49,6 @@ class Changelog{
 3.0.1
 - Correções
 - Add List Animation
-- Update Flutter 2.0
 
 2.8
 - Correções

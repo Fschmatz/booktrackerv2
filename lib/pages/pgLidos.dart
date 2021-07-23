@@ -38,7 +38,7 @@ class _PgLidosState extends State<PgLidos> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AnimatedSwitcher(
-        duration: Duration(milliseconds: 500),
+        duration: Duration(milliseconds: 600),
         child: loading
             ? Center(
                 child: SizedBox.shrink(),
