@@ -70,4 +70,20 @@ class LivroDao {
     Database db = await instance.database;
     return await db.delete(table, where: '$columnIdLivro = ?', whereArgs: [id]);
   }
+
+  Future<int?> contagemLivrosEstado(int estado) async {
+    Database db = await instance.database;
+    return Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $table WHERE $columnLido=$estado'));
+  }
+
+  Future<int?> contagemPaginasEstado(int estado) async {
+    Database db = await instance.database;
+    return Sqflite.firstIntValue(await db.rawQuery('SELECT SUM($columnNumPaginas) FROM $table WHERE $columnLido=$estado'));
+  }
+
+  Future<int?> contagemAutores() async {
+    Database db = await instance.database;
+    return Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $table GROUP BY $columnAutor'));
+  }
+
 }
