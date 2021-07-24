@@ -276,7 +276,7 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
                           ),
                         ),
                         elevation: 0,
-                        child: capa == null
+                        child: widget.livro.capa == null
                             ? Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5)),
@@ -285,8 +285,8 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
                         )
                             : ClipRRect(
                           borderRadius: BorderRadius.circular(5),
-                          child: Image.file(
-                            capa!,
+                          child: Image.memory(
+                            widget.livro.capa!,
                             width: 70,
                             height: 105,
                             fit: BoxFit.fill,
@@ -318,8 +318,8 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
                               ),
                             ),
                           ),
-                          capa != null ? SizedBox(height: 15,) : SizedBox.shrink(),
-                          capa != null ? Container(
+                          widget.livro.capa != null ? SizedBox(height: 20,) : SizedBox.shrink(),
+                          widget.livro.capa != null ? Container(
                             width: 175,
                             height: 40,
                             child: TextButton(

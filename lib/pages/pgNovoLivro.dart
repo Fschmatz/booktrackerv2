@@ -308,7 +308,7 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
                           ),
                           capa != null
                               ? SizedBox(
-                                  height: 15,
+                                  height: 20,
                                 )
                               : SizedBox.shrink(),
                           capa != null
