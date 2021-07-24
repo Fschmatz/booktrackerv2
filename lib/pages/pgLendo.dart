@@ -62,7 +62,7 @@ class _PgLendoState extends State<PgLendo> {
             },
           ),
           const SizedBox(
-            height: 50,
+            height: 75,
           )
         ],
       ),

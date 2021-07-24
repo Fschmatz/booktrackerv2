@@ -62,7 +62,7 @@ class _PgParaLerState extends State<PgParaLer> {
             },
           ),
           const SizedBox(
-            height: 50,
+            height: 75,
           )
         ],
       ),

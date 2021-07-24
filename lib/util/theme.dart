@@ -4,18 +4,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 //CLARO
 ThemeData light = ThemeData(
     brightness: Brightness.light,
-    primaryColor: Color(0xFFF3F3F3),
+    primaryColor: Color(0xFFFFFFFF),
     accentColor: Colors.green[700],
     canvasColor: Colors.black,
-    scaffoldBackgroundColor: Color(0xFFF3F3F3),
+    scaffoldBackgroundColor: Color(0xFFFFFFFF),
     cardTheme: CardTheme(
-      color: Color(0xFFFFFFFF), //0xFFFAFAFC
+      color: Color(0xFFF3F3F3), //0xFFFAFAFC
     ),
     dialogTheme: DialogTheme(
       backgroundColor: Color(0xFFFFFFFF),
     ),
     inputDecorationTheme: InputDecorationTheme(
-        fillColor: Color(0xFFFAFAFA),
+        fillColor: Color(0xFFFFFFFF),
         focusColor: Colors.green[700],
         contentPadding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
         focusedBorder: OutlineInputBorder(
@@ -34,7 +34,7 @@ ThemeData light = ThemeData(
               color: Colors.grey[800]!,
             ),
             borderRadius: BorderRadius.circular(10.0))),
-    bottomAppBarColor: Color(0xFFE9E9E9),
+    bottomAppBarColor: Color(0xFFE0E0E0),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       selectedIconTheme: IconThemeData(color: Colors.green[700]),
       selectedLabelStyle: TextStyle(color: Colors.green[700]),

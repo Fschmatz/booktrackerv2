@@ -69,8 +69,8 @@ class _PgEstatisticasState extends State<PgEstatisticas> {
          const Divider(),
           cardEstatisticas('Páginas', paginasLendo, paginasParaLer , paginasLidos, accent),
           const Divider(),
-          cardAutores('Autores', quantAutores, accent),
-          const SizedBox(height: 50,),
+          cardAutores('Geral', quantAutores, accent),
+          const SizedBox(height: 75,),
         ],
       ),
     );

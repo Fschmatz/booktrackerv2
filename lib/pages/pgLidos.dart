@@ -62,7 +62,7 @@ class _PgLidosState extends State<PgLidos> {
                   },
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 75,
                 )
               ],
             ),
