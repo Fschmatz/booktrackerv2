@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  PaintingBinding.instance!.imageCache!.maximumSizeBytes = 1000 << 20;
+
   runApp(ChangeNotifierProvider(
     create: (_) => ThemeNotifier(),
     child: Consumer<ThemeNotifier>(

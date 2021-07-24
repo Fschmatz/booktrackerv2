@@ -85,14 +85,12 @@ Widget cardEstatisticas(String tituloCard,int? valorLendo, int? valorParaLer, in
   return Column(
     children: [
       ListTile(
-        leading: SizedBox(
-          height: 0.1,
-        ),
-        title: Text(tituloCard.toUpperCase(),
+        title: Text(tituloCard,
             style: TextStyle(
-                fontSize: 13,
+                fontSize: 16,
                 fontWeight: FontWeight.w700,
                 color: accent)),
+        //trailing: Icon(Icons.book_outlined),
       ),
       ListTile(
         leading: Icon(Icons.book_outlined),
@@ -112,7 +110,7 @@ Widget cardEstatisticas(String tituloCard,int? valorLendo, int? valorParaLer, in
       ListTile(
         leading: SizedBox.shrink(),
         title: Text('Total'),
-        trailing: Text(soma.toString(),style: styleTrailing),
+        trailing: Text(soma.toString()),
       ),
     ],
   );
@@ -128,12 +126,9 @@ Widget cardAutores(String tituloCard,int? valor, Color accent){
   return Column(
     children: [
       ListTile(
-        leading: SizedBox(
-          height: 0.1,
-        ),
-        title: Text(tituloCard.toUpperCase(),
+        title: Text(tituloCard,
             style: TextStyle(
-                fontSize: 13,
+                fontSize: 16,
                 fontWeight: FontWeight.w700,
                 color: accent)),
       ),

@@ -66,7 +66,7 @@ class _CardLivroState extends State<CardLivro> {
                     visible: widget.paginaAtual != 0,
                     child: ListTile(
                       leading:
-                          Icon(Icons.bookmark_outline, color: Theme.of(context).hintColor),
+                      Icon(Icons.bookmark_outline, color: Theme.of(context).hintColor),
                       title: Text(
                         "Marcar como Para Ler",
                         style: TextStyle(fontSize: 16),
@@ -89,7 +89,7 @@ class _CardLivroState extends State<CardLivro> {
                     visible: widget.paginaAtual != 1,
                     child: ListTile(
                       leading:
-                          Icon(Icons.book_outlined, color: Theme.of(context).hintColor),
+                      Icon(Icons.book_outlined, color: Theme.of(context).hintColor),
                       title: Text(
                         "Marcar como Lendo",
                         style: TextStyle(fontSize: 16),
@@ -112,7 +112,7 @@ class _CardLivroState extends State<CardLivro> {
                     visible: widget.paginaAtual != 2,
                     child: ListTile(
                       leading:
-                          Icon(Icons.done_outlined, color: Theme.of(context).hintColor),
+                      Icon(Icons.done_outlined, color: Theme.of(context).hintColor),
                       title: Text(
                         "Marcar como Lido",
                         style: TextStyle(fontSize: 16),
@@ -236,44 +236,45 @@ class _CardLivroState extends State<CardLivro> {
                           alignment: Alignment.centerLeft,
                           child: widget.livro.capa == null
                               ? Container(
-                                height: 112,
-                                width: 77,
-                                child: Card(
-                                  elevation: 2,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                    side: BorderSide(
-                                      color: Colors.grey[800]!,
-                                      width: 1,
-                                    ),
-                                  ),
-                                  child: Icon(
-                                    Icons.book,
-                                    size: 35,
-                                    color: Theme.of(context).hintColor,
-                                  ),
+                            height: 112,
+                            width: 77,
+                            child: Card(
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                side: BorderSide(
+                                  color: Colors.grey[800]!,
+                                  width: 1,
                                 ),
-                              )
+                              ),
+                              child: Icon(
+                                Icons.book,
+                                size: 35,
+                                color: Theme.of(context).hintColor,
+                              ),
+                            ),
+                          )
                               : Card(
-                                  elevation: 2,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                    side: BorderSide(
-                                      color: Colors.grey[800]!,
-                                      width: 1,
-                                    ),
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(5),
-                                    child: Image.memory(
-                                      widget.livro.capa!,
-                                      height: 105,
-                                      width: 70,
-                                      fit: BoxFit.fill,
-                                      gaplessPlayback: true,
-                                    ),
-                                  ),
-                                ),
+                            elevation: 2,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              side: BorderSide(
+                                color: Colors.grey[800]!,
+                                width: 1,
+                              ),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(5),
+                              child: Image.memory(
+                                widget.livro.capa!,
+                                height: 105,
+                                width: 70,
+                                fit: BoxFit.fill,
+                                filterQuality: FilterQuality.medium,
+                                gaplessPlayback: true,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Expanded(
@@ -326,3 +327,5 @@ class _CardLivroState extends State<CardLivro> {
     );
   }
 }
+
+
