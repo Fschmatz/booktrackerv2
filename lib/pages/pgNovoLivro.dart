@@ -11,6 +11,7 @@ class PgNovoLivro extends StatefulWidget {
   _PgNovoLivroState createState() => _PgNovoLivroState();
 
   int paginaAtual;
+
   //Function() refreshLista;
 
   PgNovoLivro({Key? key, required this.paginaAtual}) : super(key: key);
@@ -104,34 +105,10 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
     );
   }
 
-  var _tapPosition;
-
-  _showPopupMenuRemoverCapa() async {
-    final RenderBox overlay = Overlay.of(context)!.context.findRenderObject() as RenderBox;
-    await showMenu(
-      color: Theme.of(context).bottomAppBarColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-      context: context,
-      position: RelativeRect.fromRect(
-          _tapPosition & Size(40, 40), Offset.zero & overlay.size),
-      items: [
-        PopupMenuItem(value: 1, child: Text("Remover Capa",style: TextStyle(color: Theme.of(context).textTheme.headline6!.color))),
-      ],
-      elevation: 2.0,
-    ).then((value) => {
-          if (value == 1)
-            {
-              setState(() {
-                capa!.writeAsStringSync('');
-              })
-            }
-        });
-  }
-
-  void _storePosition(TapDownDetails details) {
-    _tapPosition = details.globalPosition;
+  void removerCapa() {
+    setState(() {
+      capa = null;
+    });
   }
 
   @override
@@ -178,15 +155,15 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
             title: TextField(
               minLines: 1,
               maxLines: 2,
-              maxLength: 75,
+              maxLength: 100,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
               controller: customControllerNomeLivro,
               onEditingComplete: () => node.nextFocus(),
               decoration: InputDecoration(
-                  helperText: "* Obrigatório",
-                 ),
+                helperText: "* Obrigatório",
+              ),
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -209,7 +186,7 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
             title: TextField(
               minLines: 1,
               maxLines: 2,
-              maxLength: 50,
+              maxLength: 75,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
@@ -233,8 +210,7 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
             leading: Icon(Icons.library_books_outlined),
             title: TextField(
               inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.allow(
-                    RegExp(r'^(\d+)?\d{0,2}'))
+                FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\d{0,2}'))
               ],
               minLines: 1,
               maxLines: 2,
@@ -261,74 +237,111 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
           ),
           ListTile(
             leading: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 38, 0, 0),
+              padding: const EdgeInsets.fromLTRB(0, 52, 0, 0),
               child: Icon(Icons.image_outlined),
             ),
             title: Card(
-                color: Theme.of(context).inputDecorationTheme.fillColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  side: BorderSide(
-                    color: Colors.grey[800]!,
-                    width: 1,
-                  ),
+              margin: const EdgeInsets.all(0),
+              elevation: 0,
+              color: Theme.of(context).primaryColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                side: BorderSide(
+                  color: Colors.grey[800]!.withOpacity(0.9),
                 ),
-                elevation: 0,
-                child: InkWell(
-                  onTap: pickGallery,
-                  onTapDown: _storePosition,
-                  onLongPress: _showPopupMenuRemoverCapa,
-                  customBorder: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 4, 3, 4),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 20, 5, 20),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          side: BorderSide(
+                            color: Colors.grey[800]!,
+                            width: 1,
+                          ),
+                        ),
+                        elevation: 0,
+                        child: capa == null
+                            ? Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5)),
+                                width: 70,
+                                height: 105,
+                              )
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(5),
+                                child: Image.file(
+                                  capa!,
+                                  width: 70,
+                                  height: 105,
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              side: BorderSide(
-                                color: Colors.grey[800]!,
-                                width: 1,
+                          Container(
+                            width: 175,
+                            height: 40,
+                            child: TextButton(
+                              onPressed: pickGallery,
+                              child: Text(
+                                "Selecionar Capa",
+                                style: TextStyle(fontSize: 14,fontWeight: FontWeight.normal),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                                primary: Theme.of(context).cardTheme.color,
+                                onPrimary: Theme.of(context)
+                                    .textTheme
+                                    .headline1!
+                                    .color,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50.0),
+                                ),
                               ),
                             ),
-                            elevation: 0,
-                            child: capa == null
-                                ? Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5)),
-                                    width: 70,
-                                    height: 105,
-                                  )
-                                : ClipRRect(
-                                    borderRadius: BorderRadius.circular(5),
-                                    child: Image.file(
-                                      capa!,
-                                      width: 70,
-                                      height: 105,
-                                      fit: BoxFit.fill,
+                          ),
+                          capa != null
+                              ? SizedBox(
+                                  height: 15,
+                                )
+                              : SizedBox.shrink(),
+                          capa != null
+                              ? Container(
+                                  width: 175,
+                                  height: 40,
+                                  child: TextButton(
+                                    onPressed: removerCapa,
+                                    child: Text(
+                                      "Remover Capa",
+                                      style: TextStyle(fontSize: 14,fontWeight: FontWeight.normal),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      elevation: 0,
+                                      primary:
+                                          Theme.of(context).cardTheme.color,
+                                      onPrimary: Theme.of(context)
+                                          .textTheme
+                                          .headline1!
+                                          .color,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(40.0),
+                                      ),
                                     ),
                                   ),
-                          ),
-                          const SizedBox(
-                            width: 1,
-                          ),
-                          Text(
-                            "Selecionar Capa",
-                            style: TextStyle(fontSize: 16,color: Theme.of(context).hintColor),
-                          ),
-                          const SizedBox(
-                            width: 1,
-                          ),
-                        ]),
-                  ),
-                )),
-          ),
-
-          const SizedBox(
-            height: 100,
+                                )
+                              : SizedBox.shrink(),
+                        ],
+                      ),
+                    ]),
+              ),
+            ),
           ),
         ],
       ),
