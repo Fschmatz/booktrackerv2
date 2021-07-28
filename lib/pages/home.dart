@@ -75,7 +75,7 @@ class _HomeState extends State<Home> {
               activeColor: Theme.of(context).accentColor,
               iconSize: 24,
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              duration: Duration(milliseconds: 400),
+              duration: Duration(milliseconds: 500),
               tabBackgroundColor:
                   Theme.of(context).accentColor.withOpacity(0.3),
               backgroundColor:

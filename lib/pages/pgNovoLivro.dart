@@ -128,7 +128,6 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
               onPressed: () {
                 if (checkProblemas().isEmpty) {
                   _salvarLivro();
-                  //widget.refreshLista();
                   Navigator.of(context).pop();
                 } else {
                   showAlertDialogErros(context);
@@ -191,6 +190,7 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
               controller: customControllerAutor,
+              onEditingComplete: () => node.nextFocus(),
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -212,11 +212,8 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\d{0,2}'))
               ],
-              minLines: 1,
-              maxLines: 2,
               maxLength: 5,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
-              textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.numberWithOptions(decimal: false),
               controller: customControllerPaginas,
               onEditingComplete: () => node.nextFocus(),

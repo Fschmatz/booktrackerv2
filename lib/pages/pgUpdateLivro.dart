@@ -21,7 +21,6 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
   TextEditingController customControllerNomeLivro = TextEditingController();
   TextEditingController customControllerPaginas = TextEditingController();
   TextEditingController customControllerAutor = TextEditingController();
-  late FocusNode inputFieldNode;
 
   //IMAGEM
   final imagePicker = ImagePicker();
@@ -122,8 +121,6 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
   @override
   Widget build(BuildContext context) {
 
-    final node = FocusScope.of(context);
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -171,7 +168,6 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
               controller: customControllerNomeLivro,
-              onEditingComplete: () => node.nextFocus(),
               decoration: InputDecoration(
                 helperText: "* Obrigatório",
               ),
@@ -224,14 +220,10 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
                 FilteringTextInputFormatter.allow(
                     RegExp(r'^(\d+)?\d{0,2}'))
               ],
-              minLines: 1,
-              maxLines: 2,
               maxLength: 5,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
-              textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.numberWithOptions(decimal: false),
               controller: customControllerPaginas,
-              onEditingComplete: () => node.nextFocus(),
               style: TextStyle(
                 fontSize: 16,
               ),
