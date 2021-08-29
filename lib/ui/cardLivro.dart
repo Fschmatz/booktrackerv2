@@ -68,7 +68,7 @@ class _CardLivroState extends State<CardLivro> {
                       leading:
                       Icon(Icons.bookmark_outline, color: Theme.of(context).hintColor),
                       title: Text(
-                        "Marcar como Para Ler",
+                        "Marcar como para ler",
                         style: TextStyle(fontSize: 16),
                       ),
                       onTap: () {
@@ -91,7 +91,7 @@ class _CardLivroState extends State<CardLivro> {
                       leading:
                       Icon(Icons.book_outlined, color: Theme.of(context).hintColor),
                       title: Text(
-                        "Marcar como Lendo",
+                        "Marcar como lendo",
                         style: TextStyle(fontSize: 16),
                       ),
                       onTap: () {
@@ -114,7 +114,7 @@ class _CardLivroState extends State<CardLivro> {
                       leading:
                       Icon(Icons.done_outlined, color: Theme.of(context).hintColor),
                       title: Text(
-                        "Marcar como Lido",
+                        "Marcar como lido",
                         style: TextStyle(fontSize: 16),
                       ),
                       onTap: () {
@@ -137,7 +137,7 @@ class _CardLivroState extends State<CardLivro> {
                     leading: Icon(Icons.edit_outlined,
                         color: Theme.of(context).hintColor),
                     title: Text(
-                      "Editar Livro",
+                      "Editar livro",
                       style: TextStyle(fontSize: 16),
                     ),
                     onTap: () {
@@ -159,7 +159,7 @@ class _CardLivroState extends State<CardLivro> {
                     leading: Icon(Icons.delete_outline_outlined,
                         color: Theme.of(context).hintColor),
                     title: Text(
-                      "Deletar Livro",
+                      "Deletar livro",
                       style: TextStyle(fontSize: 16),
                     ),
                     onTap: () {
@@ -197,7 +197,7 @@ class _CardLivroState extends State<CardLivro> {
         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
       content: Text(
-        "\nDeletar Livro ?",
+        "\nDeletar livro ?",
         style: TextStyle(
           fontSize: 16,
         ),

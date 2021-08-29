@@ -33,9 +33,9 @@ class _PgEstatisticasState extends State<PgEstatisticas> {
     var respParaLer = await dbLivro.contagemLivrosEstado(0);
     var respLidos = await dbLivro.contagemLivrosEstado(2);
     setState(() {
-      livrosLendo = respLendo;
-      livrosParaLer = respParaLer;
-      livrosLidos = respLidos;
+      livrosLendo = respLendo == null ? 0 : respLendo;
+      livrosParaLer = respParaLer == null ? 0 : respParaLer;
+      livrosLidos = respLidos == null ? 0 : respLidos;
     });
   }
 
@@ -46,10 +46,10 @@ class _PgEstatisticasState extends State<PgEstatisticas> {
     var respAutores = await dbLivro.contagemAutores();
 
     setState(() {
-      paginasLendo = respLendo;
-      paginasParaLer = respParaLer;
-      paginasLidos = respLidos;
-      quantAutores = respAutores;
+      paginasLendo = respLendo == null ? 0 : respLendo;
+      paginasParaLer = respParaLer == null ? 0 : respParaLer;
+      paginasLidos = respLidos == null ? 0 : respLidos;
+      quantAutores = respAutores == null ? 0 : respAutores;
       loading = false;
     });
   }
@@ -90,7 +90,6 @@ Widget cardEstatisticas(String tituloCard,int? valorLendo, int? valorParaLer, in
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
                 color: accent)),
-        //trailing: Icon(Icons.book_outlined),
       ),
       ListTile(
         leading: Icon(Icons.book_outlined),
@@ -110,7 +109,7 @@ Widget cardEstatisticas(String tituloCard,int? valorLendo, int? valorParaLer, in
       ListTile(
         leading: SizedBox.shrink(),
         title: Text('Total'),
-        trailing: Text(soma.toString()),
+        trailing: Text(soma.toString(),style: styleTrailing,),
       ),
     ],
   );

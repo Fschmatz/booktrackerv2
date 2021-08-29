@@ -32,7 +32,7 @@ class PgAppInfo extends StatelessWidget {
           ),
           const SizedBox(height: 15),
           Center(
-            child: Text(Changelog.nomeApp + " Fschmtz " + Changelog.versaoApp,
+            child: Text(Changelog.nomeApp + " " + Changelog.versaoApp,
                 style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w700,
@@ -53,7 +53,7 @@ class PgAppInfo extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.info_outline),
             title: Text(
-              "MARTELADO E REFEITO DO ZERO: 1 X POR ENQUANTO !!!( Por causa de um problema grave do SDK, culpa do Flutter! )\nVamos que Vamos, denovo!!!",
+              "MARTELADO E REFEITO DO ZERO: 1 X POR ENQUANTO !!!\n( Por causa de um problema grave do SDK, culpa do Flutter! )\nVamos que Vamos, denovo!!!",
               style: TextStyle(
                 fontSize: 16,
               ),

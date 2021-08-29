@@ -1,12 +1,13 @@
 class Changelog{
 
-  static String versaoApp = "5.1.1";
-  static String nomeApp = "BookTracker";
+  static String versaoApp = "5.1.2";
+  static String nomeApp = "BookTracker Fschmatz";
 
   static String changelogUltimaVersao = '''
-5.1.1
+5.1.2
 - Nova Página New/Edit
 - Página de Estatísticas Alterada
+- Fix Estatísticas Null
 - Fixes
 ''';
 
