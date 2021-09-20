@@ -16,58 +16,58 @@ class PgBookList extends StatefulWidget {
 class _PgBookListState extends State<PgBookList> {
   List<Map<String, dynamic>> listaLivros = [];
   final dbLivro = LivroDao.instance;
+  bool loading = true;
 
   @override
   void initState() {
-    getAllLivros();
+    getLivrosState();
     super.initState();
   }
 
-  Future<void> getAllLivros() async {
+  void getLivrosState() async {
     var resp = await dbLivro.queryAllLivrosEstado(widget.bookState);
     setState(() {
+      loading = false;
       listaLivros = resp;
     });
-  }
-
-  void refresh() {
-    getAllLivros();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: [
-          ListView.separated(
-            separatorBuilder: (BuildContext context, int index) =>
-                const SizedBox(
-              height: 4,
-            ),
-            physics: const ScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: listaLivros.length,
-            itemBuilder: (context, int index) {
-              return CardLivro(
-                key: UniqueKey(),
-                livro: Livro(
-                  id: listaLivros[index]['idLivro'],
-                  nome: listaLivros[index]['nome'],
-                  numPaginas: listaLivros[index]['numPaginas'],
-                  autor: listaLivros[index]['autor'],
-                  lido: listaLivros[index]['estado'],
-                  capa: listaLivros[index]['capa'],
+      body: loading
+          ? const Center(child: SizedBox.shrink())
+          : ListView(
+              children: [
+                ListView.separated(
+                  separatorBuilder: (BuildContext context, int index) =>
+                      const SizedBox(
+                    height: 4,
+                  ),
+                  physics: const ScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: listaLivros.length,
+                  itemBuilder: (context, int index) {
+                    return CardLivro(
+                      key: UniqueKey(),
+                      livro: Livro(
+                        id: listaLivros[index]['idLivro'],
+                        nome: listaLivros[index]['nome'],
+                        numPaginas: listaLivros[index]['numPaginas'],
+                        autor: listaLivros[index]['autor'],
+                        lido: listaLivros[index]['estado'],
+                        capa: listaLivros[index]['capa'],
+                      ),
+                      getLivrosState: getLivrosState,
+                      paginaAtual: widget.bookState,
+                    );
+                  },
                 ),
-                refreshLista: refresh,
-                paginaAtual: 1,
-              );
-            },
-          ),
-          const SizedBox(
-            height: 75,
-          )
-        ],
-      ),
+                const SizedBox(
+                  height: 75,
+                )
+              ],
+            ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).accentColor.withOpacity(0.8),
         elevation: 1,
@@ -79,7 +79,7 @@ class _PgBookListState extends State<PgBookList> {
                 builder: (BuildContext context) =>
                     PgNovoLivro(paginaAtual: widget.bookState),
                 fullscreenDialog: true,
-              )).then((value) => refresh());
+              )).then((value) => getLivrosState());
         },
         child: const Icon(
           Icons.add,

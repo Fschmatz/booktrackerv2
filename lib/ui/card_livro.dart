@@ -12,9 +12,9 @@ class CardLivro extends StatefulWidget {
 
   Livro livro;
   int paginaAtual;
-  Function() refreshLista;
+  Function() getLivrosState;
 
-  CardLivro({Key? key,required this.livro, required this.refreshLista,required this.paginaAtual})
+  CardLivro({Key? key,required this.livro, required this.getLivrosState,required this.paginaAtual})
       : super(key: key);
 }
 
@@ -75,7 +75,7 @@ class _CardLivroState extends State<CardLivro> {
                       _mudarEstado(widget.livro.id, 0);
                       inOutAnimation.currentState!.animateOut();
                       Future.delayed(const Duration(milliseconds: 500), () {
-                        widget.refreshLista();
+                        widget.getLivrosState();
                       });
                     },
                   ),
@@ -98,7 +98,7 @@ class _CardLivroState extends State<CardLivro> {
                       _mudarEstado(widget.livro.id, 1);
                       inOutAnimation.currentState!.animateOut();
                       Future.delayed(const Duration(milliseconds: 500), () {
-                        widget.refreshLista();
+                        widget.getLivrosState();
                       });
                     },
                   ),
@@ -122,7 +122,7 @@ class _CardLivroState extends State<CardLivro> {
                       inOutAnimation.currentState!.animateOut();
 
                       Future.delayed(const Duration(milliseconds: 500), () {
-                        widget.refreshLista();
+                        widget.getLivrosState();
                       });
 
                     },
@@ -147,7 +147,7 @@ class _CardLivroState extends State<CardLivro> {
                         MaterialPageRoute<void>(
                           builder: (BuildContext context) => PgUpdateLivro(
                             livro: widget.livro,
-                            refreshLista: widget.refreshLista,
+                            refreshLista: widget.getLivrosState,
                           ),
                           fullscreenDialog: true,
                         ));
@@ -182,7 +182,7 @@ class _CardLivroState extends State<CardLivro> {
         _deletar(widget.livro.id);
         inOutAnimation.currentState!.animateOut();
         Future.delayed(const Duration(milliseconds: 500), () {
-          widget.refreshLista();
+          widget.getLivrosState();
         });
         Navigator.of(context).pop();
       },
