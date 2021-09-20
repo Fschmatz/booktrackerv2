@@ -1,17 +1,21 @@
 class Changelog{
 
-  static String versaoApp = "5.1.2";
+  static String versaoApp = "5.2.0";
   static String nomeApp = "BookTracker Fschmatz";
 
   static String changelogUltimaVersao = '''
+5.2.0
+- Lints
+- Fixes
+''';
+
+  static String changelogsAntigos = '''
 5.1.2
 - Nova Página New/Edit
 - Página de Estatísticas Alterada
 - Fix Estatísticas Null
 - Fixes
-''';
 
-  static String changelogsAntigos = '''
 5.0.0
 - Nova Home
 - Flutter 2.0

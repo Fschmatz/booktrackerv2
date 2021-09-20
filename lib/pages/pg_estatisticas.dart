@@ -1,4 +1,4 @@
-import 'package:booktrackerv2/db/livroDao.dart';
+import 'package:booktrackerv2/db/livro_dao.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -33,9 +33,9 @@ class _PgEstatisticasState extends State<PgEstatisticas> {
     var respParaLer = await dbLivro.contagemLivrosEstado(0);
     var respLidos = await dbLivro.contagemLivrosEstado(2);
     setState(() {
-      livrosLendo = respLendo == null ? 0 : respLendo;
-      livrosParaLer = respParaLer == null ? 0 : respParaLer;
-      livrosLidos = respLidos == null ? 0 : respLidos;
+      livrosLendo = respLendo ?? 0;
+      livrosParaLer = respParaLer ?? 0;
+      livrosLidos = respLidos ?? 0;
     });
   }
 
@@ -46,10 +46,10 @@ class _PgEstatisticasState extends State<PgEstatisticas> {
     var respAutores = await dbLivro.contagemAutores();
 
     setState(() {
-      paginasLendo = respLendo == null ? 0 : respLendo;
-      paginasParaLer = respParaLer == null ? 0 : respParaLer;
-      paginasLidos = respLidos == null ? 0 : respLidos;
-      quantAutores = respAutores == null ? 0 : respAutores;
+      paginasLendo = respLendo ?? 0;
+      paginasParaLer = respParaLer ?? 0;
+      paginasLidos = respLidos ?? 0;
+      quantAutores = respAutores ?? 0;
       loading = false;
     });
   }
@@ -60,7 +60,7 @@ class _PgEstatisticasState extends State<PgEstatisticas> {
     Color accent = Theme.of(context).accentColor;
 
     return AnimatedSwitcher(
-      duration: Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 600),
       child: loading ?  Center(
         child: CircularProgressIndicator(color: Theme.of(context).accentColor,),
       ) : ListView(
@@ -79,7 +79,7 @@ class _PgEstatisticasState extends State<PgEstatisticas> {
 
 Widget cardEstatisticas(String tituloCard,int? valorLendo, int? valorParaLer, int? valorLidos, Color accent){
 
-  TextStyle styleTrailing = TextStyle(fontSize: 16);
+  TextStyle styleTrailing = const TextStyle(fontSize: 16);
   int soma = (valorLidos! + valorParaLer!  + valorLendo! );
 
   return Column(
@@ -92,23 +92,23 @@ Widget cardEstatisticas(String tituloCard,int? valorLendo, int? valorParaLer, in
                 color: accent)),
       ),
       ListTile(
-        leading: Icon(Icons.book_outlined),
-        title: Text('Lendo'),
+        leading: const Icon(Icons.book_outlined),
+        title: const Text('Lendo'),
         trailing: Text(valorLendo.toString(),style: styleTrailing),
       ),
       ListTile(
-        leading: Icon(Icons.bookmark_outline),
-        title: Text('Para Ler'),
+        leading: const Icon(Icons.bookmark_outline),
+        title: const Text('Para Ler'),
         trailing: Text(valorParaLer.toString(),style: styleTrailing),
       ),
       ListTile(
-        leading: Icon(Icons.done_outlined),
-        title: Text('Lidos'),
+        leading: const Icon(Icons.done_outlined),
+        title: const Text('Lidos'),
         trailing: Text(valorLidos.toString(),style: styleTrailing),
       ),
       ListTile(
-        leading: SizedBox.shrink(),
-        title: Text('Total'),
+        leading: const SizedBox.shrink(),
+        title: const Text('Total'),
         trailing: Text(soma.toString(),style: styleTrailing,),
       ),
     ],
@@ -117,7 +117,7 @@ Widget cardEstatisticas(String tituloCard,int? valorLendo, int? valorParaLer, in
 
 Widget cardAutores(String tituloCard,int? valor, Color accent){
 
-  TextStyle styleTrailing = TextStyle(fontSize: 16);
+  TextStyle styleTrailing = const TextStyle(fontSize: 16);
 
   //BANCO CONTA O VALOR VAZIO, QUE ESTÁ CONFIGURADO PARA O LIVRO SEM AUTOR
   int valorCalculado = valor == 0 ? 0 : (valor! - 1);
@@ -132,8 +132,8 @@ Widget cardAutores(String tituloCard,int? valor, Color accent){
                 color: accent)),
       ),
       ListTile(
-        leading: Icon(Icons.person_outline_outlined),
-        title: Text('Autores'),
+        leading: const Icon(Icons.person_outline_outlined),
+        title: const Text('Autores'),
         trailing: Text(valorCalculado.toString(),style: styleTrailing),
       ),
 

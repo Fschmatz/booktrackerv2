@@ -1,17 +1,19 @@
 import 'package:booktrackerv2/class/livro.dart';
-import 'package:booktrackerv2/db/livroDao.dart';
-import 'package:booktrackerv2/pages/pgNovoLivro.dart';
-import 'package:booktrackerv2/ui/cardLivro.dart';
+import 'package:booktrackerv2/db/livro_dao.dart';
+import 'package:booktrackerv2/pages/pg_novo_livro.dart';
+import 'package:booktrackerv2/ui/card_livro.dart';
 import 'package:flutter/material.dart';
 
-class PgParaLer extends StatefulWidget {
-  const PgParaLer({Key? key}) : super(key: key);
+class PgBookList extends StatefulWidget {
+  int bookState;
+
+  PgBookList({Key? key, required this.bookState}) : super(key: key);
 
   @override
-  _PgParaLerState createState() => _PgParaLerState();
+  _PgBookListState createState() => _PgBookListState();
 }
 
-class _PgParaLerState extends State<PgParaLer> {
+class _PgBookListState extends State<PgBookList> {
   List<Map<String, dynamic>> listaLivros = [];
   final dbLivro = LivroDao.instance;
 
@@ -22,7 +24,7 @@ class _PgParaLerState extends State<PgParaLer> {
   }
 
   Future<void> getAllLivros() async {
-    var resp = await dbLivro.queryAllLivrosEstado(0);
+    var resp = await dbLivro.queryAllLivrosEstado(widget.bookState);
     setState(() {
       listaLivros = resp;
     });
@@ -34,21 +36,21 @@ class _PgParaLerState extends State<PgParaLer> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: ListView(
         children: [
           ListView.separated(
-            separatorBuilder: (BuildContext context, int index) => const SizedBox(
+            separatorBuilder: (BuildContext context, int index) =>
+                const SizedBox(
               height: 4,
             ),
-            physics: ScrollPhysics(),
+            physics: const ScrollPhysics(),
             shrinkWrap: true,
             itemCount: listaLivros.length,
             itemBuilder: (context, int index) {
               return CardLivro(
                 key: UniqueKey(),
-                livro: new Livro(
+                livro: Livro(
                   id: listaLivros[index]['idLivro'],
                   nome: listaLivros[index]['nome'],
                   numPaginas: listaLivros[index]['numPaginas'],
@@ -57,7 +59,7 @@ class _PgParaLerState extends State<PgParaLer> {
                   capa: listaLivros[index]['capa'],
                 ),
                 refreshLista: refresh,
-                paginaAtual: 0,
+                paginaAtual: 1,
               );
             },
           ),
@@ -69,19 +71,17 @@ class _PgParaLerState extends State<PgParaLer> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).accentColor.withOpacity(0.8),
         elevation: 1,
-        heroTag: "btn0",
+        heroTag: "btn1",
         onPressed: () {
           Navigator.push(
               context,
               MaterialPageRoute<void>(
                 builder: (BuildContext context) =>
-                    PgNovoLivro(
-                        paginaAtual: 0
-                    ),
+                    PgNovoLivro(paginaAtual: widget.bookState),
                 fullscreenDialog: true,
               )).then((value) => refresh());
         },
-        child: Icon(
+        child: const Icon(
           Icons.add,
           color: Colors.white,
         ),

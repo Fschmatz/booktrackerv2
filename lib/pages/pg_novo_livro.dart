@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:booktrackerv2/db/livroDao.dart';
+import 'package:booktrackerv2/db/livro_dao.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,9 +11,6 @@ class PgNovoLivro extends StatefulWidget {
   _PgNovoLivroState createState() => _PgNovoLivroState();
 
   int paginaAtual;
-
-  //Function() refreshLista;
-
   PgNovoLivro({Key? key, required this.paginaAtual}) : super(key: key);
 }
 
@@ -72,7 +69,7 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
 
   showAlertDialogErros(BuildContext context) {
     Widget okButton = TextButton(
-      child: Text(
+      child: const Text(
         "Ok",
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
@@ -83,13 +80,13 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
 
     AlertDialog alert = AlertDialog(
       elevation: 3.0,
-      title: Text(
+      title: const Text(
         "Erro",
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
       content: Text(
         checkProblemas(),
-        style: TextStyle(
+        style:const  TextStyle(
           fontSize: 18,
         ),
       ),
@@ -118,12 +115,12 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        title: Text('Adicionar Livro'),
+        title: const Text('Adicionar Livro'),
         actions: [
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
             child: IconButton(
-              icon: Icon(Icons.save_outlined),
+              icon: const Icon(Icons.save_outlined),
               tooltip: 'Salvar',
               onPressed: () {
                 if (checkProblemas().isEmpty) {
@@ -140,7 +137,7 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
       body: ListView(
         children: [
           ListTile(
-            leading: SizedBox(
+            leading: const SizedBox(
               height: 0.1,
             ),
             title: Text("Nome".toUpperCase(),
@@ -150,7 +147,7 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
                     color: Theme.of(context).accentColor)),
           ),
           ListTile(
-            leading: Icon(Icons.notes_outlined),
+            leading: const Icon(Icons.notes_outlined),
             title: TextField(
               minLines: 1,
               maxLines: 2,
@@ -160,16 +157,16 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
               keyboardType: TextInputType.name,
               controller: customControllerNomeLivro,
               onEditingComplete: () => node.nextFocus(),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 helperText: "* Obrigatório",
               ),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
               ),
             ),
           ),
           ListTile(
-            leading: SizedBox(
+            leading: const SizedBox(
               height: 0.1,
             ),
             title: Text("Autor".toUpperCase(),
@@ -179,7 +176,7 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
                     color: Theme.of(context).accentColor)),
           ),
           ListTile(
-            leading: Icon(
+            leading: const Icon(
               Icons.person_outline_outlined,
             ),
             title: TextField(
@@ -191,13 +188,13 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
               keyboardType: TextInputType.name,
               controller: customControllerAutor,
               onEditingComplete: () => node.nextFocus(),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
               ),
             ),
           ),
           ListTile(
-            leading: SizedBox(
+            leading: const SizedBox(
               height: 0.1,
             ),
             title: Text("Nº de Páginas".toUpperCase(),
@@ -207,23 +204,23 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
                     color: Theme.of(context).accentColor)),
           ),
           ListTile(
-            leading: Icon(Icons.library_books_outlined),
+            leading: const Icon(Icons.library_books_outlined),
             title: TextField(
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\d{0,2}'))
               ],
               maxLength: 5,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
-              keyboardType: TextInputType.numberWithOptions(decimal: false),
+              keyboardType: const TextInputType.numberWithOptions(decimal: false),
               controller: customControllerPaginas,
               onEditingComplete: () => node.nextFocus(),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
               ),
             ),
           ),
           ListTile(
-            leading: SizedBox(
+            leading: const SizedBox(
               height: 0.1,
             ),
             title: Text("Capa".toUpperCase(),
@@ -233,8 +230,8 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
                     color: Theme.of(context).accentColor)),
           ),
           ListTile(
-            leading: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 52, 0, 0),
+            leading: const Padding(
+              padding: EdgeInsets.fromLTRB(0, 52, 0, 0),
               child: Icon(Icons.image_outlined),
             ),
             title: Card(
@@ -281,12 +278,12 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Container(
+                          SizedBox(
                             width: 175,
                             height: 40,
                             child: TextButton(
                               onPressed: pickGallery,
-                              child: Text(
+                              child: const Text(
                                 "Selecionar Capa",
                                 style: TextStyle(fontSize: 14,fontWeight: FontWeight.normal),
                               ),
@@ -304,17 +301,17 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
                             ),
                           ),
                           capa != null
-                              ? SizedBox(
+                              ? const SizedBox(
                                   height: 20,
                                 )
-                              : SizedBox.shrink(),
+                              : const SizedBox.shrink(),
                           capa != null
-                              ? Container(
+                              ? SizedBox(
                                   width: 175,
                                   height: 40,
                                   child: TextButton(
                                     onPressed: removerCapa,
-                                    child: Text(
+                                    child: const Text(
                                       "Remover Capa",
                                       style: TextStyle(fontSize: 14,fontWeight: FontWeight.normal),
                                     ),
@@ -333,7 +330,7 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
                                     ),
                                   ),
                                 )
-                              : SizedBox.shrink(),
+                              : const SizedBox.shrink(),
                         ],
                       ),
                     ]),

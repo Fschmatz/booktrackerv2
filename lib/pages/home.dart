@@ -1,21 +1,36 @@
-import 'package:booktrackerv2/pages/configs/pgConfigs.dart';
-import 'package:booktrackerv2/pages/pgEstatisticas.dart';
-import 'package:booktrackerv2/pages/pgLendo.dart';
-import 'package:booktrackerv2/pages/pgLidos.dart';
-import 'package:booktrackerv2/pages/pgParaLer.dart';
+import 'package:booktrackerv2/pages/configs/pg_configs.dart';
+import 'package:booktrackerv2/pages/pg_estatisticas.dart';
+import 'package:booktrackerv2/pages/pg_book_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
+
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
-  List<Widget> _pageList = [PgLendo(),PgParaLer(),PgLidos(),PgEstatisticas()];
+
+  final List<Widget> _pageList = [
+    PgBookList(
+      key: UniqueKey(),
+      bookState: 1,
+    ),
+    PgBookList(
+      key: UniqueKey(),
+      bookState: 0,
+    ),
+    PgBookList(
+      key: UniqueKey(),
+      bookState: 2,
+    ),
+    const PgEstatisticas()
+  ];
 
   @override
   void initState() {
@@ -31,7 +46,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text(
+        title: const Text(
           'BookTracker',
         ),
         actions: [
@@ -48,7 +63,7 @@ class _HomeState extends State<Home> {
                 Navigator.push(
                     context,
                     MaterialPageRoute<void>(
-                      builder: (BuildContext context) => PgConfigs(),
+                      builder: (BuildContext context) => const PgConfigs(),
                       fullscreenDialog: true,
                     ));
               }),
@@ -62,7 +77,7 @@ class _HomeState extends State<Home> {
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8),
             child: GNav(
               rippleColor: Theme.of(context).accentColor.withOpacity(0.4),
               hoverColor: Theme.of(context).accentColor.withOpacity(0.4),
@@ -74,8 +89,8 @@ class _HomeState extends State<Home> {
               gap: 5,
               activeColor: Theme.of(context).accentColor,
               iconSize: 24,
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              duration: Duration(milliseconds: 500),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              duration: const Duration(milliseconds: 500),
               tabBackgroundColor:
                   Theme.of(context).accentColor.withOpacity(0.3),
               backgroundColor:

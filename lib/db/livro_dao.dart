@@ -6,16 +6,16 @@ import 'package:path_provider/path_provider.dart';
 
 class LivroDao {
 
-  static final _databaseName = "BookTracker.db";
-  static final _databaseVersion = 1;
+  static const _databaseName = "BookTracker.db";
+  static const _databaseVersion = 1;
 
-  static final table = 'livro';
-  static final columnIdLivro = 'idLivro';
-  static final columnNome = 'nome';
-  static final columnNumPaginas = 'numPaginas';
-  static final columnAutor = 'autor';
-  static final columnLido = 'lido'; // 0 = ler , 1 = lendo , 2 = lido
-  static final columnCapa = 'capa';
+  static const table = 'livro';
+  static const columnIdLivro = 'idLivro';
+  static const columnNome = 'nome';
+  static const columnNumPaginas = 'numPaginas';
+  static const columnAutor = 'autor';
+  static const columnLido = 'lido'; // 0 = ler , 1 = lendo , 2 = lido
+  static const columnCapa = 'capa';
 
   static Database? _database;
   Future<Database> get database async =>

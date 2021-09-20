@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PgAppInfo extends StatelessWidget {
+  const PgAppInfo({Key? key}) : super(key: key);
+
 
   _launchGithub() async {
     const url = 'https://github.com/Fschmatz/booktrackerv2';
@@ -17,7 +19,7 @@ class PgAppInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("App Info"),
+          title: const Text("App Info"),
           elevation: 0.0,
         ),
         body: ListView(children: <Widget>[
@@ -25,7 +27,7 @@ class PgAppInfo extends StatelessWidget {
           CircleAvatar(
             radius: 55,
             backgroundColor: Colors.yellow[600],
-            child: CircleAvatar(
+            child: const CircleAvatar(
               radius: 50,
               backgroundImage: AssetImage('assets/avatar.jpg'),
             ),
@@ -41,7 +43,7 @@ class PgAppInfo extends StatelessWidget {
           const SizedBox(height: 15),
           const Divider(),
           ListTile(
-            leading: SizedBox(
+            leading: const SizedBox(
               height: 0.1,
             ),
             title: Text("Dev".toUpperCase(),
@@ -50,7 +52,7 @@ class PgAppInfo extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                     color: Theme.of(context).accentColor)),
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(Icons.info_outline),
             title: Text(
               "MARTELADO E REFEITO DO ZERO: 1 X POR ENQUANTO !!!\n( Por causa de um problema grave do SDK, culpa do Flutter! )\nVamos que Vamos, denovo!!!",
@@ -59,7 +61,7 @@ class PgAppInfo extends StatelessWidget {
               ),
             ),
           ),
-          ListTile(
+          const ListTile(
             leading: SizedBox(
               height: 0.1,
             ),
@@ -72,7 +74,7 @@ class PgAppInfo extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-            leading: SizedBox(
+            leading: const SizedBox(
               height: 0.1,
             ),
             title: Text("Código Fonte".toUpperCase(),
@@ -83,15 +85,15 @@ class PgAppInfo extends StatelessWidget {
           ),
           ListTile(
             onTap: () {_launchGithub();},
-            leading: Icon(Icons.open_in_new_outlined),
-            title: Text("Ver no Github",
+            leading: const Icon(Icons.open_in_new_outlined),
+            title: const Text("Ver no Github",
                 style: TextStyle(
                     decoration: TextDecoration.underline,
                     color: Colors.blue)),
           ),
           const Divider(),
           ListTile(
-            leading: SizedBox(
+            leading: const SizedBox(
               height: 0.1,
             ),
             title: Text("Quote".toUpperCase(),
@@ -100,7 +102,7 @@ class PgAppInfo extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                     color: Theme.of(context).accentColor)),
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(Icons.messenger_outline),
             title: Text(
               ''' 

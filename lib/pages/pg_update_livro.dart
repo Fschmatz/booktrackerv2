@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:booktrackerv2/class/livro.dart';
-import 'package:booktrackerv2/db/livroDao.dart';
+import 'package:booktrackerv2/db/livro_dao.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,7 +12,9 @@ class PgUpdateLivro extends StatefulWidget {
 
   Function() refreshLista;
   Livro livro;
-  PgUpdateLivro({Key? key, required this.refreshLista,required this.livro}) : super(key: key);
+
+  PgUpdateLivro({Key? key, required this.refreshLista, required this.livro})
+      : super(key: key);
 }
 
 class _PgUpdateLivroState extends State<PgUpdateLivro> {
@@ -30,8 +32,11 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
   pickGallery() async {
     final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
 
-    File compressedFile = await FlutterNativeImage.compressImage(pickedFile!.path, quality: 95,
-        targetWidth: 325, targetHeight: 475);
+    File compressedFile = await FlutterNativeImage.compressImage(
+        pickedFile!.path,
+        quality: 95,
+        targetWidth: 325,
+        targetHeight: 475);
 
     if (compressedFile == null) {
       return;
@@ -52,7 +57,6 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
     customControllerAutor.text = widget.livro.autor!;
   }
 
-
   void _atualizarLivro(int id) async {
     final dbLivro = LivroDao.instance;
     Map<String, dynamic> row = {
@@ -60,14 +64,14 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
       LivroDao.columnNome: customControllerNomeLivro.text,
       LivroDao.columnNumPaginas: customControllerPaginas.text,
       LivroDao.columnAutor: customControllerAutor.text,
-      LivroDao.columnCapa : capaFoiEditada ? capa!.readAsBytesSync() : widget.livro.capa,
+      LivroDao.columnCapa:
+          capaFoiEditada ? capa!.readAsBytesSync() : widget.livro.capa,
     };
     final atualizar = await dbLivro.update(row);
   }
 
-
   //CHECK ERROR NULL
-  String checkProblemas(){
+  String checkProblemas() {
     String erros = "";
     if (customControllerNomeLivro.text.isEmpty) {
       erros += "Insira um nome\n";
@@ -76,9 +80,8 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
   }
 
   showAlertDialogErros(BuildContext context) {
-
     Widget okButton = TextButton(
-      child: Text(
+      child: const Text(
         "Ok",
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
@@ -89,13 +92,13 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
 
     AlertDialog alert = AlertDialog(
       elevation: 3.0,
-      title: Text(
+      title: const Text(
         "Erro",
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
       content: Text(
         checkProblemas(),
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 18,
         ),
       ),
@@ -120,18 +123,16 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        title: Text('Editar Livro'),
+        title: const Text('Editar Livro'),
         actions: [
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
             child: IconButton(
-              icon: Icon(Icons.save_outlined),
+              icon: const Icon(Icons.save_outlined),
               tooltip: 'Salvar',
-
               onPressed: () {
                 if (checkProblemas().isEmpty) {
                   _atualizarLivro(widget.livro.id);
@@ -140,7 +141,6 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
                 } else {
                   showAlertDialogErros(context);
                 }
-
               },
             ),
           ),
@@ -149,7 +149,7 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
       body: ListView(
         children: [
           ListTile(
-            leading: SizedBox(
+            leading: const SizedBox(
               height: 0.1,
             ),
             title: Text("Nome".toUpperCase(),
@@ -159,7 +159,7 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
                     color: Theme.of(context).accentColor)),
           ),
           ListTile(
-            leading: Icon(Icons.notes_outlined),
+            leading: const Icon(Icons.notes_outlined),
             title: TextField(
               minLines: 1,
               maxLines: 2,
@@ -168,16 +168,16 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
               controller: customControllerNomeLivro,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 helperText: "* Obrigatório",
               ),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
               ),
             ),
           ),
           ListTile(
-            leading: SizedBox(
+            leading: const SizedBox(
               height: 0.1,
             ),
             title: Text("Autor".toUpperCase(),
@@ -187,7 +187,7 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
                     color: Theme.of(context).accentColor)),
           ),
           ListTile(
-            leading: Icon(
+            leading: const Icon(
               Icons.person_outline_outlined,
             ),
             title: TextField(
@@ -198,13 +198,13 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
               controller: customControllerAutor,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
               ),
             ),
           ),
           ListTile(
-            leading: SizedBox(
+            leading: const SizedBox(
               height: 0.1,
             ),
             title: Text("Nº de Páginas".toUpperCase(),
@@ -214,23 +214,23 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
                     color: Theme.of(context).accentColor)),
           ),
           ListTile(
-            leading: Icon(Icons.library_books_outlined),
+            leading: const Icon(Icons.library_books_outlined),
             title: TextField(
               inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.allow(
-                    RegExp(r'^(\d+)?\d{0,2}'))
+                FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\d{0,2}'))
               ],
               maxLength: 5,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
-              keyboardType: TextInputType.numberWithOptions(decimal: false),
+              keyboardType:
+                  const TextInputType.numberWithOptions(decimal: false),
               controller: customControllerPaginas,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
               ),
             ),
           ),
           ListTile(
-            leading: SizedBox(
+            leading: const SizedBox(
               height: 0.1,
             ),
             title: Text("Capa".toUpperCase(),
@@ -240,8 +240,8 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
                     color: Theme.of(context).accentColor)),
           ),
           ListTile(
-            leading: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 52, 0, 0),
+            leading: const Padding(
+              padding: EdgeInsets.fromLTRB(0, 52, 0, 0),
               child: Icon(Icons.image_outlined),
             ),
             title: Card(
@@ -270,32 +270,34 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
                         elevation: 0,
                         child: widget.livro.capa == null
                             ? Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5)),
-                          width: 70,
-                          height: 105,
-                        )
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5)),
+                                width: 70,
+                                height: 105,
+                              )
                             : ClipRRect(
-                          borderRadius: BorderRadius.circular(5),
-                          child: Image.memory(
-                            widget.livro.capa!,
-                            width: 70,
-                            height: 105,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
+                                borderRadius: BorderRadius.circular(5),
+                                child: Image.memory(
+                                  widget.livro.capa!,
+                                  width: 70,
+                                  height: 105,
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Container(
+                          SizedBox(
                             width: 175,
                             height: 40,
                             child: TextButton(
                               onPressed: pickGallery,
-                              child: Text(
+                              child: const Text(
                                 "Selecionar Capa",
-                                style: TextStyle(fontSize: 14,fontWeight: FontWeight.normal),
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal),
                               ),
                               style: ElevatedButton.styleFrom(
                                 elevation: 0,
@@ -310,39 +312,47 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
                               ),
                             ),
                           ),
-                          widget.livro.capa != null ? SizedBox(height: 20,) : SizedBox.shrink(),
-                          widget.livro.capa != null ? Container(
-                            width: 175,
-                            height: 40,
-                            child: TextButton(
-                              onPressed: removerCapa,
-                              child: Text(
-                                "Remover Capa",
-                                style: TextStyle(fontSize: 14,fontWeight: FontWeight.normal),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                elevation: 0,
-                                primary: Theme.of(context).cardTheme.color,
-                                onPrimary: Theme.of(context)
-                                    .textTheme
-                                    .headline1!
-                                    .color,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(40.0),
-                                ),
-                              ),
-                            ),
-                          ) : SizedBox.shrink(),
+                          widget.livro.capa != null
+                              ? const SizedBox(
+                                  height: 20,
+                                )
+                              : const SizedBox.shrink(),
+                          widget.livro.capa != null
+                              ? SizedBox(
+                                  width: 175,
+                                  height: 40,
+                                  child: TextButton(
+                                    onPressed: removerCapa,
+                                    child: const Text(
+                                      "Remover Capa",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.normal),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      elevation: 0,
+                                      primary:
+                                          Theme.of(context).cardTheme.color,
+                                      onPrimary: Theme.of(context)
+                                          .textTheme
+                                          .headline1!
+                                          .color,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(40.0),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : const SizedBox.shrink(),
                         ],
                       ),
                     ]),
               ),
             ),
           ),
-
         ],
       ),
-
     );
   }
 }
