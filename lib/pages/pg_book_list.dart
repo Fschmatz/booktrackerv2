@@ -73,7 +73,7 @@ class _PgBookListState extends State<PgBookList> {
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
-        elevation: 1,
+        elevation: 0,
         heroTag: "btn1",
         onPressed: () {
           Navigator.push(
@@ -86,7 +86,7 @@ class _PgBookListState extends State<PgBookList> {
         },
         child: Icon(
           Icons.add,
-          color: Theme.of(context).accentColor.withOpacity(0.8),
+          color: Theme.of(context).accentColor,
         ),
       ),
     );

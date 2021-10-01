@@ -70,10 +70,10 @@ ThemeData dark = ThemeData(
             fontWeight: FontWeight.w600,
             color: Color(0xFFFFFFFF))),
     cardTheme: const CardTheme(
-      color: Color(0xFF2D2D2F),
+      color: Color(0xFF303032),
     ),
     dialogTheme: const DialogTheme(
-      backgroundColor: Color(0xFF2D2D2F),
+      backgroundColor: Color(0xFF303032),
     ),
     inputDecorationTheme: InputDecorationTheme(
         fillColor: const Color(0xFF353537),
