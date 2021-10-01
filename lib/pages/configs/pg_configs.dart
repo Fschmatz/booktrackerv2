@@ -18,7 +18,6 @@ class _PgConfigsState extends State<PgConfigs> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Configurações"),
-          elevation: 0.0,
         ),
         body: ListView(
           children: <Widget>[

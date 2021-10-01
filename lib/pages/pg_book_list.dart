@@ -69,7 +69,10 @@ class _PgBookListState extends State<PgBookList> {
               ],
             ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).accentColor.withOpacity(0.8),
+        backgroundColor: Theme.of(context).cardTheme.color,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
         elevation: 1,
         heroTag: "btn1",
         onPressed: () {
@@ -81,9 +84,9 @@ class _PgBookListState extends State<PgBookList> {
                 fullscreenDialog: true,
               )).then((value) => getLivrosState());
         },
-        child: const Icon(
+        child: Icon(
           Icons.add,
-          color: Colors.white,
+          color: Theme.of(context).accentColor.withOpacity(0.8),
         ),
       ),
     );

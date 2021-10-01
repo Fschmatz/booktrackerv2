@@ -86,13 +86,13 @@ class _HomeState extends State<Home> {
                   .headline6!
                   .color!
                   .withOpacity(0.8),
-              gap: 5,
+              gap: 8,
               activeColor: Theme.of(context).accentColor,
               iconSize: 24,
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               duration: const Duration(milliseconds: 500),
               tabBackgroundColor:
-                  Theme.of(context).accentColor.withOpacity(0.3),
+                  Theme.of(context).cardTheme.color!,
               backgroundColor:
                   Theme.of(context).bottomNavigationBarTheme.backgroundColor!,
               tabs: [

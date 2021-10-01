@@ -114,7 +114,6 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
 
     return Scaffold(
       appBar: AppBar(
-        elevation: 0.0,
         title: const Text('Adicionar Livro'),
         actions: [
           Padding(

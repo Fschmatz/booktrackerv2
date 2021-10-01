@@ -9,7 +9,6 @@ class PgChangelog extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Changelog"),
-          elevation: 0.0,
         ),
         body: ListView(children: <Widget>[
           ListTile(

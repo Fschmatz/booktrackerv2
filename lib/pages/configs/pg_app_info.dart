@@ -20,7 +20,6 @@ class PgAppInfo extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text("App Info"),
-          elevation: 0.0,
         ),
         body: ListView(children: <Widget>[
           const SizedBox(height: 20),
