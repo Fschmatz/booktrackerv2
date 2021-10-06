@@ -70,7 +70,7 @@ class _PgEstatisticasState extends State<PgEstatisticas> {
           cardEstatisticas('Páginas', paginasLendo, paginasParaLer , paginasLidos, accent),
           const Divider(),
           cardAutores('Geral', quantAutores, accent),
-          const SizedBox(height: 75,),
+          const SizedBox(height: 100,),
         ],
       ),
     );

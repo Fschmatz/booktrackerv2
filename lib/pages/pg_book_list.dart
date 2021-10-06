@@ -64,7 +64,7 @@ class _PgBookListState extends State<PgBookList> {
                   },
                 ),
                 const SizedBox(
-                  height: 75,
+                  height: 100,
                 )
               ],
             ),
@@ -73,7 +73,6 @@ class _PgBookListState extends State<PgBookList> {
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
-        elevation: 0,
         heroTag: "btn1",
         onPressed: () {
           Navigator.push(
