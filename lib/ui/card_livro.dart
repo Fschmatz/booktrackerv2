@@ -14,14 +14,17 @@ class CardLivro extends StatefulWidget {
   int paginaAtual;
   Function() getLivrosState;
 
-  CardLivro({Key? key,required this.livro, required this.getLivrosState,required this.paginaAtual})
+  CardLivro(
+      {Key? key,
+      required this.livro,
+      required this.getLivrosState,
+      required this.paginaAtual})
       : super(key: key);
 }
 
 class _CardLivroState extends State<CardLivro> {
-
   final GlobalKey<InOutAnimationState> inOutAnimation =
-  GlobalKey<InOutAnimationState>();
+      GlobalKey<InOutAnimationState>();
 
   void _deletar(int id) async {
     final dbLivro = LivroDao.instance;
@@ -41,132 +44,131 @@ class _CardLivroState extends State<CardLivro> {
     showModalBottomSheet(
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.0),
-              topRight: Radius.circular(30.0)),
+              topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
         ),
-        isScrollControlled: true,
         context: context,
         builder: (BuildContext bc) {
-          return Padding(
-            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-            child: Wrap(
-              children: <Widget>[
-                ListTile(
-                  contentPadding: const EdgeInsets.fromLTRB(10, 3, 10, 3),
-                  title: Text(
-                    widget.livro.nome,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
+          return SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: Wrap(
+                children: <Widget>[
+                  ListTile(
+                    contentPadding: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+                    title: Text(
+                      widget.livro.nome,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
-                const Divider(),
-                Visibility(
-                  visible: widget.paginaAtual != 0,
-                  child: ListTile(
-                    leading:
-                    Icon(Icons.bookmark_outline, color: Theme.of(context).hintColor),
+                  const Divider(),
+                  Visibility(
+                    visible: widget.paginaAtual != 0,
+                    child: ListTile(
+                      leading: Icon(Icons.bookmark_outline,
+                          color: Theme.of(context).hintColor),
+                      title: const Text(
+                        "Marcar como para ler",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        _mudarEstado(widget.livro.id, 0);
+                        inOutAnimation.currentState!.animateOut();
+                        Future.delayed(const Duration(milliseconds: 500), () {
+                          widget.getLivrosState();
+                        });
+                      },
+                    ),
+                  ),
+                  Visibility(
+                    visible: widget.paginaAtual != 0,
+                    child: const Divider(),
+                  ),
+                  Visibility(
+                    visible: widget.paginaAtual != 1,
+                    child: ListTile(
+                      leading: Icon(Icons.book_outlined,
+                          color: Theme.of(context).hintColor),
+                      title: const Text(
+                        "Marcar como lendo",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        _mudarEstado(widget.livro.id, 1);
+                        inOutAnimation.currentState!.animateOut();
+                        Future.delayed(const Duration(milliseconds: 500), () {
+                          widget.getLivrosState();
+                        });
+                      },
+                    ),
+                  ),
+                  Visibility(
+                    visible: widget.paginaAtual != 1,
+                    child: const Divider(),
+                  ),
+                  Visibility(
+                    visible: widget.paginaAtual != 2,
+                    child: ListTile(
+                      leading: Icon(Icons.done_outlined,
+                          color: Theme.of(context).hintColor),
+                      title: const Text(
+                        "Marcar como lido",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        _mudarEstado(widget.livro.id, 2);
+                        inOutAnimation.currentState!.animateOut();
+
+                        Future.delayed(const Duration(milliseconds: 500), () {
+                          widget.getLivrosState();
+                        });
+                      },
+                    ),
+                  ),
+                  Visibility(
+                    visible: widget.paginaAtual != 2,
+                    child: const Divider(),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.edit_outlined,
+                        color: Theme.of(context).hintColor),
                     title: const Text(
-                      "Marcar como para ler",
+                      "Editar livro",
                       style: TextStyle(fontSize: 16),
                     ),
                     onTap: () {
                       Navigator.of(context).pop();
-                      _mudarEstado(widget.livro.id, 0);
-                      inOutAnimation.currentState!.animateOut();
-                      Future.delayed(const Duration(milliseconds: 500), () {
-                        widget.getLivrosState();
-                      });
+
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) => PgUpdateLivro(
+                              livro: widget.livro,
+                              refreshLista: widget.getLivrosState,
+                            ),
+                            fullscreenDialog: true,
+                          ));
                     },
                   ),
-                ),
-                Visibility(
-                  visible: widget.paginaAtual != 0,
-                  child: const Divider(),
-                ),
-                Visibility(
-                  visible: widget.paginaAtual != 1,
-                  child: ListTile(
-                    leading:
-                    Icon(Icons.book_outlined, color: Theme.of(context).hintColor),
+                  const Divider(),
+                  ListTile(
+                    leading: Icon(Icons.delete_outline_outlined,
+                        color: Theme.of(context).hintColor),
                     title: const Text(
-                      "Marcar como lendo",
+                      "Deletar livro",
                       style: TextStyle(fontSize: 16),
                     ),
                     onTap: () {
                       Navigator.of(context).pop();
-                      _mudarEstado(widget.livro.id, 1);
-                      inOutAnimation.currentState!.animateOut();
-                      Future.delayed(const Duration(milliseconds: 500), () {
-                        widget.getLivrosState();
-                      });
+                      showAlertDialogOkDelete(context);
                     },
                   ),
-                ),
-                Visibility(
-                  visible: widget.paginaAtual != 1,
-                  child: const Divider(),
-                ),
-                Visibility(
-                  visible: widget.paginaAtual != 2,
-                  child: ListTile(
-                    leading:
-                    Icon(Icons.done_outlined, color: Theme.of(context).hintColor),
-                    title: const Text(
-                      "Marcar como lido",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      _mudarEstado(widget.livro.id, 2);
-                      inOutAnimation.currentState!.animateOut();
-
-                      Future.delayed(const Duration(milliseconds: 500), () {
-                        widget.getLivrosState();
-                      });
-
-                    },
-                  ),
-                ),
-                Visibility(
-                  visible: widget.paginaAtual != 2,
-                  child: const Divider(),
-                ),
-                ListTile(
-                  leading: Icon(Icons.edit_outlined,
-                      color: Theme.of(context).hintColor),
-                  title: const Text(
-                    "Editar livro",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).pop();
-
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute<void>(
-                          builder: (BuildContext context) => PgUpdateLivro(
-                            livro: widget.livro,
-                            refreshLista: widget.getLivrosState,
-                          ),
-                          fullscreenDialog: true,
-                        ));
-                  },
-                ),
-                const Divider(),
-                ListTile(
-                  leading: Icon(Icons.delete_outline_outlined,
-                      color: Theme.of(context).hintColor),
-                  title: const Text(
-                    "Deletar livro",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    showAlertDialogOkDelete(context);
-                  },
-                ),
-              ],
+                ],
+              ),
             ),
           );
         });
@@ -176,7 +178,10 @@ class _CardLivroState extends State<CardLivro> {
     Widget okButton = TextButton(
       child: Text(
         "Sim",
-        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Theme.of(context).accentColor),
+        style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).accentColor),
       ),
       onPressed: () {
         _deletar(widget.livro.id);
@@ -214,7 +219,6 @@ class _CardLivroState extends State<CardLivro> {
 
   @override
   Widget build(BuildContext context) {
-
     return InOutAnimation(
       key: inOutAnimation,
       inDefinition: FadeInAnimation(),
@@ -233,45 +237,45 @@ class _CardLivroState extends State<CardLivro> {
                       alignment: Alignment.centerLeft,
                       child: widget.livro.capa == null
                           ? SizedBox(
-                        height: 112,
-                        width: 77,
-                        child: Card(
-                          elevation: 2,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            side: BorderSide(
-                              color: Colors.grey[800]!,
-                              width: 1,
-                            ),
-                          ),
-                          child: Icon(
-                            Icons.book,
-                            size: 35,
-                            color: Theme.of(context).hintColor,
-                          ),
-                        ),
-                      )
+                              height: 112,
+                              width: 77,
+                              child: Card(
+                                elevation: 2,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                  side: BorderSide(
+                                    color: Colors.grey[800]!,
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Icon(
+                                  Icons.book,
+                                  size: 35,
+                                  color: Theme.of(context).hintColor,
+                                ),
+                              ),
+                            )
                           : Card(
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          side: BorderSide(
-                            color: Colors.grey[800]!,
-                            width: 1,
-                          ),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(5),
-                          child: Image.memory(
-                            widget.livro.capa!,
-                            height: 105,
-                            width: 70,
-                            fit: BoxFit.fill,
-                            filterQuality: FilterQuality.medium,
-                            gaplessPlayback: true,
-                          ),
-                        ),
-                      ),
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                side: BorderSide(
+                                  color: Colors.grey[800]!,
+                                  width: 1,
+                                ),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(5),
+                                child: Image.memory(
+                                  widget.livro.capa!,
+                                  height: 105,
+                                  width: 70,
+                                  fit: BoxFit.fill,
+                                  filterQuality: FilterQuality.medium,
+                                  gaplessPlayback: true,
+                                ),
+                              ),
+                            ),
                     ),
                   ),
                   Expanded(
@@ -322,5 +326,3 @@ class _CardLivroState extends State<CardLivro> {
     );
   }
 }
-
-

@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 ThemeData light = ThemeData(
     brightness: Brightness.light,
     primaryColor: const Color(0xFFFFFFFF),
-    accentColor: Colors.green[700],
+    accentColor: Colors.green[800],
     canvasColor: Colors.black,
     appBarTheme: const AppBarTheme(
         color: Color(0xFFFFFFFF),
@@ -29,11 +29,11 @@ ThemeData light = ThemeData(
     ),
     inputDecorationTheme: InputDecorationTheme(
         fillColor: const Color(0xFFFFFFFF),
-        focusColor: Colors.green[700],
+        focusColor: Colors.green[800],
         contentPadding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.green[700]!,
+            color: Colors.green[800]!,
           ),
           borderRadius: BorderRadius.circular(10.0),
         ),
@@ -49,8 +49,8 @@ ThemeData light = ThemeData(
             borderRadius: BorderRadius.circular(10.0))),
     bottomAppBarColor: const Color(0xFFE0E0E0),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      selectedIconTheme: IconThemeData(color: Colors.green[700]),
-      selectedLabelStyle: TextStyle(color: Colors.green[700]),
+      selectedIconTheme: IconThemeData(color: Colors.green[800]),
+      selectedLabelStyle: TextStyle(color: Colors.green[800]),
       showSelectedLabels: false,
       showUnselectedLabels: false,
       backgroundColor: const Color(0xFFE0E0E0),
@@ -73,7 +73,7 @@ ThemeData dark = ThemeData(
             fontWeight: FontWeight.w600,
             color: Color(0xFFFFFFFF))),
     cardTheme: const CardTheme(
-      color: Color(0xFF303032),
+      color: Color(0xFF2A2A2C),
     ),
     dialogTheme: const DialogTheme(
       backgroundColor: Color(0xFF303032),

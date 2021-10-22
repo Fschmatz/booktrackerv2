@@ -10,22 +10,21 @@ Future<void> main() async {
   PaintingBinding.instance!.imageCache!.maximumSizeBytes = 1000 << 20;
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    systemNavigationBarColor: Colors.transparent,
+      systemNavigationBarContrastEnforced: false,
+      systemNavigationBarColor: Colors.transparent,
+      systemNavigationBarIconBrightness: Brightness.dark
   ));
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge).then(
-        (_) => runApp(
-        ChangeNotifierProvider(
-          create: (_) => ThemeNotifier(),
-          child: Consumer<ThemeNotifier>(
-            builder:(context, ThemeNotifier notifier, child){
-              return MaterialApp(
-                theme: notifier.darkTheme ? dark : light,
-                home: const Home(),
-              );
-            },
-          ),
-        )
-    ),
-  );
-}
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
+  runApp(ChangeNotifierProvider(
+    create: (_) => ThemeNotifier(),
+    child: Consumer<ThemeNotifier>(
+      builder: (context, ThemeNotifier notifier, child) {
+        return MaterialApp(
+          theme: notifier.darkTheme ? dark : light,
+          home: const Home(),
+        );
+      },
+    ),
+  ));
+}
