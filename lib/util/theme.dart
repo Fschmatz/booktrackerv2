@@ -24,6 +24,9 @@ ThemeData light = ThemeData(
     dialogTheme: const DialogTheme(
       backgroundColor: Color(0xFFFFFFFF),
     ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: Color(0xFFF3F3F3),
+    ),
     inputDecorationTheme: InputDecorationTheme(
         fillColor: const Color(0xFFFFFFFF),
         focusColor: Colors.green[700],
@@ -50,7 +53,7 @@ ThemeData light = ThemeData(
       selectedLabelStyle: TextStyle(color: Colors.green[700]),
       showSelectedLabels: false,
       showUnselectedLabels: false,
-      backgroundColor: const Color(0xFFE5E5E5),
+      backgroundColor: const Color(0xFFE0E0E0),
     ),
     bottomSheetTheme:
     const BottomSheetThemeData(modalBackgroundColor: Color(0xFFFFFFFF)));
@@ -101,6 +104,9 @@ ThemeData dark = ThemeData(
       showSelectedLabels: false,
       showUnselectedLabels: false,
       backgroundColor: Color(0xFF151517),
+    ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: Color(0xFF353537),
     ),
     bottomAppBarColor: const Color(0xFF151517),
     bottomSheetTheme:

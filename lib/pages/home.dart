@@ -14,6 +14,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  EdgeInsetsGeometry navBarPadding = const EdgeInsets.symmetric(horizontal: 15, vertical: 10);
   int _currentIndex = 0;
 
   final List<Widget> _pageList = [
@@ -100,21 +101,25 @@ class _HomeState extends State<Home> {
                   icon: Icons.book_outlined,
                   text: 'Lendo',
                   textStyle: styleFontNavBar,
+                  padding: navBarPadding,
                 ),
                 GButton(
                   icon: Icons.bookmark_outline,
                   text: 'Para Ler',
                   textStyle: styleFontNavBar,
+                  padding: navBarPadding,
                 ),
                 GButton(
                   icon: Icons.done_outlined,
                   text: 'Lidos',
                   textStyle: styleFontNavBar,
+                  padding: navBarPadding,
                 ),
                 GButton(
                   icon: Icons.bar_chart_outlined,
                   text: 'Estatísticas',
                   textStyle: styleFontNavBar,
+                  padding: navBarPadding,
                 ),
               ],
               selectedIndex: _currentIndex,

@@ -69,9 +69,8 @@ class _PgBookListState extends State<PgBookList> {
               ],
             ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).cardTheme.color,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderRadius: BorderRadius.all(Radius.circular(18)),
         ),
         heroTag: "btn1",
         onPressed: () {
