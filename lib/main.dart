@@ -9,12 +9,11 @@ Future<void> main() async {
 
   PaintingBinding.instance!.imageCache!.maximumSizeBytes = 1000 << 20;
 
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       systemNavigationBarContrastEnforced: false,
-      systemNavigationBarColor: Colors.transparent,
-      systemNavigationBarIconBrightness: Brightness.dark
+      systemNavigationBarColor: Colors.transparent
   ));
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
   runApp(ChangeNotifierProvider(
     create: (_) => ThemeNotifier(),
