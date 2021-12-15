@@ -1,9 +1,6 @@
-import 'package:booktrackerv2/pages/configs/pg_configs.dart';
 import 'package:booktrackerv2/pages/pg_estatisticas.dart';
 import 'package:booktrackerv2/pages/pg_book_list.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -46,31 +43,6 @@ class _HomeState extends State<Home> {
         color: Theme.of(context).accentColor);
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        title: const Text(
-          'BookTracker',
-        ),
-        actions: [
-          IconButton(
-              icon: Icon(
-                Icons.settings_outlined,
-                color: Theme.of(context)
-                    .textTheme
-                    .headline6!
-                    .color!
-                    .withOpacity(0.8),
-              ),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (BuildContext context) => const PgConfigs(),
-                      fullscreenDialog: true,
-                    ));
-              }),
-        ],
-      ),
       body: _pageList[_currentIndex],
       bottomNavigationBar: NavigationBar(
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,

@@ -4,6 +4,8 @@ import 'package:booktrackerv2/pages/pg_novo_livro.dart';
 import 'package:booktrackerv2/ui/card_livro.dart';
 import 'package:flutter/material.dart';
 
+import 'configs/pg_configs.dart';
+
 class PgBookList extends StatefulWidget {
   int bookState;
 
@@ -35,6 +37,32 @@ class _PgBookListState extends State<PgBookList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'BookTracker',
+        ),
+        actions: [
+          IconButton(
+              icon: Icon(
+                Icons.settings_outlined,
+                color: Theme.of(context)
+                    .textTheme
+                    .headline6!
+                    .color!
+                    .withOpacity(0.8),
+              ),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context) => const PgConfigs(),
+                      fullscreenDialog: true,
+                    )).then((value) => {
+                      if (widget.bookState == 2) {getLivrosState()}
+                    });
+              }),
+        ],
+      ),
       body: loading
           ? const Center(child: SizedBox.shrink())
           : ListView(
