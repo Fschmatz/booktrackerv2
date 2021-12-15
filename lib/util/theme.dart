@@ -55,6 +55,14 @@ ThemeData light = ThemeData(
       showUnselectedLabels: false,
       backgroundColor: const Color(0xFFE0E0E0),
     ),
+    navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: const Color(0xFFE0E0E0),
+        indicatorColor: Colors.green[800]!.withOpacity(0.7),
+        iconTheme: MaterialStateProperty.all(
+            const IconThemeData(color: Color(0xFF050505),)
+        ),
+        labelTextStyle: MaterialStateProperty.all(const TextStyle(
+            color: Color(0xFF050505), fontWeight: FontWeight.w500))),
     bottomSheetTheme:
     const BottomSheetThemeData(modalBackgroundColor: Color(0xFFFFFFFF)));
 
@@ -108,6 +116,14 @@ ThemeData dark = ThemeData(
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: Color(0xFF353537),
     ),
+    navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: const Color(0xFF151517),
+        indicatorColor: const Color(0xFF66BF72),
+        iconTheme: MaterialStateProperty.all(
+            const IconThemeData(color: Color(0xFFCACACA),)
+        ),
+        labelTextStyle: MaterialStateProperty.all(const TextStyle(
+            color: Color(0xFFCACACA), fontWeight: FontWeight.w500))),
     bottomAppBarColor: const Color(0xFF151517),
     bottomSheetTheme:
     const BottomSheetThemeData(modalBackgroundColor: Color(0xFF202022)));

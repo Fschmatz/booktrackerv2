@@ -1,16 +1,21 @@
 class Changelog{
 
-  static String versaoApp = "5.2.2";
+  static String versaoApp = "5.3.0";
   static String nomeApp = "BookTracker Fschmatz";
 
   static String changelogUltimaVersao = '''
+5.3.0
+- Material 3 NavBar
+- Botão Deletar Lidos
+- Fixes
+''';
+
+  static String changelogsAntigos = '''
 5.2.2
 - Lints
 - Fixes
 - Mudanças no Tema
-''';
 
-  static String changelogsAntigos = '''
 5.1.2
 - Nova Página New/Edit
 - Página de Estatísticas Alterada

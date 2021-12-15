@@ -71,6 +71,11 @@ class LivroDao {
     return await db.delete(table, where: '$columnIdLivro = ?', whereArgs: [id]);
   }
 
+  Future<int> deleteTodosLidos() async {
+    Database db = await instance.database;
+    return await db.delete('$table WHERE $columnLido=2');
+  }
+
   Future<int?> contagemLivrosEstado(int estado) async {
     Database db = await instance.database;
     return Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $table WHERE $columnLido=$estado'));

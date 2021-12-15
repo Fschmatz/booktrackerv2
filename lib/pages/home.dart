@@ -4,7 +4,6 @@ import 'package:booktrackerv2/pages/pg_book_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -14,7 +13,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  EdgeInsetsGeometry navBarPadding = const EdgeInsets.symmetric(horizontal: 15, vertical: 10);
+  EdgeInsetsGeometry navBarPadding =
+      const EdgeInsets.symmetric(horizontal: 15, vertical: 10);
   int _currentIndex = 0;
 
   final List<Widget> _pageList = [
@@ -40,9 +40,10 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-
-    TextStyle styleFontNavBar =
-    TextStyle(fontSize: 14.5, fontWeight: FontWeight.w600, color: Theme.of(context).accentColor);
+    TextStyle styleFontNavBar = TextStyle(
+        fontSize: 14.5,
+        fontWeight: FontWeight.w600,
+        color: Theme.of(context).accentColor);
 
     return Scaffold(
       appBar: AppBar(
@@ -71,66 +72,49 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: _pageList[_currentIndex],
-
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).bottomNavigationBarTheme.backgroundColor!,
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 10),
-            child: GNav(
-              rippleColor: Theme.of(context).accentColor.withOpacity(0.4),
-              hoverColor: Theme.of(context).accentColor.withOpacity(0.4),
-              color: Theme.of(context)
-                  .textTheme
-                  .headline6!
-                  .color!
-                  .withOpacity(0.8),
-              gap: 8,
-              activeColor: Theme.of(context).accentColor,
-              iconSize: 24,
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-              duration: const Duration(milliseconds: 500),
-              tabBackgroundColor:
-                  Theme.of(context).cardTheme.color!,
-              backgroundColor:
-                  Theme.of(context).bottomNavigationBarTheme.backgroundColor!,
-              tabs: [
-                GButton(
-                  icon: Icons.book_outlined,
-                  text: 'Lendo',
-                  textStyle: styleFontNavBar,
-                  padding: navBarPadding,
-                ),
-                GButton(
-                  icon: Icons.bookmark_outline,
-                  text: 'Para Ler',
-                  textStyle: styleFontNavBar,
-                  padding: navBarPadding,
-                ),
-                GButton(
-                  icon: Icons.done_outlined,
-                  text: 'Lidos',
-                  textStyle: styleFontNavBar,
-                  padding: navBarPadding,
-                ),
-                GButton(
-                  icon: Icons.bar_chart_outlined,
-                  text: 'Estatísticas',
-                  textStyle: styleFontNavBar,
-                  padding: navBarPadding,
-                ),
-              ],
-              selectedIndex: _currentIndex,
-              onTabChange: (index) {
-                setState(() {
-                  _currentIndex = index;
-                });
-              },
+      bottomNavigationBar: NavigationBar(
+        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+        animationDuration: const Duration(seconds: 1),
+        selectedIndex: _currentIndex,
+        onDestinationSelected: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.book_outlined),
+            selectedIcon: Icon(
+              Icons.book,
+              color: Colors.black87,
             ),
+            label: 'Lendo',
           ),
-        ),
+          NavigationDestination(
+            icon: Icon(Icons.bookmark_outline),
+            selectedIcon: Icon(
+              Icons.bookmark,
+              color: Colors.black87,
+            ),
+            label: 'Para Ler',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.done_outlined),
+            selectedIcon: Icon(
+              Icons.done,
+              color: Colors.black87,
+            ),
+            label: 'Lidos',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.bar_chart_outlined),
+            selectedIcon: Icon(
+              Icons.bar_chart,
+              color: Colors.black87,
+            ),
+            label: 'Estatísticas',
+          ),
+        ],
       ),
     );
   }

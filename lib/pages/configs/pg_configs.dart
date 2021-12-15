@@ -1,3 +1,4 @@
+import 'package:booktrackerv2/db/livro_dao.dart';
 import 'package:booktrackerv2/pages/configs/pg_app_info.dart';
 import 'package:booktrackerv2/pages/configs/pg_changelog.dart';
 import 'package:booktrackerv2/util/theme.dart';
@@ -13,6 +14,54 @@ class PgConfigs extends StatefulWidget {
 }
 
 class _PgConfigsState extends State<PgConfigs> {
+
+  void _deletarTodosLidos() async {
+    final dbLivro = LivroDao.instance;
+    final deletado = await dbLivro.deleteTodosLidos();
+  }
+
+  showAlertDialogOkDelete(BuildContext context) {
+    Widget okButton = TextButton(
+      child: Text(
+        "Sim",
+        style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).accentColor),
+      ),
+      onPressed: () {
+        _deletarTodosLidos();
+        Navigator.of(context).pop();
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(16)),
+      ),
+      title: const Text(
+        "Confirmação ", //
+        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+      ),
+      content: const Text(
+        "\nDeletar ?",
+        style: TextStyle(
+          fontSize: 16,
+        ),
+      ),
+      actions: [
+        okButton,
+      ],
+    );
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +75,7 @@ class _PgConfigsState extends State<PgConfigs> {
               margin: const EdgeInsets.fromLTRB(16, 20, 16, 25),
               color: Theme.of(context).accentColor,
               shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
+                borderRadius: BorderRadius.all(Radius.circular(12)),
               ),
               child: ListTile(
                 title: Text(
@@ -107,6 +156,16 @@ class _PgConfigsState extends State<PgConfigs> {
                   onChanged: (value) {
                     notifier.toggleTheme();
                   }),
+            ),
+            const SizedBox(
+              height: 10.0,
+            ),
+            ListTile(
+              leading: const Icon(Icons.delete_outline),
+              title: const Text("Deletar Todos os Livros Lidos",
+                  style: TextStyle(
+                      fontSize: 16)),
+              onTap: () {showAlertDialogOkDelete(context);},
             ),
           ],
         ));
