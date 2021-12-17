@@ -34,7 +34,9 @@ class _PgConfigsState extends State<PgConfigs> {
       ),
       onPressed: () {
         _deletarTodosLidos();
-        widget.refresh!();
+        if(widget.refresh != null) {
+          widget.refresh!();
+        }
         Navigator.of(context).pop();
       },
     );
@@ -68,6 +70,7 @@ class _PgConfigsState extends State<PgConfigs> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         appBar: AppBar(
           title: const Text("Configurações"),

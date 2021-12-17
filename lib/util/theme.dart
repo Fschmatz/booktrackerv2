@@ -5,13 +5,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 ThemeData light = ThemeData(
     brightness: Brightness.light,
     primaryColor: const Color(0xFFFFFFFF),
-    accentColor: const Color(0xFF066D2B),
     canvasColor: Colors.black,
-    colorScheme: const ColorScheme.light(
-      primary: Color(0xFF066D2B),
-      primaryVariant:  Color(0xFF066D2B),
-      onSecondary: Color(0xFF066D2B),
-      secondary: Color(0xFF066D2B),
+    colorScheme: ColorScheme.light(
+      primary: Colors.green.shade700,
+      primaryVariant:  Colors.green.shade700,
+      onSecondary: Colors.green.shade700,
+      secondary: Colors.green.shade700,
     ),
     appBarTheme: const AppBarTheme(
         color: Color(0xFFFFFFFF),
@@ -30,16 +29,16 @@ ThemeData light = ThemeData(
     dialogTheme: const DialogTheme(
       backgroundColor: Color(0xFFFFFFFF),
     ),
-    floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: Color(0xFF066D2B),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: Colors.green.shade700,
     ),
     inputDecorationTheme: InputDecorationTheme(
         fillColor: const Color(0xFFFFFFFF),
-        focusColor:const Color(0xFF066D2B),
+        focusColor:  Colors.green.shade700,
         contentPadding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Color(0xFF066D2B),
+          borderSide: BorderSide(
+            color: Colors.green.shade700,
           ),
           borderRadius: BorderRadius.circular(10.0),
         ),
@@ -54,16 +53,16 @@ ThemeData light = ThemeData(
             ),
             borderRadius: BorderRadius.circular(10.0))),
     bottomAppBarColor: const Color(0xFFE0E0E0),
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      selectedIconTheme:  IconThemeData(color: Color(0xFF066D2B),),
-      selectedLabelStyle: TextStyle(color: Color(0xFF066D2B),),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      selectedIconTheme:  IconThemeData(color: Colors.green.shade700,),
+      selectedLabelStyle: TextStyle(color: Colors.green.shade700,),
       showSelectedLabels: false,
       showUnselectedLabels: false,
-      backgroundColor: Color(0xFFDADCDB),
+      backgroundColor: const Color(0xFFDADCDB),
     ),
     navigationBarTheme: NavigationBarThemeData(
         backgroundColor: const Color(0xFFDADCDB),
-        indicatorColor: const Color(0xFF066D2B),
+        indicatorColor: Colors.green.shade700,
         iconTheme: MaterialStateProperty.all(
             const IconThemeData(color: Color(0xFF050505),)
         ),
@@ -95,7 +94,7 @@ ThemeData dark = ThemeData(
             fontWeight: FontWeight.w600,
             color: Color(0xFFFFFFFF))),
     cardTheme: const CardTheme(
-      color: Color(0xFF2D2D2F),
+      color: Color(0xFF303032),
     ),
     dialogTheme: const DialogTheme(
       backgroundColor: Color(0xFF303032),
