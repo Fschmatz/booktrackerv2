@@ -19,7 +19,7 @@ class PgChangelog extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
-                    color: Theme.of(context).accentColor)),
+                    color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(
             leading: const Icon(
@@ -39,7 +39,7 @@ class PgChangelog extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
-                    color: Theme.of(context).accentColor)),
+                    color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(
             leading: const Icon(

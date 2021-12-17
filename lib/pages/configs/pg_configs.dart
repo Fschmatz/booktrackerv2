@@ -7,10 +7,13 @@ import '../../util/changelog.dart';
 import 'package:provider/provider.dart';
 
 class PgConfigs extends StatefulWidget {
+
   @override
   _PgConfigsState createState() => _PgConfigsState();
 
-  const PgConfigs({Key? key}) : super(key: key);
+  Function()? refresh;
+
+  PgConfigs({Key? key, this.refresh}) : super(key: key);
 }
 
 class _PgConfigsState extends State<PgConfigs> {
@@ -27,10 +30,11 @@ class _PgConfigsState extends State<PgConfigs> {
         style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: Theme.of(context).accentColor),
+            color: Theme.of(context).colorScheme.primary),
       ),
       onPressed: () {
         _deletarTodosLidos();
+        widget.refresh!();
         Navigator.of(context).pop();
       },
     );
@@ -40,7 +44,7 @@ class _PgConfigsState extends State<PgConfigs> {
         borderRadius: BorderRadius.all(Radius.circular(16)),
       ),
       title: const Text(
-        "Confirmação ", //
+        "Confirmação ",
         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
       content: const Text(
@@ -73,7 +77,7 @@ class _PgConfigsState extends State<PgConfigs> {
             Card(
               elevation: 1,
               margin: const EdgeInsets.fromLTRB(16, 20, 16, 25),
-              color: Theme.of(context).accentColor,
+              color: Theme.of(context).colorScheme.primary,
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(12)),
               ),
@@ -94,7 +98,7 @@ class _PgConfigsState extends State<PgConfigs> {
                   style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w700,
-                      color: Theme.of(context).accentColor)),
+                      color: Theme.of(context).colorScheme.primary)),
             ),
             ListTile(
               leading: const Icon(
@@ -142,7 +146,7 @@ class _PgConfigsState extends State<PgConfigs> {
                   style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w700,
-                      color: Theme.of(context).accentColor)),
+                      color: Theme.of(context).colorScheme.primary)),
             ),
             Consumer<ThemeNotifier>(
               builder: (context, notifier, child) => SwitchListTile(

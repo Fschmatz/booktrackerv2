@@ -43,23 +43,18 @@ class _PgBookListState extends State<PgBookList> {
         ),
         actions: [
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.settings_outlined,
-                color: Theme.of(context)
-                    .textTheme
-                    .headline6!
-                    .color!
-                    .withOpacity(0.8),
               ),
               onPressed: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute<void>(
-                      builder: (BuildContext context) => const PgConfigs(),
+                      builder: (BuildContext context) => PgConfigs(
+                        refresh: getLivrosState,
+                      ),
                       fullscreenDialog: true,
-                    )).then((value) => {
-                      if (widget.bookState == 2) {getLivrosState()}
-                    });
+                    ));
               }),
         ],
       ),
@@ -98,7 +93,7 @@ class _PgBookListState extends State<PgBookList> {
             ),
       floatingActionButton: FloatingActionButton(
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(18)),
+          borderRadius: BorderRadius.all(Radius.circular(16)),
         ),
         heroTag: "btn1",
         onPressed: () {
@@ -110,9 +105,9 @@ class _PgBookListState extends State<PgBookList> {
                 fullscreenDialog: true,
               )).then((value) => getLivrosState());
         },
-        child: Icon(
+        child: const Icon(
           Icons.add,
-          color: Theme.of(context).accentColor,
+          color: Colors.black87,
         ),
       ),
     );

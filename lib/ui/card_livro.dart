@@ -181,7 +181,7 @@ class _CardLivroState extends State<CardLivro> {
         style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: Theme.of(context).accentColor),
+            color: Theme.of(context).colorScheme.primary),
       ),
       onPressed: () {
         _deletar(widget.livro.id);
@@ -194,7 +194,9 @@ class _CardLivroState extends State<CardLivro> {
     );
 
     AlertDialog alert = AlertDialog(
-      elevation: 3.0,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(16)),
+      ),
       title: const Text(
         "Confirmação ", //
         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),

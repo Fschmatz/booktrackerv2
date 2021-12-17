@@ -37,7 +37,7 @@ class PgAppInfo extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w700,
-                    color: Theme.of(context).accentColor)),
+                    color: Theme.of(context).colorScheme.primary)),
           ),
           const SizedBox(height: 15),
           const Divider(),
@@ -49,7 +49,7 @@ class PgAppInfo extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
-                    color: Theme.of(context).accentColor)),
+                    color: Theme.of(context).colorScheme.primary)),
           ),
           const ListTile(
             leading: Icon(Icons.info_outline),
@@ -80,7 +80,7 @@ class PgAppInfo extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
-                    color: Theme.of(context).accentColor)),
+                    color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(
             onTap: () {_launchGithub();},
@@ -99,7 +99,7 @@ class PgAppInfo extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
-                    color: Theme.of(context).accentColor)),
+                    color: Theme.of(context).colorScheme.primary)),
           ),
           const ListTile(
             leading: Icon(Icons.messenger_outline),

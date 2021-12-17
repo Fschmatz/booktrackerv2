@@ -37,10 +37,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle styleFontNavBar = TextStyle(
-        fontSize: 14.5,
-        fontWeight: FontWeight.w600,
-        color: Theme.of(context).accentColor);
 
     return Scaffold(
       body: _pageList[_currentIndex],

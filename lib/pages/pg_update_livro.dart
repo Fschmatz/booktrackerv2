@@ -155,7 +155,7 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
                 style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
-                    color: Theme.of(context).accentColor)),
+                    color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(
             leading: const Icon(Icons.notes_outlined),
@@ -183,7 +183,7 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
                 style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
-                    color: Theme.of(context).accentColor)),
+                    color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(
             leading: const Icon(
@@ -210,7 +210,7 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
                 style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
-                    color: Theme.of(context).accentColor)),
+                    color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(
             leading: const Icon(Icons.library_books_outlined),
@@ -236,7 +236,7 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
                 style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
-                    color: Theme.of(context).accentColor)),
+                    color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(
             leading: const Padding(

@@ -2,6 +2,8 @@ import 'package:booktrackerv2/db/livro_dao.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'configs/pg_configs.dart';
+
 class PgEstatisticas extends StatefulWidget {
   const PgEstatisticas({Key? key}) : super(key: key);
 
@@ -57,12 +59,33 @@ class _PgEstatisticasState extends State<PgEstatisticas> {
   @override
   Widget build(BuildContext context) {
 
-    Color accent = Theme.of(context).accentColor;
+    Color accent = Theme.of(context).colorScheme.primary;
 
-    return AnimatedSwitcher(
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'BookTracker',
+          ),
+          actions: [
+            IconButton(
+                icon: const Icon(
+                  Icons.settings_outlined,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) => PgConfigs(),
+                        fullscreenDialog: true,
+                      )
+                  );
+                }),
+          ],
+        ),
+        body:AnimatedSwitcher(
       duration: const Duration(milliseconds: 600),
       child: loading ?  Center(
-        child: CircularProgressIndicator(color: Theme.of(context).accentColor,),
+        child: CircularProgressIndicator(color: Theme.of(context).colorScheme.primary,),
       ) : ListView(
         children: [
           cardEstatisticas('Livros', livrosLendo, livrosParaLer , livrosLidos,accent),
@@ -73,7 +96,7 @@ class _PgEstatisticasState extends State<PgEstatisticas> {
           const SizedBox(height: 100,),
         ],
       ),
-    );
+    ));
   }
 }
 
