@@ -1,10 +1,10 @@
 class Changelog{
 
-  static String versaoApp = "5.3.0";
+  static String versaoApp = "5.3.1";
   static String nomeApp = "BookTracker Fschmatz";
 
   static String changelogUltimaVersao = '''
-5.3.0
+5.3.1
 - Material 3 NavBar
 - Botão Deletar Lidos
 - Fixes

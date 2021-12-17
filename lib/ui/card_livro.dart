@@ -242,13 +242,8 @@ class _CardLivroState extends State<CardLivro> {
                               height: 112,
                               width: 77,
                               child: Card(
-                                elevation: 2,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5),
-                                  side: BorderSide(
-                                    color: Colors.grey[800]!,
-                                    width: 1,
-                                  ),
                                 ),
                                 child: Icon(
                                   Icons.book,
@@ -258,13 +253,8 @@ class _CardLivroState extends State<CardLivro> {
                               ),
                             )
                           : Card(
-                              elevation: 2,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5),
-                                side: BorderSide(
-                                  color: Colors.grey[800]!,
-                                  width: 1,
-                                ),
                               ),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(5),

@@ -261,10 +261,6 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
                       Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
-                          side: BorderSide(
-                            color: Colors.grey[800]!,
-                            width: 1,
-                          ),
                         ),
                         elevation: 0,
                         child: widget.livro.capa == null
@@ -306,7 +302,7 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
                                     .headline1!
                                     .color,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50.0),
+                                  borderRadius: BorderRadius.circular(12.0),
                                 ),
                               ),
                             ),
@@ -338,7 +334,7 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
                                           .color,
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
-                                            BorderRadius.circular(40.0),
+                                            BorderRadius.circular(12.0),
                                       ),
                                     ),
                                   ),

@@ -251,10 +251,7 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
                       Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
-                          side: BorderSide(
-                            color: Colors.grey[800]!,
-                            width: 1,
-                          ),
+
                         ),
                         elevation: 0,
                         child: capa == null
@@ -294,7 +291,7 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
                                     .headline1!
                                     .color,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50.0),
+                                  borderRadius: BorderRadius.circular(12.0),
                                 ),
                               ),
                             ),
@@ -324,7 +321,7 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
                                           .color,
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
-                                            BorderRadius.circular(40.0),
+                                            BorderRadius.circular(12.0),
                                       ),
                                     ),
                                   ),

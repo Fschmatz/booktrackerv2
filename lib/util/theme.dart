@@ -25,7 +25,7 @@ ThemeData light = ThemeData(
             color: Color(0xFF000000))),
     scaffoldBackgroundColor: const Color(0xFFFFFFFF),
     cardTheme: const CardTheme(
-      color: Color(0xFFF3F3F3), //0xFFFAFAFC
+      color: Color(0xFFE9E9E9), //0xFFFAFAFC
     ),
     dialogTheme: const DialogTheme(
       backgroundColor: Color(0xFFFFFFFF),
@@ -59,10 +59,10 @@ ThemeData light = ThemeData(
       selectedLabelStyle: TextStyle(color: Color(0xFF066D2B),),
       showSelectedLabels: false,
       showUnselectedLabels: false,
-      backgroundColor: Color(0xFFE0E0E0),
+      backgroundColor: Color(0xFFDADCDB),
     ),
     navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: const Color(0xFFE0E0E0),
+        backgroundColor: const Color(0xFFDADCDB),
         indicatorColor: const Color(0xFF066D2B),
         iconTheme: MaterialStateProperty.all(
             const IconThemeData(color: Color(0xFF050505),)
@@ -95,7 +95,7 @@ ThemeData dark = ThemeData(
             fontWeight: FontWeight.w600,
             color: Color(0xFFFFFFFF))),
     cardTheme: const CardTheme(
-      color: Color(0xFF2A2A2C),
+      color: Color(0xFF2D2D2F),
     ),
     dialogTheme: const DialogTheme(
       backgroundColor: Color(0xFF303032),
