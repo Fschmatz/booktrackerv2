@@ -239,8 +239,8 @@ class _CardLivroState extends State<CardLivro> {
                       alignment: Alignment.centerLeft,
                       child: widget.livro.capa == null
                           ? SizedBox(
-                              height: 112,
-                              width: 77,
+                              height: 122,
+                              width: 87,
                               child: Card(
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5),
@@ -260,8 +260,8 @@ class _CardLivroState extends State<CardLivro> {
                                 borderRadius: BorderRadius.circular(5),
                                 child: Image.memory(
                                   widget.livro.capa!,
-                                  height: 105,
-                                  width: 70,
+                                  height: 115,
+                                  width: 80,
                                   fit: BoxFit.fill,
                                   filterQuality: FilterQuality.medium,
                                   gaplessPlayback: true,
