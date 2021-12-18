@@ -42,7 +42,6 @@ class _HomeState extends State<Home> {
       body: _pageList[_currentIndex],
       bottomNavigationBar: NavigationBar(
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-        animationDuration: const Duration(seconds: 1),
         selectedIndex: _currentIndex,
         onDestinationSelected: (index) {
           setState(() {

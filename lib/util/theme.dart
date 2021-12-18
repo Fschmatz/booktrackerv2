@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 //CLARO
 ThemeData light = ThemeData(
     brightness: Brightness.light,
+    primaryColorBrightness: Brightness.dark,
     primaryColor: const Color(0xFFFFFFFF),
     canvasColor: Colors.black,
     colorScheme: ColorScheme.light(
@@ -24,7 +25,7 @@ ThemeData light = ThemeData(
             color: Color(0xFF000000))),
     scaffoldBackgroundColor: const Color(0xFFFFFFFF),
     cardTheme: const CardTheme(
-      color: Color(0xFFE9E9E9), //0xFFFAFAFC
+      color: Color(0xFFE9EBEA), //0xFFFAFAFC
     ),
     dialogTheme: const DialogTheme(
       backgroundColor: Color(0xFFFFFFFF),
@@ -58,10 +59,10 @@ ThemeData light = ThemeData(
       selectedLabelStyle: TextStyle(color: Colors.green.shade700,),
       showSelectedLabels: false,
       showUnselectedLabels: false,
-      backgroundColor: const Color(0xFFDADCDB),
+      backgroundColor: const Color(0xFFE0E2E1),
     ),
     navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: const Color(0xFFDADCDB),
+        backgroundColor: const Color(0xFFE0E2E1),
         indicatorColor: Colors.green.shade700,
         iconTheme: MaterialStateProperty.all(
             const IconThemeData(color: Color(0xFF050505),)
@@ -74,6 +75,7 @@ ThemeData light = ThemeData(
 //ESCURO
 ThemeData dark = ThemeData(
     brightness: Brightness.dark,
+    primaryColorBrightness: Brightness.light,
     primaryColor: const Color(0xFF202022),
     scaffoldBackgroundColor: const Color(0xFF202022),
     canvasColor: Colors.black,
@@ -124,20 +126,20 @@ ThemeData dark = ThemeData(
       selectedLabelStyle: TextStyle(color: Color(0xFF66BF72)),
       showSelectedLabels: false,
       showUnselectedLabels: false,
-      backgroundColor: Color(0xFF151517),
+      backgroundColor: Color(0xFF131315),
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: Color(0xFF80DA8A),//353537
     ),
     navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: const Color(0xFF151517),
+        backgroundColor: const Color(0xFF131315),
         indicatorColor: const Color(0xFF66BF72),
         iconTheme: MaterialStateProperty.all(
             const IconThemeData(color: Color(0xFFCACACA),)
         ),
         labelTextStyle: MaterialStateProperty.all(const TextStyle(
             color: Color(0xFFCACACA), fontWeight: FontWeight.w500))),
-    bottomAppBarColor: const Color(0xFF151517),
+    bottomAppBarColor: const Color(0xFF131315),
     bottomSheetTheme:
     const BottomSheetThemeData(modalBackgroundColor: Color(0xFF202022)));
 
