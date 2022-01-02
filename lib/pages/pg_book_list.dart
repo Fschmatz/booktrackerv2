@@ -47,6 +47,23 @@ class _PgBookListState extends State<PgBookList> {
               snap: true,
               actions: [
                 IconButton(
+                    tooltip: "Adicionar Livro",
+                    icon: const Icon(
+                      Icons.add_outlined,
+                      size: 28,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) =>
+                                PgNovoLivro(paginaAtual: widget.bookState),
+                            fullscreenDialog: true,
+                          )).then((value) => getLivrosState());
+                    }),
+                const SizedBox(width: 5,),
+                IconButton(
+                    tooltip: "Configurações",
                     icon: const Icon(
                       Icons.settings_outlined,
                     ),
@@ -98,7 +115,7 @@ class _PgBookListState extends State<PgBookList> {
                 ],
               ),
       ),
-      floatingActionButton: FloatingActionButton(
+      /*floatingActionButton: FloatingActionButton(
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(16)),
         ),
@@ -113,10 +130,10 @@ class _PgBookListState extends State<PgBookList> {
               )).then((value) => getLivrosState());
         },
         child: const Icon(
-          Icons.add,
+          Icons.add_outlined,
           color: Colors.black87,
         ),
-      ),
+      ),*/
     );
   }
 }
