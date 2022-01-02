@@ -37,60 +37,67 @@ class _PgBookListState extends State<PgBookList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'BookTracker',
-        ),
-        actions: [
-          IconButton(
-              icon: const Icon(
-                Icons.settings_outlined,
-              ),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (BuildContext context) => PgConfigs(
-                        refresh: getLivrosState,
-                      ),
-                      fullscreenDialog: true,
-                    ));
-              }),
-        ],
-      ),
-      body: loading
-          ? const Center(child: SizedBox.shrink())
-          : ListView(
-              children: [
-                ListView.separated(
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const SizedBox(
-                    height: 4,
-                  ),
-                  physics: const ScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: listaLivros.length,
-                  itemBuilder: (context, int index) {
-                    return CardLivro(
-                      key: UniqueKey(),
-                      livro: Livro(
-                        id: listaLivros[index]['idLivro'],
-                        nome: listaLivros[index]['nome'],
-                        numPaginas: listaLivros[index]['numPaginas'],
-                        autor: listaLivros[index]['autor'],
-                        lido: listaLivros[index]['estado'],
-                        capa: listaLivros[index]['capa'],
-                      ),
-                      getLivrosState: getLivrosState,
-                      paginaAtual: widget.bookState,
-                    );
-                  },
-                ),
-                const SizedBox(
-                  height: 100,
-                )
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              title: const Text('BookTracker'),
+              pinned: false,
+              floating: true,
+              snap: true,
+              actions: [
+                IconButton(
+                    icon: const Icon(
+                      Icons.settings_outlined,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) => PgConfigs(
+                              refresh: getLivrosState,
+                            ),
+                            fullscreenDialog: true,
+                          ));
+                    }),
               ],
             ),
+          ];
+        },
+        body: loading
+            ? const Center(child: SizedBox.shrink())
+            : ListView(
+                children: [
+                  ListView.separated(
+                    separatorBuilder: (BuildContext context, int index) =>
+                        const SizedBox(
+                      height: 4,
+                    ),
+                    physics: const ScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: listaLivros.length,
+                    itemBuilder: (context, int index) {
+                      return CardLivro(
+                        key: UniqueKey(),
+                        livro: Livro(
+                          id: listaLivros[index]['idLivro'],
+                          nome: listaLivros[index]['nome'],
+                          numPaginas: listaLivros[index]['numPaginas'],
+                          autor: listaLivros[index]['autor'],
+                          lido: listaLivros[index]['estado'],
+                          capa: listaLivros[index]['capa'],
+                        ),
+                        getLivrosState: getLivrosState,
+                        paginaAtual: widget.bookState,
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 100,
+                  )
+                ],
+              ),
+      ),
       floatingActionButton: FloatingActionButton(
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(16)),

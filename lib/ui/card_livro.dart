@@ -239,9 +239,10 @@ class _CardLivroState extends State<CardLivro> {
                       alignment: Alignment.centerLeft,
                       child: widget.livro.capa == null
                           ? SizedBox(
-                              height: 122,
-                              width: 87,
+                              height: 116,
+                              width: 83,
                               child: Card(
+                                elevation: 0,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5),
                                 ),
@@ -252,19 +253,22 @@ class _CardLivroState extends State<CardLivro> {
                                 ),
                               ),
                             )
-                          : Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(5),
-                                child: Image.memory(
-                                  widget.livro.capa!,
-                                  height: 115,
-                                  width: 80,
-                                  fit: BoxFit.fill,
-                                  filterQuality: FilterQuality.medium,
-                                  gaplessPlayback: true,
+                          : SizedBox(
+                              height: 116,
+                              width: 83,
+                              child: Card(
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(5),
+                                  child: Image.memory(
+                                    widget.livro.capa!,
+                                    fit: BoxFit.fill,
+                                    filterQuality: FilterQuality.medium,
+                                    gaplessPlayback: true,
+                                  ),
                                 ),
                               ),
                             ),
@@ -290,7 +294,7 @@ class _CardLivroState extends State<CardLivro> {
                           child: Text(
                             widget.livro.autor!,
                             style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 16,
                                 color: Theme.of(context).hintColor),
                           ),
                         ),
@@ -300,9 +304,9 @@ class _CardLivroState extends State<CardLivro> {
                         Visibility(
                           visible: widget.livro.numPaginas != 0,
                           child: Text(
-                            "Páginas: " + widget.livro.numPaginas.toString(),
+                           widget.livro.numPaginas.toString()+" Páginas",
                             style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 16,
                                 color: Theme.of(context).hintColor),
                           ),
                         ),
