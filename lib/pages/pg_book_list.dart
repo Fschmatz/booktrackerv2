@@ -50,7 +50,7 @@ class _PgBookListState extends State<PgBookList> {
                     tooltip: "Adicionar Livro",
                     icon: const Icon(
                       Icons.add_outlined,
-                      size: 28,
+                      size: 26,
                     ),
                     onPressed: () {
                       Navigator.push(
@@ -61,7 +61,7 @@ class _PgBookListState extends State<PgBookList> {
                             fullscreenDialog: true,
                           )).then((value) => getLivrosState());
                     }),
-                const SizedBox(width: 5,),
+                const SizedBox(width: 15,),
                 IconButton(
                     tooltip: "Configurações",
                     icon: const Icon(
