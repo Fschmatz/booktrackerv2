@@ -89,7 +89,7 @@ ThemeData dark = ThemeData(
         color: Color(0xFF1D1D1F),
         elevation: 0,
         iconTheme: IconThemeData(
-            color: Color(0xFFF9F9F9)
+            color: Color(0xFFF5F5F5)
         ),
         titleTextStyle: TextStyle(
             fontSize: 20,

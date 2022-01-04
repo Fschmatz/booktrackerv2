@@ -86,7 +86,7 @@ class _PgEstatisticasState extends State<PgEstatisticas> {
         ];
       },
       body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 350),
+        duration: const Duration(milliseconds: 450),
         child: loading
             ? const Center(child: SizedBox.shrink())
             : ListView(
