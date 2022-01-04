@@ -89,7 +89,7 @@ ThemeData dark = ThemeData(
         color: Color(0xFF1D1D1F),
         elevation: 0,
         iconTheme: IconThemeData(
-            color: Color(0xFFEAEAEA)
+            color: Color(0xFFF9F9F9)
         ),
         titleTextStyle: TextStyle(
             fontSize: 20,
@@ -135,7 +135,7 @@ ThemeData dark = ThemeData(
         backgroundColor: const Color(0xFF131315),
         indicatorColor: const Color(0xFF66BF72),
         iconTheme: MaterialStateProperty.all(
-            const IconThemeData(color: Color(0xFFCACACA),)
+            const IconThemeData(color: Color(0xFFEAEAEA),)
         ),
         labelTextStyle: MaterialStateProperty.all(const TextStyle(
             color: Color(0xFFCACACA), fontWeight: FontWeight.w500))),

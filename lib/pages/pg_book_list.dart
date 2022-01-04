@@ -50,7 +50,7 @@ class _PgBookListState extends State<PgBookList> {
                     tooltip: "Adicionar Livro",
                     icon: const Icon(
                       Icons.add_outlined,
-                      size: 26,
+                      size: 25,
                     ),
                     onPressed: () {
                       Navigator.push(
@@ -81,39 +81,42 @@ class _PgBookListState extends State<PgBookList> {
             ),
           ];
         },
-        body: loading
-            ? const Center(child: SizedBox.shrink())
-            : ListView(
-                children: [
-                  ListView.separated(
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const SizedBox(
-                      height: 4,
+        body: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 350),
+          child: loading
+              ? const Center(child: SizedBox.shrink())
+              : ListView(
+                  children: [
+                    ListView.separated(
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const SizedBox(
+                        height: 4,
+                      ),
+                      physics: const ScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: listaLivros.length,
+                      itemBuilder: (context, int index) {
+                        return CardLivro(
+                          key: UniqueKey(),
+                          livro: Livro(
+                            id: listaLivros[index]['idLivro'],
+                            nome: listaLivros[index]['nome'],
+                            numPaginas: listaLivros[index]['numPaginas'],
+                            autor: listaLivros[index]['autor'],
+                            lido: listaLivros[index]['estado'],
+                            capa: listaLivros[index]['capa'],
+                          ),
+                          getLivrosState: getLivrosState,
+                          paginaAtual: widget.bookState,
+                        );
+                      },
                     ),
-                    physics: const ScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: listaLivros.length,
-                    itemBuilder: (context, int index) {
-                      return CardLivro(
-                        key: UniqueKey(),
-                        livro: Livro(
-                          id: listaLivros[index]['idLivro'],
-                          nome: listaLivros[index]['nome'],
-                          numPaginas: listaLivros[index]['numPaginas'],
-                          autor: listaLivros[index]['autor'],
-                          lido: listaLivros[index]['estado'],
-                          capa: listaLivros[index]['capa'],
-                        ),
-                        getLivrosState: getLivrosState,
-                        paginaAtual: widget.bookState,
-                      );
-                    },
-                  ),
-                  const SizedBox(
-                    height: 100,
-                  )
-                ],
-              ),
+                    const SizedBox(
+                      height: 100,
+                    )
+                  ],
+                ),
+        ),
       ),
       /*floatingActionButton: FloatingActionButton(
         shape: const RoundedRectangleBorder(

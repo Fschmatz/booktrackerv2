@@ -86,13 +86,9 @@ class _PgEstatisticasState extends State<PgEstatisticas> {
         ];
       },
       body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 600),
+        duration: const Duration(milliseconds: 350),
         child: loading
-            ? Center(
-                child: CircularProgressIndicator(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              )
+            ? const Center(child: SizedBox.shrink())
             : ListView(
                 children: [
                   cardEstatisticas('Livros', livrosLendo, livrosParaLer,

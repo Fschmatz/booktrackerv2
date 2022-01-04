@@ -222,6 +222,7 @@ class _CardLivroState extends State<CardLivro> {
   @override
   Widget build(BuildContext context) {
     return InOutAnimation(
+      autoPlay: InOutAnimationStatus.None,
       key: inOutAnimation,
       inDefinition: FadeInAnimation(),
       outDefinition: FadeOutAnimation(),
@@ -266,7 +267,7 @@ class _CardLivroState extends State<CardLivro> {
                                   child: Image.memory(
                                     widget.livro.capa!,
                                     fit: BoxFit.fill,
-                                    filterQuality: FilterQuality.medium,
+                                    filterQuality: FilterQuality.none,
                                     gaplessPlayback: true,
                                   ),
                                 ),
