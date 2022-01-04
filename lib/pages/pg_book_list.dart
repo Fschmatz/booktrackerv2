@@ -82,7 +82,7 @@ class _PgBookListState extends State<PgBookList> {
           ];
         },
         body: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 450),
+          duration: const Duration(milliseconds: 600),
           child: loading
               ? const Center(child: SizedBox.shrink())
               : ListView(
