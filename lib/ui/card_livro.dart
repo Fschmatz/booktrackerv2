@@ -76,7 +76,7 @@ class _CardLivroState extends State<CardLivro> {
                         Navigator.of(context).pop();
                         _mudarEstado(widget.livro.id, 0);
                         inOutAnimation.currentState!.animateOut();
-                        Future.delayed(const Duration(milliseconds: 500), () {
+                        Future.delayed(const Duration(milliseconds: 300), () {
                           widget.getLivrosState();
                         });
                       },
@@ -99,7 +99,7 @@ class _CardLivroState extends State<CardLivro> {
                         Navigator.of(context).pop();
                         _mudarEstado(widget.livro.id, 1);
                         inOutAnimation.currentState!.animateOut();
-                        Future.delayed(const Duration(milliseconds: 500), () {
+                        Future.delayed(const Duration(milliseconds: 300), () {
                           widget.getLivrosState();
                         });
                       },
@@ -123,7 +123,7 @@ class _CardLivroState extends State<CardLivro> {
                         _mudarEstado(widget.livro.id, 2);
                         inOutAnimation.currentState!.animateOut();
 
-                        Future.delayed(const Duration(milliseconds: 500), () {
+                        Future.delayed(const Duration(milliseconds: 300), () {
                           widget.getLivrosState();
                         });
                       },
@@ -186,7 +186,7 @@ class _CardLivroState extends State<CardLivro> {
       onPressed: () {
         _deletar(widget.livro.id);
         inOutAnimation.currentState!.animateOut();
-        Future.delayed(const Duration(milliseconds: 500), () {
+        Future.delayed(const Duration(milliseconds: 300), () {
           widget.getLivrosState();
         });
         Navigator.of(context).pop();
@@ -267,7 +267,7 @@ class _CardLivroState extends State<CardLivro> {
                                   child: Image.memory(
                                     widget.livro.capa!,
                                     fit: BoxFit.fill,
-                                    filterQuality: FilterQuality.none,
+                                    filterQuality: FilterQuality.medium,
                                     gaplessPlayback: true,
                                   ),
                                 ),
