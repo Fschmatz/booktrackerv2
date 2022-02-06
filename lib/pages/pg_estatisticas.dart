@@ -126,7 +126,7 @@ Widget cardEstatisticas(String tituloCard, int? valorLendo, int? valorParaLer,
         trailing: Text(valorLendo.toString(), style: styleTrailing),
       ),
       ListTile(
-        leading: const Icon(Icons.bookmark_outline),
+        leading: const Icon(Icons.bookmark_outline_outlined),
         title: const Text('Para Ler'),
         trailing: Text(valorParaLer.toString(), style: styleTrailing),
       ),

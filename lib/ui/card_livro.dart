@@ -59,15 +59,14 @@ class _CardLivroState extends State<CardLivro> {
                       widget.livro.nome,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold),
+                          fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
                   const Divider(),
                   Visibility(
                     visible: widget.paginaAtual != 0,
                     child: ListTile(
-                      leading: Icon(Icons.bookmark_outline,
-                          color: Theme.of(context).hintColor),
+                      leading: const Icon(Icons.bookmark_outline),
                       title: const Text(
                         "Marcar como para ler",
                         style: TextStyle(fontSize: 16),
@@ -89,8 +88,7 @@ class _CardLivroState extends State<CardLivro> {
                   Visibility(
                     visible: widget.paginaAtual != 1,
                     child: ListTile(
-                      leading: Icon(Icons.book_outlined,
-                          color: Theme.of(context).hintColor),
+                      leading: const Icon(Icons.book_outlined),
                       title: const Text(
                         "Marcar como lendo",
                         style: TextStyle(fontSize: 16),
@@ -112,8 +110,7 @@ class _CardLivroState extends State<CardLivro> {
                   Visibility(
                     visible: widget.paginaAtual != 2,
                     child: ListTile(
-                      leading: Icon(Icons.done_outlined,
-                          color: Theme.of(context).hintColor),
+                      leading: const Icon(Icons.done_outlined),
                       title: const Text(
                         "Marcar como lido",
                         style: TextStyle(fontSize: 16),
@@ -134,8 +131,7 @@ class _CardLivroState extends State<CardLivro> {
                     child: const Divider(),
                   ),
                   ListTile(
-                    leading: Icon(Icons.edit_outlined,
-                        color: Theme.of(context).hintColor),
+                    leading: const Icon(Icons.edit_outlined),
                     title: const Text(
                       "Editar livro",
                       style: TextStyle(fontSize: 16),
@@ -156,8 +152,7 @@ class _CardLivroState extends State<CardLivro> {
                   ),
                   const Divider(),
                   ListTile(
-                    leading: Icon(Icons.delete_outline_outlined,
-                        color: Theme.of(context).hintColor),
+                    leading: const Icon(Icons.delete_outline_outlined),
                     title: const Text(
                       "Deletar livro",
                       style: TextStyle(fontSize: 16),

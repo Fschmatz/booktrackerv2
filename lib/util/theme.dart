@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-//CLARO
 ThemeData light = ThemeData(
     brightness: Brightness.light,
-    primaryColorBrightness: Brightness.dark,
     primaryColor: const Color(0xFFFFFFFF),
     canvasColor: Colors.black,
     colorScheme: ColorScheme.light(
       primary: Colors.green.shade700,
-      primaryVariant:  Colors.green.shade700,
       onSecondary: Colors.green.shade700,
       secondary: Colors.green.shade700,
     ),
     appBarTheme: const AppBarTheme(
         color: Color(0xFFFFFFFF),
         elevation: 0,
-        iconTheme: IconThemeData(
-            color: Color(0xFF050505)
-        ),
+        iconTheme: IconThemeData(color: Color(0xFF000000)),
         titleTextStyle: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
@@ -72,34 +66,28 @@ ThemeData light = ThemeData(
     bottomSheetTheme:
     const BottomSheetThemeData(modalBackgroundColor: Color(0xFFFFFFFF)));
 
-//ESCURO
 ThemeData dark = ThemeData(
     brightness: Brightness.dark,
-    primaryColorBrightness: Brightness.light,
-    primaryColor: const Color(0xFF1D1D1F),
-    scaffoldBackgroundColor: const Color(0xFF1D1D1F),
+    primaryColor: const Color(0xFF202126),
+    scaffoldBackgroundColor: const Color(0xFF202126),
     canvasColor: Colors.black,
     colorScheme: const ColorScheme.dark(
       primary: Color(0xFF66BF72),
-      primaryVariant:  Color(0xFF66BF72),
       onSecondary: Color(0xFF66BF72),
       secondary: Color(0xFF66BF72),
     ),
     appBarTheme: const AppBarTheme(
-        color: Color(0xFF1D1D1F),
+        color: Color(0xFF202126),
         elevation: 0,
-        iconTheme: IconThemeData(
-            color: Color(0xFFF5F5F5)
-        ),
         titleTextStyle: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
             color: Color(0xFFFFFFFF))),
     cardTheme: const CardTheme(
-      color: Color(0xFF303032),
+      color: Color(0xFF303136),
     ),
     dialogTheme: const DialogTheme(
-      backgroundColor: Color(0xFF303032),
+      backgroundColor: Color(0xFF303136),
     ),
     inputDecorationTheme: InputDecorationTheme(
         fillColor: const Color(0xFF353537),
@@ -126,53 +114,19 @@ ThemeData dark = ThemeData(
       selectedLabelStyle: TextStyle(color: Color(0xFF66BF72)),
       showSelectedLabels: false,
       showUnselectedLabels: false,
-      backgroundColor: Color(0xFF131315),
+      backgroundColor: Color(0xFF131419),
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: Color(0xFF80DA8A),//353537
     ),
     navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: const Color(0xFF131315),
+        backgroundColor: const Color(0xFF131419),
         indicatorColor: const Color(0xFF66BF72),
         iconTheme: MaterialStateProperty.all(
             const IconThemeData(color: Color(0xFFEAEAEA),)
         ),
         labelTextStyle: MaterialStateProperty.all(const TextStyle(
-            color: Color(0xFFCACACA), fontWeight: FontWeight.w500))),
-    bottomAppBarColor: const Color(0xFF131315),
+            color: Color(0xFFEAEAEA), fontWeight: FontWeight.w500))),
+    bottomAppBarColor: const Color(0xFF131419),
     bottomSheetTheme:
-    const BottomSheetThemeData(modalBackgroundColor: Color(0xFF1D1D1F)));
-
-class ThemeNotifier extends ChangeNotifier {
-  final String key = 'valorTema';
-  late SharedPreferences prefs;
-  late bool _darkTheme;
-
-  bool get darkTheme => _darkTheme;
-
-  ThemeNotifier() {
-    _darkTheme = true;
-    _loadFromPrefs();
-  }
-
-  toggleTheme() {
-    _darkTheme = !_darkTheme;
-    _saveToPrefs();
-    notifyListeners();
-  }
-
-  _initPrefs() async {
-    prefs = await SharedPreferences.getInstance();
-  }
-
-  _loadFromPrefs() async {
-    await _initPrefs();
-    _darkTheme = prefs.getBool(key) ?? true;
-    notifyListeners();
-  }
-
-  _saveToPrefs() async {
-    await _initPrefs();
-    prefs.setBool(key, _darkTheme);
-  }
-}
+    const BottomSheetThemeData(modalBackgroundColor: Color(0xFF202126)));

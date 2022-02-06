@@ -1,10 +1,11 @@
 import 'package:booktrackerv2/db/livro_dao.dart';
 import 'package:booktrackerv2/pages/configs/pg_app_info.dart';
 import 'package:booktrackerv2/pages/configs/pg_changelog.dart';
-import 'package:booktrackerv2/util/theme.dart';
+import 'package:booktrackerv2/util/dialog_select_theme.dart';
+import 'package:booktrackerv2/util/utils_functions.dart';
+import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import '../../util/changelog.dart';
-import 'package:provider/provider.dart';
 
 class PgConfigs extends StatefulWidget {
 
@@ -22,6 +23,19 @@ class _PgConfigsState extends State<PgConfigs> {
     final dbLivro = LivroDao.instance;
     final deletado = await dbLivro.deleteTodosLidos();
   }
+
+  String getThemeStringFormatted(){
+    String theme =  EasyDynamicTheme.of(context).themeMode.toString().replaceAll('ThemeMode.', '');
+    if(theme == 'system'){
+      theme = 'padrão do sistema';
+    }else if (theme == 'light'){
+      theme = 'claro';
+    }else {
+      theme = 'escuro';
+    }
+    return capitalizeFirstLetterString(theme);
+  }
+
 
   showAlertDialogOkDelete(BuildContext context) {
     Widget okButton = TextButton(
@@ -108,7 +122,7 @@ class _PgConfigsState extends State<PgConfigs> {
                 Icons.info_outline,
               ),
               title: const Text(
-                "App Info",
+                "App info",
                 style: TextStyle(fontSize: 16),
               ),
               onTap: () {
@@ -151,25 +165,27 @@ class _PgConfigsState extends State<PgConfigs> {
                       fontWeight: FontWeight.w700,
                       color: Theme.of(context).colorScheme.primary)),
             ),
-            Consumer<ThemeNotifier>(
-              builder: (context, notifier, child) => SwitchListTile(
-                  title: const Text(
-                    "Tema Escuro",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  secondary: const Icon(Icons.brightness_6_outlined),
-                  activeColor: Colors.blue,
-                  value: notifier.darkTheme,
-                  onChanged: (value) {
-                    notifier.toggleTheme();
+            ListTile(
+              onTap: () => showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const DialogSelectTheme();
                   }),
+              leading: const Icon(Icons.brightness_6_outlined),
+              title: const Text(
+                "Tema do aplicativo",
+                style: TextStyle(fontSize: 16),
+              ),
+              subtitle: Text(
+                getThemeStringFormatted(),
+              ),
             ),
             const SizedBox(
               height: 10.0,
             ),
             ListTile(
               leading: const Icon(Icons.delete_outline),
-              title: const Text("Deletar Todos os Livros Lidos",
+              title: const Text("Deletar todos os livros lidos",
                   style: TextStyle(
                       fontSize: 16)),
               onTap: () {showAlertDialogOkDelete(context);},

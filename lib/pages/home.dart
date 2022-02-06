@@ -58,7 +58,7 @@ class _HomeState extends State<Home> {
             label: 'Lendo',
           ),
           NavigationDestination(
-            icon: Icon(Icons.bookmark_outline),
+            icon: Icon(Icons.bookmark_outline_outlined),
             selectedIcon: Icon(
               Icons.bookmark,
               color: Colors.black87,
