@@ -171,12 +171,8 @@ class _CardLivroState extends State<CardLivro> {
 
   showAlertDialogOkDelete(BuildContext context) {
     Widget okButton = TextButton(
-      child: Text(
+      child: const Text(
         "Sim",
-        style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Theme.of(context).colorScheme.primary),
       ),
       onPressed: () {
         _deletar(widget.livro.id);
@@ -193,14 +189,10 @@ class _CardLivroState extends State<CardLivro> {
         borderRadius: BorderRadius.all(Radius.circular(16)),
       ),
       title: const Text(
-        "Confirmação ", //
-        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        "Confirmação ",
       ),
       content: const Text(
-        "\nDeletar livro ?",
-        style: TextStyle(
-          fontSize: 16,
-        ),
+        "Deletar livro ?",
       ),
       actions: [
         okButton,

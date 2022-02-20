@@ -27,7 +27,7 @@ class _DialogListaLidosState extends State<DialogListaLidos> {
     listaLivros = await dbLivro.queryNomeAllLivrosLidos();
 
     for (int i = 0; i < listaLivros.length; i++) {
-      listaFormatada += listaLivros[i]['nome'].toString() + "\n";
+      listaFormatada += "• " + listaLivros[i]['nome'].toString() + "\n";
     }
 
     setState(() {
@@ -37,7 +37,6 @@ class _DialogListaLidosState extends State<DialogListaLidos> {
 
   @override
   Widget build(BuildContext context) {
-    Color appAccent = Theme.of(context).colorScheme.primary;
 
     return AlertDialog(
       shape: RoundedRectangleBorder(
@@ -53,15 +52,11 @@ class _DialogListaLidosState extends State<DialogListaLidos> {
           width: 350.0,
           child: loading
               ? const SizedBox.shrink()
-              : SelectableText(
-              listaFormatada
-          )),
+              : SelectableText(listaFormatada)),
       actions: [
         TextButton(
-          child: Text(
+          child: const Text(
             "Copiar lista",
-            style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.bold, color: appAccent),
           ),
           onPressed: () {
             Clipboard.setData(ClipboardData(text: listaFormatada));
@@ -69,10 +64,8 @@ class _DialogListaLidosState extends State<DialogListaLidos> {
           },
         ),
         TextButton(
-          child: Text(
+          child: const Text(
             "Fechar",
-            style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.bold, color: appAccent),
           ),
           onPressed: () {
             Navigator.of(context).pop();

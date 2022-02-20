@@ -40,12 +40,8 @@ class _PgConfigsState extends State<PgConfigs> {
 
   showAlertDialogOkDelete(BuildContext context) {
     Widget okButton = TextButton(
-      child: Text(
+      child: const Text(
         "Sim",
-        style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Theme.of(context).colorScheme.primary),
       ),
       onPressed: () {
         _deletarTodosLidos();
@@ -62,13 +58,9 @@ class _PgConfigsState extends State<PgConfigs> {
       ),
       title: const Text(
         "Confirmação ",
-        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
       content: const Text(
-        "\nDeletar ?",
-        style: TextStyle(
-          fontSize: 16,
-        ),
+        "Deletar ?",
       ),
       actions: [
         okButton,
