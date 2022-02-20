@@ -1,6 +1,7 @@
 import 'package:booktrackerv2/db/livro_dao.dart';
 import 'package:booktrackerv2/pages/configs/pg_app_info.dart';
 import 'package:booktrackerv2/pages/configs/pg_changelog.dart';
+import 'package:booktrackerv2/util/dialog_lista_lidos.dart';
 import 'package:booktrackerv2/util/dialog_select_theme.dart';
 import 'package:booktrackerv2/util/utils_functions.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
@@ -111,54 +112,6 @@ class _PgConfigsState extends State<PgConfigs> {
               leading: const SizedBox(
                 height: 0.1,
               ),
-              title: Text("Sobre".toUpperCase(),
-                  style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: Theme.of(context).colorScheme.primary)),
-            ),
-            ListTile(
-              leading: const Icon(
-                Icons.info_outline,
-              ),
-              title: const Text(
-                "App info",
-                style: TextStyle(fontSize: 16),
-              ),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (BuildContext context) => const PgAppInfo(),
-                      fullscreenDialog: true,
-                    ));
-              },
-            ),
-            const SizedBox(
-              height: 10.0,
-            ),
-            ListTile(
-              leading: const Icon(
-                Icons.article_outlined,
-              ),
-              title: const Text(
-                "Changelog",
-                style: TextStyle(fontSize: 16),
-              ),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (BuildContext context) => const PgChangelog(),
-                      fullscreenDialog: true,
-                    ));
-              },
-            ),
-            const Divider(),
-            ListTile(
-              leading: const SizedBox(
-                height: 0.1,
-              ),
               title: Text("Geral".toUpperCase(),
                   style: TextStyle(
                       fontSize: 13,
@@ -180,15 +133,68 @@ class _PgConfigsState extends State<PgConfigs> {
                 getThemeStringFormatted(),
               ),
             ),
-            const SizedBox(
-              height: 10.0,
-            ),
             ListTile(
               leading: const Icon(Icons.delete_outline),
               title: const Text("Deletar todos os livros lidos",
                   style: TextStyle(
                       fontSize: 16)),
               onTap: () {showAlertDialogOkDelete(context);},
+            ),
+            ListTile(
+              leading: const Icon(Icons.print_outlined),
+                title: const Text("Listar todos os livros lidos",
+                    style: TextStyle(
+                        fontSize: 16)),
+              onTap: () => showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const DialogListaLidos();
+                  }),
+            ),
+            const Divider(),
+            ListTile(
+              leading: const SizedBox(
+                height: 0.1,
+              ),
+              title: Text("Sobre".toUpperCase(),
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: Theme.of(context).colorScheme.primary)),
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.info_outline,
+              ),
+              title: const Text(
+                "Informações do aplicativo",
+                style: TextStyle(fontSize: 16),
+              ),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context) => const PgAppInfo(),
+                      fullscreenDialog: true,
+                    ));
+              },
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.article_outlined,
+              ),
+              title: const Text(
+                "Changelog",
+                style: TextStyle(fontSize: 16),
+              ),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context) => const PgChangelog(),
+                      fullscreenDialog: true,
+                    ));
+              },
             ),
           ],
         ));

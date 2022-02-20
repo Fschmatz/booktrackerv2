@@ -1,10 +1,16 @@
 import 'dart:ui';
 import 'dart:math' as math;
 
+//------------- STRING
 String capitalizeFirstLetterString(String word){
   return word.replaceFirst(word[0], word[0].toUpperCase());
 }
 
+String removeHtmlTags(String words){
+  return words.replaceAll(RegExp(r'<[^>]*>|&[^;]+;'), '');
+}
+
+//------------- COLOR
 Color parseColorFromDb(String color){
   return Color(int.parse(color.substring(6, 16)));
 }

@@ -91,4 +91,9 @@ class LivroDao {
     return Sqflite.firstIntValue(await db.rawQuery('SELECT  COUNT(DISTINCT $columnAutor) FROM $table'));
   }
 
+  Future<List<Map<String, dynamic>>> queryNomeAllLivrosLidos() async {
+    Database db = await instance.database;
+    return await db.rawQuery('SELECT nome FROM $table WHERE $columnLido=2 ORDER BY $columnNome');
+  }
+
 }

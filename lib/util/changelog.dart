@@ -1,11 +1,12 @@
 class Changelog{
 
-  static String versaoApp = "5.4.0";
+  static String versaoApp = "5.4.1";
   static String nomeApp = "BookTracker Fschmatz";
 
   static String changelogUltimaVersao = ''' 
-5.4.0
-- Tema padrão do sistema
+5.4.1
+- Tema Padrão do Sistema
+- Imprimir Lista de Livros Lidos
 - Fixes
 ''';
 

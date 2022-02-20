@@ -50,7 +50,6 @@ class _PgBookListState extends State<PgBookList> {
                     tooltip: "Adicionar Livro",
                     icon: const Icon(
                       Icons.add_outlined,
-                      size: 25,
                     ),
                     onPressed: () {
                       Navigator.push(

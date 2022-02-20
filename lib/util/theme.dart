@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 ThemeData light = ThemeData(
+    useMaterial3: true,
     brightness: Brightness.light,
     primaryColor: const Color(0xFFFFFFFF),
     canvasColor: Colors.black,
@@ -67,6 +68,7 @@ ThemeData light = ThemeData(
     const BottomSheetThemeData(modalBackgroundColor: Color(0xFFFFFFFF)));
 
 ThemeData dark = ThemeData(
+    useMaterial3: true,
     brightness: Brightness.dark,
     primaryColor: const Color(0xFF202126),
     scaffoldBackgroundColor: const Color(0xFF202126),
