@@ -83,7 +83,6 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
     Widget okButton = TextButton(
       child: const Text(
         "Ok",
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
       onPressed: () {
         Navigator.of(context).pop();
@@ -91,16 +90,11 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
     );
 
     AlertDialog alert = AlertDialog(
-      elevation: 3.0,
       title: const Text(
         "Erro",
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
       content: Text(
         checkProblemas(),
-        style: const TextStyle(
-          fontSize: 18,
-        ),
       ),
       actions: [
         okButton,

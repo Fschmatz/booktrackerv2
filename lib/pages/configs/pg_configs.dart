@@ -159,7 +159,7 @@ class _PgConfigsState extends State<PgConfigs> {
                 Icons.info_outline,
               ),
               title: const Text(
-                "Informações do aplicativo",
+                "Informações",
                 style: TextStyle(fontSize: 16),
               ),
               onTap: () {

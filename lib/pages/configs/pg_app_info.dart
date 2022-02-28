@@ -19,7 +19,7 @@ class PgAppInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Informações do aplicativo"),
+          title: const Text("Informações"),
         ),
         body: ListView(children: <Widget>[
           const SizedBox(height: 20),
