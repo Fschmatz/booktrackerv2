@@ -1,4 +1,4 @@
-import 'package:booktrackerv2/util/changelog.dart';
+import 'package:booktrackerv2/util/app_details.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -7,7 +7,7 @@ class PgAppInfo extends StatelessWidget {
 
 
   _launchGithub() async {
-    const url = 'https://github.com/Fschmatz/booktrackerv2';
+    String url = AppDetails.repositoryLink;
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -33,7 +33,7 @@ class PgAppInfo extends StatelessWidget {
           ),
           const SizedBox(height: 15),
           Center(
-            child: Text(Changelog.nomeApp + " " + Changelog.versaoApp,
+            child: Text(AppDetails.nomeApp + " " + AppDetails.versaoApp,
                 style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w700,

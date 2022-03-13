@@ -11,6 +11,7 @@ class PgNovoLivro extends StatefulWidget {
   _PgNovoLivroState createState() => _PgNovoLivroState();
 
   int paginaAtual;
+
   PgNovoLivro({Key? key, required this.paginaAtual}) : super(key: key);
 }
 
@@ -130,9 +131,6 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
       body: ListView(
         children: [
           ListTile(
-            leading: const SizedBox(
-              height: 0.1,
-            ),
             title: Text("Nome".toUpperCase(),
                 style: TextStyle(
                     fontSize: 13,
@@ -140,7 +138,6 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
                     color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(
-            leading: const Icon(Icons.notes_outlined),
             title: TextField(
               minLines: 1,
               maxLines: 2,
@@ -151,17 +148,12 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
               controller: customControllerNomeLivro,
               onEditingComplete: () => node.nextFocus(),
               decoration: const InputDecoration(
+                prefixIcon: Icon(Icons.notes_outlined),
                 helperText: "* Obrigatório",
-              ),
-              style: const TextStyle(
-                fontSize: 16,
               ),
             ),
           ),
           ListTile(
-            leading: const SizedBox(
-              height: 0.1,
-            ),
             title: Text("Autor".toUpperCase(),
                 style: TextStyle(
                     fontSize: 13,
@@ -169,9 +161,6 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
                     color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(
-            leading: const Icon(
-              Icons.person_outline_outlined,
-            ),
             title: TextField(
               minLines: 1,
               maxLines: 2,
@@ -181,15 +170,14 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
               keyboardType: TextInputType.name,
               controller: customControllerAutor,
               onEditingComplete: () => node.nextFocus(),
-              style: const TextStyle(
-                fontSize: 16,
+              decoration: const InputDecoration(
+                prefixIcon: Icon(
+                  Icons.person_outline_outlined,
+                ),
               ),
             ),
           ),
           ListTile(
-            leading: const SizedBox(
-              height: 0.1,
-            ),
             title: Text("Nº de Páginas".toUpperCase(),
                 style: TextStyle(
                     fontSize: 13,
@@ -197,25 +185,24 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
                     color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(
-            leading: const Icon(Icons.library_books_outlined),
             title: TextField(
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\d{0,2}'))
               ],
               maxLength: 5,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
-              keyboardType: const TextInputType.numberWithOptions(decimal: false),
+              keyboardType:
+                  const TextInputType.numberWithOptions(decimal: false),
               controller: customControllerPaginas,
               onEditingComplete: () => node.nextFocus(),
-              style: const TextStyle(
-                fontSize: 16,
+              decoration: const InputDecoration(
+                prefixIcon: Icon(
+                  Icons.library_books_outlined,
+                ),
               ),
             ),
           ),
           ListTile(
-            leading: const SizedBox(
-              height: 0.1,
-            ),
             title: Text("Capa".toUpperCase(),
                 style: TextStyle(
                     fontSize: 13,
@@ -223,10 +210,6 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
                     color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(
-            leading: const Padding(
-              padding: EdgeInsets.fromLTRB(0, 52, 0, 0),
-              child: Icon(Icons.image_outlined),
-            ),
             title: Card(
               margin: const EdgeInsets.all(0),
               elevation: 0,
@@ -245,7 +228,6 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
                       Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
-
                         ),
                         elevation: 0,
                         child: capa == null
@@ -275,7 +257,9 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
                               onPressed: pickGallery,
                               child: const Text(
                                 "Selecionar Capa",
-                                style: TextStyle(fontSize: 14,fontWeight: FontWeight.normal),
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal),
                               ),
                               style: ElevatedButton.styleFrom(
                                 elevation: 0,
@@ -303,7 +287,9 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
                                     onPressed: removerCapa,
                                     child: const Text(
                                       "Remover Capa",
-                                      style: TextStyle(fontSize: 14,fontWeight: FontWeight.normal),
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.normal),
                                     ),
                                     style: ElevatedButton.styleFrom(
                                       elevation: 0,

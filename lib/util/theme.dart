@@ -24,6 +24,9 @@ ThemeData light = ThemeData(
     ),
     dialogTheme: const DialogTheme(
       backgroundColor: Color(0xFFFFFFFF),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(28)),
+      ),
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: Colors.green.shade700,
@@ -39,13 +42,13 @@ ThemeData light = ThemeData(
           borderRadius: BorderRadius.circular(10.0),
         ),
         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.grey[800]!,
+            borderSide: const BorderSide(
+              color: Colors.grey,
             ),
             borderRadius: BorderRadius.circular(10.0)),
         border: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.grey[800]!,
+            borderSide: const BorderSide(
+              color: Colors.grey,
             ),
             borderRadius: BorderRadius.circular(10.0))),
     bottomAppBarColor: const Color(0xFFE0E0E0),
@@ -90,6 +93,9 @@ ThemeData dark = ThemeData(
     ),
     dialogTheme: const DialogTheme(
       backgroundColor: Color(0xFF303136),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(28)),
+      ),
     ),
     inputDecorationTheme: InputDecorationTheme(
         fillColor: const Color(0xFF353537),

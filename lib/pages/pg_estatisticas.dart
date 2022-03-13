@@ -93,10 +93,10 @@ class _PgEstatisticasState extends State<PgEstatisticas> {
                 children: [
                   cardEstatisticas('Livros', livrosLendo, livrosParaLer,
                       livrosLidos, accent),
-                  const Divider(),
+
                   cardEstatisticas('Páginas', paginasLendo, paginasParaLer,
                       paginasLidos, accent),
-                  const Divider(),
+
                   cardAutores('Geral', quantAutores, accent),
                   const SizedBox(
                     height: 100,
@@ -116,9 +116,9 @@ Widget cardEstatisticas(String tituloCard, int? valorLendo, int? valorParaLer,
   return Column(
     children: [
       ListTile(
-        title: Text(tituloCard,
+        title: Text(tituloCard.toUpperCase(),
             style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w700, color: accent)),
+                fontSize: 13, fontWeight: FontWeight.w700, color: accent)),
       ),
       ListTile(
         leading: const Icon(Icons.book_outlined),
@@ -136,7 +136,7 @@ Widget cardEstatisticas(String tituloCard, int? valorLendo, int? valorParaLer,
         trailing: Text(valorLidos.toString(), style: styleTrailing),
       ),
       ListTile(
-        leading: const SizedBox.shrink(),
+        leading: const Icon(Icons.format_list_bulleted_outlined),
         title: const Text('Total'),
         trailing: Text(
           soma.toString(),
@@ -156,9 +156,9 @@ Widget cardAutores(String tituloCard, int? valor, Color accent) {
   return Column(
     children: [
       ListTile(
-        title: Text(tituloCard,
+        title: Text(tituloCard.toUpperCase(),
             style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w700, color: accent)),
+                fontSize: 13, fontWeight: FontWeight.w700, color: accent)),
       ),
       ListTile(
         leading: const Icon(Icons.person_outline_outlined),

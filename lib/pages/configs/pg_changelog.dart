@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../util/changelog.dart';
+import '../../util/app_details.dart';
 
 class PgChangelog extends StatelessWidget {
   const PgChangelog({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class PgChangelog extends StatelessWidget {
               Icons.article_outlined,
             ),
             title: Text(
-              Changelog.changelogUltimaVersao,
+              AppDetails.changelogUltimaVersao,
               style: const TextStyle(fontSize: 16),
             ),
           ),
@@ -46,7 +46,7 @@ class PgChangelog extends StatelessWidget {
               Icons.article_outlined,
             ),
             title: Text(
-              Changelog.changelogsAntigos,
+              AppDetails.changelogsAntigos,
               style: const TextStyle(fontSize: 16),
             ),
           ),

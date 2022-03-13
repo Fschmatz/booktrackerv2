@@ -6,18 +6,18 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
 
-class PgUpdateLivro extends StatefulWidget {
+class PgEditarLivro extends StatefulWidget {
   @override
-  _PgUpdateLivroState createState() => _PgUpdateLivroState();
+  _PgEditarLivroState createState() => _PgEditarLivroState();
 
   Function() refreshLista;
   Livro livro;
 
-  PgUpdateLivro({Key? key, required this.refreshLista, required this.livro})
+  PgEditarLivro({Key? key, required this.refreshLista, required this.livro})
       : super(key: key);
 }
 
-class _PgUpdateLivroState extends State<PgUpdateLivro> {
+class _PgEditarLivroState extends State<PgEditarLivro> {
   final dbLivro = LivroDao.instance;
 
   TextEditingController customControllerNomeLivro = TextEditingController();
@@ -74,7 +74,7 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
   String checkProblemas() {
     String erros = "";
     if (customControllerNomeLivro.text.isEmpty) {
-      erros += "Insira um nome\n";
+      erros += "Insira um nome";
     }
     return erros;
   }
@@ -142,9 +142,6 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
       body: ListView(
         children: [
           ListTile(
-            leading: const SizedBox(
-              height: 0.1,
-            ),
             title: Text("Nome".toUpperCase(),
                 style: TextStyle(
                     fontSize: 13,
@@ -152,7 +149,6 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
                     color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(
-            leading: const Icon(Icons.notes_outlined),
             title: TextField(
               minLines: 1,
               maxLines: 2,
@@ -162,17 +158,12 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
               keyboardType: TextInputType.name,
               controller: customControllerNomeLivro,
               decoration: const InputDecoration(
+                prefixIcon: Icon(Icons.notes_outlined),
                 helperText: "* Obrigatório",
-              ),
-              style: const TextStyle(
-                fontSize: 16,
               ),
             ),
           ),
           ListTile(
-            leading: const SizedBox(
-              height: 0.1,
-            ),
             title: Text("Autor".toUpperCase(),
                 style: TextStyle(
                     fontSize: 13,
@@ -180,9 +171,6 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
                     color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(
-            leading: const Icon(
-              Icons.person_outline_outlined,
-            ),
             title: TextField(
               minLines: 1,
               maxLines: 2,
@@ -191,15 +179,14 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
               controller: customControllerAutor,
-              style: const TextStyle(
-                fontSize: 16,
+              decoration: const InputDecoration(
+                prefixIcon: Icon(
+                  Icons.person_outline_outlined,
+                ),
               ),
             ),
           ),
           ListTile(
-            leading: const SizedBox(
-              height: 0.1,
-            ),
             title: Text("Nº de Páginas".toUpperCase(),
                 style: TextStyle(
                     fontSize: 13,
@@ -207,7 +194,6 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
                     color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(
-            leading: const Icon(Icons.library_books_outlined),
             title: TextField(
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\d{0,2}'))
@@ -217,15 +203,14 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
               keyboardType:
                   const TextInputType.numberWithOptions(decimal: false),
               controller: customControllerPaginas,
-              style: const TextStyle(
-                fontSize: 16,
+              decoration: const InputDecoration(
+                prefixIcon: Icon(
+                  Icons.library_books_outlined,
+                ),
               ),
             ),
           ),
           ListTile(
-            leading: const SizedBox(
-              height: 0.1,
-            ),
             title: Text("Capa".toUpperCase(),
                 style: TextStyle(
                     fontSize: 13,
@@ -233,10 +218,6 @@ class _PgUpdateLivroState extends State<PgUpdateLivro> {
                     color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(
-            leading: const Padding(
-              padding: EdgeInsets.fromLTRB(0, 52, 0, 0),
-              child: Icon(Icons.image_outlined),
-            ),
             title: Card(
               margin: const EdgeInsets.all(0),
               elevation: 0,

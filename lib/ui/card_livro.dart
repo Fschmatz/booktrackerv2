@@ -1,6 +1,6 @@
 import 'package:booktrackerv2/class/livro.dart';
 import 'package:booktrackerv2/db/livro_dao.dart';
-import 'package:booktrackerv2/pages/pg_update_livro.dart';
+import 'package:booktrackerv2/pages/pg_editar_livro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -59,7 +59,7 @@ class _CardLivroState extends State<CardLivro> {
                       widget.livro.nome,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
+                          fontSize: 18, fontWeight: FontWeight.w400),
                     ),
                   ),
                   const Divider(),
@@ -142,7 +142,7 @@ class _CardLivroState extends State<CardLivro> {
                       Navigator.push(
                           context,
                           MaterialPageRoute<void>(
-                            builder: (BuildContext context) => PgUpdateLivro(
+                            builder: (BuildContext context) => PgEditarLivro(
                               livro: widget.livro,
                               refreshLista: widget.getLivrosState,
                             ),
@@ -185,9 +185,6 @@ class _CardLivroState extends State<CardLivro> {
     );
 
     AlertDialog alert = AlertDialog(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(16)),
-      ),
       title: const Text(
         "Confirmação ",
       ),
@@ -230,7 +227,7 @@ class _CardLivroState extends State<CardLivro> {
                               height: 116,
                               width: 83,
                               child: Card(
-                                elevation: 0,
+                                elevation: 1,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5),
                                 ),
@@ -245,7 +242,7 @@ class _CardLivroState extends State<CardLivro> {
                               height: 116,
                               width: 83,
                               child: Card(
-                                elevation: 0,
+                                elevation: 1,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5),
                                 ),

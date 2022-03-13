@@ -6,10 +6,9 @@ import 'package:booktrackerv2/util/dialog_select_theme.dart';
 import 'package:booktrackerv2/util/utils_functions.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
-import '../../util/changelog.dart';
+import '../../util/app_details.dart';
 
 class PgConfigs extends StatefulWidget {
-
   @override
   _PgConfigsState createState() => _PgConfigsState();
 
@@ -19,65 +18,58 @@ class PgConfigs extends StatefulWidget {
 }
 
 class _PgConfigsState extends State<PgConfigs> {
-
   void _deletarTodosLidos() async {
     final dbLivro = LivroDao.instance;
     final deletado = await dbLivro.deleteTodosLidos();
   }
 
-  String getThemeStringFormatted(){
-    String theme =  EasyDynamicTheme.of(context).themeMode.toString().replaceAll('ThemeMode.', '');
-    if(theme == 'system'){
+  String getThemeStringFormatted() {
+    String theme = EasyDynamicTheme.of(context)
+        .themeMode
+        .toString()
+        .replaceAll('ThemeMode.', '');
+    if (theme == 'system') {
       theme = 'padrão do sistema';
-    }else if (theme == 'light'){
+    } else if (theme == 'light') {
       theme = 'claro';
-    }else {
+    } else {
       theme = 'escuro';
     }
     return capitalizeFirstLetterString(theme);
   }
 
-
   showAlertDialogOkDelete(BuildContext context) {
-    Widget okButton = TextButton(
-      child: const Text(
-        "Sim",
-      ),
-      onPressed: () {
-        _deletarTodosLidos();
-        if(widget.refresh != null) {
-          widget.refresh!();
-        }
-        Navigator.of(context).pop();
-      },
-    );
-
-    AlertDialog alert = AlertDialog(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(16)),
-      ),
-      title: const Text(
-        "Confirmação ",
-      ),
-      content: const Text(
-        "Deletar ?",
-      ),
-      actions: [
-        okButton,
-      ],
-    );
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return alert;
+        return AlertDialog(
+          title: const Text(
+            "Confirmação",
+          ),
+          content: const Text(
+            "Deletar ?",
+          ),
+          actions: [
+            TextButton(
+              child: const Text(
+                "Sim",
+              ),
+              onPressed: () {
+                _deletarTodosLidos();
+                if (widget.refresh != null) {
+                  widget.refresh!();
+                }
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
       },
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         appBar: AppBar(
           title: const Text("Configurações"),
@@ -93,17 +85,17 @@ class _PgConfigsState extends State<PgConfigs> {
               ),
               child: ListTile(
                 title: Text(
-                  Changelog.nomeApp + " " + Changelog.versaoApp,
+                  AppDetails.nomeApp + " " + AppDetails.versaoApp,
                   textAlign: TextAlign.center,
                   style: const TextStyle(fontSize: 17.5, color: Colors.black),
                 ),
               ),
             ),
-            const Divider(),
+            //const Divider(),
             ListTile(
-              leading: const SizedBox(
+              /*leading: const SizedBox(
                 height: 0.1,
-              ),
+              ),*/
               title: Text("Geral".toUpperCase(),
                   style: TextStyle(
                       fontSize: 13,
@@ -128,26 +120,26 @@ class _PgConfigsState extends State<PgConfigs> {
             ListTile(
               leading: const Icon(Icons.delete_outline),
               title: const Text("Deletar todos os livros lidos",
-                  style: TextStyle(
-                      fontSize: 16)),
-              onTap: () {showAlertDialogOkDelete(context);},
+                  style: TextStyle(fontSize: 16)),
+              onTap: () {
+                showAlertDialogOkDelete(context);
+              },
             ),
             ListTile(
               leading: const Icon(Icons.print_outlined),
-                title: const Text("Listar todos os livros lidos",
-                    style: TextStyle(
-                        fontSize: 16)),
+              title: const Text("Listar todos os livros lidos",
+                  style: TextStyle(fontSize: 16)),
               onTap: () => showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return const DialogListaLidos();
                   }),
             ),
-            const Divider(),
+            //const Divider(),
             ListTile(
-              leading: const SizedBox(
+             /* leading: const SizedBox(
                 height: 0.1,
-              ),
+              ),*/
               title: Text("Sobre".toUpperCase(),
                   style: TextStyle(
                       fontSize: 13,

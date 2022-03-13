@@ -39,13 +39,8 @@ class _DialogListaLidosState extends State<DialogListaLidos> {
   Widget build(BuildContext context) {
 
     return AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-      titlePadding: const EdgeInsets.fromLTRB(16, 25, 0, 24),
+      actionsPadding: const EdgeInsets.symmetric(horizontal: 10),
       title: const Text('Lista de livros lidos'),
-      actionsAlignment: MainAxisAlignment.spaceBetween,
       scrollable: true,
       content: SizedBox(
           height: 220.0,
@@ -56,18 +51,18 @@ class _DialogListaLidosState extends State<DialogListaLidos> {
       actions: [
         TextButton(
           child: const Text(
-            "Copiar lista",
+            "Fechar",
           ),
           onPressed: () {
-            Clipboard.setData(ClipboardData(text: listaFormatada));
             Navigator.of(context).pop();
           },
         ),
         TextButton(
           child: const Text(
-            "Fechar",
+            "Copiar lista",
           ),
           onPressed: () {
+            Clipboard.setData(ClipboardData(text: listaFormatada));
             Navigator.of(context).pop();
           },
         ),

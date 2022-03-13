@@ -1,10 +1,11 @@
-class Changelog{
+class AppDetails{
 
-  static String versaoApp = "5.4.1";
+  static String versaoApp = "5.4.2";
   static String nomeApp = "BookTracker Fschmatz";
+  static String repositoryLink = "https://github.com/Fschmatz/booktrackerv2";
 
   static String changelogUltimaVersao = ''' 
-5.4.1
+5.4.2
 - Tema Padrão do Sistema
 - Imprimir Lista de Livros Lidos
 - Fixes
