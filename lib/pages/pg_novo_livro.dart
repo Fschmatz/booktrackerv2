@@ -111,30 +111,27 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
       appBar: AppBar(
         title: const Text('Adicionar Livro'),
         actions: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
-            child: IconButton(
-              icon: const Icon(Icons.save_outlined),
-              tooltip: 'Salvar',
-              onPressed: () {
-                if (checkProblemas().isEmpty) {
-                  _salvarLivro();
-                  Navigator.of(context).pop();
-                } else {
-                  showAlertDialogErros(context);
-                }
-              },
-            ),
+          IconButton(
+            icon: const Icon(Icons.save_outlined),
+            tooltip: 'Salvar',
+            onPressed: () {
+              if (checkProblemas().isEmpty) {
+                _salvarLivro();
+                Navigator.of(context).pop();
+              } else {
+                showAlertDialogErros(context);
+              }
+            },
           ),
         ],
       ),
       body: ListView(
         children: [
           ListTile(
-            title: Text("Nome".toUpperCase(),
+            title: Text("Nome",
                 style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
                     color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(
@@ -154,10 +151,10 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
             ),
           ),
           ListTile(
-            title: Text("Autor".toUpperCase(),
+            title: Text("Autor",
                 style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
                     color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(
@@ -178,10 +175,10 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
             ),
           ),
           ListTile(
-            title: Text("Nº de Páginas".toUpperCase(),
+            title: Text("Nº de Páginas",
                 style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
                     color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(
@@ -203,10 +200,10 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
             ),
           ),
           ListTile(
-            title: Text("Capa".toUpperCase(),
+            title: Text("Capa",
                 style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
                     color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(

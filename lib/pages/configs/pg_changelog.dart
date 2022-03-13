@@ -12,13 +12,10 @@ class PgChangelog extends StatelessWidget {
         ),
         body: ListView(children: <Widget>[
           ListTile(
-            leading: const SizedBox(
-              height: 0.1,
-            ),
-            title: Text("Versão Atual".toUpperCase(),
+            title: Text("Versão Atual",
                 style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
                     color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(
@@ -30,15 +27,11 @@ class PgChangelog extends StatelessWidget {
               style: const TextStyle(fontSize: 16),
             ),
           ),
-          const Divider(),
           ListTile(
-            leading: const SizedBox(
-              height: 0.1,
-            ),
-            title: Text("Versões Anteriores".toUpperCase(),
+            title: Text("Versões Anteriores",
                 style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
                     color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(

@@ -5,7 +5,6 @@ import 'package:url_launcher/url_launcher.dart';
 class PgAppInfo extends StatelessWidget {
   const PgAppInfo({Key? key}) : super(key: key);
 
-
   _launchGithub() async {
     String url = AppDetails.repositoryLink;
     if (await canLaunch(url)) {
@@ -40,15 +39,11 @@ class PgAppInfo extends StatelessWidget {
                     color: Theme.of(context).colorScheme.primary)),
           ),
           const SizedBox(height: 15),
-          const Divider(),
           ListTile(
-            leading: const SizedBox(
-              height: 0.1,
-            ),
-            title: Text("Dev".toUpperCase(),
+            title: Text("Dev",
                 style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
                     color: Theme.of(context).colorScheme.primary)),
           ),
           const ListTile(
@@ -71,34 +66,27 @@ class PgAppInfo extends StatelessWidget {
               ),
             ),
           ),
-          const Divider(),
           ListTile(
-            leading: const SizedBox(
-              height: 0.1,
-            ),
-            title: Text("Código Fonte".toUpperCase(),
+            title: Text("Código Fonte",
                 style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
                     color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(
-            onTap: () {_launchGithub();},
+            onTap: () {
+              _launchGithub();
+            },
             leading: const Icon(Icons.open_in_new_outlined),
             title: const Text("Ver no Github",
                 style: TextStyle(
-                    decoration: TextDecoration.underline,
-                    color: Colors.blue)),
+                    decoration: TextDecoration.underline, color: Colors.blue)),
           ),
-          const Divider(),
           ListTile(
-            leading: const SizedBox(
-              height: 0.1,
-            ),
-            title: Text("Quote".toUpperCase(),
+            title: Text("Quote",
                 style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
                     color: Theme.of(context).colorScheme.primary)),
           ),
           const ListTile(

@@ -116,9 +116,9 @@ Widget cardEstatisticas(String tituloCard, int? valorLendo, int? valorParaLer,
   return Column(
     children: [
       ListTile(
-        title: Text(tituloCard.toUpperCase(),
+        title: Text(tituloCard,
             style: TextStyle(
-                fontSize: 13, fontWeight: FontWeight.w700, color: accent)),
+                fontSize: 14, fontWeight: FontWeight.w500, color: accent)),
       ),
       ListTile(
         leading: const Icon(Icons.book_outlined),
@@ -156,9 +156,9 @@ Widget cardAutores(String tituloCard, int? valor, Color accent) {
   return Column(
     children: [
       ListTile(
-        title: Text(tituloCard.toUpperCase(),
+        title: Text(tituloCard,
             style: TextStyle(
-                fontSize: 13, fontWeight: FontWeight.w700, color: accent)),
+                fontSize: 14, fontWeight: FontWeight.w500, color: accent)),
       ),
       ListTile(
         leading: const Icon(Icons.person_outline_outlined),

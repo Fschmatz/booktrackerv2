@@ -91,15 +91,12 @@ class _PgConfigsState extends State<PgConfigs> {
                 ),
               ),
             ),
-            //const Divider(),
+
             ListTile(
-              /*leading: const SizedBox(
-                height: 0.1,
-              ),*/
-              title: Text("Geral".toUpperCase(),
+              title: Text("Geral",
                   style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
                       color: Theme.of(context).colorScheme.primary)),
             ),
             ListTile(
@@ -137,13 +134,10 @@ class _PgConfigsState extends State<PgConfigs> {
             ),
             //const Divider(),
             ListTile(
-             /* leading: const SizedBox(
-                height: 0.1,
-              ),*/
-              title: Text("Sobre".toUpperCase(),
+              title: Text("Sobre",
                   style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
                       color: Theme.of(context).colorScheme.primary)),
             ),
             ListTile(
