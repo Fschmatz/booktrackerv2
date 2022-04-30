@@ -24,7 +24,6 @@ class PgChangelog extends StatelessWidget {
             ),
             title: Text(
               AppDetails.changelogUltimaVersao,
-              style: const TextStyle(fontSize: 16),
             ),
           ),
           ListTile(
@@ -40,7 +39,6 @@ class PgChangelog extends StatelessWidget {
             ),
             title: Text(
               AppDetails.changelogsAntigos,
-              style: const TextStyle(fontSize: 16),
             ),
           ),
         ]));

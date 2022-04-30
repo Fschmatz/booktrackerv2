@@ -122,19 +122,19 @@ ThemeData dark = ThemeData(
       selectedLabelStyle: TextStyle(color: Color(0xFF66BF72)),
       showSelectedLabels: false,
       showUnselectedLabels: false,
-      backgroundColor: Color(0xFF131419),
+      backgroundColor: Color(0xFF15161A),
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: Color(0xFF80DA8A),//353537
     ),
     navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: const Color(0xFF131419),
+        backgroundColor: const Color(0xFF15161A),
         indicatorColor: const Color(0xFF66BF72),
         iconTheme: MaterialStateProperty.all(
             const IconThemeData(color: Color(0xFFEAEAEA),)
         ),
         labelTextStyle: MaterialStateProperty.all(const TextStyle(
             color: Color(0xFFEAEAEA), fontWeight: FontWeight.w500))),
-    bottomAppBarColor: const Color(0xFF131419),
+    bottomAppBarColor: const Color(0xFF15161A),
     bottomSheetTheme:
     const BottomSheetThemeData(modalBackgroundColor: Color(0xFF202126)));

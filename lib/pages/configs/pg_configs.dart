@@ -91,7 +91,6 @@ class _PgConfigsState extends State<PgConfigs> {
                 ),
               ),
             ),
-
             ListTile(
               title: Text("Geral",
                   style: TextStyle(
@@ -108,7 +107,6 @@ class _PgConfigsState extends State<PgConfigs> {
               leading: const Icon(Icons.brightness_6_outlined),
               title: const Text(
                 "Tema do aplicativo",
-                style: TextStyle(fontSize: 16),
               ),
               subtitle: Text(
                 getThemeStringFormatted(),
@@ -116,16 +114,14 @@ class _PgConfigsState extends State<PgConfigs> {
             ),
             ListTile(
               leading: const Icon(Icons.delete_outline),
-              title: const Text("Deletar todos os livros lidos",
-                  style: TextStyle(fontSize: 16)),
+              title: const Text("Deletar todos os livros lidos"),
               onTap: () {
                 showAlertDialogOkDelete(context);
               },
             ),
             ListTile(
               leading: const Icon(Icons.print_outlined),
-              title: const Text("Listar todos os livros lidos",
-                  style: TextStyle(fontSize: 16)),
+              title: const Text("Listar todos os livros lidos"),
               onTap: () => showDialog(
                   context: context,
                   builder: (BuildContext context) {
@@ -146,14 +142,12 @@ class _PgConfigsState extends State<PgConfigs> {
               ),
               title: const Text(
                 "Informações",
-                style: TextStyle(fontSize: 16),
               ),
               onTap: () {
                 Navigator.push(
                     context,
-                    MaterialPageRoute<void>(
+                    MaterialPageRoute(
                       builder: (BuildContext context) => const PgAppInfo(),
-                      fullscreenDialog: true,
                     ));
               },
             ),
@@ -163,14 +157,12 @@ class _PgConfigsState extends State<PgConfigs> {
               ),
               title: const Text(
                 "Changelog",
-                style: TextStyle(fontSize: 16),
               ),
               onTap: () {
                 Navigator.push(
                     context,
-                    MaterialPageRoute<void>(
+                    MaterialPageRoute(
                       builder: (BuildContext context) => const PgChangelog(),
-                      fullscreenDialog: true,
                     ));
               },
             ),

@@ -50,9 +50,6 @@ class PgAppInfo extends StatelessWidget {
             leading: Icon(Icons.info_outline),
             title: Text(
               "MARTELADO E REFEITO DO ZERO: 1 X POR ENQUANTO !!!\n( Por causa de um problema grave do SDK, culpa do Flutter! )\nVamos que Vamos, denovo!!!",
-              style: TextStyle(
-                fontSize: 16,
-              ),
             ),
           ),
           const ListTile(
@@ -61,9 +58,6 @@ class PgAppInfo extends StatelessWidget {
             ),
             title: Text(
               "Aplicativo criado utilizando o Flutter e a linguagem Dart, usado para testes e aprendizado.",
-              style: TextStyle(
-                fontSize: 16,
-              ),
             ),
           ),
           ListTile(
@@ -98,7 +92,6 @@ the ability to learn is a skill;
 the willingness to learn is a choice.” 
 – Brian Herbert             
       ''',
-              style: TextStyle(fontSize: 16),
             ),
           ),
         ]));

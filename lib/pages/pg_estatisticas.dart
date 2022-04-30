@@ -76,9 +76,8 @@ class _PgEstatisticasState extends State<PgEstatisticas> {
                   onPressed: () {
                     Navigator.push(
                         context,
-                        MaterialPageRoute<void>(
+                        MaterialPageRoute(
                           builder: (BuildContext context) => PgConfigs(),
-                          fullscreenDialog: true,
                         ));
                   }),
             ],
@@ -86,17 +85,15 @@ class _PgEstatisticasState extends State<PgEstatisticas> {
         ];
       },
       body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 450),
+        duration: const Duration(milliseconds: 600),
         child: loading
             ? const Center(child: SizedBox.shrink())
             : ListView(
                 children: [
                   cardEstatisticas('Livros', livrosLendo, livrosParaLer,
                       livrosLidos, accent),
-
                   cardEstatisticas('Páginas', paginasLendo, paginasParaLer,
                       paginasLidos, accent),
-
                   cardAutores('Geral', quantAutores, accent),
                   const SizedBox(
                     height: 100,

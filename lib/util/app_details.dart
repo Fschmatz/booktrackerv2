@@ -1,13 +1,14 @@
 class AppDetails{
 
-  static String versaoApp = "5.4.2";
+  static String versaoApp = "5.4.3";
   static String nomeApp = "BookTracker Fschmatz";
   static String repositoryLink = "https://github.com/Fschmatz/booktrackerv2";
 
   static String changelogUltimaVersao = ''' 
-5.4.2
+5.4.3
 - Tema Padrão do Sistema
 - Imprimir Lista de Livros Lidos
+- Fix da Animação ao Muda Itens da Lista
 - Fixes
 ''';
 

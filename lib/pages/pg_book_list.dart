@@ -22,11 +22,16 @@ class _PgBookListState extends State<PgBookList> {
 
   @override
   void initState() {
-    getLivrosState();
+    getLivrosState(false);
     super.initState();
   }
 
-  void getLivrosState() async {
+  void getLivrosState([bool refresh = true]) async {
+    if (refresh) {
+      setState(() {
+        loading = true;
+      });
+    }
     var resp = await dbLivro.queryAllLivrosEstado(widget.bookState);
     setState(() {
       loading = false;
@@ -54,13 +59,14 @@ class _PgBookListState extends State<PgBookList> {
                     onPressed: () {
                       Navigator.push(
                           context,
-                          MaterialPageRoute<void>(
+                          MaterialPageRoute(
                             builder: (BuildContext context) =>
                                 PgNovoLivro(paginaAtual: widget.bookState),
-                            fullscreenDialog: true,
                           )).then((value) => getLivrosState());
                     }),
-                const SizedBox(width: 15,),
+                const SizedBox(
+                  width: 10,
+                ),
                 IconButton(
                     tooltip: "Configurações",
                     icon: const Icon(
@@ -69,11 +75,10 @@ class _PgBookListState extends State<PgBookList> {
                     onPressed: () {
                       Navigator.push(
                           context,
-                          MaterialPageRoute<void>(
+                          MaterialPageRoute(
                             builder: (BuildContext context) => PgConfigs(
                               refresh: getLivrosState,
                             ),
-                            fullscreenDialog: true,
                           ));
                     }),
               ],
@@ -117,25 +122,6 @@ class _PgBookListState extends State<PgBookList> {
                 ),
         ),
       ),
-      /*floatingActionButton: FloatingActionButton(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(16)),
-        ),
-        heroTag: "btn1",
-        onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute<void>(
-                builder: (BuildContext context) =>
-                    PgNovoLivro(paginaAtual: widget.bookState),
-                fullscreenDialog: true,
-              )).then((value) => getLivrosState());
-        },
-        child: const Icon(
-          Icons.add_outlined,
-          color: Colors.black87,
-        ),
-      ),*/
     );
   }
 }
