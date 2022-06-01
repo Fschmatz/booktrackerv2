@@ -39,7 +39,6 @@ class _DialogListaLidosState extends State<DialogListaLidos> {
   Widget build(BuildContext context) {
 
     return AlertDialog(
-      actionsPadding: const EdgeInsets.symmetric(horizontal: 10),
       title: const Text('Lista de livros lidos'),
       scrollable: true,
       content: SizedBox(

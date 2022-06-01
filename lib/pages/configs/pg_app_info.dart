@@ -5,13 +5,11 @@ import 'package:url_launcher/url_launcher.dart';
 class PgAppInfo extends StatelessWidget {
   const PgAppInfo({Key? key}) : super(key: key);
 
-  _launchGithub() async {
-    String url = AppDetails.repositoryLink;
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Error';
-    }
+  _launchGithub() {
+    launchUrl(
+      Uri.parse(AppDetails.repositoryLink),
+      mode: LaunchMode.externalApplication,
+    );
   }
 
   @override

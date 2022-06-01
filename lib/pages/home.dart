@@ -10,30 +10,24 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  EdgeInsetsGeometry navBarPadding =
-      const EdgeInsets.symmetric(horizontal: 15, vertical: 10);
+
   int _currentIndex = 0;
 
   final List<Widget> _pageList = [
     PgBookList(
       key: UniqueKey(),
-      bookState: 1,
+      bookState: 1,//lendo
     ),
     PgBookList(
       key: UniqueKey(),
-      bookState: 0,
+      bookState: 0,//para ler
     ),
     PgBookList(
       key: UniqueKey(),
-      bookState: 2,
+      bookState: 2,//lido
     ),
     const PgEstatisticas()
   ];
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +47,6 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.book_outlined),
             selectedIcon: Icon(
               Icons.book,
-              color: Colors.black87,
             ),
             label: 'Lendo',
           ),
@@ -61,7 +54,6 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.bookmark_outline_outlined),
             selectedIcon: Icon(
               Icons.bookmark,
-              color: Colors.black87,
             ),
             label: 'Para Ler',
           ),
@@ -69,7 +61,6 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.done_outlined),
             selectedIcon: Icon(
               Icons.done,
-              color: Colors.black87,
             ),
             label: 'Lidos',
           ),
@@ -77,7 +68,6 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.bar_chart_outlined),
             selectedIcon: Icon(
               Icons.bar_chart,
-              color: Colors.black87,
             ),
             label: 'Estatísticas',
           ),

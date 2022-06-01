@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  PaintingBinding.instance!.imageCache!.maximumSizeBytes = 1024 * 1024 * 50;
+  PaintingBinding.instance.imageCache.maximumSizeBytes = 1024 * 1024 * 50;
 
   runApp(
     EasyDynamicThemeWidget(

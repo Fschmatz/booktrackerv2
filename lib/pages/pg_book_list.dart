@@ -3,7 +3,6 @@ import 'package:booktrackerv2/db/livro_dao.dart';
 import 'package:booktrackerv2/pages/pg_novo_livro.dart';
 import 'package:booktrackerv2/ui/card_livro.dart';
 import 'package:flutter/material.dart';
-
 import 'configs/pg_configs.dart';
 
 class PgBookList extends StatefulWidget {
@@ -116,7 +115,7 @@ class _PgBookListState extends State<PgBookList> {
                       },
                     ),
                     const SizedBox(
-                      height: 100,
+                      height: 50,
                     )
                   ],
                 ),

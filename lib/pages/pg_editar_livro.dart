@@ -20,9 +20,10 @@ class PgEditarLivro extends StatefulWidget {
 class _PgEditarLivroState extends State<PgEditarLivro> {
   final dbLivro = LivroDao.instance;
 
-  TextEditingController customControllerNomeLivro = TextEditingController();
-  TextEditingController customControllerPaginas = TextEditingController();
-  TextEditingController customControllerAutor = TextEditingController();
+  TextEditingController controllerNomeLivro = TextEditingController();
+  TextEditingController controllerPaginas = TextEditingController();
+  TextEditingController controllerAutor = TextEditingController();
+  bool nomeValido = true;
 
   //IMAGEM
   final imagePicker = ImagePicker();
@@ -52,60 +53,31 @@ class _PgEditarLivroState extends State<PgEditarLivro> {
   @override
   void initState() {
     super.initState();
-    customControllerNomeLivro.text = widget.livro.nome;
-    customControllerPaginas.text = widget.livro.numPaginas.toString();
-    customControllerAutor.text = widget.livro.autor!;
+    controllerNomeLivro.text = widget.livro.nome;
+    controllerPaginas.text = widget.livro.numPaginas.toString();
+    controllerAutor.text = widget.livro.autor!;
   }
 
   void _atualizarLivro(int id) async {
     final dbLivro = LivroDao.instance;
     Map<String, dynamic> row = {
       LivroDao.columnIdLivro: id,
-      LivroDao.columnNome: customControllerNomeLivro.text,
-      LivroDao.columnNumPaginas: customControllerPaginas.text,
-      LivroDao.columnAutor: customControllerAutor.text,
+      LivroDao.columnNome: controllerNomeLivro.text,
+      LivroDao.columnNumPaginas: controllerPaginas.text,
+      LivroDao.columnAutor: controllerAutor.text,
       LivroDao.columnCapa:
           capaFoiEditada ? capa!.readAsBytesSync() : widget.livro.capa,
     };
     final atualizar = await dbLivro.update(row);
   }
 
-  //CHECK ERROR NULL
-  String checkProblemas() {
-    String erros = "";
-    if (customControllerNomeLivro.text.isEmpty) {
-      erros += "Insira um nome";
+  bool validarTextFields() {
+    String errors = "";
+    if (controllerNomeLivro.text.isEmpty) {
+      errors += "Nome";
+      nomeValido = false;
     }
-    return erros;
-  }
-
-  showAlertDialogErros(BuildContext context) {
-    Widget okButton = TextButton(
-      child: const Text(
-        "Ok",
-      ),
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-    );
-
-    AlertDialog alert = AlertDialog(
-      title: const Text(
-        "Erro",
-      ),
-      content: Text(
-        checkProblemas(),
-      ),
-      actions: [
-        okButton,
-      ],
-    );
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
+    return errors.isEmpty ? true : false;
   }
 
   void removerCapa() {
@@ -125,12 +97,14 @@ class _PgEditarLivroState extends State<PgEditarLivro> {
             icon: const Icon(Icons.save_outlined),
             tooltip: 'Salvar',
             onPressed: () {
-              if (checkProblemas().isEmpty) {
+              if (validarTextFields()) {
                 _atualizarLivro(widget.livro.id);
                 widget.refreshLista();
                 Navigator.of(context).pop();
               } else {
-                showAlertDialogErros(context);
+                setState(() {
+                  nomeValido;
+                });
               }
             },
           ),
@@ -138,60 +112,40 @@ class _PgEditarLivroState extends State<PgEditarLivro> {
       ),
       body: ListView(
         children: [
-          ListTile(
-            title: Text("Nome",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Theme.of(context).colorScheme.primary)),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: TextField(
+              minLines: 1,
+              maxLines: 3,
+              maxLength: 150,
+              maxLengthEnforcement: MaxLengthEnforcement.enforced,
+              textCapitalization: TextCapitalization.sentences,
+              keyboardType: TextInputType.name,
+              controller: controllerNomeLivro,
+              decoration: InputDecoration(
+                  helperText: "* Obrigatório",
+                  labelText: "Nome",
+                  errorText: nomeValido ? null : "Nome vazio"),
+            ),
           ),
-          ListTile(
-            title: TextField(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: TextField(
               minLines: 1,
               maxLines: 2,
               maxLength: 100,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
-              controller: customControllerNomeLivro,
+              controller: controllerAutor,
               decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.notes_outlined),
-                helperText: "* Obrigatório",
+                labelText: "Autor",
               ),
             ),
           ),
-          ListTile(
-            title: Text("Autor",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Theme.of(context).colorScheme.primary)),
-          ),
-          ListTile(
-            title: TextField(
-              minLines: 1,
-              maxLines: 2,
-              maxLength: 75,
-              maxLengthEnforcement: MaxLengthEnforcement.enforced,
-              textCapitalization: TextCapitalization.sentences,
-              keyboardType: TextInputType.name,
-              controller: customControllerAutor,
-              decoration: const InputDecoration(
-                prefixIcon: Icon(
-                  Icons.person_outline_outlined,
-                ),
-              ),
-            ),
-          ),
-          ListTile(
-            title: Text("Nº de Páginas",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Theme.of(context).colorScheme.primary)),
-          ),
-          ListTile(
-            title: TextField(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: TextField(
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\d{0,2}'))
               ],
@@ -199,20 +153,19 @@ class _PgEditarLivroState extends State<PgEditarLivro> {
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               keyboardType:
                   const TextInputType.numberWithOptions(decimal: false),
-              controller: customControllerPaginas,
+              controller: controllerPaginas,
               decoration: const InputDecoration(
-                prefixIcon: Icon(
-                  Icons.library_books_outlined,
-                ),
+                labelText: "Nº de Páginas",
               ),
             ),
           ),
-          ListTile(
-            title: Text("Capa",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Theme.of(context).colorScheme.primary)),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(18, 5, 25, 10),
+            child: Text(
+              "Capa",
+              style:
+                  TextStyle(fontSize: 16, color: Theme.of(context).hintColor),
+            ),
           ),
           ListTile(
             title: Card(
@@ -220,7 +173,7 @@ class _PgEditarLivroState extends State<PgEditarLivro> {
               elevation: 0,
               color: Theme.of(context).primaryColor,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(8),
                 side: BorderSide(
                   color: Colors.grey[800]!.withOpacity(0.9),
                 ),

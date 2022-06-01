@@ -1,10 +1,7 @@
 import 'package:booktrackerv2/class/livro.dart';
 import 'package:booktrackerv2/db/livro_dao.dart';
 import 'package:booktrackerv2/pages/pg_editar_livro.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter_animator/flutter_animator.dart';
 
 class CardLivro extends StatefulWidget {
   @override
@@ -41,7 +38,7 @@ class _CardLivroState extends State<CardLivro> {
     showModalBottomSheet(
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
+              topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
         ),
         context: context,
         builder: (BuildContext bc) {
@@ -61,31 +58,11 @@ class _CardLivroState extends State<CardLivro> {
                   ),
                   const Divider(),
                   Visibility(
-                    visible: widget.paginaAtual != 0,
-                    child: ListTile(
-                      leading: const Icon(Icons.bookmark_outline),
-                      title: const Text(
-                        "Marcar como para ler",
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      onTap: () {
-                        _mudarEstado(widget.livro.id, 0);
-                        widget.getLivrosState();
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ),
-                  Visibility(
-                    visible: widget.paginaAtual != 0,
-                    child: const Divider(),
-                  ),
-                  Visibility(
                     visible: widget.paginaAtual != 1,
                     child: ListTile(
                       leading: const Icon(Icons.book_outlined),
                       title: const Text(
                         "Marcar como lendo",
-                        style: TextStyle(fontSize: 16),
                       ),
                       onTap: () {
                         _mudarEstado(widget.livro.id, 1);
@@ -99,12 +76,29 @@ class _CardLivroState extends State<CardLivro> {
                     child: const Divider(),
                   ),
                   Visibility(
+                    visible: widget.paginaAtual != 0,
+                    child: ListTile(
+                      leading: const Icon(Icons.bookmark_outline),
+                      title: const Text(
+                        "Marcar como para ler",
+                      ),
+                      onTap: () {
+                        _mudarEstado(widget.livro.id, 0);
+                        widget.getLivrosState();
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ),
+                  Visibility(
+                    visible: widget.paginaAtual != 0,
+                    child: const Divider(),
+                  ),
+                  Visibility(
                     visible: widget.paginaAtual != 2,
                     child: ListTile(
                       leading: const Icon(Icons.done_outlined),
                       title: const Text(
                         "Marcar como lido",
-                        style: TextStyle(fontSize: 16),
                       ),
                       onTap: () {
                         _mudarEstado(widget.livro.id, 2);
@@ -121,11 +115,9 @@ class _CardLivroState extends State<CardLivro> {
                     leading: const Icon(Icons.edit_outlined),
                     title: const Text(
                       "Editar livro",
-                      style: TextStyle(fontSize: 16),
                     ),
                     onTap: () {
                       Navigator.of(context).pop();
-
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -141,7 +133,6 @@ class _CardLivroState extends State<CardLivro> {
                     leading: const Icon(Icons.delete_outline_outlined),
                     title: const Text(
                       "Deletar livro",
-                      style: TextStyle(fontSize: 16),
                     ),
                     onTap: () {
                       Navigator.of(context).pop();

@@ -113,13 +113,6 @@ class _PgConfigsState extends State<PgConfigs> {
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.delete_outline),
-              title: const Text("Deletar todos os livros lidos"),
-              onTap: () {
-                showAlertDialogOkDelete(context);
-              },
-            ),
-            ListTile(
               leading: const Icon(Icons.print_outlined),
               title: const Text("Listar todos os livros lidos"),
               onTap: () => showDialog(
@@ -128,7 +121,13 @@ class _PgConfigsState extends State<PgConfigs> {
                     return const DialogListaLidos();
                   }),
             ),
-            //const Divider(),
+            ListTile(
+              leading: const Icon(Icons.delete_outline),
+              title: const Text("Deletar todos os livros lidos"),
+              onTap: () {
+                showAlertDialogOkDelete(context);
+              },
+            ),
             ListTile(
               title: Text("Sobre",
                   style: TextStyle(

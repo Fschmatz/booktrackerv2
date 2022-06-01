@@ -1,7 +1,5 @@
 import 'package:booktrackerv2/db/livro_dao.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'configs/pg_configs.dart';
 
 class PgEstatisticas extends StatefulWidget {
@@ -96,7 +94,7 @@ class _PgEstatisticasState extends State<PgEstatisticas> {
                       paginasLidos, accent),
                   cardAutores('Geral', quantAutores, accent),
                   const SizedBox(
-                    height: 100,
+                    height: 50,
                   ),
                 ],
               ),

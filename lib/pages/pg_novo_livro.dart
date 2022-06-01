@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:booktrackerv2/db/livro_dao.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,10 +17,11 @@ class PgNovoLivro extends StatefulWidget {
 class _PgNovoLivroState extends State<PgNovoLivro> {
   final dbLivro = LivroDao.instance;
 
-  TextEditingController customControllerNomeLivro = TextEditingController();
-  TextEditingController customControllerPaginas = TextEditingController();
-  TextEditingController customControllerAutor = TextEditingController();
+  TextEditingController controllerNomeLivro = TextEditingController();
+  TextEditingController controllerPaginas = TextEditingController();
+  TextEditingController controllerAutor = TextEditingController();
   late FocusNode inputFieldNode;
+  bool nomeValido = true;
 
   //IMAGEM
   final imagePicker = ImagePicker();
@@ -48,53 +48,24 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
   //AUTOR, PAGINAS E CAPA PODEM SER NULO
   void _salvarLivro() async {
     Map<String, dynamic> row = {
-      LivroDao.columnNome: customControllerNomeLivro.text,
-      LivroDao.columnNumPaginas: customControllerPaginas.text.isEmpty
+      LivroDao.columnNome: controllerNomeLivro.text,
+      LivroDao.columnNumPaginas: controllerPaginas.text.isEmpty
           ? 0
-          : int.parse(customControllerPaginas.text),
-      LivroDao.columnAutor: customControllerAutor.text,
+          : int.parse(controllerPaginas.text),
+      LivroDao.columnAutor: controllerAutor.text,
       LivroDao.columnLido: widget.paginaAtual,
       LivroDao.columnCapa: capa == null ? null : capa!.readAsBytesSync(),
     };
     final id = await dbLivro.insert(row);
   }
 
-  //CHECK ERROR NULL
-  String checkProblemas() {
-    String erros = "";
-    if (customControllerNomeLivro.text.isEmpty) {
-      erros += "Insira um nome\n";
+  bool validarTextFields() {
+    String errors = "";
+    if (controllerNomeLivro.text.isEmpty) {
+      errors += "Nome";
+      nomeValido = false;
     }
-    return erros;
-  }
-
-  showAlertDialogErros(BuildContext context) {
-    Widget okButton = TextButton(
-      child: const Text(
-        "Ok",
-      ),
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-    );
-
-    AlertDialog alert = AlertDialog(
-      title: const Text(
-        "Erro",
-      ),
-      content: Text(
-        checkProblemas(),
-      ),
-      actions: [
-        okButton,
-      ],
-    );
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
+    return errors.isEmpty ? true : false;
   }
 
   void removerCapa() {
@@ -115,11 +86,13 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
             icon: const Icon(Icons.save_outlined),
             tooltip: 'Salvar',
             onPressed: () {
-              if (checkProblemas().isEmpty) {
+              if (validarTextFields()) {
                 _salvarLivro();
                 Navigator.of(context).pop();
               } else {
-                showAlertDialogErros(context);
+                setState(() {
+                  nomeValido;
+                });
               }
             },
           ),
@@ -127,62 +100,42 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
       ),
       body: ListView(
         children: [
-          ListTile(
-            title: Text("Nome",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Theme.of(context).colorScheme.primary)),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: TextField(
+              minLines: 1,
+              maxLines: 3,
+              maxLength: 150,
+              maxLengthEnforcement: MaxLengthEnforcement.enforced,
+              textCapitalization: TextCapitalization.sentences,
+              keyboardType: TextInputType.name,
+              controller: controllerNomeLivro,
+              onEditingComplete: () => node.nextFocus(),
+              decoration: InputDecoration(
+                  helperText: "* Obrigatório",
+                  labelText: "Nome",
+                  errorText: nomeValido ? null : "Nome vazio"),
+            ),
           ),
-          ListTile(
-            title: TextField(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: TextField(
               minLines: 1,
               maxLines: 2,
               maxLength: 100,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
-              controller: customControllerNomeLivro,
+              controller: controllerAutor,
               onEditingComplete: () => node.nextFocus(),
               decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.notes_outlined),
-                helperText: "* Obrigatório",
+                labelText: "Autor",
               ),
             ),
           ),
-          ListTile(
-            title: Text("Autor",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Theme.of(context).colorScheme.primary)),
-          ),
-          ListTile(
-            title: TextField(
-              minLines: 1,
-              maxLines: 2,
-              maxLength: 75,
-              maxLengthEnforcement: MaxLengthEnforcement.enforced,
-              textCapitalization: TextCapitalization.sentences,
-              keyboardType: TextInputType.name,
-              controller: customControllerAutor,
-              onEditingComplete: () => node.nextFocus(),
-              decoration: const InputDecoration(
-                prefixIcon: Icon(
-                  Icons.person_outline_outlined,
-                ),
-              ),
-            ),
-          ),
-          ListTile(
-            title: Text("Nº de Páginas",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Theme.of(context).colorScheme.primary)),
-          ),
-          ListTile(
-            title: TextField(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: TextField(
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\d{0,2}'))
               ],
@@ -190,21 +143,20 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               keyboardType:
                   const TextInputType.numberWithOptions(decimal: false),
-              controller: customControllerPaginas,
+              controller: controllerPaginas,
               onEditingComplete: () => node.nextFocus(),
               decoration: const InputDecoration(
-                prefixIcon: Icon(
-                  Icons.library_books_outlined,
-                ),
+                labelText: "Nº de Páginas",
               ),
             ),
           ),
-          ListTile(
-            title: Text("Capa",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Theme.of(context).colorScheme.primary)),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(18, 5, 25, 10),
+            child: Text(
+              "Capa",
+              style:
+                  TextStyle(fontSize: 16, color: Theme.of(context).hintColor),
+            ),
           ),
           ListTile(
             title: Card(
@@ -212,7 +164,7 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
               elevation: 0,
               color: Theme.of(context).primaryColor,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(8),
                 side: BorderSide(
                   color: Colors.grey[800]!.withOpacity(0.9),
                 ),
