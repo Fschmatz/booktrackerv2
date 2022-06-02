@@ -117,7 +117,7 @@ class _PgEditarLivroState extends State<PgEditarLivro> {
             child: TextField(
               minLines: 1,
               maxLines: 3,
-              maxLength: 150,
+              maxLength: 200,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
@@ -133,7 +133,7 @@ class _PgEditarLivroState extends State<PgEditarLivro> {
             child: TextField(
               minLines: 1,
               maxLines: 2,
-              maxLength: 100,
+              maxLength: 150,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,

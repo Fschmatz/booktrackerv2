@@ -248,7 +248,7 @@ class _CardLivroState extends State<CardLivro> {
                         child: Text(
                           widget.livro.autor!,
                           style: TextStyle(
-                              fontSize: 16, color: Theme.of(context).hintColor),
+                              fontSize: 14, color: Theme.of(context).hintColor),
                         ),
                       ),
                       const SizedBox(
@@ -259,7 +259,7 @@ class _CardLivroState extends State<CardLivro> {
                         child: Text(
                           widget.livro.numPaginas.toString() + " Páginas",
                           style: TextStyle(
-                              fontSize: 16, color: Theme.of(context).hintColor),
+                              fontSize: 14, color: Theme.of(context).hintColor),
                         ),
                       ),
                     ],

@@ -103,9 +103,10 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: TextField(
+              autofocus: true,
               minLines: 1,
               maxLines: 3,
-              maxLength: 150,
+              maxLength: 200,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
@@ -122,7 +123,7 @@ class _PgNovoLivroState extends State<PgNovoLivro> {
             child: TextField(
               minLines: 1,
               maxLines: 2,
-              maxLength: 100,
+              maxLength: 150,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
