@@ -1,15 +1,15 @@
 import 'package:booktrackerv2/db/livro_dao.dart';
 import 'package:flutter/material.dart';
-import 'configs/pg_configs.dart';
+import 'configs/configs.dart';
 
-class PgEstatisticas extends StatefulWidget {
-  const PgEstatisticas({Key? key}) : super(key: key);
+class Estatisticas extends StatefulWidget {
+  const Estatisticas({Key? key}) : super(key: key);
 
   @override
-  _PgEstatisticasState createState() => _PgEstatisticasState();
+  _EstatisticasState createState() => _EstatisticasState();
 }
 
-class _PgEstatisticasState extends State<PgEstatisticas> {
+class _EstatisticasState extends State<Estatisticas> {
   final dbLivro = LivroDao.instance;
   bool loading = true;
 
@@ -75,30 +75,27 @@ class _PgEstatisticasState extends State<PgEstatisticas> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (BuildContext context) => PgConfigs(),
+                          builder: (BuildContext context) => Configs(),
                         ));
                   }),
             ],
           ),
         ];
       },
-      body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 600),
-        child: loading
-            ? const Center(child: SizedBox.shrink())
-            : ListView(
-                children: [
-                  cardEstatisticas('Livros', livrosLendo, livrosParaLer,
-                      livrosLidos, accent),
-                  cardEstatisticas('Páginas', paginasLendo, paginasParaLer,
-                      paginasLidos, accent),
-                  cardAutores('Geral', quantAutores, accent),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                ],
-              ),
-      ),
+      body: loading
+          ? const Center(child: SizedBox.shrink())
+          : ListView(
+              children: [
+                cardEstatisticas('Livros', livrosLendo, livrosParaLer,
+                    livrosLidos, accent),
+                cardEstatisticas('Páginas', paginasLendo, paginasParaLer,
+                    paginasLidos, accent),
+                cardAutores('Geral', quantAutores, accent),
+                const SizedBox(
+                  height: 50,
+                ),
+              ],
+            ),
     ));
   }
 }
@@ -126,7 +123,7 @@ Widget cardEstatisticas(String tituloCard, int? valorLendo, int? valorParaLer,
         trailing: Text(valorParaLer.toString(), style: styleTrailing),
       ),
       ListTile(
-        leading: const Icon(Icons.done_outlined),
+        leading: const Icon(Icons.task_outlined),
         title: const Text('Lidos'),
         trailing: Text(valorLidos.toString(), style: styleTrailing),
       ),

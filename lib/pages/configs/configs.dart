@@ -1,23 +1,23 @@
 import 'package:booktrackerv2/db/livro_dao.dart';
-import 'package:booktrackerv2/pages/configs/pg_app_info.dart';
-import 'package:booktrackerv2/pages/configs/pg_changelog.dart';
-import 'package:booktrackerv2/util/dialog_lista_lidos.dart';
+import 'package:booktrackerv2/pages/configs/app_info.dart';
+import 'package:booktrackerv2/pages/configs/changelog.dart';
 import 'package:booktrackerv2/util/dialog_select_theme.dart';
 import 'package:booktrackerv2/util/utils_functions.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import '../../util/app_details.dart';
+import '../../util/dialog_print.dart';
 
-class PgConfigs extends StatefulWidget {
+class Configs extends StatefulWidget {
   @override
-  _PgConfigsState createState() => _PgConfigsState();
+  _ConfigsState createState() => _ConfigsState();
 
   Function()? refresh;
 
-  PgConfigs({Key? key, this.refresh}) : super(key: key);
+  Configs({Key? key, this.refresh}) : super(key: key);
 }
 
-class _PgConfigsState extends State<PgConfigs> {
+class _ConfigsState extends State<Configs> {
   void _deletarTodosLidos() async {
     final dbLivro = LivroDao.instance;
     final deletado = await dbLivro.deleteTodosLidos();
@@ -77,12 +77,8 @@ class _PgConfigsState extends State<PgConfigs> {
         body: ListView(
           children: <Widget>[
             Card(
-              elevation: 1,
               margin: const EdgeInsets.fromLTRB(16, 20, 16, 25),
               color: Theme.of(context).colorScheme.primary,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(12)),
-              ),
               child: ListTile(
                 title: Text(
                   AppDetails.nomeApp + " " + AppDetails.versaoApp,
@@ -113,17 +109,17 @@ class _PgConfigsState extends State<PgConfigs> {
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.print_outlined),
-              title: const Text("Listar todos os livros lidos"),
-              onTap: () => showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return const DialogListaLidos();
-                  }),
-            ),
+                leading: const Icon(Icons.print_outlined),
+                title: const Text("Listar os livros lidos"),
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => DialogPrint(),
+                      fullscreenDialog: true,
+                    ))),
             ListTile(
               leading: const Icon(Icons.delete_outline),
-              title: const Text("Deletar todos os livros lidos"),
+              title: const Text("Deletar os livros lidos"),
               onTap: () {
                 showAlertDialogOkDelete(context);
               },
@@ -146,7 +142,7 @@ class _PgConfigsState extends State<PgConfigs> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (BuildContext context) => const PgAppInfo(),
+                      builder: (BuildContext context) => const AppInfo(),
                     ));
               },
             ),
@@ -161,7 +157,7 @@ class _PgConfigsState extends State<PgConfigs> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (BuildContext context) => const PgChangelog(),
+                      builder: (BuildContext context) => const Changelog(),
                     ));
               },
             ),

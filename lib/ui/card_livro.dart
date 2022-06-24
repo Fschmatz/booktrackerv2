@@ -1,6 +1,6 @@
 import 'package:booktrackerv2/class/livro.dart';
 import 'package:booktrackerv2/db/livro_dao.dart';
-import 'package:booktrackerv2/pages/pg_editar_livro.dart';
+import 'package:booktrackerv2/pages/editar_livro.dart';
 import 'package:flutter/material.dart';
 
 class CardLivro extends StatefulWidget {
@@ -121,7 +121,7 @@ class _CardLivroState extends State<CardLivro> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (BuildContext context) => PgEditarLivro(
+                            builder: (BuildContext context) => EditarLivro(
                               livro: widget.livro,
                               refreshLista: widget.getLivrosState,
                             ),

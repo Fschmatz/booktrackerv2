@@ -5,16 +5,16 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
 
-class PgNovoLivro extends StatefulWidget {
+class NovoLivro extends StatefulWidget {
   @override
-  _PgNovoLivroState createState() => _PgNovoLivroState();
+  _NovoLivroState createState() => _NovoLivroState();
 
   int paginaAtual;
 
-  PgNovoLivro({Key? key, required this.paginaAtual}) : super(key: key);
+  NovoLivro({Key? key, required this.paginaAtual}) : super(key: key);
 }
 
-class _PgNovoLivroState extends State<PgNovoLivro> {
+class _NovoLivroState extends State<NovoLivro> {
   final dbLivro = LivroDao.instance;
 
   TextEditingController controllerNomeLivro = TextEditingController();

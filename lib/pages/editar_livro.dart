@@ -6,18 +6,18 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
 
-class PgEditarLivro extends StatefulWidget {
+class EditarLivro extends StatefulWidget {
   @override
-  _PgEditarLivroState createState() => _PgEditarLivroState();
+  _EditarLivroState createState() => _EditarLivroState();
 
   Function() refreshLista;
   Livro livro;
 
-  PgEditarLivro({Key? key, required this.refreshLista, required this.livro})
+  EditarLivro({Key? key, required this.refreshLista, required this.livro})
       : super(key: key);
 }
 
-class _PgEditarLivroState extends State<PgEditarLivro> {
+class _EditarLivroState extends State<EditarLivro> {
   final dbLivro = LivroDao.instance;
 
   TextEditingController controllerNomeLivro = TextEditingController();

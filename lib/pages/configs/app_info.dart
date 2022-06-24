@@ -2,8 +2,8 @@ import 'package:booktrackerv2/util/app_details.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class PgAppInfo extends StatelessWidget {
-  const PgAppInfo({Key? key}) : super(key: key);
+class AppInfo extends StatelessWidget {
+  const AppInfo({Key? key}) : super(key: key);
 
   _launchGithub() {
     launchUrl(

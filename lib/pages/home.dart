@@ -1,5 +1,6 @@
-import 'package:booktrackerv2/pages/pg_estatisticas.dart';
-import 'package:booktrackerv2/pages/pg_book_list.dart';
+import 'package:animations/animations.dart';
+import 'package:booktrackerv2/pages/estatisticas.dart';
+import 'package:booktrackerv2/pages/book_list.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -12,28 +13,35 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   int _currentIndex = 0;
-
   final List<Widget> _pageList = [
-    PgBookList(
+    BookList(
       key: UniqueKey(),
       bookState: 1,//lendo
     ),
-    PgBookList(
+    BookList(
       key: UniqueKey(),
       bookState: 0,//para ler
     ),
-    PgBookList(
+    BookList(
       key: UniqueKey(),
       bookState: 2,//lido
     ),
-    const PgEstatisticas()
+    const Estatisticas()
   ];
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body: _pageList[_currentIndex],
+      body: PageTransitionSwitcher(
+          transitionBuilder: (child, animation, secondaryAnimation) =>
+              FadeThroughTransition(
+                fillColor: Theme.of(context).scaffoldBackgroundColor,
+                animation: animation,
+                secondaryAnimation: secondaryAnimation,
+                child: child,
+              ),
+          child: _pageList[_currentIndex]),
       bottomNavigationBar: NavigationBar(
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         selectedIndex: _currentIndex,
@@ -58,16 +66,16 @@ class _HomeState extends State<Home> {
             label: 'Para Ler',
           ),
           NavigationDestination(
-            icon: Icon(Icons.done_outlined),
+            icon: Icon(Icons.task_outlined),
             selectedIcon: Icon(
-              Icons.done,
+              Icons.task,
             ),
             label: 'Lidos',
           ),
           NavigationDestination(
-            icon: Icon(Icons.bar_chart_outlined),
+            icon: Icon(Icons.insert_chart_outlined),
             selectedIcon: Icon(
-              Icons.bar_chart,
+              Icons.insert_chart,
             ),
             label: 'Estatísticas',
           ),

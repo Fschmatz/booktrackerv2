@@ -1,20 +1,20 @@
 import 'package:booktrackerv2/class/livro.dart';
 import 'package:booktrackerv2/db/livro_dao.dart';
-import 'package:booktrackerv2/pages/pg_novo_livro.dart';
+import 'package:booktrackerv2/pages/novo_livro.dart';
 import 'package:booktrackerv2/ui/card_livro.dart';
 import 'package:flutter/material.dart';
-import 'configs/pg_configs.dart';
+import 'configs/configs.dart';
 
-class PgBookList extends StatefulWidget {
+class BookList extends StatefulWidget {
   int bookState;
 
-  PgBookList({Key? key, required this.bookState}) : super(key: key);
+  BookList({Key? key, required this.bookState}) : super(key: key);
 
   @override
-  _PgBookListState createState() => _PgBookListState();
+  _BookListState createState() => _BookListState();
 }
 
-class _PgBookListState extends State<PgBookList> {
+class _BookListState extends State<BookList> {
   List<Map<String, dynamic>> listaLivros = [];
   final dbLivro = LivroDao.instance;
   bool loading = true;
@@ -60,11 +60,11 @@ class _PgBookListState extends State<PgBookList> {
                           context,
                           MaterialPageRoute(
                             builder: (BuildContext context) =>
-                                PgNovoLivro(paginaAtual: widget.bookState),
+                                NovoLivro(paginaAtual: widget.bookState),
                           )).then((value) => getLivrosState());
                     }),
                 const SizedBox(
-                  width: 10,
+                  width: 8,
                 ),
                 IconButton(
                     tooltip: "Configurações",
@@ -75,7 +75,7 @@ class _PgBookListState extends State<PgBookList> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (BuildContext context) => PgConfigs(
+                            builder: (BuildContext context) => Configs(
                               refresh: getLivrosState,
                             ),
                           ));
@@ -84,42 +84,39 @@ class _PgBookListState extends State<PgBookList> {
             ),
           ];
         },
-        body: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 600),
-          child: loading
-              ? const Center(child: SizedBox.shrink())
-              : ListView(
-                  children: [
-                    ListView.separated(
-                      separatorBuilder: (BuildContext context, int index) =>
-                          const SizedBox(
-                        height: 4,
-                      ),
-                      physics: const ScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: listaLivros.length,
-                      itemBuilder: (context, int index) {
-                        return CardLivro(
-                          key: UniqueKey(),
-                          livro: Livro(
-                            id: listaLivros[index]['idLivro'],
-                            nome: listaLivros[index]['nome'],
-                            numPaginas: listaLivros[index]['numPaginas'],
-                            autor: listaLivros[index]['autor'],
-                            lido: listaLivros[index]['estado'],
-                            capa: listaLivros[index]['capa'],
-                          ),
-                          getLivrosState: getLivrosState,
-                          paginaAtual: widget.bookState,
-                        );
-                      },
+        body: loading
+            ? const Center(child: SizedBox.shrink())
+            : ListView(
+                children: [
+                  ListView.separated(
+                    separatorBuilder: (BuildContext context, int index) =>
+                        const SizedBox(
+                      height: 4,
                     ),
-                    const SizedBox(
-                      height: 50,
-                    )
-                  ],
-                ),
-        ),
+                    physics: const ScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: listaLivros.length,
+                    itemBuilder: (context, int index) {
+                      return CardLivro(
+                        key: UniqueKey(),
+                        livro: Livro(
+                          id: listaLivros[index]['idLivro'],
+                          nome: listaLivros[index]['nome'],
+                          numPaginas: listaLivros[index]['numPaginas'],
+                          autor: listaLivros[index]['autor'],
+                          lido: listaLivros[index]['estado'],
+                          capa: listaLivros[index]['capa'],
+                        ),
+                        getLivrosState: getLivrosState,
+                        paginaAtual: widget.bookState,
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  )
+                ],
+              ),
       ),
     );
   }

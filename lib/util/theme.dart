@@ -14,14 +14,9 @@ ThemeData light = ThemeData(
       secondary: Colors.green.shade700,
     ),
     appBarTheme: const AppBarTheme(
-        surfaceTintColor: Color(0xFFFFFFFF),
-        color: Color(0xFFFFFFFF),
-        elevation: 0,
-        iconTheme: IconThemeData(color: Color(0xFF000000)),
-        titleTextStyle: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.w400,
-            color: Color(0xFF000000))),
+      surfaceTintColor: Color(0xFFFFFFFF),
+      color: Color(0xFFFFFFFF),
+    ),
     scaffoldBackgroundColor: const Color(0xFFFFFFFF),
     cardTheme: const CardTheme(
       surfaceTintColor: Color(0xFFE9EBEA),
@@ -29,15 +24,12 @@ ThemeData light = ThemeData(
     ),
     dialogTheme: const DialogTheme(
       backgroundColor: Color(0xFFFFFFFF),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(28)),
-      ),
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: Colors.green.shade700,
     ),
-    inputDecorationTheme: InputDecorationTheme(       
-        focusColor: Colors.green.shade700,       
+    inputDecorationTheme: InputDecorationTheme(
+        focusColor: Colors.green.shade700,
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: Colors.green.shade700,
@@ -92,25 +84,18 @@ ThemeData dark = ThemeData(
       secondary: Color(0xFF66BF72),
     ),
     appBarTheme: const AppBarTheme(
-        surfaceTintColor: Color(0xFF202022),
-        color: Color(0xFF202022),
-        elevation: 0,
-        titleTextStyle: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.w400,
-            color: Color(0xFFFFFFFF))),
+      surfaceTintColor: Color(0xFF202022),
+      color: Color(0xFF202022),
+    ),
     cardTheme: const CardTheme(
       surfaceTintColor: Color(0xFF303032),
       color: Color(0xFF303032),
     ),
     dialogTheme: const DialogTheme(
       backgroundColor: Color(0xFF303032),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(28)),
-      ),
     ),
     inputDecorationTheme: InputDecorationTheme(
-        focusColor: const Color(0xFF66BF72),        
+        focusColor: const Color(0xFF66BF72),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(
             color: Color(0xFF66BF72),
