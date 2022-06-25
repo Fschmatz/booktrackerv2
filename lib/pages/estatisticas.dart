@@ -1,6 +1,5 @@
 import 'package:booktrackerv2/db/livro_dao.dart';
 import 'package:flutter/material.dart';
-import 'configs/configs.dart';
 
 class Estatisticas extends StatefulWidget {
   const Estatisticas({Key? key}) : super(key: key);
@@ -28,8 +27,8 @@ class _EstatisticasState extends State<Estatisticas> {
   }
 
   Future<void> getContagemLivrosEstado() async {
-    var respLendo = await dbLivro.contagemLivrosEstado(1);
-    var respParaLer = await dbLivro.contagemLivrosEstado(0);
+    var respLendo = await dbLivro.contagemLivrosEstado(0);
+    var respParaLer = await dbLivro.contagemLivrosEstado(1);
     var respLidos = await dbLivro.contagemLivrosEstado(2);
     setState(() {
       livrosLendo = respLendo ?? 0;
@@ -39,8 +38,8 @@ class _EstatisticasState extends State<Estatisticas> {
   }
 
   Future<void> getContagemPaginasEstado() async {
-    var respLendo = await dbLivro.contagemPaginasEstado(1);
-    var respParaLer = await dbLivro.contagemPaginasEstado(0);
+    var respLendo = await dbLivro.contagemPaginasEstado(0);
+    var respParaLer = await dbLivro.contagemPaginasEstado(1);
     var respLidos = await dbLivro.contagemPaginasEstado(2);
     var respAutores = await dbLivro.contagemAutores();
 

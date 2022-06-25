@@ -56,10 +56,10 @@ ThemeData light = ThemeData(
       ),
       showSelectedLabels: false,
       showUnselectedLabels: false,
-      backgroundColor: const Color(0xFFE0E2E1),
+      backgroundColor: const Color(0xFFE2E4E3),
     ),
     navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: const Color(0xFFE0E2E1),
+        backgroundColor: const Color(0xFFE2E4E3),
         indicatorColor: Colors.green.shade700,
         iconTheme: MaterialStateProperty.all(const IconThemeData(
           color: Color(0xFF050505),
