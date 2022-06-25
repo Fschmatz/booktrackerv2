@@ -58,29 +58,11 @@ class _CardLivroState extends State<CardLivro> {
                   ),
                   const Divider(),
                   Visibility(
-                    visible: widget.paginaAtual != 1,
+                    visible: widget.paginaAtual != 0,
                     child: ListTile(
                       leading: const Icon(Icons.book_outlined),
                       title: const Text(
                         "Marcar como lendo",
-                      ),
-                      onTap: () {
-                        _mudarEstado(widget.livro.id, 1);
-                        widget.getLivrosState();
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ),
-                  Visibility(
-                    visible: widget.paginaAtual != 1,
-                    child: const Divider(),
-                  ),
-                  Visibility(
-                    visible: widget.paginaAtual != 0,
-                    child: ListTile(
-                      leading: const Icon(Icons.bookmark_outline),
-                      title: const Text(
-                        "Marcar como para ler",
                       ),
                       onTap: () {
                         _mudarEstado(widget.livro.id, 0);
@@ -91,6 +73,24 @@ class _CardLivroState extends State<CardLivro> {
                   ),
                   Visibility(
                     visible: widget.paginaAtual != 0,
+                    child: const Divider(),
+                  ),
+                  Visibility(
+                    visible: widget.paginaAtual != 1,
+                    child: ListTile(
+                      leading: const Icon(Icons.bookmark_outline),
+                      title: const Text(
+                        "Marcar como para ler",
+                      ),
+                      onTap: () {
+                        _mudarEstado(widget.livro.id, 1);
+                        widget.getLivrosState();
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ),
+                  Visibility(
+                    visible: widget.paginaAtual != 1,
                     child: const Divider(),
                   ),
                   Visibility(
@@ -114,7 +114,7 @@ class _CardLivroState extends State<CardLivro> {
                   ListTile(
                     leading: const Icon(Icons.edit_outlined),
                     title: const Text(
-                      "Editar livro",
+                      "Editar",
                     ),
                     onTap: () {
                       Navigator.of(context).pop();
@@ -132,7 +132,7 @@ class _CardLivroState extends State<CardLivro> {
                   ListTile(
                     leading: const Icon(Icons.delete_outline_outlined),
                     title: const Text(
-                      "Deletar livro",
+                      "Deletar",
                     ),
                     onTap: () {
                       Navigator.of(context).pop();
@@ -147,32 +147,29 @@ class _CardLivroState extends State<CardLivro> {
   }
 
   showAlertDialogOkDelete(BuildContext context) {
-    Widget okButton = TextButton(
-      child: const Text(
-        "Sim",
-      ),
-      onPressed: () {
-        _deletar(widget.livro.id);
-        widget.getLivrosState();
-        Navigator.of(context).pop();
-      },
-    );
-
-    AlertDialog alert = AlertDialog(
-      title: const Text(
-        "Confirmação ",
-      ),
-      content: const Text(
-        "Deletar livro ?",
-      ),
-      actions: [
-        okButton,
-      ],
-    );
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return alert;
+        return AlertDialog(
+          title: const Text(
+            "Confirmação",
+          ),
+          content: const Text(
+            "Deletar livro ?",
+          ),
+          actions: [
+            TextButton(
+              child: const Text(
+                "Sim",
+              ),
+              onPressed: () {
+                _deletar(widget.livro.id);
+                widget.getLivrosState();
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
       },
     );
   }

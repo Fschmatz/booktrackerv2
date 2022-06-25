@@ -10,8 +10,9 @@ class NovoLivro extends StatefulWidget {
   _NovoLivroState createState() => _NovoLivroState();
 
   int paginaAtual;
+  Function() refreshHome;
 
-  NovoLivro({Key? key, required this.paginaAtual}) : super(key: key);
+  NovoLivro({Key? key, required this.paginaAtual, required this.refreshHome}) : super(key: key);
 }
 
 class _NovoLivroState extends State<NovoLivro> {
@@ -88,6 +89,7 @@ class _NovoLivroState extends State<NovoLivro> {
             onPressed: () {
               if (validarTextFields()) {
                 _salvarLivro();
+                widget.refreshHome();
                 Navigator.of(context).pop();
               } else {
                 setState(() {

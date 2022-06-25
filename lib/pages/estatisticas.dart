@@ -58,31 +58,7 @@ class _EstatisticasState extends State<Estatisticas> {
     Color accent = Theme.of(context).colorScheme.primary;
 
     return Scaffold(
-        body: NestedScrollView(
-      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-        return <Widget>[
-          SliverAppBar(
-            title: const Text('BookTracker'),
-            pinned: false,
-            floating: true,
-            snap: true,
-            actions: [
-              IconButton(
-                  icon: const Icon(
-                    Icons.settings_outlined,
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => Configs(),
-                        ));
-                  }),
-            ],
-          ),
-        ];
-      },
-      body: loading
+        body: loading
           ? const Center(child: SizedBox.shrink())
           : ListView(
               children: [
@@ -96,7 +72,7 @@ class _EstatisticasState extends State<Estatisticas> {
                 ),
               ],
             ),
-    ));
+    );
   }
 }
 

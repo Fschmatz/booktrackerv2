@@ -1,9 +1,7 @@
 import 'package:booktrackerv2/class/livro.dart';
 import 'package:booktrackerv2/db/livro_dao.dart';
-import 'package:booktrackerv2/pages/novo_livro.dart';
 import 'package:booktrackerv2/ui/card_livro.dart';
 import 'package:flutter/material.dart';
-import 'configs/configs.dart';
 
 class BookList extends StatefulWidget {
   int bookState;
@@ -21,16 +19,11 @@ class _BookListState extends State<BookList> {
 
   @override
   void initState() {
-    getLivrosState(false);
+    getLivrosState();
     super.initState();
   }
 
-  void getLivrosState([bool refresh = true]) async {
-    if (refresh) {
-      setState(() {
-        loading = true;
-      });
-    }
+  void getLivrosState() async {
     var resp = await dbLivro.queryAllLivrosEstado(widget.bookState);
     setState(() {
       loading = false;
@@ -41,50 +34,7 @@ class _BookListState extends State<BookList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              title: const Text('BookTracker'),
-              pinned: false,
-              floating: true,
-              snap: true,
-              actions: [
-                IconButton(
-                    tooltip: "Adicionar Livro",
-                    icon: const Icon(
-                      Icons.add_outlined,
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                NovoLivro(paginaAtual: widget.bookState),
-                          )).then((value) => getLivrosState());
-                    }),
-                const SizedBox(
-                  width: 8,
-                ),
-                IconButton(
-                    tooltip: "Configurações",
-                    icon: const Icon(
-                      Icons.settings_outlined,
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => Configs(
-                              refresh: getLivrosState,
-                            ),
-                          ));
-                    }),
-              ],
-            ),
-          ];
-        },
-        body: loading
+      body: loading
             ? const Center(child: SizedBox.shrink())
             : ListView(
                 children: [
@@ -117,7 +67,6 @@ class _BookListState extends State<BookList> {
                   )
                 ],
               ),
-      ),
-    );
+      );
   }
 }

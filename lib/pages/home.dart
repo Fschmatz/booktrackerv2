@@ -3,6 +3,9 @@ import 'package:booktrackerv2/pages/estatisticas.dart';
 import 'package:booktrackerv2/pages/book_list.dart';
 import 'package:flutter/material.dart';
 
+import 'configs/configs.dart';
+import 'novo_livro.dart';
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -11,37 +14,101 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   int _currentIndex = 0;
-  final List<Widget> _pageList = [
+  List<Widget> _pageList = [
     BookList(
       key: UniqueKey(),
-      bookState: 1,//lendo
+      bookState: 0, //lendo
     ),
     BookList(
       key: UniqueKey(),
-      bookState: 0,//para ler
+      bookState: 1, //para ler
     ),
     BookList(
       key: UniqueKey(),
-      bookState: 2,//lido
+      bookState: 2, //lido
     ),
     const Estatisticas()
   ];
 
+  void refreshHome() {
+    setState(() {
+      _pageList = [
+        BookList(
+          key: UniqueKey(),
+          bookState: 0, //lendo
+        ),
+        BookList(
+          key: UniqueKey(),
+          bookState: 1, //para ler
+        ),
+        BookList(
+          key: UniqueKey(),
+          bookState: 2, //lido
+        ),
+        const Estatisticas()
+      ];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      body: PageTransitionSwitcher(
-          transitionBuilder: (child, animation, secondaryAnimation) =>
-              FadeThroughTransition(
-                fillColor: Theme.of(context).scaffoldBackgroundColor,
-                animation: animation,
-                secondaryAnimation: secondaryAnimation,
-                child: child,
-              ),
-          child: _pageList[_currentIndex]),
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              title: const Text('BookTracker'),
+              pinned: false,
+              floating: true,
+              snap: true,
+              actions: [
+                (_currentIndex != 3)
+                    ? IconButton(
+                        tooltip: "Adicionar Livro",
+                        icon: const Icon(
+                          Icons.add_outlined,
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (BuildContext context) => NovoLivro(
+                                  paginaAtual: _currentIndex,
+                                  refreshHome: refreshHome,
+                                ),
+                              ));
+                        })
+                    : SizedBox.shrink(),
+                const SizedBox(
+                  width: 8,
+                ),
+                IconButton(
+                    tooltip: "Configurações",
+                    icon: const Icon(
+                      Icons.settings_outlined,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => Configs(),
+                          )).then((v) => refreshHome());
+                    }),
+              ],
+            ),
+          ];
+        },
+        body: PageTransitionSwitcher(
+            transitionBuilder: (child, animation, secondaryAnimation) =>
+                FadeThroughTransition(
+                  fillColor: Theme.of(context).scaffoldBackgroundColor,
+                  animation: animation,
+                  secondaryAnimation: secondaryAnimation,
+                  child: child,
+                ),
+            child: _pageList[_currentIndex]),
+      ),
       bottomNavigationBar: NavigationBar(
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         selectedIndex: _currentIndex,
