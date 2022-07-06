@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../db/livro_dao.dart';
 
-class DialogPrint extends StatefulWidget {
-  DialogPrint({Key? key}) : super(key: key);
+class ListaLidos extends StatefulWidget {
+  ListaLidos({Key? key}) : super(key: key);
 
   @override
-  _DialogPrintState createState() => _DialogPrintState();
+  _ListaLidosState createState() => _ListaLidosState();
 }
 
-class _DialogPrintState extends State<DialogPrint> {
+class _ListaLidosState extends State<ListaLidos> {
   List<Map<String, dynamic>> listaLivros = [];
   final dbLivro = LivroDao.instance;
   bool loading = true;

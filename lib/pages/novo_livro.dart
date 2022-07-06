@@ -61,12 +61,11 @@ class _NovoLivroState extends State<NovoLivro> {
   }
 
   bool validarTextFields() {
-    String errors = "";
     if (controllerNomeLivro.text.isEmpty) {
-      errors += "Nome";
       nomeValido = false;
+      return false;
     }
-    return errors.isEmpty ? true : false;
+    return true;
   }
 
   void removerCapa() {

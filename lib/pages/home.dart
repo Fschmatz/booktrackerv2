@@ -80,9 +80,6 @@ class _HomeState extends State<Home> {
                               ));
                         })
                     : SizedBox.shrink(),
-                const SizedBox(
-                  width: 8,
-                ),
                 IconButton(
                     tooltip: "Configurações",
                     icon: const Icon(

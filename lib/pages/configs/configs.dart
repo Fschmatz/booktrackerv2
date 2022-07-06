@@ -6,7 +6,7 @@ import 'package:booktrackerv2/util/utils_functions.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import '../../util/app_details.dart';
-import '../../util/dialog_print.dart';
+import '../lista_lidos.dart';
 
 class Configs extends StatefulWidget {
   @override
@@ -114,7 +114,7 @@ class _ConfigsState extends State<Configs> {
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (BuildContext context) => DialogPrint(),
+                      builder: (BuildContext context) => ListaLidos(),
                       fullscreenDialog: true,
                     ))),
             ListTile(

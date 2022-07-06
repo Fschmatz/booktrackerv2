@@ -48,12 +48,9 @@ class _CardLivroState extends State<CardLivro> {
               child: Wrap(
                 children: <Widget>[
                   ListTile(
-                    contentPadding: const EdgeInsets.fromLTRB(10, 3, 10, 3),
                     title: Text(
                       widget.livro.nome,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.w400),
                     ),
                   ),
                   const Divider(),
@@ -72,10 +69,6 @@ class _CardLivroState extends State<CardLivro> {
                     ),
                   ),
                   Visibility(
-                    visible: widget.paginaAtual != 0,
-                    child: const Divider(),
-                  ),
-                  Visibility(
                     visible: widget.paginaAtual != 1,
                     child: ListTile(
                       leading: const Icon(Icons.bookmark_outline),
@@ -90,13 +83,9 @@ class _CardLivroState extends State<CardLivro> {
                     ),
                   ),
                   Visibility(
-                    visible: widget.paginaAtual != 1,
-                    child: const Divider(),
-                  ),
-                  Visibility(
                     visible: widget.paginaAtual != 2,
                     child: ListTile(
-                      leading: const Icon(Icons.done_outlined),
+                      leading: const Icon(Icons.task_outlined),
                       title: const Text(
                         "Marcar como lido",
                       ),
@@ -106,10 +95,6 @@ class _CardLivroState extends State<CardLivro> {
                         Navigator.of(context).pop();
                       },
                     ),
-                  ),
-                  Visibility(
-                    visible: widget.paginaAtual != 2,
-                    child: const Divider(),
                   ),
                   ListTile(
                     leading: const Icon(Icons.edit_outlined),
@@ -128,7 +113,6 @@ class _CardLivroState extends State<CardLivro> {
                           ));
                     },
                   ),
-                  const Divider(),
                   ListTile(
                     leading: const Icon(Icons.delete_outline_outlined),
                     title: const Text(

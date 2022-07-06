@@ -34,39 +34,45 @@ class _BookListState extends State<BookList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: loading
-            ? const Center(child: SizedBox.shrink())
-            : ListView(
-                children: [
-                  ListView.separated(
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const SizedBox(
-                      height: 4,
+      body: (loading)
+          ? const Center(child: SizedBox.shrink())
+          : (listaLivros.isEmpty)
+              ? const Center(
+                  child: Text(
+                  'Está um pouco vazio por aqui!',
+                  style: TextStyle(fontSize: 18),
+                ))
+              : ListView(
+                  children: [
+                    ListView.separated(
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const SizedBox(
+                        height: 4,
+                      ),
+                      physics: const ScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: listaLivros.length,
+                      itemBuilder: (context, int index) {
+                        return CardLivro(
+                          key: UniqueKey(),
+                          livro: Livro(
+                            id: listaLivros[index]['idLivro'],
+                            nome: listaLivros[index]['nome'],
+                            numPaginas: listaLivros[index]['numPaginas'],
+                            autor: listaLivros[index]['autor'],
+                            lido: listaLivros[index]['estado'],
+                            capa: listaLivros[index]['capa'],
+                          ),
+                          getLivrosState: getLivrosState,
+                          paginaAtual: widget.bookState,
+                        );
+                      },
                     ),
-                    physics: const ScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: listaLivros.length,
-                    itemBuilder: (context, int index) {
-                      return CardLivro(
-                        key: UniqueKey(),
-                        livro: Livro(
-                          id: listaLivros[index]['idLivro'],
-                          nome: listaLivros[index]['nome'],
-                          numPaginas: listaLivros[index]['numPaginas'],
-                          autor: listaLivros[index]['autor'],
-                          lido: listaLivros[index]['estado'],
-                          capa: listaLivros[index]['capa'],
-                        ),
-                        getLivrosState: getLivrosState,
-                        paginaAtual: widget.bookState,
-                      );
-                    },
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  )
-                ],
-              ),
-      );
+                    const SizedBox(
+                      height: 50,
+                    )
+                  ],
+                ),
+    );
   }
 }
