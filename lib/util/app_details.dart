@@ -1,18 +1,23 @@
 class AppDetails{
 
-  static String versaoApp = "5.5.2";
+  static String versaoApp = "5.6.0";
   static String nomeApp = "BookTracker Fschmatz";
   static String repositoryLink = "https://github.com/Fschmatz/booktrackerv2";
 
   static String changelogUltimaVersao = ''' 
+5.6.0
+- Mudanças na UI 
+- Fixes
+- Flutter 3.7
+''';
+
+  static String changelogsAntigos = '''
 5.5.2
 - Mudanças na UI 
 - Animations
 - Fixes
 - Flutter 3
-''';
 
-  static String changelogsAntigos = '''
 5.4.3
 - Tema padrão do sistema
 - Imprimir lista de livros lidos

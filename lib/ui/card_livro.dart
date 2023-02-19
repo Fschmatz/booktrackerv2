@@ -163,7 +163,7 @@ class _CardLivroState extends State<CardLivro> {
     return InkWell(
       onTap: openBottomMenuBookSettings,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(14, 10, 14, 8),
+        padding: const EdgeInsets.fromLTRB(14, 5, 14, 5),
         child: Column(
           children: [
             Row(
@@ -221,9 +221,6 @@ class _CardLivroState extends State<CardLivro> {
                         ),
                         textAlign: TextAlign.left,
                       ),
-                      const SizedBox(
-                        height: 7,
-                      ),
                       Visibility(
                         visible: widget.livro.autor!.isNotEmpty,
                         child: Text(
@@ -231,9 +228,6 @@ class _CardLivroState extends State<CardLivro> {
                           style: TextStyle(
                               fontSize: 14, color: Theme.of(context).hintColor),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 7,
                       ),
                       Visibility(
                         visible: widget.livro.numPaginas != 0,

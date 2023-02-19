@@ -54,57 +54,59 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              title: const Text('BookTracker'),
-              pinned: false,
-              floating: true,
-              snap: true,
-              actions: [
-                (_currentIndex != 3)
-                    ? IconButton(
-                        tooltip: "Adicionar Livro",
-                        icon: const Icon(
-                          Icons.add_outlined,
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (BuildContext context) => NovoLivro(
-                                  paginaAtual: _currentIndex,
-                                  refreshHome: refreshHome,
-                                ),
-                              ));
-                        })
-                    : SizedBox.shrink(),
-                IconButton(
-                    tooltip: "Configurações",
-                    icon: const Icon(
-                      Icons.settings_outlined,
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => Configs(),
-                          )).then((v) => refreshHome());
-                    }),
-              ],
-            ),
-          ];
-        },
-        body: PageTransitionSwitcher(
-            transitionBuilder: (child, animation, secondaryAnimation) =>
-                FadeThroughTransition(
-                  fillColor: Theme.of(context).scaffoldBackgroundColor,
-                  animation: animation,
-                  secondaryAnimation: secondaryAnimation,
-                  child: child,
-                ),
-            child: _pageList[_currentIndex]),
+      body: SafeArea(
+        child: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverAppBar(
+                title: const Text('BookTracker'),
+                pinned: false,
+                floating: true,
+                snap: true,
+                actions: [
+                  (_currentIndex != 3)
+                      ? IconButton(
+                          tooltip: "Adicionar Livro",
+                          icon: const Icon(
+                            Icons.add_outlined,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) => NovoLivro(
+                                    paginaAtual: _currentIndex,
+                                    refreshHome: refreshHome,
+                                  ),
+                                ));
+                          })
+                      : SizedBox.shrink(),
+                  IconButton(
+                      tooltip: "Configurações",
+                      icon: const Icon(
+                        Icons.settings_outlined,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) => Configs(),
+                            )).then((_) => refreshHome());
+                      }),
+                ],
+              ),
+            ];
+          },
+          body: PageTransitionSwitcher(
+              transitionBuilder: (child, animation, secondaryAnimation) =>
+                  FadeThroughTransition(
+                    fillColor: Theme.of(context).scaffoldBackgroundColor,
+                    animation: animation,
+                    secondaryAnimation: secondaryAnimation,
+                    child: child,
+                  ),
+              child: _pageList[_currentIndex]),
+        ),
       ),
       bottomNavigationBar: NavigationBar(
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,

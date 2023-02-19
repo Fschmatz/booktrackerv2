@@ -72,7 +72,7 @@ class AppInfo extends StatelessWidget {
             leading: const Icon(Icons.open_in_new_outlined),
             title: const Text("Ver no Github",
                 style: TextStyle(
-                    decoration: TextDecoration.underline, color: Colors.blue)),
+                    decoration: TextDecoration.underline, decorationColor: Colors.blue, color: Colors.blue)),
           ),
           ListTile(
             title: Text("Quote",

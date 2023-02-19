@@ -81,7 +81,7 @@ class _NovoLivroState extends State<NovoLivro> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Adicionar Livro'),
-        actions: [
+       /* actions: [
           IconButton(
             icon: const Icon(Icons.save_outlined),
             tooltip: 'Salvar',
@@ -97,7 +97,7 @@ class _NovoLivroState extends State<NovoLivro> {
               }
             },
           ),
-        ],
+        ],*/
       ),
       body: ListView(
         children: [
@@ -166,7 +166,7 @@ class _NovoLivroState extends State<NovoLivro> {
               elevation: 0,
               color: Theme.of(context).primaryColor,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(4),
                 side: BorderSide(
                   color: Colors.grey[800]!.withOpacity(0.9),
                 ),
@@ -263,6 +263,28 @@ class _NovoLivroState extends State<NovoLivro> {
                     ]),
               ),
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
+            child: FilledButton.tonalIcon(
+                onPressed: () {
+                  if (validarTextFields()) {
+                    _salvarLivro();
+                    widget.refreshHome();
+                    Navigator.of(context).pop();
+                  } else {
+                    setState(() {
+                      nomeValido;
+                    });
+                  }
+                },
+                icon: Icon(Icons.save_outlined,
+                    color: Theme.of(context).colorScheme.onPrimary),
+                label: Text(
+                  'Save',
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary),
+                )),
           ),
         ],
       ),

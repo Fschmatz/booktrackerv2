@@ -25,9 +25,10 @@ class _BookListState extends State<BookList> {
 
   void getLivrosState() async {
     var resp = await dbLivro.queryAllLivrosEstado(widget.bookState);
+    listaLivros = resp;
+
     setState(() {
       loading = false;
-      listaLivros = resp;
     });
   }
 
@@ -40,7 +41,7 @@ class _BookListState extends State<BookList> {
               ? const Center(
                   child: Text(
                   'Está um pouco vazio por aqui!',
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: 16),
                 ))
               : ListView(
                   children: [

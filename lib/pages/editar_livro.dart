@@ -91,7 +91,7 @@ class _EditarLivroState extends State<EditarLivro> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Editar Livro'),
-        actions: [
+       /* actions: [
           IconButton(
             icon: const Icon(Icons.save_outlined),
             tooltip: 'Salvar',
@@ -107,7 +107,7 @@ class _EditarLivroState extends State<EditarLivro> {
               }
             },
           ),
-        ],
+        ],*/
       ),
       body: ListView(
         children: [
@@ -172,7 +172,7 @@ class _EditarLivroState extends State<EditarLivro> {
               elevation: 0,
               color: Theme.of(context).primaryColor,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(4),
                 side: BorderSide(
                   color: Colors.grey[800]!.withOpacity(0.9),
                 ),
@@ -270,7 +270,30 @@ class _EditarLivroState extends State<EditarLivro> {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
+            child: FilledButton.tonalIcon(
+                onPressed: () {
+                  if (validarTextFields()) {
+                    _atualizarLivro(widget.livro.id);
+                    widget.refreshLista();
+                    Navigator.of(context).pop();
+                  } else {
+                    setState(() {
+                      nomeValido;
+                    });
+                  }
+                },
+                icon: Icon(Icons.save_outlined,
+                    color: Theme.of(context).colorScheme.onPrimary),
+                label: Text(
+                  'Save',
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary),
+                )),
+          ),
         ],
+
       ),
     );
   }
