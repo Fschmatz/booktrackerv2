@@ -84,10 +84,10 @@ ThemeData dark = ThemeData(
     scaffoldBackgroundColor: const Color(0xFF1B1B1D),
     canvasColor: Colors.black,
     colorScheme: const ColorScheme.dark(
-      primary: Color(0xFF66BF72),
-      onPrimary: Color(0xFF102000),
-      onSecondary: Color(0xFF66BF72),
-      secondary: Color(0xFF66BF72),
+      primary: Color(0xFF79DD78),
+      onPrimary: Color(0xFF024308),
+      onSecondary: Color(0xFF79DD78),
+      secondary: Color(0xFF79DD78),
     ),
     appBarTheme: const AppBarTheme(
       surfaceTintColor: Color(0xFF1B1B1D),
@@ -103,10 +103,10 @@ ThemeData dark = ThemeData(
       backgroundColor: Color(0xFF303032),
     ),
     inputDecorationTheme: InputDecorationTheme(
-        focusColor: const Color(0xFF66BF72),
+        focusColor: const Color(0xFF79DD78),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Color(0xFF66BF72),
+            color: Color(0xFF79DD78),
           ),
         ),
         enabledBorder: OutlineInputBorder(
@@ -120,8 +120,8 @@ ThemeData dark = ThemeData(
           ),
         )),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      selectedIconTheme: IconThemeData(color: Color(0xFF66BF72)),
-      selectedLabelStyle: TextStyle(color: Color(0xFF66BF72)),
+      selectedIconTheme: IconThemeData(color: Color(0xFF79DD78)),
+      selectedLabelStyle: TextStyle(color: Color(0xFF79DD78)),
       showSelectedLabels: false,
       showUnselectedLabels: false,
       backgroundColor: Color(0xFF272927),
@@ -133,7 +133,7 @@ ThemeData dark = ThemeData(
     navigationBarTheme: NavigationBarThemeData(
         surfaceTintColor: const Color(0xFF272927),
         backgroundColor: const Color(0xFF272927),
-        indicatorColor: const Color(0xFF407247),
+        indicatorColor: const Color(0xff375233),
         iconTheme: MaterialStateProperty.all(const IconThemeData(
           color: Color(0xffe3e3e2),
         )),

@@ -163,7 +163,7 @@ class _EditarLivroState extends State<EditarLivro> {
             child: Text(
               "Capa",
               style:
-                  TextStyle(fontSize: 16, color: Theme.of(context).hintColor),
+                  TextStyle(fontSize: 16),
             ),
           ),
           ListTile(

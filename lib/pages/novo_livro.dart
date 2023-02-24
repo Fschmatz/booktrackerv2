@@ -157,7 +157,7 @@ class _NovoLivroState extends State<NovoLivro> {
             child: Text(
               "Capa",
               style:
-                  TextStyle(fontSize: 16, color: Theme.of(context).hintColor),
+                  TextStyle(fontSize: 16),
             ),
           ),
           ListTile(
