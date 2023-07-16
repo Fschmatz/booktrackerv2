@@ -6,6 +6,7 @@ class Livro{
   String nome;
   int? numPaginas;
   String? autor;
+  // 0 = lendo, 1 = para ler, 2 = lido
   int? lido;
   Uint8List? capa;
 

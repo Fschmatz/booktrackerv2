@@ -61,7 +61,7 @@ ThemeData light = ThemeData(
       backgroundColor: const Color(0xFFE2E4E3),
     ),
     navigationBarTheme: NavigationBarThemeData(
-      surfaceTintColor: const Color(0xFFE2E4E3),
+        surfaceTintColor: const Color(0xFFE2E4E3),
         backgroundColor: const Color(0xFFE2E4E3),
         indicatorColor: Colors.green.shade700,
         iconTheme: MaterialStateProperty.all(const IconThemeData(
@@ -69,10 +69,29 @@ ThemeData light = ThemeData(
         )),
         labelTextStyle: MaterialStateProperty.all(const TextStyle(
             color: Color(0xFF050505), fontWeight: FontWeight.w500))),
-    bottomSheetTheme:
-        const BottomSheetThemeData(
-          surfaceTintColor:  const Color(0xFFE2E4E3),
-            modalBackgroundColor: Color(0xFFFFFFFF)));
+    bottomSheetTheme: const BottomSheetThemeData(
+        surfaceTintColor: const Color(0xFFE2E4E3),
+        modalBackgroundColor: Color(0xFFFFFFFF)),
+    segmentedButtonTheme: SegmentedButtonThemeData(
+      style: ButtonStyle(
+        side: MaterialStateProperty.resolveWith<BorderSide?>(
+            (Set<MaterialState> states) {
+          return BorderSide(color: Colors.grey[800]!);
+        }),
+        backgroundColor:
+            MaterialStateColor.resolveWith((Set<MaterialState> states) {
+          return states.contains(MaterialState.selected)
+              ? Colors.green.shade700
+              : Color(0xFFFFFFFF);
+        }),
+        foregroundColor:
+            MaterialStateColor.resolveWith((Set<MaterialState> states) {
+          return states.contains(MaterialState.selected)
+              ? Color(0xFF102000)
+              : Color(0xFF050505);
+        }),
+      ),
+    ));
 
 ThemeData dark = ThemeData(
     useMaterial3: true,
@@ -139,8 +158,26 @@ ThemeData dark = ThemeData(
         )),
         labelTextStyle: MaterialStateProperty.all(const TextStyle(
             color: Color(0xffe3e3e2), fontWeight: FontWeight.w500))),
-    bottomSheetTheme:
-        const BottomSheetThemeData(
-          surfaceTintColor: const Color(0xFF272927),
-            modalBackgroundColor: Color(0xFF272927))
-);
+    bottomSheetTheme: const BottomSheetThemeData(
+        surfaceTintColor: const Color(0xFF272927),
+        modalBackgroundColor: Color(0xFF272927)),
+    segmentedButtonTheme: SegmentedButtonThemeData(
+      style: ButtonStyle(
+        side: MaterialStateProperty.resolveWith<BorderSide?>(
+            (Set<MaterialState> states) {
+          return BorderSide(color: Colors.grey[800]!);
+        }),
+        backgroundColor:
+            MaterialStateColor.resolveWith((Set<MaterialState> states) {
+          return states.contains(MaterialState.selected)
+              ? Color(0xFF79DD78)
+              : Color(0xFF1B1B1D);
+        }),
+        foregroundColor:
+            MaterialStateColor.resolveWith((Set<MaterialState> states) {
+          return states.contains(MaterialState.selected)
+              ? Color(0xFF024308)
+              : Color(0xFFE2E2E9);
+        }),
+      ),
+    ));

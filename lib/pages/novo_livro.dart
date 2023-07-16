@@ -9,15 +9,14 @@ class NovoLivro extends StatefulWidget {
   @override
   _NovoLivroState createState() => _NovoLivroState();
 
-  int paginaAtual;
   Function() refreshHome;
 
-  NovoLivro({Key? key, required this.paginaAtual, required this.refreshHome}) : super(key: key);
+  NovoLivro({Key? key, required this.refreshHome}) : super(key: key);
 }
 
 class _NovoLivroState extends State<NovoLivro> {
   final dbLivro = LivroDao.instance;
-
+  int stateLivroSelecionado = 1;
   TextEditingController controllerNomeLivro = TextEditingController();
   TextEditingController controllerPaginas = TextEditingController();
   TextEditingController controllerAutor = TextEditingController();
@@ -54,7 +53,7 @@ class _NovoLivroState extends State<NovoLivro> {
           ? 0
           : int.parse(controllerPaginas.text),
       LivroDao.columnAutor: controllerAutor.text,
-      LivroDao.columnLido: widget.paginaAtual,
+      LivroDao.columnLido: stateLivroSelecionado,
       LivroDao.columnCapa: capa == null ? null : capa!.readAsBytesSync(),
     };
     final id = await dbLivro.insert(row);
@@ -81,28 +80,11 @@ class _NovoLivroState extends State<NovoLivro> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Adicionar Livro'),
-       /* actions: [
-          IconButton(
-            icon: const Icon(Icons.save_outlined),
-            tooltip: 'Salvar',
-            onPressed: () {
-              if (validarTextFields()) {
-                _salvarLivro();
-                widget.refreshHome();
-                Navigator.of(context).pop();
-              } else {
-                setState(() {
-                  nomeValido;
-                });
-              }
-            },
-          ),
-        ],*/
       ),
       body: ListView(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             child: TextField(
               autofocus: true,
               minLines: 1,
@@ -120,7 +102,7 @@ class _NovoLivroState extends State<NovoLivro> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             child: TextField(
               minLines: 1,
               maxLines: 2,
@@ -136,7 +118,7 @@ class _NovoLivroState extends State<NovoLivro> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
             child: TextField(
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\d{0,2}'))
@@ -153,14 +135,14 @@ class _NovoLivroState extends State<NovoLivro> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(18, 5, 25, 10),
+            padding: const EdgeInsets.fromLTRB(18, 0, 25, 5),
             child: Text(
               "Capa",
-              style:
-                  TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 16),
             ),
           ),
           ListTile(
+            contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
             title: Card(
               margin: const EdgeInsets.all(0),
               elevation: 0,
@@ -265,6 +247,39 @@ class _NovoLivroState extends State<NovoLivro> {
             ),
           ),
           Padding(
+            padding: const EdgeInsets.fromLTRB(18, 10, 25, 10),
+            child: Text(
+              "Situação",
+              style: TextStyle(fontSize: 16),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 5),
+            child: SegmentedButton<int>(
+              showSelectedIcon: false,
+              segments: const <ButtonSegment<int>>[
+                ButtonSegment<int>(
+                    value: 0,
+                    label: Text('Lendo'),
+                    icon: Icon(Icons.book_outlined)),
+                ButtonSegment<int>(
+                    value: 1,
+                    label: Text('Para Ler'),
+                    icon: Icon(Icons.bookmark_outline_outlined)),
+                ButtonSegment<int>(
+                    value: 2,
+                    label: Text('Lido'),
+                    icon: Icon(Icons.task_outlined)),
+              ],
+              selected: <int>{stateLivroSelecionado},
+              onSelectionChanged: (Set<int> newSelection) {
+                setState(() {
+                  stateLivroSelecionado = newSelection.first;
+                });
+              },
+            ),
+          ),
+          Padding(
             padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
             child: FilledButton.tonalIcon(
                 onPressed: () {
@@ -281,9 +296,9 @@ class _NovoLivroState extends State<NovoLivro> {
                 icon: Icon(Icons.save_outlined,
                     color: Theme.of(context).colorScheme.onPrimary),
                 label: Text(
-                  'Save',
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.onPrimary),
+                  'Salvar',
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.onPrimary),
                 )),
           ),
         ],

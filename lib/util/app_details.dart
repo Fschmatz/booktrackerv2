@@ -1,11 +1,11 @@
 class AppDetails{
 
-  static String versaoApp = "5.6.0";
+  static String versaoApp = "5.6.1";
   static String nomeApp = "BookTracker Fschmatz";
   static String repositoryLink = "https://github.com/Fschmatz/booktrackerv2";
 
   static String changelogUltimaVersao = ''' 
-5.6.0
+5.6.1
 - Mudanças na UI 
 - Fixes
 - Flutter 3.7

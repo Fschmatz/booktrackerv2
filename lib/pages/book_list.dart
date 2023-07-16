@@ -61,7 +61,7 @@ class _BookListState extends State<BookList> {
                             nome: listaLivros[index]['nome'],
                             numPaginas: listaLivros[index]['numPaginas'],
                             autor: listaLivros[index]['autor'],
-                            lido: listaLivros[index]['estado'],
+                            lido: listaLivros[index]['lido'],
                             capa: listaLivros[index]['capa'],
                           ),
                           getLivrosState: getLivrosState,

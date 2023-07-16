@@ -163,7 +163,7 @@ class _CardLivroState extends State<CardLivro> {
     return InkWell(
       onTap: openBottomMenuBookSettings,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(14, 5, 14, 5),
+        padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 14),
         child: Column(
           children: [
             Row(
@@ -174,8 +174,8 @@ class _CardLivroState extends State<CardLivro> {
                     alignment: Alignment.centerLeft,
                     child: widget.livro.capa == null
                         ? SizedBox(
-                            height: 120,
-                            width: 85,
+                            height: 132,
+                            width: 98,
                             child: Card(
                               elevation: 1,
                               shape: RoundedRectangleBorder(
@@ -189,8 +189,8 @@ class _CardLivroState extends State<CardLivro> {
                             ),
                           )
                         : SizedBox(
-                            height: 120,
-                            width: 85,
+                            height: 132,
+                            width: 98,
                             child: Card(
                               elevation: 1,
                               shape: RoundedRectangleBorder(
@@ -211,33 +211,36 @@ class _CardLivroState extends State<CardLivro> {
                 ),
                 Expanded(
                   flex: 3,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.livro.nome,
-                        style: const TextStyle(
-                          fontSize: 16,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.livro.nome,
+                          style: const TextStyle(
+                            fontSize: 16,
+                          ),
+                          textAlign: TextAlign.left,
                         ),
-                        textAlign: TextAlign.left,
-                      ),
-                      Visibility(
-                        visible: widget.livro.autor!.isNotEmpty,
-                        child: Text(
-                          widget.livro.autor!,
-                          style: TextStyle(
-                              fontSize: 14, color: Theme.of(context).hintColor),
+                        Visibility(
+                          visible: widget.livro.autor!.isNotEmpty,
+                          child: Text(
+                            widget.livro.autor!,
+                            style: TextStyle(
+                                fontSize: 14, color: Theme.of(context).hintColor),
+                          ),
                         ),
-                      ),
-                      Visibility(
-                        visible: widget.livro.numPaginas != 0,
-                        child: Text(
-                          widget.livro.numPaginas.toString() + " Páginas",
-                          style: TextStyle(
-                              fontSize: 14, color: Theme.of(context).hintColor),
+                        Visibility(
+                          visible: widget.livro.numPaginas != 0,
+                          child: Text(
+                            widget.livro.numPaginas.toString() + " Páginas",
+                            style: TextStyle(
+                                fontSize: 14, color: Theme.of(context).hintColor),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],

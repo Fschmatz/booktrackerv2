@@ -64,23 +64,20 @@ class _HomeState extends State<Home> {
                 floating: true,
                 snap: true,
                 actions: [
-                  (_currentIndex != 3)
-                      ? IconButton(
-                          tooltip: "Adicionar Livro",
-                          icon: const Icon(
-                            Icons.add_outlined,
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) => NovoLivro(
-                                    paginaAtual: _currentIndex,
-                                    refreshHome: refreshHome,
-                                  ),
-                                ));
-                          })
-                      : SizedBox.shrink(),
+                  IconButton(
+                      tooltip: "Adicionar Livro",
+                      icon: const Icon(
+                        Icons.add_outlined,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) => NovoLivro(
+                                refreshHome: refreshHome,
+                              ),
+                            ));
+                      }),
                   IconButton(
                       tooltip: "Configurações",
                       icon: const Icon(
