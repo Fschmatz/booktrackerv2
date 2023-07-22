@@ -57,12 +57,12 @@ class _EstatisticasState extends State<Estatisticas> {
     Color accent = Theme.of(context).colorScheme.primary;
 
     return Scaffold(
-        body: loading
+      body: loading
           ? const Center(child: SizedBox.shrink())
           : ListView(
               children: [
-                cardEstatisticas('Livros', livrosLendo, livrosParaLer,
-                    livrosLidos, accent),
+                cardEstatisticas(
+                    'Livros', livrosLendo, livrosParaLer, livrosLidos, accent),
                 cardEstatisticas('Páginas', paginasLendo, paginasParaLer,
                     paginasLidos, accent),
                 cardAutores('Geral', quantAutores, accent),
@@ -77,7 +77,10 @@ class _EstatisticasState extends State<Estatisticas> {
 
 Widget cardEstatisticas(String tituloCard, int? valorLendo, int? valorParaLer,
     int? valorLidos, Color accent) {
-  TextStyle styleTrailing = const TextStyle(fontSize: 16);
+  TextStyle styleTrailing = const TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+  );
   int soma = (valorLidos! + valorParaLer! + valorLendo!);
 
   return Column(
@@ -115,9 +118,10 @@ Widget cardEstatisticas(String tituloCard, int? valorLendo, int? valorParaLer,
 }
 
 Widget cardAutores(String tituloCard, int? valor, Color accent) {
-  TextStyle styleTrailing = const TextStyle(fontSize: 16);
+  TextStyle styleTrailing =
+      const TextStyle(fontSize: 16, fontWeight: FontWeight.w400);
 
-  //BANCO CONTA O VALOR VAZIO, QUE ESTÁ CONFIGURADO PARA O LIVRO SEM AUTOR
+  //DB CONTA O VALOR VAZIO, QUE ESTÁ CONFIGURADO PARA O LIVRO SEM AUTOR
   int valorCalculado = valor == 0 ? 0 : (valor! - 1);
 
   return Column(

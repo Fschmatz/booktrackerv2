@@ -174,8 +174,8 @@ class _CardLivroState extends State<CardLivro> {
                     alignment: Alignment.centerLeft,
                     child: widget.livro.capa == null
                         ? SizedBox(
-                            height: 132,
-                            width: 98,
+                            height: 122,
+                            width: 94,
                             child: Card(
                               elevation: 1,
                               shape: RoundedRectangleBorder(
@@ -189,8 +189,8 @@ class _CardLivroState extends State<CardLivro> {
                             ),
                           )
                         : SizedBox(
-                            height: 132,
-                            width: 98,
+                            height: 122,
+                            width: 94,
                             child: Card(
                               elevation: 1,
                               shape: RoundedRectangleBorder(
@@ -212,7 +212,7 @@ class _CardLivroState extends State<CardLivro> {
                 Expanded(
                   flex: 3,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
