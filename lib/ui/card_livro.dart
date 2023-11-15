@@ -20,6 +20,10 @@ class CardLivro extends StatefulWidget {
 }
 
 class _CardLivroState extends State<CardLivro> {
+
+  double capaHeight = 130;
+  double capaWidth = 105;
+
   void _deletar(int id) async {
     final dbLivro = LivroDao.instance;
     final deletado = await dbLivro.delete(id);
@@ -174,8 +178,8 @@ class _CardLivroState extends State<CardLivro> {
                     alignment: Alignment.centerLeft,
                     child: widget.livro.capa == null
                         ? SizedBox(
-                            height: 122,
-                            width: 94,
+                            height: capaHeight,
+                            width: capaWidth,
                             child: Card(
                               elevation: 1,
                               shape: RoundedRectangleBorder(
@@ -189,8 +193,8 @@ class _CardLivroState extends State<CardLivro> {
                             ),
                           )
                         : SizedBox(
-                            height: 122,
-                            width: 94,
+                            height: capaHeight,
+                            width: capaWidth,
                             child: Card(
                               elevation: 1,
                               shape: RoundedRectangleBorder(

@@ -24,7 +24,7 @@ class _BookListState extends State<BookList> {
   }
 
   void getLivrosState() async {
-    var resp = await dbLivro.queryAllLivrosEstado(widget.bookState);
+    var resp = await dbLivro.queryAllLivrosByEstado(widget.bookState);
     listaLivros = resp;
 
     setState(() {

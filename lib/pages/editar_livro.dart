@@ -35,7 +35,7 @@ class _EditarLivroState extends State<EditarLivro> {
 
     File compressedFile = await FlutterNativeImage.compressImage(
         pickedFile!.path,
-        quality: 95,
+        quality: 90,
         targetWidth: 325,
         targetHeight: 475);
 

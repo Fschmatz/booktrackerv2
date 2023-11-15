@@ -32,7 +32,7 @@ class _NovoLivroState extends State<NovoLivro> {
 
     File? compressedFile = await FlutterNativeImage.compressImage(
         pickedFile!.path,
-        quality: 95,
+        quality: 90,
         targetWidth: 325,
         targetHeight: 475);
 

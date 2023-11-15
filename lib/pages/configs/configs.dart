@@ -1,12 +1,12 @@
 import 'package:booktrackerv2/db/livro_dao.dart';
 import 'package:booktrackerv2/pages/configs/app_info.dart';
 import 'package:booktrackerv2/pages/configs/changelog.dart';
+import 'package:booktrackerv2/pages/lista_livros.dart';
 import 'package:booktrackerv2/util/dialog_select_theme.dart';
 import 'package:booktrackerv2/util/utils_functions.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import '../../util/app_details.dart';
-import '../lista_lidos.dart';
 
 class Configs extends StatefulWidget {
   @override
@@ -38,7 +38,7 @@ class _ConfigsState extends State<Configs> {
     return capitalizeFirstLetterString(theme);
   }
 
-  showAlertDialogOkDelete(BuildContext context) {
+  showDialogConfirmDelete(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -110,18 +110,27 @@ class _ConfigsState extends State<Configs> {
             ),
             ListTile(
                 leading: const Icon(Icons.print_outlined),
-                title: const Text("Listar os livros lidos"),
+                title: const Text("Listar livros"),
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (BuildContext context) => ListaLidos(),
+                      builder: (BuildContext context) => ListaLivros(onlyLidos: false,),
+                      fullscreenDialog: true,
+                    ))),
+            ListTile(
+                leading: const Icon(Icons.print_outlined),
+                title: const Text("Listar livros lidos"),
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => ListaLivros(onlyLidos: true,),
                       fullscreenDialog: true,
                     ))),
             ListTile(
               leading: const Icon(Icons.delete_outline),
-              title: const Text("Deletar os livros lidos"),
+              title: const Text("Deletar livros lidos"),
               onTap: () {
-                showAlertDialogOkDelete(context);
+                showDialogConfirmDelete(context);
               },
             ),
             ListTile(
