@@ -7,6 +7,7 @@ import 'package:booktrackerv2/util/utils_functions.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import '../../util/app_details.dart';
+import '../../util/dialog_backup.dart';
 
 class Configs extends StatefulWidget {
   @override
@@ -20,14 +21,11 @@ class Configs extends StatefulWidget {
 class _ConfigsState extends State<Configs> {
   void _deletarTodosLidos() async {
     final dbLivro = LivroDao.instance;
-    final deletado = await dbLivro.deleteTodosLidos();
+    await dbLivro.deleteTodosLidos();
   }
 
   String getThemeStringFormatted() {
-    String theme = EasyDynamicTheme.of(context)
-        .themeMode
-        .toString()
-        .replaceAll('ThemeMode.', '');
+    String theme = EasyDynamicTheme.of(context).themeMode.toString().replaceAll('ThemeMode.', '');
     if (theme == 'system') {
       theme = 'padrão do sistema';
     } else if (theme == 'light') {
@@ -70,6 +68,8 @@ class _ConfigsState extends State<Configs> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
         appBar: AppBar(
           title: const Text("Configurações"),
@@ -78,7 +78,7 @@ class _ConfigsState extends State<Configs> {
           children: <Widget>[
             Card(
               margin: const EdgeInsets.fromLTRB(16, 20, 16, 25),
-              color: Theme.of(context).colorScheme.primary,
+              color: theme.colorScheme.primary,
               child: ListTile(
                 title: Text(
                   AppDetails.nomeApp + " " + AppDetails.versaoApp,
@@ -88,11 +88,7 @@ class _ConfigsState extends State<Configs> {
               ),
             ),
             ListTile(
-              title: Text("Geral",
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Theme.of(context).colorScheme.primary)),
+              title: Text("Geral", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: theme.colorScheme.primary)),
             ),
             ListTile(
               onTap: () => showDialog(
@@ -109,12 +105,45 @@ class _ConfigsState extends State<Configs> {
               ),
             ),
             ListTile(
+              title: Text("Backup", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: theme.colorScheme.primary)),
+            ),
+            ListTile(
+              onTap: () => showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return DialogBackup(
+                      isCreateBackup: true,
+                      reloadHomeFunction: widget.refresh,
+                    );
+                  }),
+              leading: const Icon(Icons.save_outlined),
+              title: const Text(
+                "Fazer backup",
+              ),
+            ),
+            ListTile(
+              onTap: () => showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return DialogBackup(
+                      isCreateBackup: false,
+                      reloadHomeFunction: widget.refresh,
+                    );
+                  }),
+              leading: const Icon(Icons.settings_backup_restore_outlined),
+              title: const Text(
+                "Restaurar backup",
+              ),
+            ),
+            ListTile(
                 leading: const Icon(Icons.print_outlined),
                 title: const Text("Listar livros"),
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (BuildContext context) => ListaLivros(onlyLidos: false,),
+                      builder: (BuildContext context) => ListaLivros(
+                        onlyLidos: false,
+                      ),
                       fullscreenDialog: true,
                     ))),
             ListTile(
@@ -123,7 +152,9 @@ class _ConfigsState extends State<Configs> {
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (BuildContext context) => ListaLivros(onlyLidos: true,),
+                      builder: (BuildContext context) => ListaLivros(
+                        onlyLidos: true,
+                      ),
                       fullscreenDialog: true,
                     ))),
             ListTile(
@@ -134,11 +165,7 @@ class _ConfigsState extends State<Configs> {
               },
             ),
             ListTile(
-              title: Text("Sobre",
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Theme.of(context).colorScheme.primary)),
+              title: Text("Sobre", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: theme.colorScheme.primary)),
             ),
             ListTile(
               leading: const Icon(

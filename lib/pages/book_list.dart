@@ -12,7 +12,10 @@ class BookList extends StatefulWidget {
   _BookListState createState() => _BookListState();
 }
 
-class _BookListState extends State<BookList> {
+class _BookListState extends State<BookList> with AutomaticKeepAliveClientMixin<BookList> {
+  @override
+  bool get wantKeepAlive => true;
+
   List<Map<String, dynamic>> listaLivros = [];
   final dbLivro = LivroDao.instance;
   bool loading = true;
@@ -34,46 +37,41 @@ class _BookListState extends State<BookList> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return Scaffold(
-      body: (loading)
-          ? const Center(child: SizedBox.shrink())
-          : (listaLivros.isEmpty)
-              ? const Center(
-                  child: Text(
-                  'Está um pouco vazio por aqui!',
-                  style: TextStyle(fontSize: 16),
-                ))
-              : ListView(
-                  children: [
-                    ListView.separated(
-                      separatorBuilder: (BuildContext context, int index) =>
-                          const SizedBox(
-                        height: 4,
+        body: (loading)
+            ? const Center(child: SizedBox.shrink())
+            : (listaLivros.isEmpty)
+                ? const Center(
+                    child: Text(
+                    'Está um pouco vazio por aqui!',
+                    style: TextStyle(fontSize: 16),
+                  ))
+                : ListView(
+                    children: [
+                      ListView.separated(
+                        separatorBuilder: (BuildContext context, int index) => const SizedBox(
+                          height: 4,
+                        ),
+                        physics: const ScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: listaLivros.length,
+                        itemBuilder: (context, int index) {
+                          final livro = listaLivros[index];
+
+                          return CardLivro(
+                            key: UniqueKey(),
+                            livro: Livro.fromMap(livro),
+                            getLivrosState: getLivrosState,
+                            paginaAtual: widget.bookState,
+                          );
+                        },
                       ),
-                      physics: const ScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: listaLivros.length,
-                      itemBuilder: (context, int index) {
-                        return CardLivro(
-                          key: UniqueKey(),
-                          livro: Livro(
-                            id: listaLivros[index]['idLivro'],
-                            nome: listaLivros[index]['nome'],
-                            numPaginas: listaLivros[index]['numPaginas'],
-                            autor: listaLivros[index]['autor'],
-                            lido: listaLivros[index]['lido'],
-                            capa: listaLivros[index]['capa'],
-                          ),
-                          getLivrosState: getLivrosState,
-                          paginaAtual: widget.bookState,
-                        );
-                      },
-                    ),
-                    const SizedBox(
-                      height: 50,
-                    )
-                  ],
-                ),
-    );
+                      const SizedBox(
+                        height: 50,
+                      )
+                    ],
+                  ));
   }
 }

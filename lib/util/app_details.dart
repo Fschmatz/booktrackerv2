@@ -1,18 +1,27 @@
 class AppDetails{
 
-  static String versaoApp = "5.6.2";
+  static String versaoApp = "5.7.0";
   static String nomeApp = "BookTracker Fschmatz";
+  static String appNameHomePage = "BookTracker";
   static String repositoryLink = "https://github.com/Fschmatz/booktrackerv2";
+  static String backupFileName = "backup_booktracker";
 
   static String changelogUltimaVersao = ''' 
+5.7.0
+- Monet
+- Backup 
+- Flutter 3.19
+- Mudanças na UI 
+- Fixes
+''';
+
+  static String changelogsAntigos = '''
 5.6.2
 - Mudanças na UI 
 - Fixes
 - Lista livros
 - Flutter 3.7
-''';
 
-  static String changelogsAntigos = '''
 5.5.2
 - Mudanças na UI 
 - Animations

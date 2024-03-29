@@ -11,22 +11,17 @@ class CardLivro extends StatefulWidget {
   int paginaAtual;
   Function() getLivrosState;
 
-  CardLivro(
-      {Key? key,
-      required this.livro,
-      required this.getLivrosState,
-      required this.paginaAtual})
-      : super(key: key);
+  CardLivro({Key? key, required this.livro, required this.getLivrosState, required this.paginaAtual}) : super(key: key);
 }
 
 class _CardLivroState extends State<CardLivro> {
-
+  BorderRadius capaBorder = BorderRadius.circular(12);
   double capaHeight = 130;
   double capaWidth = 105;
 
   void _deletar(int id) async {
     final dbLivro = LivroDao.instance;
-    final deletado = await dbLivro.delete(id);
+    await dbLivro.delete(id);
   }
 
   void _mudarEstado(int id, int lido) async {
@@ -35,14 +30,13 @@ class _CardLivroState extends State<CardLivro> {
       LivroDao.columnIdLivro: id,
       LivroDao.columnLido: lido,
     };
-    final atualizar = await dbLivro.update(row);
+    await dbLivro.update(row);
   }
 
   void openBottomMenuBookSettings() {
     showModalBottomSheet(
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
         ),
         context: context,
         builder: (BuildContext bc) {
@@ -164,10 +158,12 @@ class _CardLivroState extends State<CardLivro> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return InkWell(
       onTap: openBottomMenuBookSettings,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 14),
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 14),
         child: Column(
           children: [
             Row(
@@ -183,12 +179,12 @@ class _CardLivroState extends State<CardLivro> {
                             child: Card(
                               elevation: 1,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5),
+                                borderRadius: capaBorder,
                               ),
                               child: Icon(
                                 Icons.book,
                                 size: 35,
-                                color: Theme.of(context).hintColor,
+                                color: theme.hintColor,
                               ),
                             ),
                           )
@@ -198,10 +194,10 @@ class _CardLivroState extends State<CardLivro> {
                             child: Card(
                               elevation: 1,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5),
+                                borderRadius: capaBorder,
                               ),
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(5),
+                                borderRadius: capaBorder,
                                 child: Image.memory(
                                   widget.livro.capa!,
                                   fit: BoxFit.fill,
@@ -231,16 +227,14 @@ class _CardLivroState extends State<CardLivro> {
                           visible: widget.livro.autor!.isNotEmpty,
                           child: Text(
                             widget.livro.autor!,
-                            style: TextStyle(
-                                fontSize: 14, color: Theme.of(context).hintColor),
+                            style: TextStyle(fontSize: 14, color: theme.hintColor),
                           ),
                         ),
                         Visibility(
                           visible: widget.livro.numPaginas != 0,
                           child: Text(
                             widget.livro.numPaginas.toString() + " Páginas",
-                            style: TextStyle(
-                                fontSize: 14, color: Theme.of(context).hintColor),
+                            style: TextStyle(fontSize: 14, color: theme.hintColor),
                           ),
                         ),
                       ],

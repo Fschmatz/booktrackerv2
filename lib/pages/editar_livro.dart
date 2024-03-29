@@ -13,11 +13,11 @@ class EditarLivro extends StatefulWidget {
   Function() refreshLista;
   Livro livro;
 
-  EditarLivro({Key? key, required this.refreshLista, required this.livro})
-      : super(key: key);
+  EditarLivro({Key? key, required this.refreshLista, required this.livro}) : super(key: key);
 }
 
 class _EditarLivroState extends State<EditarLivro> {
+  BorderRadius capaBorder = BorderRadius.circular(12);
   final dbLivro = LivroDao.instance;
   late int stateLivroSelecionado;
   TextEditingController controllerNomeLivro = TextEditingController();
@@ -33,11 +33,7 @@ class _EditarLivroState extends State<EditarLivro> {
   pickGallery() async {
     final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
 
-    File compressedFile = await FlutterNativeImage.compressImage(
-        pickedFile!.path,
-        quality: 90,
-        targetWidth: 325,
-        targetHeight: 475);
+    File compressedFile = await FlutterNativeImage.compressImage(pickedFile!.path, quality: 90, targetWidth: 325, targetHeight: 475);
 
     if (compressedFile == null) {
       return;
@@ -66,9 +62,8 @@ class _EditarLivroState extends State<EditarLivro> {
       LivroDao.columnNome: controllerNomeLivro.text,
       LivroDao.columnNumPaginas: controllerPaginas.text,
       LivroDao.columnAutor: controllerAutor.text,
-      LivroDao.columnLido : stateLivroSelecionado,
-      LivroDao.columnCapa:
-          capaFoiEditada ? capa!.readAsBytesSync() : widget.livro.capa,
+      LivroDao.columnLido: stateLivroSelecionado,
+      LivroDao.columnCapa: capaFoiEditada ? capa!.readAsBytesSync() : widget.livro.capa,
     };
     final atualizar = await dbLivro.update(row);
   }
@@ -107,9 +102,7 @@ class _EditarLivroState extends State<EditarLivro> {
               keyboardType: TextInputType.name,
               controller: controllerNomeLivro,
               decoration: InputDecoration(
-                  helperText: "* Obrigatório",
-                  labelText: "Nome",
-                  errorText: nomeValido ? null : "Nome vazio"),
+                  helperText: "* Obrigatório", border: const OutlineInputBorder(), labelText: "Nome", errorText: nomeValido ? null : "Nome vazio"),
             ),
           ),
           Padding(
@@ -124,22 +117,21 @@ class _EditarLivroState extends State<EditarLivro> {
               controller: controllerAutor,
               decoration: const InputDecoration(
                 labelText: "Autor",
+                border: const OutlineInputBorder(),
               ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
             child: TextField(
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\d{0,2}'))
-              ],
+              inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\d{0,2}'))],
               maxLength: 5,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
-              keyboardType:
-                  const TextInputType.numberWithOptions(decimal: false),
+              keyboardType: const TextInputType.numberWithOptions(decimal: false),
               controller: controllerPaginas,
               decoration: const InputDecoration(
                 labelText: "Nº de Páginas",
+                border: const OutlineInputBorder(),
               ),
             ),
           ),
@@ -147,8 +139,7 @@ class _EditarLivroState extends State<EditarLivro> {
             padding: const EdgeInsets.fromLTRB(18, 0, 25, 5),
             child: Text(
               "Capa",
-              style:
-                  TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 16),
             ),
           ),
           ListTile(
@@ -156,103 +147,71 @@ class _EditarLivroState extends State<EditarLivro> {
             title: Card(
               margin: const EdgeInsets.all(0),
               elevation: 0,
-              color: Theme.of(context).primaryColor,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(6),
                 side: BorderSide(
-                  color: Colors.grey[800]!.withOpacity(0.9),
+                  color: Colors.grey,
                 ),
               ),
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(0, 20, 3, 20),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        elevation: 0,
-                        child: widget.livro.capa == null
-                            ? Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5)),
-                                width: 70,
-                                height: 105,
-                              )
-                            : ClipRRect(
-                                borderRadius: BorderRadius.circular(5),
-                                child: Image.memory(
-                                  widget.livro.capa!,
-                                  width: 70,
-                                  height: 105,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          SizedBox(
-                            width: 175,
-                            height: 40,
-                            child: TextButton(
-                              onPressed: pickGallery,
-                              child: const Text(
-                                "Selecionar Capa",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                elevation: 0,
-                                primary: Theme.of(context).cardTheme.color,
-                                onPrimary: Theme.of(context)
-                                    .textTheme
-                                    .headline1!
-                                    .color,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                              ),
+                child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: capaBorder,
+                    ),
+                    elevation: 0,
+                    child: widget.livro.capa == null
+                        ? Container(
+                            decoration: BoxDecoration(borderRadius: capaBorder),
+                            width: 70,
+                            height: 105,
+                          )
+                        : ClipRRect(
+                            borderRadius: capaBorder,
+                            child: Image.memory(
+                              widget.livro.capa!,
+                              width: 70,
+                              height: 105,
+                              fit: BoxFit.fill,
                             ),
                           ),
-                          widget.livro.capa != null
-                              ? const SizedBox(
-                                  height: 20,
-                                )
-                              : const SizedBox.shrink(),
-                          widget.livro.capa != null
-                              ? SizedBox(
-                                  width: 175,
-                                  height: 40,
-                                  child: TextButton(
-                                    onPressed: removerCapa,
-                                    child: const Text(
-                                      "Remover Capa",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.normal),
-                                    ),
-                                    style: ElevatedButton.styleFrom(
-                                      elevation: 0,
-                                      primary:
-                                          Theme.of(context).cardTheme.color,
-                                      onPrimary: Theme.of(context)
-                                          .textTheme
-                                          .headline1!
-                                          .color,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : const SizedBox.shrink(),
-                        ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        width: 175,
+                        height: 40,
+                        child: FilledButton(
+                          onPressed: pickGallery,
+                          child: const Text(
+                            "Selecionar Capa",
+                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+                          ),
+                        ),
                       ),
-                    ]),
+                      widget.livro.capa != null
+                          ? const SizedBox(
+                              height: 20,
+                            )
+                          : const SizedBox.shrink(),
+                      widget.livro.capa != null
+                          ? SizedBox(
+                              width: 175,
+                              height: 40,
+                              child: FilledButton(
+                                onPressed: removerCapa,
+                                child: const Text(
+                                  "Remover Capa",
+                                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+                                ),
+                              ),
+                            )
+                          : const SizedBox.shrink(),
+                    ],
+                  ),
+                ]),
               ),
             ),
           ),
@@ -268,18 +227,9 @@ class _EditarLivroState extends State<EditarLivro> {
             child: SegmentedButton<int>(
               showSelectedIcon: false,
               segments: const <ButtonSegment<int>>[
-                ButtonSegment<int>(
-                    value: 0,
-                    label: Text('Lendo'),
-                    icon: Icon(Icons.book_outlined)),
-                ButtonSegment<int>(
-                    value: 1,
-                    label: Text('Para Ler'),
-                    icon: Icon(Icons.bookmark_outline_outlined)),
-                ButtonSegment<int>(
-                    value: 2,
-                    label: Text('Lido'),
-                    icon: Icon(Icons.task_outlined)),
+                ButtonSegment<int>(value: 0, label: Text('Lendo'), icon: Icon(Icons.book_outlined)),
+                ButtonSegment<int>(value: 1, label: Text('Para Ler'), icon: Icon(Icons.bookmark_outline_outlined)),
+                ButtonSegment<int>(value: 2, label: Text('Lido'), icon: Icon(Icons.task_outlined)),
               ],
               selected: <int>{stateLivroSelecionado},
               onSelectionChanged: (Set<int> newSelection) {
@@ -292,7 +242,7 @@ class _EditarLivroState extends State<EditarLivro> {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
-            child: FilledButton.tonalIcon(
+            child: FilledButton.icon(
                 onPressed: () {
                   if (validarTextFields()) {
                     _atualizarLivro(widget.livro.id);
@@ -304,16 +254,10 @@ class _EditarLivroState extends State<EditarLivro> {
                     });
                   }
                 },
-                icon: Icon(Icons.save_outlined,
-                    color: Theme.of(context).colorScheme.onPrimary),
-                label: Text(
-                  'Salvar',
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.onPrimary),
-                )),
+                icon: Icon(Icons.save_outlined),
+                label: Text('Salvar')),
           ),
         ],
-
       ),
     );
   }

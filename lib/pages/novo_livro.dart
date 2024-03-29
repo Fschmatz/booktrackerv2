@@ -15,6 +15,7 @@ class NovoLivro extends StatefulWidget {
 }
 
 class _NovoLivroState extends State<NovoLivro> {
+  BorderRadius capaBorder = BorderRadius.circular(12);
   final dbLivro = LivroDao.instance;
   int stateLivroSelecionado = 1;
   TextEditingController controllerNomeLivro = TextEditingController();
@@ -30,11 +31,7 @@ class _NovoLivroState extends State<NovoLivro> {
   pickGallery() async {
     final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
 
-    File? compressedFile = await FlutterNativeImage.compressImage(
-        pickedFile!.path,
-        quality: 90,
-        targetWidth: 325,
-        targetHeight: 475);
+    File? compressedFile = await FlutterNativeImage.compressImage(pickedFile!.path, quality: 90, targetWidth: 325, targetHeight: 475);
 
     if (compressedFile == null) {
       return 0;
@@ -49,9 +46,7 @@ class _NovoLivroState extends State<NovoLivro> {
   void _salvarLivro() async {
     Map<String, dynamic> row = {
       LivroDao.columnNome: controllerNomeLivro.text,
-      LivroDao.columnNumPaginas: controllerPaginas.text.isEmpty
-          ? 0
-          : int.parse(controllerPaginas.text),
+      LivroDao.columnNumPaginas: controllerPaginas.text.isEmpty ? 0 : int.parse(controllerPaginas.text),
       LivroDao.columnAutor: controllerAutor.text,
       LivroDao.columnLido: stateLivroSelecionado,
       LivroDao.columnCapa: capa == null ? null : capa!.readAsBytesSync(),
@@ -96,9 +91,7 @@ class _NovoLivroState extends State<NovoLivro> {
               controller: controllerNomeLivro,
               onEditingComplete: () => node.nextFocus(),
               decoration: InputDecoration(
-                  helperText: "* Obrigatório",
-                  labelText: "Nome",
-                  errorText: nomeValido ? null : "Nome vazio"),
+                  border: const OutlineInputBorder(), helperText: "* Obrigatório", labelText: "Nome", errorText: nomeValido ? null : "Nome vazio"),
             ),
           ),
           Padding(
@@ -114,23 +107,22 @@ class _NovoLivroState extends State<NovoLivro> {
               onEditingComplete: () => node.nextFocus(),
               decoration: const InputDecoration(
                 labelText: "Autor",
+                border: const OutlineInputBorder(),
               ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
             child: TextField(
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\d{0,2}'))
-              ],
+              inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\d{0,2}'))],
               maxLength: 5,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
-              keyboardType:
-                  const TextInputType.numberWithOptions(decimal: false),
+              keyboardType: const TextInputType.numberWithOptions(decimal: false),
               controller: controllerPaginas,
               onEditingComplete: () => node.nextFocus(),
               decoration: const InputDecoration(
                 labelText: "Nº de Páginas",
+                border: const OutlineInputBorder(),
               ),
             ),
           ),
@@ -146,103 +138,71 @@ class _NovoLivroState extends State<NovoLivro> {
             title: Card(
               margin: const EdgeInsets.all(0),
               elevation: 0,
-              color: Theme.of(context).primaryColor,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(6),
                 side: BorderSide(
-                  color: Colors.grey[800]!.withOpacity(0.9),
+                  color: Colors.grey,
                 ),
               ),
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(0, 20, 5, 20),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        elevation: 0,
-                        child: capa == null
-                            ? Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5)),
-                                width: 70,
-                                height: 105,
-                              )
-                            : ClipRRect(
-                                borderRadius: BorderRadius.circular(5),
-                                child: Image.file(
-                                  capa!,
-                                  width: 70,
-                                  height: 105,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          SizedBox(
-                            width: 175,
-                            height: 40,
-                            child: TextButton(
-                              onPressed: pickGallery,
-                              child: const Text(
-                                "Selecionar Capa",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                elevation: 0,
-                                primary: Theme.of(context).cardTheme.color,
-                                onPrimary: Theme.of(context)
-                                    .textTheme
-                                    .headline1!
-                                    .color,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                              ),
+                child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: capaBorder,
+                    ),
+                    elevation: 0,
+                    child: capa == null
+                        ? Container(
+                            decoration: BoxDecoration(borderRadius: capaBorder),
+                            width: 70,
+                            height: 105,
+                          )
+                        : ClipRRect(
+                            borderRadius: capaBorder,
+                            child: Image.file(
+                              capa!,
+                              width: 70,
+                              height: 105,
+                              fit: BoxFit.fill,
                             ),
                           ),
-                          capa != null
-                              ? const SizedBox(
-                                  height: 20,
-                                )
-                              : const SizedBox.shrink(),
-                          capa != null
-                              ? SizedBox(
-                                  width: 175,
-                                  height: 40,
-                                  child: TextButton(
-                                    onPressed: removerCapa,
-                                    child: const Text(
-                                      "Remover Capa",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.normal),
-                                    ),
-                                    style: ElevatedButton.styleFrom(
-                                      elevation: 0,
-                                      primary:
-                                          Theme.of(context).cardTheme.color,
-                                      onPrimary: Theme.of(context)
-                                          .textTheme
-                                          .headline1!
-                                          .color,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : const SizedBox.shrink(),
-                        ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        width: 175,
+                        height: 40,
+                        child: FilledButton(
+                          onPressed: pickGallery,
+                          child: const Text(
+                            "Selecionar Capa",
+                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+                          ),
+                        ),
                       ),
-                    ]),
+                      capa != null
+                          ? const SizedBox(
+                              height: 20,
+                            )
+                          : const SizedBox.shrink(),
+                      capa != null
+                          ? SizedBox(
+                              width: 175,
+                              height: 40,
+                              child: FilledButton(
+                                onPressed: removerCapa,
+                                child: const Text(
+                                  "Remover Capa",
+                                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+                                ),
+                              ),
+                            )
+                          : const SizedBox.shrink(),
+                    ],
+                  ),
+                ]),
               ),
             ),
           ),
@@ -258,18 +218,9 @@ class _NovoLivroState extends State<NovoLivro> {
             child: SegmentedButton<int>(
               showSelectedIcon: false,
               segments: const <ButtonSegment<int>>[
-                ButtonSegment<int>(
-                    value: 0,
-                    label: Text('Lendo'),
-                    icon: Icon(Icons.book_outlined)),
-                ButtonSegment<int>(
-                    value: 1,
-                    label: Text('Para Ler'),
-                    icon: Icon(Icons.bookmark_outline_outlined)),
-                ButtonSegment<int>(
-                    value: 2,
-                    label: Text('Lido'),
-                    icon: Icon(Icons.task_outlined)),
+                ButtonSegment<int>(value: 0, label: Text('Lendo'), icon: Icon(Icons.book_outlined)),
+                ButtonSegment<int>(value: 1, label: Text('Para Ler'), icon: Icon(Icons.bookmark_outline_outlined)),
+                ButtonSegment<int>(value: 2, label: Text('Lido'), icon: Icon(Icons.task_outlined)),
               ],
               selected: <int>{stateLivroSelecionado},
               onSelectionChanged: (Set<int> newSelection) {
@@ -281,7 +232,7 @@ class _NovoLivroState extends State<NovoLivro> {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
-            child: FilledButton.tonalIcon(
+            child: FilledButton.icon(
                 onPressed: () {
                   if (validarTextFields()) {
                     _salvarLivro();
@@ -293,13 +244,8 @@ class _NovoLivroState extends State<NovoLivro> {
                     });
                   }
                 },
-                icon: Icon(Icons.save_outlined,
-                    color: Theme.of(context).colorScheme.onPrimary),
-                label: Text(
-                  'Salvar',
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.onPrimary),
-                )),
+                icon: Icon(Icons.save_outlined),
+                label: Text('Salvar')),
           ),
         ],
       ),

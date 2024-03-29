@@ -19,4 +19,15 @@ class Livro{
   String get getNome{
     return nome;
   }
+
+  factory Livro.fromMap(Map<String, dynamic> map) {
+    return Livro(
+      id: map['idLivro'] as int,
+      nome: map['nome'] as String,
+      numPaginas: map['numPaginas'] as int?,
+      autor: map['autor'] as String?,
+      lido: map['lido'] as int?,
+      capa: map['capa'] as Uint8List?,
+    );
+  }
 }

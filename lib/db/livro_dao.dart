@@ -96,4 +96,9 @@ class LivroDao {
     return await db.rawQuery('SELECT nome FROM $table WHERE $columnLido=2 ORDER BY $columnNome');
   }
 
+  Future<int> deleteAll() async {
+    Database db = await instance.database;
+    return await db.delete(table);
+  }
+
 }

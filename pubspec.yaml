@@ -1,11 +1,11 @@
 name: booktrackerv2
-description: Tracker para livros, criando nova versão para testar erro do SDK
+description: Tracker para livros
 publish_to: 'none'
 
-version: 5.6.2
+version: 5.7.0
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: '>=3.2.6 <4.0.0'
 
 dependencies:
   flutter:
@@ -16,10 +16,16 @@ dependencies:
   provider:
   image_picker:
   flutter_native_image:
+    git:
+      #Implementei essa biblioteca com uma correção para o Android mais novo, pois a original foi descontinuada
+      url: https://github.com/aki25/flutter_native_image
   url_launcher:
   easy_dynamic_theme:
   animations:
   cupertino_icons: ^1.0.0
+  permission_handler: ^11.3.0
+  dynamic_color: ^1.6.9
+  fluttertoast:
 
 dev_dependencies:
   flutter_test:

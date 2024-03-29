@@ -1,6 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:booktrackerv2/pages/estatisticas.dart';
 import 'package:booktrackerv2/pages/book_list.dart';
+import 'package:booktrackerv2/util/app_details.dart';
 import 'package:flutter/material.dart';
 
 import 'configs/configs.dart';
@@ -59,7 +60,7 @@ class _HomeState extends State<Home> {
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               SliverAppBar(
-                title: const Text('BookTracker'),
+                title:  Text(AppDetails.appNameHomePage),
                 pinned: false,
                 floating: true,
                 snap: true,
@@ -87,17 +88,19 @@ class _HomeState extends State<Home> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (BuildContext context) => Configs(),
-                            )).then((_) => refreshHome());
+                              builder: (BuildContext context) => Configs(
+                                refresh: refreshHome,
+                              ),
+                            ));
                       }),
                 ],
               ),
             ];
           },
           body: PageTransitionSwitcher(
+              duration: const Duration(milliseconds: 750),
               transitionBuilder: (child, animation, secondaryAnimation) =>
                   FadeThroughTransition(
-                    fillColor: Theme.of(context).scaffoldBackgroundColor,
                     animation: animation,
                     secondaryAnimation: secondaryAnimation,
                     child: child,
