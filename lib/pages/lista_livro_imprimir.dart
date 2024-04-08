@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../db/livro_dao.dart';
 
-class ListaLivros extends StatefulWidget {
+class ListaLivroImprimir extends StatefulWidget {
   bool onlyLidos;
 
-  ListaLivros({Key? key, required this.onlyLidos}) : super(key: key);
+  ListaLivroImprimir({Key? key, required this.onlyLidos}) : super(key: key);
 
   @override
-  _ListaLivrosState createState() => _ListaLivrosState();
+  _ListaLivroImprimirState createState() => _ListaLivroImprimirState();
 }
 
-class _ListaLivrosState extends State<ListaLivros> {
+class _ListaLivroImprimirState extends State<ListaLivroImprimir> {
   final dbLivro = LivroDao.instance;
   List<Map<String, dynamic>> listaLivrosLendo = [];
   List<Map<String, dynamic>> listaLivrosParaLer = [];
@@ -21,11 +21,11 @@ class _ListaLivrosState extends State<ListaLivros> {
 
   @override
   void initState() {
-    getNotes();
     super.initState();
+    _loadLivros();
   }
 
-  void getNotes() async {
+  void _loadLivros() async {
     listaLivrosLidos = await dbLivro.queryAllLivrosByEstado(2);
 
     if(!widget.onlyLidos){

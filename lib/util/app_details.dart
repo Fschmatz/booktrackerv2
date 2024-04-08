@@ -1,13 +1,13 @@
 class AppDetails{
 
-  static String versaoApp = "5.7.0";
+  static String versaoApp = "5.7.1";
   static String nomeApp = "BookTracker Fschmatz";
   static String appNameHomePage = "BookTracker";
   static String repositoryLink = "https://github.com/Fschmatz/booktrackerv2";
   static String backupFileName = "backup_booktracker";
 
   static String changelogUltimaVersao = ''' 
-5.7.0
+5.7.1
 - Monet
 - Backup 
 - Flutter 3.19

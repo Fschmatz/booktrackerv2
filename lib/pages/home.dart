@@ -1,6 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:booktrackerv2/pages/estatisticas.dart';
-import 'package:booktrackerv2/pages/book_list.dart';
+import 'package:booktrackerv2/pages/lista_livro_home.dart';
 import 'package:booktrackerv2/util/app_details.dart';
 import 'package:flutter/material.dart';
 
@@ -17,15 +17,15 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
   List<Widget> _pageList = [
-    BookList(
+    ListaLivroHome(
       key: UniqueKey(),
       bookState: 0, //lendo
     ),
-    BookList(
+    ListaLivroHome(
       key: UniqueKey(),
       bookState: 1, //para ler
     ),
-    BookList(
+    ListaLivroHome(
       key: UniqueKey(),
       bookState: 2, //lido
     ),
@@ -35,15 +35,15 @@ class _HomeState extends State<Home> {
   void refreshHome() {
     setState(() {
       _pageList = [
-        BookList(
+        ListaLivroHome(
           key: UniqueKey(),
           bookState: 0, //lendo
         ),
-        BookList(
+        ListaLivroHome(
           key: UniqueKey(),
           bookState: 1, //para ler
         ),
-        BookList(
+        ListaLivroHome(
           key: UniqueKey(),
           bookState: 2, //lido
         ),

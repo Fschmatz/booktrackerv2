@@ -3,20 +3,22 @@ import 'package:booktrackerv2/db/livro_dao.dart';
 import 'package:booktrackerv2/ui/card_livro.dart';
 import 'package:flutter/material.dart';
 
-class BookList extends StatefulWidget {
+import '../service/livro_service.dart';
+
+class ListaLivroHome extends StatefulWidget {
   int bookState;
 
-  BookList({Key? key, required this.bookState}) : super(key: key);
+  ListaLivroHome({Key? key, required this.bookState}) : super(key: key);
 
   @override
-  _BookListState createState() => _BookListState();
+  _ListaLivroHomeState createState() => _ListaLivroHomeState();
 }
 
-class _BookListState extends State<BookList> with AutomaticKeepAliveClientMixin<BookList> {
+class _ListaLivroHomeState extends State<ListaLivroHome> with AutomaticKeepAliveClientMixin<ListaLivroHome> {
   @override
   bool get wantKeepAlive => true;
 
-  List<Map<String, dynamic>> listaLivros = [];
+  List<Livro> listaLivros = [];
   final dbLivro = LivroDao.instance;
   bool loading = true;
 
@@ -27,8 +29,7 @@ class _BookListState extends State<BookList> with AutomaticKeepAliveClientMixin<
   }
 
   void getLivrosState() async {
-    var resp = await dbLivro.queryAllLivrosByEstado(widget.bookState);
-    listaLivros = resp;
+    listaLivros = await LivroService().queryAllByStateAndConvertToList(widget.bookState);
 
     setState(() {
       loading = false;
@@ -58,11 +59,10 @@ class _BookListState extends State<BookList> with AutomaticKeepAliveClientMixin<
                         shrinkWrap: true,
                         itemCount: listaLivros.length,
                         itemBuilder: (context, int index) {
-                          final livro = listaLivros[index];
 
                           return CardLivro(
                             key: UniqueKey(),
-                            livro: Livro.fromMap(livro),
+                            livro: listaLivros[index],
                             getLivrosState: getLivrosState,
                             paginaAtual: widget.bookState,
                           );
