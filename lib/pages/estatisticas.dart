@@ -22,8 +22,9 @@ class _EstatisticasState extends State<Estatisticas> {
 
   @override
   void initState() {
-    getContagemLivrosEstado().then((v) => getContagemPaginasEstado());
     super.initState();
+
+    getContagemLivrosEstado().then((v) => getContagemPaginasEstado());
   }
 
   Future<void> getContagemLivrosEstado() async {
@@ -56,8 +57,7 @@ class _EstatisticasState extends State<Estatisticas> {
   Widget build(BuildContext context) {
     Color accent = Theme.of(context).colorScheme.primary;
 
-    return Scaffold(
-      body: loading
+    return  loading
           ? const Center(child: SizedBox.shrink())
           : ListView(
               children: [
@@ -70,8 +70,7 @@ class _EstatisticasState extends State<Estatisticas> {
                   height: 50,
                 ),
               ],
-            ),
-    );
+            );
   }
 }
 

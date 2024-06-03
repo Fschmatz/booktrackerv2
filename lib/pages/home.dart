@@ -16,6 +16,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
+  ScrollController scrollController = ScrollController();
   List<Widget> _pageList = [
     ListaLivroHome(
       key: UniqueKey(),
@@ -55,50 +56,53 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverAppBar(
-                title:  Text(AppDetails.appNameHomePage),
-                pinned: false,
-                floating: true,
-                snap: true,
-                actions: [
-                  IconButton(
-                      tooltip: "Adicionar Livro",
-                      icon: const Icon(
-                        Icons.add_outlined,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (BuildContext context) => NovoLivro(
-                                refreshHome: refreshHome,
-                              ),
-                            ));
-                      }),
-                  IconButton(
-                      tooltip: "Configurações",
-                      icon: const Icon(
-                        Icons.settings_outlined,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (BuildContext context) => Configs(
-                                refresh: refreshHome,
-                              ),
-                            ));
-                      }),
-                ],
-              ),
-            ];
-          },
-          body: PageTransitionSwitcher(
-              duration: const Duration(milliseconds: 750),
+      body: NestedScrollView(
+        controller: scrollController,
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              title:  Text(AppDetails.appNameHomePage),
+              pinned: false,
+              floating: true,
+              snap: true,
+              actions: [
+                IconButton(
+                    tooltip: "Adicionar Livro",
+                    icon: const Icon(
+                      Icons.add_outlined,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => NovoLivro(
+                              refreshHome: refreshHome,
+                            ),
+                          ));
+                    }),
+                IconButton(
+                    tooltip: "Configurações",
+                    icon: const Icon(
+                      Icons.settings_outlined,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => Configs(
+                              refresh: refreshHome,
+                            ),
+                          ));
+                    }),
+              ],
+            ),
+          ];
+        },
+        body:  MediaQuery.removePadding(
+          removeTop: true,
+          context: context,
+          child: PageTransitionSwitcher(
+              duration: const Duration(milliseconds: 700),
               transitionBuilder: (child, animation, secondaryAnimation) =>
                   FadeThroughTransition(
                     animation: animation,
@@ -115,6 +119,7 @@ class _HomeState extends State<Home> {
           setState(() {
             _currentIndex = index;
           });
+          scrollController.jumpTo(0);
         },
         destinations: const [
           NavigationDestination(

@@ -24,8 +24,9 @@ class _ListaLivroHomeState extends State<ListaLivroHome> with AutomaticKeepAlive
 
   @override
   void initState() {
-    getLivrosState();
     super.initState();
+
+    getLivrosState();
   }
 
   void getLivrosState() async {
@@ -40,38 +41,36 @@ class _ListaLivroHomeState extends State<ListaLivroHome> with AutomaticKeepAlive
   Widget build(BuildContext context) {
     super.build(context);
 
-    return Scaffold(
-        body: (loading)
-            ? const Center(child: SizedBox.shrink())
-            : (listaLivros.isEmpty)
-                ? const Center(
-                    child: Text(
-                    'Está um pouco vazio por aqui!',
-                    style: TextStyle(fontSize: 16),
-                  ))
-                : ListView(
-                    children: [
-                      ListView.separated(
-                        separatorBuilder: (BuildContext context, int index) => const SizedBox(
-                          height: 4,
-                        ),
-                        physics: const ScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: listaLivros.length,
-                        itemBuilder: (context, int index) {
-
-                          return CardLivro(
-                            key: UniqueKey(),
-                            livro: listaLivros[index],
-                            getLivrosState: getLivrosState,
-                            paginaAtual: widget.bookState,
-                          );
-                        },
-                      ),
-                      const SizedBox(
-                        height: 50,
-                      )
-                    ],
-                  ));
+    return (loading)
+        ? const Center(child: SizedBox.shrink())
+        : (listaLivros.isEmpty)
+            ? const Center(
+                child: Text(
+                'Está um pouco vazio por aqui!',
+                style: TextStyle(fontSize: 16),
+              ))
+            : ListView(
+                children: [
+                  ListView.separated(
+                    separatorBuilder: (BuildContext context, int index) => const SizedBox(
+                      height: 4,
+                    ),
+                    physics: const ScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: listaLivros.length,
+                    itemBuilder: (context, int index) {
+                      return CardLivro(
+                        key: UniqueKey(),
+                        livro: listaLivros[index],
+                        getLivrosState: getLivrosState,
+                        paginaAtual: widget.bookState,
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  )
+                ],
+              );
   }
 }
