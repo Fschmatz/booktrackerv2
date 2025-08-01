@@ -5,7 +5,7 @@ class Estatisticas extends StatefulWidget {
   const Estatisticas({Key? key}) : super(key: key);
 
   @override
-  _EstatisticasState createState() => _EstatisticasState();
+  State<Estatisticas> createState() => _EstatisticasState();
 }
 
 class _EstatisticasState extends State<Estatisticas> {
@@ -53,88 +53,80 @@ class _EstatisticasState extends State<Estatisticas> {
     });
   }
 
+  Widget cardEstatisticas(String tituloCard, int? valorLendo, int? valorParaLer, int? valorLidos, Color accent) {
+    TextStyle styleTrailing = const TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+    );
+    int soma = (valorLidos! + valorParaLer! + valorLendo!);
+
+    return Column(
+      children: [
+        ListTile(
+          title: Text(tituloCard, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: accent)),
+        ),
+        ListTile(
+          leading: const Icon(Icons.book_outlined),
+          title: const Text('Lendo'),
+          trailing: Text(valorLendo.toString(), style: styleTrailing),
+        ),
+        ListTile(
+          leading: const Icon(Icons.bookmark_outline_outlined),
+          title: const Text('Para Ler'),
+          trailing: Text(valorParaLer.toString(), style: styleTrailing),
+        ),
+        ListTile(
+          leading: const Icon(Icons.task_outlined),
+          title: const Text('Lidos'),
+          trailing: Text(valorLidos.toString(), style: styleTrailing),
+        ),
+        ListTile(
+          leading: const Icon(Icons.format_list_bulleted_outlined),
+          title: const Text('Total'),
+          trailing: Text(
+            soma.toString(),
+            style: styleTrailing,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget cardAutores(String tituloCard, int? valor, Color accent) {
+    TextStyle styleTrailing = const TextStyle(fontSize: 16, fontWeight: FontWeight.w400);
+
+    //DB CONTA O VALOR VAZIO, QUE ESTÁ CONFIGURADO PARA O LIVRO SEM AUTOR
+    int valorCalculado = valor == 0 ? 0 : (valor! - 1);
+
+    return Column(
+      children: [
+        ListTile(
+          title: Text(tituloCard, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: accent)),
+        ),
+        ListTile(
+          leading: const Icon(Icons.person_outline_outlined),
+          title: const Text('Autores'),
+          trailing: Text(valorCalculado.toString(), style: styleTrailing),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Color accent = Theme.of(context).colorScheme.primary;
 
-    return  loading
-          ? const Center(child: SizedBox.shrink())
-          : ListView(
-              children: [
-                cardEstatisticas(
-                    'Livros', livrosLendo, livrosParaLer, livrosLidos, accent),
-                cardEstatisticas('Páginas', paginasLendo, paginasParaLer,
-                    paginasLidos, accent),
-                cardAutores('Geral', quantAutores, accent),
-                const SizedBox(
-                  height: 50,
-                ),
-              ],
-            );
+    return loading
+        ? const Center(child: SizedBox.shrink())
+        : ListView(
+            children: [
+              cardEstatisticas('Livros', livrosLendo, livrosParaLer, livrosLidos, accent),
+              cardEstatisticas('Páginas', paginasLendo, paginasParaLer, paginasLidos, accent),
+              cardAutores('Geral', quantAutores, accent),
+              const SizedBox(
+                height: 50,
+              ),
+            ],
+          );
   }
-}
-
-Widget cardEstatisticas(String tituloCard, int? valorLendo, int? valorParaLer,
-    int? valorLidos, Color accent) {
-  TextStyle styleTrailing = const TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w400,
-  );
-  int soma = (valorLidos! + valorParaLer! + valorLendo!);
-
-  return Column(
-    children: [
-      ListTile(
-        title: Text(tituloCard,
-            style: TextStyle(
-                fontSize: 14, fontWeight: FontWeight.w500, color: accent)),
-      ),
-      ListTile(
-        leading: const Icon(Icons.book_outlined),
-        title: const Text('Lendo'),
-        trailing: Text(valorLendo.toString(), style: styleTrailing),
-      ),
-      ListTile(
-        leading: const Icon(Icons.bookmark_outline_outlined),
-        title: const Text('Para Ler'),
-        trailing: Text(valorParaLer.toString(), style: styleTrailing),
-      ),
-      ListTile(
-        leading: const Icon(Icons.task_outlined),
-        title: const Text('Lidos'),
-        trailing: Text(valorLidos.toString(), style: styleTrailing),
-      ),
-      ListTile(
-        leading: const Icon(Icons.format_list_bulleted_outlined),
-        title: const Text('Total'),
-        trailing: Text(
-          soma.toString(),
-          style: styleTrailing,
-        ),
-      ),
-    ],
-  );
-}
-
-Widget cardAutores(String tituloCard, int? valor, Color accent) {
-  TextStyle styleTrailing =
-      const TextStyle(fontSize: 16, fontWeight: FontWeight.w400);
-
-  //DB CONTA O VALOR VAZIO, QUE ESTÁ CONFIGURADO PARA O LIVRO SEM AUTOR
-  int valorCalculado = valor == 0 ? 0 : (valor! - 1);
-
-  return Column(
-    children: [
-      ListTile(
-        title: Text(tituloCard,
-            style: TextStyle(
-                fontSize: 14, fontWeight: FontWeight.w500, color: accent)),
-      ),
-      ListTile(
-        leading: const Icon(Icons.person_outline_outlined),
-        title: const Text('Autores'),
-        trailing: Text(valorCalculado.toString(), style: styleTrailing),
-      ),
-    ],
-  );
 }

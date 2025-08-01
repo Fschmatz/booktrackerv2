@@ -1,4 +1,5 @@
-import 'package:dynamic_color/dynamic_color.dart';
+
+import 'package:dynamic_system_colors/dynamic_system_colors.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 

@@ -1,19 +1,17 @@
-import 'dart:io';
 import 'package:booktrackerv2/class/livro.dart';
 import 'package:booktrackerv2/db/livro_dao.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_native_image/flutter_native_image.dart';
 
 class EditarLivro extends StatefulWidget {
-  @override
-  _EditarLivroState createState() => _EditarLivroState();
-
-  Function() refreshLista;
   Livro livro;
 
-  EditarLivro({Key? key, required this.refreshLista, required this.livro}) : super(key: key);
+  EditarLivro({Key? key, required this.livro}) : super(key: key);
+
+  @override
+  State<EditarLivro> createState() => _EditarLivroState();
 }
 
 class _EditarLivroState extends State<EditarLivro> {
@@ -24,16 +22,15 @@ class _EditarLivroState extends State<EditarLivro> {
   TextEditingController controllerPaginas = TextEditingController();
   TextEditingController controllerAutor = TextEditingController();
   bool nomeValido = true;
-
-  //IMAGEM
   final imagePicker = ImagePicker();
-  File? capa;
+  Uint8List? capa;
   bool capaFoiEditada = false;
 
   pickGallery() async {
     final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
 
-    File compressedFile = await FlutterNativeImage.compressImage(pickedFile!.path, quality: 90, targetWidth: 325, targetHeight: 475);
+    //File compressedFile = await FlutterNativeImage.compressImage(pickedFile!.path, quality: 90, targetWidth: 325, targetHeight: 475);
+    Uint8List? compressedFile = await FlutterImageCompress.compressWithFile(pickedFile!.path, quality: 90, minWidth: 325, minHeight: 475);
 
     if (compressedFile == null) {
       return;
@@ -41,7 +38,7 @@ class _EditarLivroState extends State<EditarLivro> {
       setState(() {
         capaFoiEditada = true;
         capa = compressedFile;
-        widget.livro.capa = capa!.readAsBytesSync();
+        widget.livro.capa = capa;
       });
     }
   }
@@ -63,7 +60,7 @@ class _EditarLivroState extends State<EditarLivro> {
       LivroDao.columnNumPaginas: controllerPaginas.text,
       LivroDao.columnAutor: controllerAutor.text,
       LivroDao.columnLido: stateLivroSelecionado,
-      LivroDao.columnCapa: capaFoiEditada ? capa!.readAsBytesSync() : widget.livro.capa,
+      LivroDao.columnCapa: capaFoiEditada ? capa! : widget.livro.capa,
     };
     final atualizar = await dbLivro.update(row);
   }
@@ -246,7 +243,6 @@ class _EditarLivroState extends State<EditarLivro> {
                 onPressed: () {
                   if (validarTextFields()) {
                     _atualizarLivro(widget.livro.id);
-                    widget.refreshLista();
                     Navigator.of(context).pop();
                   } else {
                     setState(() {

@@ -4,6 +4,8 @@ import 'package:booktrackerv2/pages/lista_livro_home.dart';
 import 'package:booktrackerv2/util/app_details.dart';
 import 'package:flutter/material.dart';
 
+import '../main.dart';
+import '../redux/actions.dart';
 import 'configs/configs.dart';
 import 'novo_livro.dart';
 
@@ -11,46 +13,39 @@ class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
   ScrollController scrollController = ScrollController();
-  List<Widget> _pageList = [
+  List<int> _indexPaginasParaLoad = [0, 1, 2];
+
+  List<Widget> _destinations = [
     ListaLivroHome(
       key: UniqueKey(),
-      bookState: 0, //lendo
     ),
     ListaLivroHome(
       key: UniqueKey(),
-      bookState: 1, //para ler
     ),
     ListaLivroHome(
       key: UniqueKey(),
-      bookState: 2, //lido
     ),
     const Estatisticas()
   ];
 
-  void refreshHome() {
+  void _executeOnDestinationSelected(int index) async {
+    await store.dispatch(AlterarPaginaAtualAction(index));
+
+    if (_indexPaginasParaLoad.contains(index)) {
+      await store.dispatch(LoadListLivroAction(index));
+    }
+
     setState(() {
-      _pageList = [
-        ListaLivroHome(
-          key: UniqueKey(),
-          bookState: 0, //lendo
-        ),
-        ListaLivroHome(
-          key: UniqueKey(),
-          bookState: 1, //para ler
-        ),
-        ListaLivroHome(
-          key: UniqueKey(),
-          bookState: 2, //lido
-        ),
-        const Estatisticas()
-      ];
+      _currentIndex = index;
     });
+
+    scrollController.jumpTo(0);
   }
 
   @override
@@ -61,7 +56,7 @@ class _HomeState extends State<Home> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
-              title:  Text(AppDetails.appNameHomePage),
+              title: Text(AppDetails.appNameHomePage),
               pinned: false,
               floating: true,
               snap: true,
@@ -75,9 +70,7 @@ class _HomeState extends State<Home> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (BuildContext context) => NovoLivro(
-                              refreshHome: refreshHome,
-                            ),
+                            builder: (BuildContext context) => NovoLivro(),
                           ));
                     }),
                 IconButton(
@@ -89,37 +82,31 @@ class _HomeState extends State<Home> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (BuildContext context) => Configs(
-                              refresh: refreshHome,
-                            ),
+                            builder: (BuildContext context) => Configs(),
                           ));
                     }),
               ],
             ),
           ];
         },
-        body:  MediaQuery.removePadding(
+        body: MediaQuery.removePadding(
           removeTop: true,
           context: context,
           child: PageTransitionSwitcher(
-              duration: const Duration(milliseconds: 700),
-              transitionBuilder: (child, animation, secondaryAnimation) =>
-                  FadeThroughTransition(
+              duration: const Duration(milliseconds: 450),
+              transitionBuilder: (child, animation, secondaryAnimation) => FadeThroughTransition(
                     animation: animation,
                     secondaryAnimation: secondaryAnimation,
                     child: child,
                   ),
-              child: _pageList[_currentIndex]),
+              child: _destinations[_currentIndex]),
         ),
       ),
       bottomNavigationBar: NavigationBar(
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         selectedIndex: _currentIndex,
-        onDestinationSelected: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-          scrollController.jumpTo(0);
+        onDestinationSelected: (index) async {
+          _executeOnDestinationSelected(index);
         },
         destinations: const [
           NavigationDestination(

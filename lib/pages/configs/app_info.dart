@@ -1,6 +1,5 @@
 import 'package:booktrackerv2/util/app_details.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../util/utils.dart';
 
@@ -26,18 +25,11 @@ class AppInfo extends StatelessWidget {
           const SizedBox(height: 15),
           Center(
             child: Text(AppDetails.nomeApp + " " + AppDetails.versaoApp,
-                style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
-                    color: Theme.of(context).colorScheme.primary)),
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Theme.of(context).colorScheme.primary)),
           ),
           const SizedBox(height: 15),
           ListTile(
-            title: Text("Dev",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Theme.of(context).colorScheme.primary)),
+            title: Text("Dev", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Theme.of(context).colorScheme.primary)),
           ),
           const ListTile(
             leading: Icon(Icons.info_outline),
@@ -54,32 +46,23 @@ class AppInfo extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text("Código Fonte",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Theme.of(context).colorScheme.primary)),
+            title: Text("Código Fonte", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(
             onTap: () {
               Utils().openGithubRepository();
             },
             leading: const Icon(Icons.open_in_new_outlined),
-            title: const Text("Ver no Github",
-                style: TextStyle(
-                    decoration: TextDecoration.underline, decorationColor: Colors.blue, color: Colors.blue)),
+            title:
+                const Text("Ver no Github", style: TextStyle(decoration: TextDecoration.underline, decorationColor: Colors.blue, color: Colors.blue)),
           ),
           ListTile(
-            title: Text("Quote",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Theme.of(context).colorScheme.primary)),
+            title: Text("Quote", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Theme.of(context).colorScheme.primary)),
           ),
           const ListTile(
             leading: Icon(Icons.messenger_outline),
             title: Text(
-              ''' 
+              '''
 “The capacity to learn is a gift; 
 the ability to learn is a skill; 
 the willingness to learn is a choice.” 

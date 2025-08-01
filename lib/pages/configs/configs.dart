@@ -6,16 +6,15 @@ import 'package:booktrackerv2/util/dialog_select_theme.dart';
 import 'package:booktrackerv2/util/utils_functions.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
+
 import '../../util/app_details.dart';
 import '../../util/dialog_backup.dart';
 
 class Configs extends StatefulWidget {
+  Configs({Key? key}) : super(key: key);
+
   @override
-  _ConfigsState createState() => _ConfigsState();
-
-  Function()? refresh;
-
-  Configs({Key? key, this.refresh}) : super(key: key);
+  State<Configs> createState() => _ConfigsState();
 }
 
 class _ConfigsState extends State<Configs> {
@@ -54,9 +53,6 @@ class _ConfigsState extends State<Configs> {
               ),
               onPressed: () {
                 _deletarTodosLidos();
-                if (widget.refresh != null) {
-                  widget.refresh!();
-                }
                 Navigator.of(context).pop();
               },
             )
@@ -113,7 +109,6 @@ class _ConfigsState extends State<Configs> {
                   builder: (BuildContext context) {
                     return DialogBackup(
                       isCreateBackup: true,
-                      reloadHomeFunction: widget.refresh,
                     );
                   }),
               leading: const Icon(Icons.save_outlined),
@@ -127,7 +122,6 @@ class _ConfigsState extends State<Configs> {
                   builder: (BuildContext context) {
                     return DialogBackup(
                       isCreateBackup: false,
-                      reloadHomeFunction: widget.refresh,
                     );
                   }),
               leading: const Icon(Icons.settings_backup_restore_outlined),

@@ -1,17 +1,16 @@
-import 'dart:io';
 import 'package:booktrackerv2/db/livro_dao.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_native_image/flutter_native_image.dart';
 
 class NovoLivro extends StatefulWidget {
+  NovoLivro({
+    Key? key,
+  }) : super(key: key);
+
   @override
-  _NovoLivroState createState() => _NovoLivroState();
-
-  Function() refreshHome;
-
-  NovoLivro({Key? key, required this.refreshHome}) : super(key: key);
+  State<NovoLivro> createState() => _NovoLivroState();
 }
 
 class _NovoLivroState extends State<NovoLivro> {
@@ -26,12 +25,15 @@ class _NovoLivroState extends State<NovoLivro> {
 
   //IMAGEM
   final imagePicker = ImagePicker();
-  File? capa;
+
+  //File? capa;
+  Uint8List? capa;
 
   pickGallery() async {
     final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
 
-    File? compressedFile = await FlutterNativeImage.compressImage(pickedFile!.path, quality: 90, targetWidth: 325, targetHeight: 475);
+    //File? compressedFile = await FlutterNativeImage.compressImage(pickedFile!.path, quality: 90, targetWidth: 325, targetHeight: 475);
+    Uint8List? compressedFile = await FlutterImageCompress.compressWithFile(pickedFile!.path, quality: 90, minWidth: 325, minHeight: 475);
 
     if (compressedFile == null) {
       return 0;
@@ -44,12 +46,14 @@ class _NovoLivroState extends State<NovoLivro> {
 
   //AUTOR, PAGINAS E CAPA PODEM SER NULO
   void _salvarLivro() async {
+    // service
+
     Map<String, dynamic> row = {
       LivroDao.columnNome: controllerNomeLivro.text,
       LivroDao.columnNumPaginas: controllerPaginas.text.isEmpty ? 0 : int.parse(controllerPaginas.text),
       LivroDao.columnAutor: controllerAutor.text,
       LivroDao.columnLido: stateLivroSelecionado,
-      LivroDao.columnCapa: capa == null ? null : capa!.readAsBytesSync(),
+      LivroDao.columnCapa: capa == null ? null : capa,
     };
     final id = await dbLivro.insert(row);
   }
@@ -160,7 +164,7 @@ class _NovoLivroState extends State<NovoLivro> {
                           )
                         : ClipRRect(
                             borderRadius: capaBorder,
-                            child: Image.file(
+                            child: Image.memory(
                               capa!,
                               width: 70,
                               height: 105,
@@ -236,7 +240,6 @@ class _NovoLivroState extends State<NovoLivro> {
                 onPressed: () {
                   if (validarTextFields()) {
                     _salvarLivro();
-                    widget.refreshHome();
                     Navigator.of(context).pop();
                   } else {
                     setState(() {

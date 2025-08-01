@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import '../db/livro_dao.dart';
 
 class ListaLivroImprimir extends StatefulWidget {
-  bool onlyLidos;
+  final bool onlyLidos;
 
   ListaLivroImprimir({Key? key, required this.onlyLidos}) : super(key: key);
 
   @override
-  _ListaLivroImprimirState createState() => _ListaLivroImprimirState();
+  State<ListaLivroImprimir> createState() => _ListaLivroImprimirState();
 }
 
 class _ListaLivroImprimirState extends State<ListaLivroImprimir> {
@@ -28,7 +29,7 @@ class _ListaLivroImprimirState extends State<ListaLivroImprimir> {
   void _loadLivros() async {
     listaLivrosLidos = await dbLivro.queryAllLivrosByEstado(2);
 
-    if(!widget.onlyLidos){
+    if (!widget.onlyLidos) {
       listaLivrosLendo = await dbLivro.queryAllLivrosByEstado(0);
       listaLivrosParaLer = await dbLivro.queryAllLivrosByEstado(1);
 
@@ -79,7 +80,7 @@ class _ListaLivroImprimirState extends State<ListaLivroImprimir> {
           loading
               ? const SizedBox.shrink()
               : SelectableText(
-            listaFormatada,
+                  listaFormatada,
                   style: const TextStyle(fontSize: 16),
                 ),
         ],

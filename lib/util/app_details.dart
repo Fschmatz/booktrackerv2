@@ -1,21 +1,26 @@
-class AppDetails{
-
-  static String versaoApp = "5.7.2";
+class AppDetails {
+  static String versaoApp = "5.8.0";
   static String nomeApp = "BookTracker Fschmatz";
   static String appNameHomePage = "BookTracker";
   static String repositoryLink = "https://github.com/Fschmatz/booktrackerv2";
-  static String backupFileName = "backup_booktracker";
+  static String backupFileName = "booktracker_backup";
 
-  static String changelogUltimaVersao = ''' 
+  static String changelogUltimaVersao = '''
+$versaoApp
+- Async Redux
+- Flutter 3.32
+- Ícone 
+- Fixes
+''';
+
+  static String changelogsAntigos = '''
 5.7.2
 - Monet
 - Backup 
 - Flutter 3.19
 - Mudanças na UI 
 - Fixes
-''';
 
-  static String changelogsAntigos = '''
 5.6.2
 - Mudanças na UI 
 - Fixes
@@ -203,5 +208,4 @@ class AppDetails{
                                
       (ಠ‿ಠ)/_/  
       ''';
-
 }

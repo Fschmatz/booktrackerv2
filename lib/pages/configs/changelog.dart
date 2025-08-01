@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../util/app_details.dart';
 
 class Changelog extends StatelessWidget {
@@ -12,31 +13,18 @@ class Changelog extends StatelessWidget {
         ),
         body: ListView(children: <Widget>[
           ListTile(
-            title: Text("Versão Atual",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Theme.of(context).colorScheme.primary)),
+            title: Text("Versão Atual", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(
-            leading: const Icon(
-              Icons.article_outlined,
-            ),
             title: Text(
               AppDetails.changelogUltimaVersao,
             ),
           ),
           ListTile(
-            title: Text("Versões Anteriores",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Theme.of(context).colorScheme.primary)),
+            title:
+                Text("Versões Anteriores", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Theme.of(context).colorScheme.primary)),
           ),
           ListTile(
-            leading: const Icon(
-              Icons.article_outlined,
-            ),
             title: Text(
               AppDetails.changelogsAntigos,
             ),
