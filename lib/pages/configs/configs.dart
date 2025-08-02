@@ -1,7 +1,7 @@
-import 'package:booktrackerv2/db/livro_dao.dart';
 import 'package:booktrackerv2/pages/configs/app_info.dart';
 import 'package:booktrackerv2/pages/configs/changelog.dart';
 import 'package:booktrackerv2/pages/lista_livro_imprimir.dart';
+import 'package:booktrackerv2/service/livro_service.dart';
 import 'package:booktrackerv2/util/dialog_select_theme.dart';
 import 'package:booktrackerv2/util/utils_functions.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
@@ -19,8 +19,7 @@ class Configs extends StatefulWidget {
 
 class _ConfigsState extends State<Configs> {
   void _deletarTodosLidos() async {
-    final dbLivro = LivroDao.instance;
-    await dbLivro.deleteTodosLidos();
+    await LivroService().deletarLivrosLidos();
   }
 
   String getThemeStringFormatted() {

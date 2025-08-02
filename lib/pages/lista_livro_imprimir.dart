@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../db/livro_dao.dart';
+import '../class/livro.dart';
+import '../enum/situacao_livro.dart';
+import '../redux/selectors.dart';
+import '../service/livro_service.dart';
 
 class ListaLivroImprimir extends StatefulWidget {
   final bool onlyLidos;
@@ -13,47 +16,50 @@ class ListaLivroImprimir extends StatefulWidget {
 }
 
 class _ListaLivroImprimirState extends State<ListaLivroImprimir> {
-  final dbLivro = LivroDao.instance;
-  List<Map<String, dynamic>> listaLivrosLendo = [];
-  List<Map<String, dynamic>> listaLivrosParaLer = [];
-  List<Map<String, dynamic>> listaLivrosLidos = [];
-  bool loading = true;
-  String listaFormatada = '';
+  //final dbLivro = LivroDao.instance;
+  List<Livro> _livrosLendo = [];
+  List<Livro> _livrosParaLer = [];
+  List<Livro> _livrosLidos = [];
+  bool _loading = true;
+  String _listaFormatada = '';
 
   @override
   void initState() {
     super.initState();
+
     _loadLivros();
   }
 
   void _loadLivros() async {
-    listaLivrosLidos = await dbLivro.queryAllLivrosByEstado(2);
+    await LivroService().loadAllLivrosParaEstatisticas();
+
+    _livrosLidos = await selectListLivroByPaginaAtual(SituacaoLivro.LIDO);
 
     if (!widget.onlyLidos) {
-      listaLivrosLendo = await dbLivro.queryAllLivrosByEstado(0);
-      listaLivrosParaLer = await dbLivro.queryAllLivrosByEstado(1);
+      _livrosLendo = await selectListLivroByPaginaAtual(SituacaoLivro.LENDO);
+      _livrosParaLer = await selectListLivroByPaginaAtual(SituacaoLivro.PARA_LER);
 
-      listaFormatada += "# Lendo\n";
-      for (int i = 0; i < listaLivrosLendo.length; i++) {
-        listaFormatada += "• " + listaLivrosLendo[i]['nome'].toString() + "\n";
+      _listaFormatada += "# Lendo\n";
+      for (int i = 0; i < _livrosLendo.length; i++) {
+        _listaFormatada += "• " + _livrosLendo[i].nome.toString() + "\n";
       }
 
-      listaFormatada += "\n";
-      listaFormatada += "# Para Ler\n";
-      for (int i = 0; i < listaLivrosParaLer.length; i++) {
-        listaFormatada += "• " + listaLivrosParaLer[i]['nome'].toString() + "\n";
+      _listaFormatada += "\n";
+      _listaFormatada += "# Para Ler\n";
+      for (int i = 0; i < _livrosParaLer.length; i++) {
+        _listaFormatada += "• " + _livrosParaLer[i].nome.toString() + "\n";
       }
 
-      listaFormatada += "\n";
+      _listaFormatada += "\n";
     }
 
-    listaFormatada += "# Lidos\n";
-    for (int i = 0; i < listaLivrosLidos.length; i++) {
-      listaFormatada += "• " + listaLivrosLidos[i]['nome'].toString() + "\n";
+    _listaFormatada += "# Lidos\n";
+    for (int i = 0; i < _livrosLidos.length; i++) {
+      _listaFormatada += "• " + _livrosLidos[i].nome.toString() + "\n";
     }
 
     setState(() {
-      loading = false;
+      _loading = false;
     });
   }
 
@@ -68,7 +74,7 @@ class _ListaLivroImprimirState extends State<ListaLivroImprimir> {
               "Copiar",
             ),
             onPressed: () {
-              Clipboard.setData(ClipboardData(text: listaFormatada));
+              Clipboard.setData(ClipboardData(text: _listaFormatada));
               Navigator.of(context).pop();
             },
           ),
@@ -77,10 +83,10 @@ class _ListaLivroImprimirState extends State<ListaLivroImprimir> {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
         children: [
-          loading
+          _loading
               ? const SizedBox.shrink()
               : SelectableText(
-                  listaFormatada,
+                  _listaFormatada,
                   style: const TextStyle(fontSize: 16),
                 ),
         ],

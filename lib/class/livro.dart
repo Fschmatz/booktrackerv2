@@ -1,24 +1,16 @@
 import 'dart:typed_data';
 
+import '../enum/situacao_livro.dart';
+
 class Livro {
   int id;
   String nome;
   int? numPaginas;
   String? autor;
-
-  // 0 = lendo, 1 = para ler, 2 = lido
-  int? lido;
+  int? situacaoLivro;
   Uint8List? capa;
 
-  Livro({required this.id, required this.nome, this.numPaginas, this.autor, this.lido, this.capa});
-
-  int get getId {
-    return id;
-  }
-
-  String get getNome {
-    return nome;
-  }
+  Livro({required this.id, required this.nome, this.numPaginas, this.autor, this.situacaoLivro, this.capa});
 
   factory Livro.fromMap(Map<String, dynamic> map) {
     return Livro(
@@ -26,8 +18,12 @@ class Livro {
       nome: map['nome'] as String,
       numPaginas: map['numPaginas'] as int?,
       autor: map['autor'] as String?,
-      lido: map['lido'] as int?,
+      situacaoLivro: map['situacaoLivro'] as int?,
       capa: map['capa'] as Uint8List?,
     );
+  }
+
+  SituacaoLivro get getSituacaoLivroAsEnum {
+    return SituacaoLivro.fromId(situacaoLivro!);
   }
 }

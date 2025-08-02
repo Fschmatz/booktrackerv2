@@ -1,5 +1,9 @@
-import 'package:booktrackerv2/db/livro_dao.dart';
+import 'package:booktrackerv2/class/livro_extension.dart';
+import 'package:booktrackerv2/enum/situacao_livro.dart';
+import 'package:booktrackerv2/service/livro_service.dart';
 import 'package:flutter/material.dart';
+
+import '../redux/selectors.dart';
 
 class Estatisticas extends StatefulWidget {
   const Estatisticas({Key? key}) : super(key: key);
@@ -9,47 +13,37 @@ class Estatisticas extends StatefulWidget {
 }
 
 class _EstatisticasState extends State<Estatisticas> {
-  final dbLivro = LivroDao.instance;
-  bool loading = true;
-
-  int? livrosLendo = 0;
-  int? livrosParaLer = 0;
-  int? livrosLidos = 0;
-  int? paginasLendo = 0;
-  int? paginasParaLer = 0;
-  int? paginasLidos = 0;
-  int? quantAutores = 0;
+  bool _loading = true;
+  int? _livrosLendo = 0;
+  int? _livrosParaLer = 0;
+  int? _livrosLidos = 0;
+  int? _paginasLendo = 0;
+  int? _paginasParaLer = 0;
+  int? _paginasLidos = 0;
+  int? _quantidadeAutores = 0;
 
   @override
   void initState() {
     super.initState();
 
-    getContagemLivrosEstado().then((v) => getContagemPaginasEstado());
+    loadDadosParaEstatisticas();
   }
 
-  Future<void> getContagemLivrosEstado() async {
-    var respLendo = await dbLivro.contagemLivrosEstado(0);
-    var respParaLer = await dbLivro.contagemLivrosEstado(1);
-    var respLidos = await dbLivro.contagemLivrosEstado(2);
-    setState(() {
-      livrosLendo = respLendo ?? 0;
-      livrosParaLer = respParaLer ?? 0;
-      livrosLidos = respLidos ?? 0;
-    });
-  }
+  Future<void> loadDadosParaEstatisticas() async {
+    await LivroService().loadAllLivrosParaEstatisticas();
 
-  Future<void> getContagemPaginasEstado() async {
-    var respLendo = await dbLivro.contagemPaginasEstado(0);
-    var respParaLer = await dbLivro.contagemPaginasEstado(1);
-    var respLidos = await dbLivro.contagemPaginasEstado(2);
-    var respAutores = await dbLivro.contagemAutores();
+    _livrosLendo = await selectListLivroByPaginaAtual(SituacaoLivro.LENDO).quantidade;
+    _livrosParaLer = await selectListLivroByPaginaAtual(SituacaoLivro.PARA_LER).quantidade;
+    _livrosLidos = await selectListLivroByPaginaAtual(SituacaoLivro.LIDO).quantidade;
+    _paginasLendo = await selectListLivroByPaginaAtual(SituacaoLivro.LENDO).totalPaginas;
+    _paginasParaLer = await selectListLivroByPaginaAtual(SituacaoLivro.PARA_LER).totalPaginas;
+    _paginasLidos = await selectListLivroByPaginaAtual(SituacaoLivro.LIDO).totalPaginas;
+
+    var respAutores = await LivroService().findContagemAutoresDistinct();
+    _quantidadeAutores = respAutores ?? 0;
 
     setState(() {
-      paginasLendo = respLendo ?? 0;
-      paginasParaLer = respParaLer ?? 0;
-      paginasLidos = respLidos ?? 0;
-      quantAutores = respAutores ?? 0;
-      loading = false;
+      _loading = false;
     });
   }
 
@@ -116,13 +110,13 @@ class _EstatisticasState extends State<Estatisticas> {
   Widget build(BuildContext context) {
     Color accent = Theme.of(context).colorScheme.primary;
 
-    return loading
+    return _loading
         ? const Center(child: SizedBox.shrink())
         : ListView(
             children: [
-              cardEstatisticas('Livros', livrosLendo, livrosParaLer, livrosLidos, accent),
-              cardEstatisticas('Páginas', paginasLendo, paginasParaLer, paginasLidos, accent),
-              cardAutores('Geral', quantAutores, accent),
+              cardEstatisticas('Livros', _livrosLendo, _livrosParaLer, _livrosLidos, accent),
+              cardEstatisticas('Páginas', _paginasLendo, _paginasParaLer, _paginasLidos, accent),
+              cardAutores('Geral', _quantidadeAutores, accent),
               const SizedBox(
                 height: 50,
               ),

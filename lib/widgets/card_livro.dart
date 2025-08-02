@@ -1,10 +1,12 @@
 import 'package:booktrackerv2/class/livro.dart';
-import 'package:booktrackerv2/db/livro_dao.dart';
 import 'package:booktrackerv2/pages/editar_livro.dart';
+import 'package:booktrackerv2/service/livro_service.dart';
 import 'package:flutter/material.dart';
 
+import '../enum/situacao_livro.dart';
+
 class CardLivro extends StatefulWidget {
-  Livro livro;
+  final Livro livro;
 
   CardLivro({Key? key, required this.livro}) : super(key: key);
 
@@ -17,18 +19,12 @@ class _CardLivroState extends State<CardLivro> {
   double capaHeight = 130;
   double capaWidth = 105;
 
-  void _deletar(int id) async {
-    final dbLivro = LivroDao.instance;
-    await dbLivro.delete(id);
+  void _deletar() async {
+    await LivroService().deletar(widget.livro);
   }
 
-  void _mudarEstado(int id, int lido) async {
-    final dbLivro = LivroDao.instance;
-    Map<String, dynamic> row = {
-      LivroDao.columnIdLivro: id,
-      LivroDao.columnLido: lido,
-    };
-    await dbLivro.update(row);
+  void _mudarEstado(SituacaoLivro situacaoLivro) async {
+    await LivroService().mudarSituacao(widget.livro, situacaoLivro);
   }
 
   void openBottomMenuBookSettings() {
@@ -51,41 +47,41 @@ class _CardLivroState extends State<CardLivro> {
                   ),
                   const Divider(),
                   Visibility(
-                    visible: widget.livro.lido != 0,
+                    visible: widget.livro.situacaoLivro != 0,
                     child: ListTile(
                       leading: const Icon(Icons.book_outlined),
                       title: const Text(
                         "Marcar como lendo",
                       ),
                       onTap: () {
-                        _mudarEstado(widget.livro.id, 0);
+                        _mudarEstado(SituacaoLivro.LENDO);
 
                         Navigator.of(context).pop();
                       },
                     ),
                   ),
                   Visibility(
-                    visible: widget.livro.lido != 1,
+                    visible: widget.livro.situacaoLivro != 1,
                     child: ListTile(
                       leading: const Icon(Icons.bookmark_outline),
                       title: const Text(
                         "Marcar como para ler",
                       ),
                       onTap: () {
-                        _mudarEstado(widget.livro.id, 1);
+                        _mudarEstado(SituacaoLivro.PARA_LER);
                         Navigator.of(context).pop();
                       },
                     ),
                   ),
                   Visibility(
-                    visible: widget.livro.lido != 2,
+                    visible: widget.livro.situacaoLivro != 2,
                     child: ListTile(
                       leading: const Icon(Icons.task_outlined),
                       title: const Text(
                         "Marcar como lido",
                       ),
                       onTap: () {
-                        _mudarEstado(widget.livro.id, 2);
+                        _mudarEstado(SituacaoLivro.LIDO);
                         Navigator.of(context).pop();
                       },
                     ),
@@ -140,7 +136,7 @@ class _CardLivroState extends State<CardLivro> {
                 "Sim",
               ),
               onPressed: () {
-                _deletar(widget.livro.id);
+                _deletar();
                 Navigator.of(context).pop();
               },
             )
@@ -154,93 +150,84 @@ class _CardLivroState extends State<CardLivro> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    // tirar o elev?
-    // colar a capa na lateral
-    // colocar as pagina e o autor em um chip? cada um com um cor
-
     return Card(
-      margin: EdgeInsetsGeometry.symmetric(horizontal: 8),
+      margin: EdgeInsetsGeometry.symmetric(horizontal: 16),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: openBottomMenuBookSettings,
-        child: Column(
+        child: Row(
           children: [
-            Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    alignment: Alignment.centerLeft,
-                    child: widget.livro.capa == null
-                        ? SizedBox(
-                            height: capaHeight,
-                            width: capaWidth,
-                            child: Card(
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: capaBorder,
-                              ),
-                              child: Icon(
-                                Icons.book,
-                                size: 35,
-                                color: theme.hintColor,
-                              ),
-                            ),
-                          )
-                        : SizedBox(
-                            height: capaHeight,
-                            width: capaWidth,
-                            child: Card(
-                              elevation: 1,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: capaBorder,
-                              ),
-                              child: ClipRRect(
-                                borderRadius: capaBorder,
-                                child: Image.memory(
-                                  widget.livro.capa!,
-                                  fit: BoxFit.fill,
-                                  filterQuality: FilterQuality.medium,
-                                  gaplessPlayback: true,
-                                ),
-                              ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: widget.livro.capa == null
+                    ? SizedBox(
+                        height: capaHeight,
+                        width: capaWidth,
+                        child: Card(
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: capaBorder,
+                          ),
+                          child: Icon(
+                            Icons.book,
+                            size: 35,
+                            color: theme.hintColor,
+                          ),
+                        ),
+                      )
+                    : SizedBox(
+                        height: capaHeight,
+                        width: capaWidth,
+                        child: Card(
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: capaBorder,
+                          ),
+                          clipBehavior: Clip.antiAlias,
+                          child: ClipRRect(
+                            borderRadius: capaBorder,
+                            child: Image.memory(
+                              widget.livro.capa!,
+                              fit: BoxFit.fill,
+                              filterQuality: FilterQuality.medium,
+                              gaplessPlayback: true,
                             ),
                           ),
-                  ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.livro.nome,
-                          style: const TextStyle(
-                            fontSize: 16,
-                          ),
-                          textAlign: TextAlign.left,
                         ),
-                        Visibility(
-                          visible: widget.livro.autor!.isNotEmpty,
-                          child: Text(
-                            widget.livro.autor!,
-                            style: TextStyle(fontSize: 14, color: theme.hintColor),
-                          ),
-                        ),
-                        Visibility(
-                          visible: widget.livro.numPaginas != 0,
-                          child: Text(
-                            widget.livro.numPaginas.toString() + " Páginas",
-                            style: TextStyle(fontSize: 14, color: theme.hintColor),
-                          ),
-                        ),
-                      ],
+                      ),
+              ),
+            ),
+            Expanded(
+              flex: 3,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.livro.nome,
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: theme.colorScheme.onPrimaryContainer),
+                      textAlign: TextAlign.left,
                     ),
-                  ),
+                    Visibility(
+                      visible: widget.livro.autor!.isNotEmpty,
+                      child: Text(
+                        widget.livro.autor!,
+                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: theme.colorScheme.onSecondaryContainer),
+                      ),
+                    ),
+                    Visibility(
+                      visible: widget.livro.numPaginas != 0,
+                      child: Text(
+                        widget.livro.numPaginas.toString() + " Páginas",
+                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: theme.colorScheme.onSecondaryContainer),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ],
         ),

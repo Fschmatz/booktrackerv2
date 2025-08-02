@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
+
+import 'package:booktrackerv2/service/livro_service.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../class/livro.dart';
 import '../db/livro_dao.dart';
 
 class BackupUtils {
@@ -21,6 +22,8 @@ class BackupUtils {
     for (dynamic item in jsonData) {
       await dbLivro.insert(item);
     }
+
+    await LivroService().loadAllAfterBackup();
   }
 
   /* END PER APP SPECIFIC FUNCTIONS */

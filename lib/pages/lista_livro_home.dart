@@ -3,11 +3,14 @@ import 'package:booktrackerv2/class/livro.dart';
 import 'package:booktrackerv2/widgets/card_livro.dart';
 import 'package:flutter/material.dart';
 
+import '../enum/situacao_livro.dart';
 import '../redux/app_state.dart';
 import '../redux/selectors.dart';
 
 class ListaLivroHome extends StatefulWidget {
-  ListaLivroHome({Key? key}) : super(key: key);
+  final SituacaoLivro situacaoLivro;
+
+  ListaLivroHome({Key? key, required this.situacaoLivro}) : super(key: key);
 
   @override
   State<ListaLivroHome> createState() => _ListaLivroHomeState();
@@ -17,7 +20,7 @@ class _ListaLivroHomeState extends State<ListaLivroHome> {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, List<Livro>>(converter: (store) {
-      return selectListLivroByPaginaAtual();
+      return selectListLivroByPaginaAtual(widget.situacaoLivro);
     }, builder: (context, livros) {
       return ListView(
         children: [

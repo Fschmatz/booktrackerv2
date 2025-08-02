@@ -5,6 +5,7 @@ import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'app_theme.dart';
+import 'enum/situacao_livro.dart';
 
 final Store<AppState> store = Store<AppState>(
   initialState: AppState.initialState(),
@@ -15,7 +16,7 @@ Future<void> main() async {
 
   PaintingBinding.instance.imageCache.maximumSizeBytes = 1024 * 1024 * 50;
 
-  store.dispatch(LoadListLivroAction(0));
+  store.dispatch(LoadListLivroAction(SituacaoLivro.LENDO));
 
   runApp(
     StoreProvider<AppState>(

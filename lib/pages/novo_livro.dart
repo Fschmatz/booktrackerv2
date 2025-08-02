@@ -1,8 +1,9 @@
-import 'package:booktrackerv2/db/livro_dao.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../service/livro_service.dart';
 
 class NovoLivro extends StatefulWidget {
   NovoLivro({
@@ -14,53 +15,36 @@ class NovoLivro extends StatefulWidget {
 }
 
 class _NovoLivroState extends State<NovoLivro> {
-  BorderRadius capaBorder = BorderRadius.circular(12);
-  final dbLivro = LivroDao.instance;
-  int stateLivroSelecionado = 1;
-  TextEditingController controllerNomeLivro = TextEditingController();
-  TextEditingController controllerPaginas = TextEditingController();
-  TextEditingController controllerAutor = TextEditingController();
-  late FocusNode inputFieldNode;
-  bool nomeValido = true;
-
-  //IMAGEM
-  final imagePicker = ImagePicker();
-
-  //File? capa;
-  Uint8List? capa;
+  BorderRadius _capaBorder = BorderRadius.circular(12);
+  int _situacaoLivroSelecionado = 1;
+  TextEditingController _controllerNomeLivro = TextEditingController();
+  TextEditingController _controllerPaginas = TextEditingController();
+  TextEditingController _controllerAutor = TextEditingController();
+  bool _nomeValido = true;
+  final _imagePicker = ImagePicker();
+  Uint8List? _capa;
 
   pickGallery() async {
-    final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
-
-    //File? compressedFile = await FlutterNativeImage.compressImage(pickedFile!.path, quality: 90, targetWidth: 325, targetHeight: 475);
+    final pickedFile = await _imagePicker.pickImage(source: ImageSource.gallery);
     Uint8List? compressedFile = await FlutterImageCompress.compressWithFile(pickedFile!.path, quality: 90, minWidth: 325, minHeight: 475);
 
     if (compressedFile == null) {
       return 0;
     } else {
       setState(() {
-        capa = compressedFile;
+        _capa = compressedFile;
       });
     }
   }
 
-  //AUTOR, PAGINAS E CAPA PODEM SER NULO
-  void _salvarLivro() async {
-    // service
-
-    Map<String, dynamic> row = {
-      LivroDao.columnNome: controllerNomeLivro.text,
-      LivroDao.columnNumPaginas: controllerPaginas.text.isEmpty ? 0 : int.parse(controllerPaginas.text),
-      LivroDao.columnAutor: controllerAutor.text,
-      LivroDao.columnLido: stateLivroSelecionado,
-      LivroDao.columnCapa: capa == null ? null : capa,
-    };
-    final id = await dbLivro.insert(row);
+  void _inserir() async {
+    await LivroService()
+        .inserir(_controllerNomeLivro.text, _controllerPaginas.text, _controllerAutor.text, _situacaoLivroSelecionado, _capa == null ? null : _capa);
   }
 
   bool validarTextFields() {
-    if (controllerNomeLivro.text.isEmpty) {
-      nomeValido = false;
+    if (_controllerNomeLivro.text.isEmpty) {
+      _nomeValido = false;
       return false;
     }
     return true;
@@ -68,7 +52,7 @@ class _NovoLivroState extends State<NovoLivro> {
 
   void removerCapa() {
     setState(() {
-      capa = null;
+      _capa = null;
     });
   }
 
@@ -92,10 +76,10 @@ class _NovoLivroState extends State<NovoLivro> {
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
-              controller: controllerNomeLivro,
+              controller: _controllerNomeLivro,
               onEditingComplete: () => node.nextFocus(),
               decoration: InputDecoration(
-                  border: const OutlineInputBorder(), helperText: "* Obrigatório", labelText: "Nome", errorText: nomeValido ? null : "Nome vazio"),
+                  border: const OutlineInputBorder(), helperText: "* Obrigatório", labelText: "Nome", errorText: _nomeValido ? null : "Nome vazio"),
             ),
           ),
           Padding(
@@ -107,7 +91,7 @@ class _NovoLivroState extends State<NovoLivro> {
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
-              controller: controllerAutor,
+              controller: _controllerAutor,
               onEditingComplete: () => node.nextFocus(),
               decoration: const InputDecoration(
                 labelText: "Autor",
@@ -122,7 +106,7 @@ class _NovoLivroState extends State<NovoLivro> {
               maxLength: 5,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               keyboardType: const TextInputType.numberWithOptions(decimal: false),
-              controller: controllerPaginas,
+              controller: _controllerPaginas,
               onEditingComplete: () => node.nextFocus(),
               decoration: const InputDecoration(
                 labelText: "Nº de Páginas",
@@ -153,19 +137,19 @@ class _NovoLivroState extends State<NovoLivro> {
                 child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
                   Card(
                     shape: RoundedRectangleBorder(
-                      borderRadius: capaBorder,
+                      borderRadius: _capaBorder,
                     ),
                     elevation: 0,
-                    child: capa == null
+                    child: _capa == null
                         ? Container(
-                            decoration: BoxDecoration(borderRadius: capaBorder),
+                            decoration: BoxDecoration(borderRadius: _capaBorder),
                             width: 70,
                             height: 105,
                           )
                         : ClipRRect(
-                            borderRadius: capaBorder,
+                            borderRadius: _capaBorder,
                             child: Image.memory(
-                              capa!,
+                              _capa!,
                               width: 70,
                               height: 105,
                               fit: BoxFit.fill,
@@ -186,12 +170,12 @@ class _NovoLivroState extends State<NovoLivro> {
                           ),
                         ),
                       ),
-                      capa != null
+                      _capa != null
                           ? const SizedBox(
                               height: 20,
                             )
                           : const SizedBox.shrink(),
-                      capa != null
+                      _capa != null
                           ? SizedBox(
                               width: 175,
                               height: 40,
@@ -226,10 +210,10 @@ class _NovoLivroState extends State<NovoLivro> {
                 ButtonSegment<int>(value: 1, label: Text('Para Ler'), icon: Icon(Icons.bookmark_outline_outlined)),
                 ButtonSegment<int>(value: 2, label: Text('Lido'), icon: Icon(Icons.task_outlined)),
               ],
-              selected: <int>{stateLivroSelecionado},
+              selected: <int>{_situacaoLivroSelecionado},
               onSelectionChanged: (Set<int> newSelection) {
                 setState(() {
-                  stateLivroSelecionado = newSelection.first;
+                  _situacaoLivroSelecionado = newSelection.first;
                 });
               },
             ),
@@ -239,11 +223,11 @@ class _NovoLivroState extends State<NovoLivro> {
             child: FilledButton.icon(
                 onPressed: () {
                   if (validarTextFields()) {
-                    _salvarLivro();
+                    _inserir();
                     Navigator.of(context).pop();
                   } else {
                     setState(() {
-                      nomeValido;
+                      _nomeValido;
                     });
                   }
                 },

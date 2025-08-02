@@ -1,12 +1,12 @@
 import 'package:booktrackerv2/class/livro.dart';
-import 'package:booktrackerv2/db/livro_dao.dart';
+import 'package:booktrackerv2/service/livro_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditarLivro extends StatefulWidget {
-  Livro livro;
+  final Livro livro;
 
   EditarLivro({Key? key, required this.livro}) : super(key: key);
 
@@ -15,30 +15,27 @@ class EditarLivro extends StatefulWidget {
 }
 
 class _EditarLivroState extends State<EditarLivro> {
-  BorderRadius capaBorder = BorderRadius.circular(12);
-  final dbLivro = LivroDao.instance;
-  late int stateLivroSelecionado;
-  TextEditingController controllerNomeLivro = TextEditingController();
-  TextEditingController controllerPaginas = TextEditingController();
-  TextEditingController controllerAutor = TextEditingController();
-  bool nomeValido = true;
-  final imagePicker = ImagePicker();
-  Uint8List? capa;
-  bool capaFoiEditada = false;
+  BorderRadius _capaBorder = BorderRadius.circular(12);
+  late int _situacaoLivroSelecionado;
+  TextEditingController _controllerNomeLivro = TextEditingController();
+  TextEditingController _controllerPaginas = TextEditingController();
+  TextEditingController _controllerAutor = TextEditingController();
+  bool _nomeValido = true;
+  final _imagePicker = ImagePicker();
+  Uint8List? _capa;
+  bool _capaFoiEditada = false;
 
   pickGallery() async {
-    final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
-
-    //File compressedFile = await FlutterNativeImage.compressImage(pickedFile!.path, quality: 90, targetWidth: 325, targetHeight: 475);
+    final pickedFile = await _imagePicker.pickImage(source: ImageSource.gallery);
     Uint8List? compressedFile = await FlutterImageCompress.compressWithFile(pickedFile!.path, quality: 90, minWidth: 325, minHeight: 475);
 
     if (compressedFile == null) {
       return;
     } else {
       setState(() {
-        capaFoiEditada = true;
-        capa = compressedFile;
-        widget.livro.capa = capa;
+        _capaFoiEditada = true;
+        _capa = compressedFile;
+        widget.livro.capa = _capa;
       });
     }
   }
@@ -46,28 +43,21 @@ class _EditarLivroState extends State<EditarLivro> {
   @override
   void initState() {
     super.initState();
-    controllerNomeLivro.text = widget.livro.nome;
-    controllerPaginas.text = widget.livro.numPaginas.toString();
-    controllerAutor.text = widget.livro.autor!;
-    stateLivroSelecionado = widget.livro.lido!;
+
+    _controllerNomeLivro.text = widget.livro.nome;
+    _controllerPaginas.text = widget.livro.numPaginas.toString();
+    _controllerAutor.text = widget.livro.autor!;
+    _situacaoLivroSelecionado = widget.livro.situacaoLivro!;
   }
 
-  void _atualizarLivro(int id) async {
-    final dbLivro = LivroDao.instance;
-    Map<String, dynamic> row = {
-      LivroDao.columnIdLivro: id,
-      LivroDao.columnNome: controllerNomeLivro.text,
-      LivroDao.columnNumPaginas: controllerPaginas.text,
-      LivroDao.columnAutor: controllerAutor.text,
-      LivroDao.columnLido: stateLivroSelecionado,
-      LivroDao.columnCapa: capaFoiEditada ? capa! : widget.livro.capa,
-    };
-    final atualizar = await dbLivro.update(row);
+  void _atualizarLivro() async {
+    await LivroService().atualizar(widget.livro.id, _controllerNomeLivro.text, _controllerPaginas.text, _controllerAutor.text,
+        _situacaoLivroSelecionado, _capaFoiEditada ? _capa! : widget.livro.capa!);
   }
 
   bool validarTextFields() {
-    if (controllerNomeLivro.text.isEmpty) {
-      nomeValido = false;
+    if (_controllerNomeLivro.text.isEmpty) {
+      _nomeValido = false;
       return false;
     }
     return true;
@@ -75,7 +65,7 @@ class _EditarLivroState extends State<EditarLivro> {
 
   void removerCapa() {
     setState(() {
-      capaFoiEditada = false;
+      _capaFoiEditada = false;
       widget.livro.capa = null;
     });
   }
@@ -97,9 +87,9 @@ class _EditarLivroState extends State<EditarLivro> {
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
-              controller: controllerNomeLivro,
+              controller: _controllerNomeLivro,
               decoration: InputDecoration(
-                  helperText: "* Obrigatório", border: const OutlineInputBorder(), labelText: "Nome", errorText: nomeValido ? null : "Nome vazio"),
+                  helperText: "* Obrigatório", border: const OutlineInputBorder(), labelText: "Nome", errorText: _nomeValido ? null : "Nome vazio"),
             ),
           ),
           Padding(
@@ -111,7 +101,7 @@ class _EditarLivroState extends State<EditarLivro> {
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
-              controller: controllerAutor,
+              controller: _controllerAutor,
               decoration: const InputDecoration(
                 labelText: "Autor",
                 border: const OutlineInputBorder(),
@@ -125,7 +115,7 @@ class _EditarLivroState extends State<EditarLivro> {
               maxLength: 5,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               keyboardType: const TextInputType.numberWithOptions(decimal: false),
-              controller: controllerPaginas,
+              controller: _controllerPaginas,
               decoration: const InputDecoration(
                 labelText: "Nº de Páginas",
                 border: const OutlineInputBorder(),
@@ -155,17 +145,17 @@ class _EditarLivroState extends State<EditarLivro> {
                 child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
                   Card(
                     shape: RoundedRectangleBorder(
-                      borderRadius: capaBorder,
+                      borderRadius: _capaBorder,
                     ),
                     elevation: 0,
                     child: widget.livro.capa == null
                         ? Container(
-                            decoration: BoxDecoration(borderRadius: capaBorder),
+                            decoration: BoxDecoration(borderRadius: _capaBorder),
                             width: 70,
                             height: 105,
                           )
                         : ClipRRect(
-                            borderRadius: capaBorder,
+                            borderRadius: _capaBorder,
                             child: Image.memory(
                               widget.livro.capa!,
                               width: 70,
@@ -228,10 +218,10 @@ class _EditarLivroState extends State<EditarLivro> {
                 ButtonSegment<int>(value: 1, label: Text('Para Ler'), icon: Icon(Icons.bookmark_outline_outlined)),
                 ButtonSegment<int>(value: 2, label: Text('Lido'), icon: Icon(Icons.task_outlined)),
               ],
-              selected: <int>{stateLivroSelecionado},
+              selected: <int>{_situacaoLivroSelecionado},
               onSelectionChanged: (Set<int> newSelection) {
                 setState(() {
-                  stateLivroSelecionado = newSelection.first;
+                  _situacaoLivroSelecionado = newSelection.first;
                   print(newSelection.first);
                 });
               },
@@ -242,11 +232,11 @@ class _EditarLivroState extends State<EditarLivro> {
             child: FilledButton.icon(
                 onPressed: () {
                   if (validarTextFields()) {
-                    _atualizarLivro(widget.livro.id);
+                    _atualizarLivro();
                     Navigator.of(context).pop();
                   } else {
                     setState(() {
-                      nomeValido;
+                      _nomeValido;
                     });
                   }
                 },
