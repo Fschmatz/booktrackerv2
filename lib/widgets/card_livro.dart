@@ -15,9 +15,11 @@ class CardLivro extends StatefulWidget {
 }
 
 class _CardLivroState extends State<CardLivro> {
-  BorderRadius capaBorder = BorderRadius.circular(12);
-  double capaHeight = 130;
-  double capaWidth = 105;
+  final BorderRadius _capaBorder = BorderRadius.circular(12);
+  final double _capaHeight = 140;
+  final double _capaWidth = 110;
+  final TextStyle _styleNome = TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
+  final TextStyle _styleAutorPaginas = TextStyle(fontSize: 12, fontWeight: FontWeight.w600);
 
   void _deletar() async {
     await LivroService().deletar(widget.livro);
@@ -128,7 +130,7 @@ class _CardLivroState extends State<CardLivro> {
             "Confirmação",
           ),
           content: const Text(
-            "Deletar livro ?",
+            "Deletar livro?",
           ),
           actions: [
             TextButton(
@@ -151,6 +153,7 @@ class _CardLivroState extends State<CardLivro> {
     final theme = Theme.of(context);
 
     return Card(
+      color: theme.colorScheme.surfaceContainerHigh,
       margin: EdgeInsetsGeometry.symmetric(horizontal: 16),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
@@ -158,17 +161,17 @@ class _CardLivroState extends State<CardLivro> {
         child: Row(
           children: [
             Expanded(
-              flex: 1,
+              flex: 2,
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: widget.livro.capa == null
                     ? SizedBox(
-                        height: capaHeight,
-                        width: capaWidth,
+                        height: _capaHeight,
+                        width: _capaWidth,
                         child: Card(
                           elevation: 0,
                           shape: RoundedRectangleBorder(
-                            borderRadius: capaBorder,
+                            borderRadius: _capaBorder,
                           ),
                           child: Icon(
                             Icons.book,
@@ -178,16 +181,16 @@ class _CardLivroState extends State<CardLivro> {
                         ),
                       )
                     : SizedBox(
-                        height: capaHeight,
-                        width: capaWidth,
+                        height: _capaHeight,
+                        width: _capaWidth,
                         child: Card(
                           elevation: 0,
                           shape: RoundedRectangleBorder(
-                            borderRadius: capaBorder,
+                            borderRadius: _capaBorder,
                           ),
                           clipBehavior: Clip.antiAlias,
                           child: ClipRRect(
-                            borderRadius: capaBorder,
+                            borderRadius: _capaBorder,
                             child: Image.memory(
                               widget.livro.capa!,
                               fit: BoxFit.fill,
@@ -200,7 +203,7 @@ class _CardLivroState extends State<CardLivro> {
               ),
             ),
             Expanded(
-              flex: 3,
+              flex: 5,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                 child: Column(
@@ -208,21 +211,31 @@ class _CardLivroState extends State<CardLivro> {
                   children: [
                     Text(
                       widget.livro.nome,
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: theme.colorScheme.onPrimaryContainer),
+                      style: _styleNome,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.left,
                     ),
                     Visibility(
                       visible: widget.livro.autor!.isNotEmpty,
                       child: Text(
                         widget.livro.autor!,
-                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: theme.colorScheme.onSecondaryContainer),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: _styleAutorPaginas.copyWith(
+                          color: theme.colorScheme.onSecondaryContainer,
+                        ),
                       ),
                     ),
                     Visibility(
                       visible: widget.livro.numPaginas != 0,
                       child: Text(
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         widget.livro.numPaginas.toString() + " Páginas",
-                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: theme.colorScheme.onSecondaryContainer),
+                        style: _styleAutorPaginas.copyWith(
+                          color: theme.colorScheme.onSecondaryContainer,
+                        ),
                       ),
                     ),
                   ],
