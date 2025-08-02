@@ -110,17 +110,22 @@ class _EstatisticasState extends State<Estatisticas> {
   Widget build(BuildContext context) {
     Color accent = Theme.of(context).colorScheme.primary;
 
-    return _loading
-        ? const Center(child: SizedBox.shrink())
-        : ListView(
-            children: [
-              cardEstatisticas('Livros', _livrosLendo, _livrosParaLer, _livrosLidos, accent),
-              cardEstatisticas('Páginas', _paginasLendo, _paginasParaLer, _paginasLidos, accent),
-              cardAutores('Geral', _quantidadeAutores, accent),
-              const SizedBox(
-                height: 50,
-              ),
-            ],
-          );
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Estatísticas'),
+      ),
+      body: _loading
+          ? const Center(child: SizedBox.shrink())
+          : ListView(
+              children: [
+                cardEstatisticas('Livros', _livrosLendo, _livrosParaLer, _livrosLidos, accent),
+                cardEstatisticas('Páginas', _paginasLendo, _paginasParaLer, _paginasLidos, accent),
+                cardAutores('Geral', _quantidadeAutores, accent),
+                const SizedBox(
+                  height: 50,
+                ),
+              ],
+            ),
+    );
   }
 }

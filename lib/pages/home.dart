@@ -19,14 +19,13 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
-  ScrollController scrollController = ScrollController();
+  ScrollController _scrollController = ScrollController();
   List<int> _indexPaginasParaLoad = [0, 1, 2];
 
   List<Widget> _destinations = [
     ListaLivroHome(key: ValueKey(SituacaoLivro.LENDO), situacaoLivro: SituacaoLivro.LENDO),
     ListaLivroHome(key: ValueKey(SituacaoLivro.PARA_LER), situacaoLivro: SituacaoLivro.PARA_LER),
     ListaLivroHome(key: ValueKey(SituacaoLivro.LIDO), situacaoLivro: SituacaoLivro.LIDO),
-    const Estatisticas()
   ];
 
   void _executeOnDestinationSelected(int index) async {
@@ -38,14 +37,14 @@ class _HomeState extends State<Home> {
       _currentIndex = index;
     });
 
-    scrollController.jumpTo(0);
+    _scrollController.jumpTo(0);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: NestedScrollView(
-        controller: scrollController,
+        controller: _scrollController,
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
@@ -64,6 +63,18 @@ class _HomeState extends State<Home> {
                           context,
                           MaterialPageRoute(
                             builder: (BuildContext context) => NovoLivro(),
+                          ));
+                    }),
+                IconButton(
+                    tooltip: "Estatísticas",
+                    icon: const Icon(
+                      Icons.insert_chart_outlined,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => Estatisticas(),
                           ));
                     }),
                 IconButton(
@@ -123,13 +134,6 @@ class _HomeState extends State<Home> {
               Icons.task,
             ),
             label: 'Lido',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.insert_chart_outlined),
-            selectedIcon: Icon(
-              Icons.insert_chart,
-            ),
-            label: 'Estatísticas',
           ),
         ],
       ),
