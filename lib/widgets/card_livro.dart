@@ -15,14 +15,12 @@ class CardLivro extends StatefulWidget {
 }
 
 class _CardLivroState extends State<CardLivro> {
-  //final BorderRadius _capaBorder = BorderRadius.circular(12);
   final BorderRadius _capaBorder = BorderRadius.only(topLeft: Radius.circular(12), bottomLeft: Radius.circular(12));
   final BorderRadius _cardBorder = BorderRadius.circular(12);
   final double _capaHeight = 130;
   final double _capaWidth = 95;
-  final TextStyle _styleNome = TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
-  final TextStyle _styleAutorPaginas = TextStyle(fontSize: 12, fontWeight: FontWeight.w600);
-  static const double _heightBetweenFields = 4;
+  final TextStyle _styleNome = TextStyle(fontSize: 16, fontWeight: FontWeight.w500);
+  final TextStyle _styleAutorPaginas = TextStyle(fontSize: 12, fontWeight: FontWeight.w500);
 
   void _deletar() async {
     await LivroService().deletar(widget.livro);
@@ -217,7 +215,7 @@ class _CardLivroState extends State<CardLivro> {
                       textAlign: TextAlign.left,
                     ),
                     const SizedBox(
-                      height: _heightBetweenFields,
+                      height: 10,
                     ),
                     Visibility(
                       visible: widget.livro.autor!.isNotEmpty,
@@ -231,7 +229,7 @@ class _CardLivroState extends State<CardLivro> {
                       ),
                     ),
                     const SizedBox(
-                      height: _heightBetweenFields,
+                      height: 4,
                     ),
                     Visibility(
                       visible: widget.livro.numPaginas != 0,
