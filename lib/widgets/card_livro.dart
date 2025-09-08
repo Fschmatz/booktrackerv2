@@ -15,11 +15,14 @@ class CardLivro extends StatefulWidget {
 }
 
 class _CardLivroState extends State<CardLivro> {
-  final BorderRadius _capaBorder = BorderRadius.circular(12);
-  final double _capaHeight = 140;
-  final double _capaWidth = 110;
+  //final BorderRadius _capaBorder = BorderRadius.circular(12);
+  final BorderRadius _capaBorder = BorderRadius.only(topLeft: Radius.circular(12), bottomLeft: Radius.circular(12));
+  final BorderRadius _cardBorder = BorderRadius.circular(12);
+  final double _capaHeight = 130;
+  final double _capaWidth = 95;
   final TextStyle _styleNome = TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
   final TextStyle _styleAutorPaginas = TextStyle(fontSize: 12, fontWeight: FontWeight.w600);
+  static const double _heightBetweenFields = 4;
 
   void _deletar() async {
     await LivroService().deletar(widget.livro);
@@ -44,7 +47,6 @@ class _CardLivroState extends State<CardLivro> {
                   ListTile(
                     title: Text(
                       widget.livro.nome,
-                      textAlign: TextAlign.center,
                     ),
                   ),
                   const Divider(),
@@ -156,7 +158,7 @@ class _CardLivroState extends State<CardLivro> {
       color: theme.colorScheme.surfaceContainerHigh,
       margin: EdgeInsetsGeometry.symmetric(horizontal: 16),
       child: InkWell(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: _cardBorder,
         onTap: openBottomMenuBookSettings,
         child: Row(
           children: [
@@ -173,8 +175,9 @@ class _CardLivroState extends State<CardLivro> {
                           shape: RoundedRectangleBorder(
                             borderRadius: _capaBorder,
                           ),
+                          margin: EdgeInsets.zero,
                           child: Icon(
-                            Icons.book,
+                            Icons.book_outlined,
                             size: 35,
                             color: theme.hintColor,
                           ),
@@ -183,11 +186,8 @@ class _CardLivroState extends State<CardLivro> {
                     : SizedBox(
                         height: _capaHeight,
                         width: _capaWidth,
-                        child: Card(
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: _capaBorder,
-                          ),
+                        child: ClipRRect(
+                          borderRadius: _capaBorder,
                           clipBehavior: Clip.antiAlias,
                           child: ClipRRect(
                             borderRadius: _capaBorder,
@@ -205,7 +205,7 @@ class _CardLivroState extends State<CardLivro> {
             Expanded(
               flex: 5,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                padding: const EdgeInsets.fromLTRB(2, 0, 8, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -215,6 +215,9 @@ class _CardLivroState extends State<CardLivro> {
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.left,
+                    ),
+                    const SizedBox(
+                      height: _heightBetweenFields,
                     ),
                     Visibility(
                       visible: widget.livro.autor!.isNotEmpty,
@@ -226,6 +229,9 @@ class _CardLivroState extends State<CardLivro> {
                           color: theme.colorScheme.onSecondaryContainer,
                         ),
                       ),
+                    ),
+                    const SizedBox(
+                      height: _heightBetweenFields,
                     ),
                     Visibility(
                       visible: widget.livro.numPaginas != 0,
