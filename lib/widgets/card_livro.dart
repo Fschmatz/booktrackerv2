@@ -45,6 +45,8 @@ class _CardLivroState extends State<CardLivro> {
                   ListTile(
                     title: Text(
                       widget.livro.nome,
+                      textAlign: TextAlign.center,
+                      style: _styleNome,
                     ),
                   ),
                   const Divider(),
@@ -215,7 +217,7 @@ class _CardLivroState extends State<CardLivro> {
                       textAlign: TextAlign.left,
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 6,
                     ),
                     Visibility(
                       visible: widget.livro.autor!.isNotEmpty,

@@ -20,18 +20,15 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
   ScrollController _scrollController = ScrollController();
-  List<int> _indexPaginasParaLoad = [0, 1, 2];
 
   List<Widget> _destinations = [
-    ListaLivroHome(key: ValueKey(SituacaoLivro.LENDO), situacaoLivro: SituacaoLivro.LENDO),
-    ListaLivroHome(key: ValueKey(SituacaoLivro.PARA_LER), situacaoLivro: SituacaoLivro.PARA_LER),
-    ListaLivroHome(key: ValueKey(SituacaoLivro.LIDO), situacaoLivro: SituacaoLivro.LIDO),
+    ListaLivroHome(key: ValueKey(SituacaoLivro.LENDO.id), situacaoLivro: SituacaoLivro.LENDO),
+    ListaLivroHome(key: ValueKey(SituacaoLivro.PARA_LER.id), situacaoLivro: SituacaoLivro.PARA_LER),
+    ListaLivroHome(key: ValueKey(SituacaoLivro.LIDO.id), situacaoLivro: SituacaoLivro.LIDO),
   ];
 
   void _executeOnDestinationSelected(int index) async {
-    if (_indexPaginasParaLoad.contains(index)) {
-      await store.dispatch(LoadListLivroAction(SituacaoLivro.fromId(index)));
-    }
+    await store.dispatch(LoadListLivroAction(SituacaoLivro.fromId(index)));
 
     setState(() {
       _currentIndex = index;

@@ -32,9 +32,11 @@ class _ListaLivroHomeState extends State<ListaLivroHome> {
             shrinkWrap: true,
             itemCount: livros.length,
             itemBuilder: (context, int index) {
+              Livro livro = livros[index];
+
               return CardLivro(
-                key: UniqueKey(),
-                livro: livros[index],
+                key: ValueKey(livro.id),
+                livro: livro,
               );
             },
           ),
