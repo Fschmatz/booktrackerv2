@@ -2,7 +2,7 @@ name: booktrackerv2
 description: Tracker para livros
 publish_to: 'none'
 
-version: 6.0.7
+version: 6.0.8
 
 environment:
   sdk: '>=3.2.6 <4.0.0'
@@ -20,7 +20,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   permission_handler: ^11.3.0
   dynamic_system_colors: ^1.8.0
-  fluttertoast: ^8.2.12
+  fluttertoast: ^9.0.0
   flutter_image_compress: ^2.4.0
   async_redux: ^25.4.0
 

@@ -3,12 +3,12 @@ import 'package:booktrackerv2/pages/configs/changelog.dart';
 import 'package:booktrackerv2/pages/lista_livro_imprimir.dart';
 import 'package:booktrackerv2/service/livro_service.dart';
 import 'package:booktrackerv2/util/dialog_select_theme.dart';
-import 'package:booktrackerv2/util/utils_functions.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../util/app_details.dart';
 import '../../util/dialog_backup.dart';
+import '../../util/utils_string.dart';
 
 class Configs extends StatefulWidget {
   Configs({Key? key}) : super(key: key);
@@ -31,7 +31,7 @@ class _ConfigsState extends State<Configs> {
     } else {
       theme = 'escuro';
     }
-    return capitalizeFirstLetterString(theme);
+    return UtilsString.capitalizeFirstLetterString(theme);
   }
 
   showDialogConfirmDelete(BuildContext context) {

@@ -1,7 +1,6 @@
 import 'package:booktrackerv2/util/app_details.dart';
+import 'package:booktrackerv2/util/utils_functions.dart';
 import 'package:flutter/material.dart';
-
-import '../../util/utils.dart';
 
 class AppInfo extends StatelessWidget {
   const AppInfo({Key? key}) : super(key: key);
@@ -50,7 +49,7 @@ class AppInfo extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              Utils().openGithubRepository();
+              UtilsFunctions.openGithubRepository();
             },
             leading: const Icon(Icons.open_in_new_outlined),
             title:

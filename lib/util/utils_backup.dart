@@ -7,7 +7,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../db/livro_dao.dart';
 
-class BackupUtils {
+class UtilsBackup {
   final dbLivro = LivroDao.instance;
 
   Future<List<Map<String, dynamic>>> _loadAllBooks() async {

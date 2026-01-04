@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
                 IconButton(
                     tooltip: "Estatísticas",
                     icon: const Icon(
-                      Icons.insert_chart_outlined,
+                      Icons.leaderboard_outlined,
                     ),
                     onPressed: () {
                       Navigator.push(

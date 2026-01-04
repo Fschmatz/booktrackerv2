@@ -1,5 +1,5 @@
 class AppDetails {
-  static String versaoApp = "6.0.7";
+  static String versaoApp = "6.0.8";
   static String nomeApp = "BookTracker Fschmatz";
   static String appNameHomePage = "BookTracker";
   static String repositoryLink = "https://github.com/Fschmatz/booktrackerv2";
@@ -8,7 +8,7 @@ class AppDetails {
   static String changelogUltimaVersao = '''
 $versaoApp
 - Async Redux
-- Flutter 3.35
+- Flutter 3.38
 - Novo ícone 
 - Mudanças na UI 
 - Fixes

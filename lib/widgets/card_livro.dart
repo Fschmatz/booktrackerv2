@@ -17,17 +17,19 @@ class CardLivro extends StatefulWidget {
 class _CardLivroState extends State<CardLivro> {
   final BorderRadius _capaBorder = BorderRadius.only(topLeft: Radius.circular(12), bottomLeft: Radius.circular(12));
   final BorderRadius _cardBorder = BorderRadius.circular(12);
-  final double _capaHeight = 130;
+  final double _capaHeight = 135;
   final double _capaWidth = 95;
   final TextStyle _styleNome = TextStyle(fontSize: 16, fontWeight: FontWeight.w500);
   final TextStyle _styleAutorPaginas = TextStyle(fontSize: 12, fontWeight: FontWeight.w500);
 
   void _deletar() async {
     await LivroService().deletar(widget.livro);
+    Navigator.of(context).pop();
   }
 
-  void _mudarEstado(SituacaoLivro situacaoLivro) async {
+  void _executarMudarEstado(SituacaoLivro situacaoLivro) async {
     await LivroService().mudarSituacao(widget.livro, situacaoLivro);
+    Navigator.of(context).pop();
   }
 
   void openBottomMenuBookSettings() {
@@ -58,9 +60,7 @@ class _CardLivroState extends State<CardLivro> {
                         "Marcar como lendo",
                       ),
                       onTap: () {
-                        _mudarEstado(SituacaoLivro.LENDO);
-
-                        Navigator.of(context).pop();
+                        _executarMudarEstado(SituacaoLivro.LENDO);
                       },
                     ),
                   ),
@@ -72,8 +72,7 @@ class _CardLivroState extends State<CardLivro> {
                         "Marcar como para ler",
                       ),
                       onTap: () {
-                        _mudarEstado(SituacaoLivro.PARA_LER);
-                        Navigator.of(context).pop();
+                        _executarMudarEstado(SituacaoLivro.PARA_LER);
                       },
                     ),
                   ),
@@ -85,8 +84,7 @@ class _CardLivroState extends State<CardLivro> {
                         "Marcar como lido",
                       ),
                       onTap: () {
-                        _mudarEstado(SituacaoLivro.LIDO);
-                        Navigator.of(context).pop();
+                        _executarMudarEstado(SituacaoLivro.LIDO);
                       },
                     ),
                   ),
@@ -123,7 +121,7 @@ class _CardLivroState extends State<CardLivro> {
         });
   }
 
-  showAlertDialogOkDelete(BuildContext context) {
+  void showAlertDialogOkDelete(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -141,7 +139,6 @@ class _CardLivroState extends State<CardLivro> {
               ),
               onPressed: () {
                 _deletar();
-                Navigator.of(context).pop();
               },
             )
           ],

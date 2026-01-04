@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'app_details.dart';
-import 'backup_utils.dart';
+import 'utils_backup.dart';
 
 class DialogBackup extends StatefulWidget {
   final bool isCreateBackup;
@@ -14,11 +14,21 @@ class DialogBackup extends StatefulWidget {
 
 class _DialogBackupState extends State<DialogBackup> {
   Future<void> _createBackup() async {
-    await BackupUtils().backupData(AppDetails.backupFileName);
+    await UtilsBackup().backupData(AppDetails.backupFileName);
   }
 
   Future<void> _restoreFromBackup() async {
-    await BackupUtils().restoreBackupData(AppDetails.backupFileName);
+    await UtilsBackup().restoreBackupData(AppDetails.backupFileName);
+  }
+
+  Future<void> _executarBackup() async {
+    Navigator.of(context).pop();
+
+    if (widget.isCreateBackup) {
+      _createBackup();
+    } else {
+      _restoreFromBackup();
+    }
   }
 
   @override
@@ -36,13 +46,7 @@ class _DialogBackupState extends State<DialogBackup> {
             "Sim",
           ),
           onPressed: () {
-            if (widget.isCreateBackup) {
-              Navigator.of(context).pop();
-              _createBackup();
-            } else {
-              Navigator.of(context).pop();
-              _restoreFromBackup();
-            }
+            _executarBackup();
           },
         )
       ],
