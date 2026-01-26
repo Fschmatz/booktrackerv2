@@ -1,5 +1,5 @@
 class AppDetails {
-  static String versaoApp = "6.0.8";
+  static String versaoApp = "6.0.10";
   static String nomeApp = "BookTracker Fschmatz";
   static String appNameHomePage = "BookTracker";
   static String repositoryLink = "https://github.com/Fschmatz/booktrackerv2";

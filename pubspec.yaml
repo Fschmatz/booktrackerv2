@@ -2,7 +2,7 @@ name: booktrackerv2
 description: Tracker para livros
 publish_to: 'none'
 
-version: 6.0.8
+version: 6.0.10
 
 environment:
   sdk: '>=3.2.6 <4.0.0'
@@ -13,7 +13,7 @@ dependencies:
   sqflite: ^2.4.2
   path_provider: ^2.1.5
   shared_preferences: ^2.5.3
-  image_picker: ^1.1.2
+  image_picker: ^1.2.1
   url_launcher: ^6.3.1
   easy_dynamic_theme: ^2.3.1
   animations: ^2.0.11
