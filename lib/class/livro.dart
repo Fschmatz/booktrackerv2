@@ -30,4 +30,8 @@ class Livro {
   SituacaoLivro get getSituacaoLivroAsEnum {
     return SituacaoLivro.fromId(situacaoLivro!);
   }
+
+  bool isFinalizado() {
+    return situacaoLivro != null && SituacaoLivro.fromId(situacaoLivro!) == SituacaoLivro.LIDO;
+  }
 }

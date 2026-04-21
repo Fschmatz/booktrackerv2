@@ -27,10 +27,7 @@ class LivroService extends StoreService {
       LivroDao.columnNumPaginas: numPaginas,
       LivroDao.columnAutor: autor,
       LivroDao.columnSituacaoLivro: situacaoLivro,
-      LivroDao.columnCapa: capa,
-      if (situacaoLivro == SituacaoLivro.LIDO.id)
-        LivroDao.columnFinalizadoEm:
-            "${DateTime.now().day.toString().padLeft(2, '0')}/${DateTime.now().month.toString().padLeft(2, '0')}/${DateTime.now().year}"
+      LivroDao.columnCapa: capa
     };
 
     await dbLivro.update(row);

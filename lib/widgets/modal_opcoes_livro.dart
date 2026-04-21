@@ -3,10 +3,12 @@ import 'package:booktrackerv2/enum/situacao_livro.dart';
 import 'package:booktrackerv2/pages/editar_livro.dart';
 import 'package:booktrackerv2/service/livro_service.dart';
 import 'package:flutter/material.dart';
+import 'modal_info_tile.dart';
 
 class ModalOpcoesLivro extends StatelessWidget {
   final Livro livro;
   final bool isGrid;
+  final TextStyle styleNomeLivro = const TextStyle(fontSize: 18, fontWeight: FontWeight.w500);
 
   const ModalOpcoesLivro({
     Key? key,
@@ -16,13 +18,9 @@ class ModalOpcoesLivro extends StatelessWidget {
 
   static void show(BuildContext context, Livro livro, {bool isGrid = false}) {
     showModalBottomSheet(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
-        ),
-      ),
       context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
       backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
       builder: (BuildContext bottomSheetContext) {
         return ModalOpcoesLivro(livro: livro, isGrid: isGrid);
@@ -60,104 +58,89 @@ class ModalOpcoesLivro extends StatelessWidget {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
-    final TextStyle styleNome = const TextStyle(fontSize: 16, fontWeight: FontWeight.w500);
-    final TextStyle styleLeading = const TextStyle(fontSize: 16);
-
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-        child: Wrap(
-          children: <Widget>[
-            ListTile(
-              title: Text(
-                livro.nome,
-                textAlign: TextAlign.center,
-                style: styleNome,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                title: Text(
+                  livro.nome,
+                  textAlign: TextAlign.center,
+                  style: styleNomeLivro,
+                ),
               ),
-            ),
-            if (isGrid) ...[
-              if (livro.autor != null && livro.autor!.isNotEmpty)
-                ListTile(
-                  leading: Text(
-                    "Autor:",
-                    style: styleLeading,
+              if (isGrid) ...[
+                if (livro.autor != null && livro.autor!.isNotEmpty) ModalInfoTile(label: "Autor:", value: livro.autor!),
+                if (livro.numPaginas != null && livro.numPaginas != 0) ModalInfoTile(label: "Nº de Páginas:", value: livro.numPaginas.toString()),
+              ],
+              if (livro.criadoEm != null) ModalInfoTile(label: "Adicionado em:", value: livro.criadoEm!),
+              if (livro.finalizadoEm != null && livro.isFinalizado()) ModalInfoTile(label: "Finalizado em:", value: livro.finalizadoEm!),
+              const Divider(),
+              Visibility(
+                visible: livro.situacaoLivro != 0,
+                child: ListTile(
+                  leading: const Icon(Icons.book_outlined),
+                  title: const Text(
+                    "Marcar como lendo",
                   ),
-                  title: Text(
-                    "${livro.autor!} ",
-                  ),
+                  onTap: () {
+                    _executarMudarEstado(SituacaoLivro.LENDO, context);
+                  },
                 ),
-              if (livro.numPaginas != null && livro.numPaginas != 0)
-                ListTile(
-                  leading: Text(
-                    "Nº de Páginas:",
-                    style: styleLeading,
+              ),
+              Visibility(
+                visible: livro.situacaoLivro != 1,
+                child: ListTile(
+                  leading: const Icon(Icons.bookmark_outline),
+                  title: const Text(
+                    "Marcar como para ler",
                   ),
-                  title: Text(
-                    "${livro.numPaginas}",
-                  ),
+                  onTap: () {
+                    _executarMudarEstado(SituacaoLivro.PARA_LER, context);
+                  },
                 ),
+              ),
+              Visibility(
+                visible: livro.situacaoLivro != 2,
+                child: ListTile(
+                  leading: const Icon(Icons.task_outlined),
+                  title: const Text(
+                    "Marcar como lido",
+                  ),
+                  onTap: () {
+                    _executarMudarEstado(SituacaoLivro.LIDO, context);
+                  },
+                ),
+              ),
+              ListTile(
+                leading: const Icon(Icons.edit_outlined),
+                title: const Text("Editar"),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => EditarLivro(livro: livro),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.delete_outline_outlined),
+                title: const Text("Deletar"),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  _showAlertDialogOkDelete(context);
+                },
+              ),
             ],
-            const Divider(),
-            Visibility(
-              visible: livro.situacaoLivro != 0,
-              child: ListTile(
-                leading: const Icon(Icons.book_outlined),
-                title: const Text(
-                  "Marcar como lendo",
-                ),
-                onTap: () {
-                  _executarMudarEstado(SituacaoLivro.LENDO, context);
-                },
-              ),
-            ),
-            Visibility(
-              visible: livro.situacaoLivro != 1,
-              child: ListTile(
-                leading: const Icon(Icons.bookmark_outline),
-                title: const Text(
-                  "Marcar como para ler",
-                ),
-                onTap: () {
-                  _executarMudarEstado(SituacaoLivro.PARA_LER, context);
-                },
-              ),
-            ),
-            Visibility(
-              visible: livro.situacaoLivro != 2,
-              child: ListTile(
-                leading: const Icon(Icons.task_outlined),
-                title: const Text(
-                  "Marcar como lido",
-                ),
-                onTap: () {
-                  _executarMudarEstado(SituacaoLivro.LIDO, context);
-                },
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.edit_outlined),
-              title: const Text("Editar"),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => EditarLivro(livro: livro),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.delete_outline_outlined),
-              title: const Text("Deletar"),
-              onTap: () {
-                Navigator.of(context).pop();
-                _showAlertDialogOkDelete(context);
-              },
-            ),
-          ],
+          ),
         ),
       ),
     );
