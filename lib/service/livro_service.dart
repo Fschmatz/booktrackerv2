@@ -3,6 +3,7 @@ import 'package:booktrackerv2/service/store_service.dart';
 import '../class/livro.dart';
 import '../db/livro_dao.dart';
 import '../enum/situacao_livro.dart';
+import '../util/utils_functions.dart';
 
 class LivroService extends StoreService {
   final dbLivro = LivroDao.instance;
@@ -27,6 +28,9 @@ class LivroService extends StoreService {
       LivroDao.columnAutor: autor,
       LivroDao.columnSituacaoLivro: situacaoLivro,
       LivroDao.columnCapa: capa,
+      if (situacaoLivro == SituacaoLivro.LIDO.id)
+        LivroDao.columnFinalizadoEm:
+            "${DateTime.now().day.toString().padLeft(2, '0')}/${DateTime.now().month.toString().padLeft(2, '0')}/${DateTime.now().year}"
     };
 
     await dbLivro.update(row);
@@ -38,6 +42,7 @@ class LivroService extends StoreService {
     Map<String, dynamic> row = {
       LivroDao.columnIdLivro: livro.id,
       LivroDao.columnSituacaoLivro: situacaoLivro.id,
+      LivroDao.columnFinalizadoEm: situacaoLivro == SituacaoLivro.LIDO ? UtilsFunctions.getDataAtualAsString() : ""
     };
 
     await dbLivro.update(row);
@@ -51,6 +56,8 @@ class LivroService extends StoreService {
       LivroDao.columnAutor: autor,
       LivroDao.columnSituacaoLivro: situacaoLivro,
       LivroDao.columnCapa: capa,
+      LivroDao.columnCriadoEm: UtilsFunctions.getDataAtualAsString(),
+      if (situacaoLivro == SituacaoLivro.LIDO.id) LivroDao.columnFinalizadoEm: UtilsFunctions.getDataAtualAsString()
     };
 
     await dbLivro.insert(row);

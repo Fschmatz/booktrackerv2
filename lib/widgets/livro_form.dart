@@ -13,7 +13,6 @@ class LivroForm extends StatelessWidget {
   final TextEditingController paginasController;
   final bool nomeValido;
   final VoidCallback onSalvar;
-  final VoidCallback? onEditingComplete;
 
   const LivroForm({
     super.key,
@@ -28,7 +27,6 @@ class LivroForm extends StatelessWidget {
     required this.paginasController,
     required this.nomeValido,
     required this.onSalvar,
-    required this.onEditingComplete,
   });
 
   @override
@@ -123,7 +121,6 @@ class LivroForm extends StatelessWidget {
           child: TextField(
             controller: nomeController,
             maxLength: 200,
-            onEditingComplete: onEditingComplete,
             decoration: InputDecoration(
               labelText: "Nome",
               helperText: "* Obrigatório",
@@ -137,7 +134,6 @@ class LivroForm extends StatelessWidget {
           child: TextField(
             controller: autorController,
             maxLength: 150,
-            onEditingComplete: onEditingComplete,
             decoration: const InputDecoration(
               labelText: "Autor",
               border: OutlineInputBorder(),
@@ -153,7 +149,6 @@ class LivroForm extends StatelessWidget {
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
             ],
-            onEditingComplete: onEditingComplete,
             decoration: const InputDecoration(
               labelText: "Nº de Páginas",
               border: OutlineInputBorder(),

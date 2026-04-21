@@ -24,4 +24,8 @@ abstract class StoreService {
       LoadListLivroAction(SituacaoLivro.LENDO, forceReload: true)
     ]);
   }
+
+  Future<void> loadAppParameters() async {
+    await store.dispatch(LoadAppParametersAction());
+  }
 }

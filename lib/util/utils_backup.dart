@@ -7,6 +7,8 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../db/livro_dao.dart';
 
+import '../service/app_parameter_service.dart';
+
 class UtilsBackup {
   final dbLivro = LivroDao.instance;
 
@@ -24,6 +26,18 @@ class UtilsBackup {
     }
 
     await LivroService().loadAllAfterBackup();
+  }
+
+  Future<List<Map<String, dynamic>>> _loadAllParameters() async {
+    return AppParameterService().loadAllParameters();
+  }
+
+  Future<void> _deleteAllParameters() async {
+    await AppParameterService().deleteAllParameters();
+  }
+
+  Future<void> _insertParameters(List<dynamic> jsonData) async {
+    await AppParameterService().insertParametersFromRestoreBackup(jsonData);
   }
 
   /* END PER APP SPECIFIC FUNCTIONS */
@@ -53,11 +67,18 @@ class UtilsBackup {
 
   Future<void> backupData(String fileName) async {
     await _loadStoragePermission();
+    await AppParameterService().saveLastBackupDate();
 
-    List<Map<String, dynamic>> list = await _loadAllBooks();
+    List<Map<String, dynamic>> listBooks = await _loadAllBooks();
+    List<Map<String, dynamic>> listParameters = await _loadAllParameters();
 
-    if (list.isNotEmpty) {
-      await _saveListAsJson(list, fileName);
+    if (listBooks.isNotEmpty) {
+      Map<String, dynamic> combinedData = {
+        'books': listBooks,
+        'parameters': listParameters,
+      };
+
+      await _saveDataAsJson(combinedData, fileName);
 
       Fluttertoast.showToast(
         msg: "Backup completo!",
@@ -69,7 +90,7 @@ class UtilsBackup {
     }
   }
 
-  Future<void> _saveListAsJson(List<Map<String, dynamic>> data, String fileName) async {
+  Future<void> _saveDataAsJson(Map<String, dynamic> data, String fileName) async {
     try {
       String directory = await _loadDirectory();
 
@@ -91,10 +112,24 @@ class UtilsBackup {
 
       final file = File('$directory/$fileName.json');
       final jsonString = await file.readAsString();
-      final List<dynamic> jsonData = json.decode(jsonString);
+      final dynamic decodedJson = json.decode(jsonString);
 
-      await _deleteAllBooks();
-      await _insertAll(jsonData);
+      if (decodedJson is List) {
+        // Backup Antigo (Somente Livros)
+        await _deleteAllBooks();
+        await _insertAll(decodedJson);
+      } else if (decodedJson is Map<String, dynamic>) {
+        // Backup Novo (Livros + Parâmetros)
+        if (decodedJson.containsKey('books')) {
+          await _deleteAllBooks();
+          await _insertAll(decodedJson['books']);
+        }
+
+        if (decodedJson.containsKey('parameters')) {
+          await _deleteAllParameters();
+          await _insertParameters(decodedJson['parameters']);
+        }
+      }
 
       Fluttertoast.showToast(
         msg: "Successo!",

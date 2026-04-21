@@ -4,44 +4,24 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
+import 'database_helper.dart';
+
 class LivroDao {
-  static const _databaseName = "BookTracker.db";
-  static const _databaseVersion = 1;
+  static const table = DatabaseHelper.tableLivros;
+  static const columnIdLivro = DatabaseHelper.columnIdLivro;
+  static const columnNome = DatabaseHelper.columnNome;
+  static const columnNumPaginas = DatabaseHelper.columnNumPaginas;
+  static const columnAutor = DatabaseHelper.columnAutor;
+  static const columnSituacaoLivro = DatabaseHelper.columnSituacaoLivro;
+  static const columnCapa = DatabaseHelper.columnCapa;
+  static const columnCriadoEm = DatabaseHelper.columnCriadoEm;
+  static const columnFinalizadoEm = DatabaseHelper.columnFinalizadoEm;
 
-  static const table = 'livro';
-  static const columnIdLivro = 'idLivro';
-  static const columnNome = 'nome';
-  static const columnNumPaginas = 'numPaginas';
-  static const columnAutor = 'autor';
-  static const columnSituacaoLivro = 'situacaoLivro';
-  static const columnCapa = 'capa';
-
-  static Database? _database;
-
-  Future<Database> get database async => _database ??= await _initDatabase();
+  Future<Database> get database async => await DatabaseHelper.instance.database;
 
   LivroDao._privateConstructor();
 
   static final LivroDao instance = LivroDao._privateConstructor();
-
-  _initDatabase() async {
-    Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, _databaseName);
-    return await openDatabase(path, version: _databaseVersion, onCreate: _onCreate);
-  }
-
-  Future _onCreate(Database db, int version) async {
-    await db.execute('''
-          CREATE TABLE $table (
-            $columnIdLivro INTEGER PRIMARY KEY,            
-            $columnNome TEXT NOT NULL,
-            $columnNumPaginas INTEGER,
-            $columnAutor TEXT,  
-            $columnSituacaoLivro INTEGER NOT NULL,
-            $columnCapa BLOB
-          )
-          ''');
-  }
 
   Future<int> insert(Map<String, dynamic> row) async {
     Database db = await instance.database;

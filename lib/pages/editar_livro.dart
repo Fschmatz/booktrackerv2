@@ -95,7 +95,6 @@ class _EditarLivroState extends State<EditarLivro> {
             Navigator.pop(context);
           }
         },
-        onEditingComplete: null,
       ),
     );
   }

@@ -59,8 +59,6 @@ class _NovoLivroState extends State<NovoLivro> {
 
   @override
   Widget build(BuildContext context) {
-    final FocusScopeNode node = FocusScope.of(context);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Adicionar Livro'),
@@ -82,7 +80,6 @@ class _NovoLivroState extends State<NovoLivro> {
             Navigator.pop(context);
           }
         },
-        onEditingComplete: () => node.nextFocus(),
       ),
     );
   }

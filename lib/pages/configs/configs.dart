@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import '../../util/app_details.dart';
 import '../../util/dialog_backup.dart';
 import '../../util/utils_string.dart';
+import '../../widgets/app_parameter_value.dart';
+import '../../widgets/settings_switch.dart';
 
 class Configs extends StatefulWidget {
   Configs({Key? key}) : super(key: key);
@@ -99,6 +101,12 @@ class _ConfigsState extends State<Configs> {
                 getThemeStringFormatted(),
               ),
             ),
+            const SettingsSwitch(
+              title: "Usar grid",
+              parameterKey: 'useHomeGrid',
+              subtitle: 'Mostra os livros em formato de grid na página inicial',
+              defaultValue: false,
+            ),
             ListTile(
               title: Text("Backup", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: theme.colorScheme.primary)),
             ),
@@ -113,6 +121,14 @@ class _ConfigsState extends State<Configs> {
               leading: const Icon(Icons.save_outlined),
               title: const Text(
                 "Fazer backup",
+              ),
+              subtitle: const Row(
+                children: [
+                  Text("Último backup: "),
+                  AppParameterValue(
+                    parameterKey: 'lastBackupDate',
+                  ),
+                ],
               ),
             ),
             ListTile(

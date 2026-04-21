@@ -9,8 +9,10 @@ class Livro {
   String? autor;
   int? situacaoLivro;
   Uint8List? capa;
+  String? criadoEm;
+  String? finalizadoEm;
 
-  Livro({required this.id, required this.nome, this.numPaginas, this.autor, this.situacaoLivro, this.capa});
+  Livro({required this.id, required this.nome, this.numPaginas, this.autor, this.situacaoLivro, this.capa, this.criadoEm, this.finalizadoEm});
 
   factory Livro.fromMap(Map<String, dynamic> map) {
     return Livro(
@@ -20,6 +22,8 @@ class Livro {
       autor: map['autor'] as String?,
       situacaoLivro: map['situacaoLivro'] as int?,
       capa: map['capa'] as Uint8List?,
+      criadoEm: map['criadoEm'] as String?,
+      finalizadoEm: map['finalizadoEm'] as String?,
     );
   }
 
