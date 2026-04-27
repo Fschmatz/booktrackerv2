@@ -5,6 +5,9 @@ import 'package:image_picker/image_picker.dart';
 
 import '../service/livro_service.dart';
 import '../widgets/livro_form.dart';
+import '../class/livro.dart';
+import '../enum/situacao_livro.dart';
+import '../util/utils_functions.dart';
 
 class NovoLivro extends StatefulWidget {
   NovoLivro({
@@ -39,8 +42,17 @@ class _NovoLivroState extends State<NovoLivro> {
   }
 
   void _inserir() async {
-    await LivroService()
-        .inserir(_controllerNomeLivro.text, _controllerPaginas.text, _controllerAutor.text, _situacaoLivroSelecionado, _capa == null ? null : _capa);
+    Livro novoLivro = Livro(
+      nome: _controllerNomeLivro.text,
+      numPaginas: _controllerPaginas.text.isEmpty ? 0 : int.parse(_controllerPaginas.text),
+      autor: _controllerAutor.text,
+      situacaoLivro: _situacaoLivroSelecionado,
+      capa: _capa,
+      criadoEm: UtilsFunctions.getDataAtualAsString(),
+      finalizadoEm: _situacaoLivroSelecionado == SituacaoLivro.LIDO.id ? UtilsFunctions.getDataAtualAsString() : "",
+    );
+
+    await LivroService().inserir(novoLivro);
   }
 
   bool validarTextFields() {

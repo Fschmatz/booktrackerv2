@@ -53,8 +53,15 @@ class _EditarLivroState extends State<EditarLivro> {
   }
 
   void _atualizarLivro() async {
-    await LivroService().atualizar(widget.livro.id, _controllerNomeLivro.text, _controllerPaginas.text, _controllerAutor.text,
-        _situacaoLivroSelecionado, _capaFoiEditada ? _capa! : widget.livro.capa ?? null);
+    Livro livroEditado = widget.livro.copyWith(
+      nome: _controllerNomeLivro.text,
+      numPaginas: int.tryParse(_controllerPaginas.text) ?? 0,
+      autor: _controllerAutor.text,
+      situacaoLivro: _situacaoLivroSelecionado,
+      capa: widget.livro.capa,
+    );
+
+    await LivroService().atualizar(livroEditado);
   }
 
   bool validarTextFields() {

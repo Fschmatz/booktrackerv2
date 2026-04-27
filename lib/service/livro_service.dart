@@ -15,50 +15,28 @@ class LivroService extends StoreService {
   }
 
   Future<void> deletar(Livro livro) async {
-    await dbLivro.delete(livro.id);
+    await dbLivro.delete(livro.id!);
     await loadLivros(SituacaoLivro.fromId(livro.situacaoLivro!));
   }
 
-  Future<void> atualizar(int id, String nome, String numPaginas, String autor, int situacaoLivro, dynamic capa) async {
-    final dbLivro = LivroDao.instance;
-    Map<String, dynamic> row = {
-      LivroDao.columnIdLivro: id,
-      LivroDao.columnNome: nome,
-      LivroDao.columnNumPaginas: numPaginas,
-      LivroDao.columnAutor: autor,
-      LivroDao.columnSituacaoLivro: situacaoLivro,
-      LivroDao.columnCapa: capa
-    };
-
-    await dbLivro.update(row);
-    await loadLivros(SituacaoLivro.fromId(situacaoLivro));
+  Future<void> atualizar(Livro livro) async {
+    await dbLivro.update(livro.toMap());
+    await loadLivros(SituacaoLivro.fromId(livro.situacaoLivro!));
   }
 
-  Future<void> mudarSituacao(Livro livro, SituacaoLivro situacaoLivro) async {
-    final dbLivro = LivroDao.instance;
-    Map<String, dynamic> row = {
-      LivroDao.columnIdLivro: livro.id,
-      LivroDao.columnSituacaoLivro: situacaoLivro.id,
-      LivroDao.columnFinalizadoEm: situacaoLivro == SituacaoLivro.LIDO ? UtilsFunctions.getDataAtualAsString() : ""
-    };
+  Future<void> mudarSituacao(Livro livro, SituacaoLivro novaSituacao) async {
+    Livro livroAtualizado = livro.copyWith(
+      situacaoLivro: novaSituacao.id,
+      finalizadoEm: novaSituacao == SituacaoLivro.LIDO ? UtilsFunctions.getDataAtualAsString() : "",
+    );
 
-    await dbLivro.update(row);
-    await loadLivrosParaAlterarSituacao(SituacaoLivro.fromId(livro.situacaoLivro!), situacaoLivro);
+    await dbLivro.update(livroAtualizado.toMap());
+    await loadLivrosParaAlterarSituacao(SituacaoLivro.fromId(livro.situacaoLivro!), novaSituacao);
   }
 
-  Future<void> inserir(String nome, String numPaginas, String autor, int situacaoLivro, dynamic capa) async {
-    Map<String, dynamic> row = {
-      LivroDao.columnNome: nome,
-      LivroDao.columnNumPaginas: numPaginas.isEmpty ? 0 : int.parse(numPaginas),
-      LivroDao.columnAutor: autor,
-      LivroDao.columnSituacaoLivro: situacaoLivro,
-      LivroDao.columnCapa: capa,
-      LivroDao.columnCriadoEm: UtilsFunctions.getDataAtualAsString(),
-      if (situacaoLivro == SituacaoLivro.LIDO.id) LivroDao.columnFinalizadoEm: UtilsFunctions.getDataAtualAsString()
-    };
-
-    await dbLivro.insert(row);
-    await loadLivros(SituacaoLivro.fromId(situacaoLivro));
+  Future<void> inserir(Livro livro) async {
+    await dbLivro.insert(livro.toMap());
+    await loadLivros(SituacaoLivro.fromId(livro.situacaoLivro!));
   }
 
   Future<int?> findContagemAutoresDistinct() async {
