@@ -16,13 +16,12 @@ class CardLivroGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final BorderRadius cardBorder = BorderRadius.circular(12);
+    final BorderRadius cardBorder = BorderRadius.circular(16);
 
     return Card(
-      color: theme.colorScheme.surfaceContainerHigh,
+      color: theme.colorScheme.surfaceContainer,
       shape: RoundedRectangleBorder(
         borderRadius: cardBorder,
-        side: BorderSide(color: theme.colorScheme.surfaceContainerHighest, width: 3),
       ),
       clipBehavior: Clip.antiAlias,
       child: InkWell(

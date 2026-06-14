@@ -34,134 +34,143 @@ class LivroForm extends StatelessWidget {
     final theme = Theme.of(context);
 
     return ListView(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       children: [
-        const Padding(
-          padding: EdgeInsets.fromLTRB(18, 0, 25, 5),
-          child: Text("Capa", style: TextStyle(fontSize: 14)),
-        ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Card(
-            elevation: 0,
-            color: theme.colorScheme.surface,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(6),
-              side: const BorderSide(color: Colors.grey),
+          padding: const EdgeInsets.only(left: 8, bottom: 8),
+          child: Text(
+            "Capa",
+            style: theme.textTheme.labelLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: theme.colorScheme.primary,
             ),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 5, 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Card(
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(borderRadius: capaBorder),
-                    child: capa == null
-                        ? Container(
+          ),
+        ),
+        Card(
+          color: theme.colorScheme.surfaceContainerHigh,
+          clipBehavior: Clip.antiAlias,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Card(
+                  shape: RoundedRectangleBorder(borderRadius: capaBorder),
+                  child: capa == null
+                      ? Container(
+                          width: 70,
+                          height: 105,
+                          decoration: BoxDecoration(
+                            borderRadius: capaBorder,
+                            color: theme.colorScheme.surfaceContainerHighest,
+                          ),
+                          child: Icon(Icons.image_outlined, color: theme.colorScheme.onSurfaceVariant),
+                        )
+                      : ClipRRect(
+                          borderRadius: capaBorder,
+                          child: Image.memory(
+                            capa!,
                             width: 70,
                             height: 105,
-                            decoration: BoxDecoration(borderRadius: capaBorder),
-                          )
-                        : ClipRRect(
-                            borderRadius: capaBorder,
-                            child: Image.memory(
-                              capa!,
-                              width: 70,
-                              height: 105,
-                              fit: BoxFit.fill,
-                            ),
+                            fit: BoxFit.fill,
                           ),
-                  ),
-                  Column(
-                    children: [
+                        ),
+                ),
+                Column(
+                  children: [
+                    SizedBox(
+                      width: 175,
+                      height: 40,
+                      child: FilledButton(
+                        onPressed: onPickCapa,
+                        child: const Text("Selecionar Capa"),
+                      ),
+                    ),
+                    if (capa != null) const SizedBox(height: 12),
+                    if (capa != null)
                       SizedBox(
                         width: 175,
                         height: 40,
-                        child: FilledButton(
-                          onPressed: onPickCapa,
-                          child: const Text("Selecionar Capa"),
+                        child: FilledButton.tonal(
+                          onPressed: onRemoveCapa,
+                          child: const Text("Remover Capa"),
                         ),
                       ),
-                      if (capa != null) const SizedBox(height: 20),
-                      if (capa != null)
-                        SizedBox(
-                          width: 175,
-                          height: 40,
-                          child: FilledButton(
-                            onPressed: onRemoveCapa,
-                            child: const Text("Remover Capa"),
-                          ),
-                        ),
-                    ],
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.fromLTRB(18, 15, 25, 5),
-          child: Text("Situação", style: TextStyle(fontSize: 14)),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 5),
-          child: SegmentedButton<int>(
-            showSelectedIcon: false,
-            segments: const [
-              ButtonSegment(value: 0, label: Text('Lendo'), icon: Icon(Icons.book_outlined)),
-              ButtonSegment(value: 1, label: Text('Para Ler'), icon: Icon(Icons.bookmark_outline_outlined)),
-              ButtonSegment(value: 2, label: Text('Lido'), icon: Icon(Icons.task_outlined)),
-            ],
-            selected: {situacaoSelecionada},
-            onSelectionChanged: (s) => onSituacaoChanged(s.first),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-          child: TextField(
-            controller: nomeController,
-            maxLength: 200,
-            decoration: InputDecoration(
-              labelText: "Nome",
-              helperText: "* Obrigatório",
-              border: const OutlineInputBorder(),
-              errorText: nomeValido ? null : "Nome vazio",
+        const SizedBox(height: 24),
+        DropdownMenu<int>(
+          initialSelection: situacaoSelecionada,
+          expandedInsets: EdgeInsets.zero,
+          label: const Text('Situação'),
+          onSelected: (int? value) {
+            if (value != null) {
+              onSituacaoChanged(value);
+            }
+          },
+          dropdownMenuEntries: const [
+            DropdownMenuEntry<int>(
+              value: 0,
+              label: 'Lendo',
+              leadingIcon: Icon(Icons.book_outlined),
             ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-          child: TextField(
-            controller: autorController,
-            maxLength: 150,
-            decoration: const InputDecoration(
-              labelText: "Autor",
-              border: OutlineInputBorder(),
+            DropdownMenuEntry<int>(
+              value: 1,
+              label: 'Para Ler',
+              leadingIcon: Icon(Icons.bookmark_outline_outlined),
             ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-          child: TextField(
-            controller: paginasController,
-            maxLength: 5,
-            keyboardType: TextInputType.number,
-            inputFormatters: [
-              FilteringTextInputFormatter.digitsOnly,
-            ],
-            decoration: const InputDecoration(
-              labelText: "Nº de Páginas",
-              border: OutlineInputBorder(),
+            DropdownMenuEntry<int>(
+              value: 2,
+              label: 'Lido',
+              leadingIcon: Icon(Icons.task_outlined),
             ),
+          ],
+        ),
+        const SizedBox(height: 32),
+        TextField(
+          controller: nomeController,
+          maxLength: 200,
+          decoration: InputDecoration(
+            labelText: "Nome",
+            helperText: "* Obrigatório",
+            border: const OutlineInputBorder(),
+            errorText: nomeValido ? null : "Nome vazio",
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 5, 16, 12),
-          child: FilledButton.icon(
-            onPressed: onSalvar,
-            icon: const Icon(Icons.save_outlined),
-            label: const Text('Salvar'),
+        const SizedBox(height: 16),
+        TextField(
+          controller: autorController,
+          maxLength: 150,
+          decoration: const InputDecoration(
+            labelText: "Autor",
+            border: OutlineInputBorder(),
           ),
+        ),
+        const SizedBox(height: 16),
+        TextField(
+          controller: paginasController,
+          maxLength: 5,
+          keyboardType: TextInputType.number,
+          inputFormatters: [
+            FilteringTextInputFormatter.digitsOnly,
+          ],
+          decoration: const InputDecoration(
+            labelText: "Nº de Páginas",
+            border: OutlineInputBorder(),
+          ),
+        ),
+        const SizedBox(height: 24),
+        FilledButton.icon(
+          onPressed: onSalvar,
+          icon: const Icon(Icons.save_outlined),
+          label: const Text('Salvar'),
         ),
       ],
     );

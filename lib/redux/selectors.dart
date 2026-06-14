@@ -1,26 +1,26 @@
 import '../class/app_parameter.dart';
 import '../class/livro.dart';
 import '../enum/situacao_livro.dart';
-import '../main.dart';
+import 'app_state.dart';
 
-List<Livro> selectListLivroByPaginaAtual(SituacaoLivro situacaoLivro) {
-  switch (situacaoLivro.id) {
-    case 0:
-      return store.state.listLendo;
-    case 1:
-      return store.state.listParaLer;
-    case 2:
-      return store.state.listLido;
-    default:
-      return [];
+List<Livro> selectListLivroByPaginaAtual(AppState state, SituacaoLivro situacaoLivro) {
+  switch (situacaoLivro) {
+    case SituacaoLivro.LENDO:
+      return state.listLendo;
+    case SituacaoLivro.PARA_LER:
+      return state.listParaLer;
+    case SituacaoLivro.LIDO:
+      return state.listLido;
   }
 }
 
-List<AppParameter> selectAppParameters() => store.state.appParameters;
+SituacaoLivro selectCurrentTab(AppState state) => state.currentTab;
 
-String? selectParameterValueByKey(String key) {
+List<AppParameter> selectAppParameters(AppState state) => state.appParameters;
+
+String? selectParameterValueByKey(AppState state, String key) {
   try {
-    return store.state.appParameters
+    return state.appParameters
         .firstWhere((element) => element.getKey() == key)
         .getValue();
   } catch (e) {
@@ -28,8 +28,8 @@ String? selectParameterValueByKey(String key) {
   }
 }
 
-bool selectParameterValueByKeyAsBoolean(String key, {bool defaultValue = true}) {
-  String? value = selectParameterValueByKey(key);
+bool selectParameterValueByKeyAsBoolean(AppState state, String key, {bool defaultValue = true}) {
+  String? value = selectParameterValueByKey(state, key);
 
   if (value == null) {
     return defaultValue;

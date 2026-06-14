@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 
 class CapaLivro extends StatelessWidget {
@@ -24,7 +25,6 @@ class CapaLivro extends StatelessWidget {
         height: height,
         width: width,
         child: Card(
-          elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: borderRadius,
           ),

@@ -1,6 +1,7 @@
 import '../db/app_parameter_dao.dart';
 import '../class/app_parameter.dart';
-import '../main.dart';
+import '../util/app_constants.dart';
+
 import 'store_service.dart';
 
 class AppParameterService extends StoreService {
@@ -35,13 +36,13 @@ class AppParameterService extends StoreService {
     final formattedDate = '$day/$month/$year $hour:$minute';
 
     await saveParameter(AppParameter(
-      key: 'lastBackupDate',
+      key: AppConstants.lastBackupDateAppParameter,
       value: formattedDate,
     ));
   }
 
   Future<String?> getLastBackupDate() async {
-    var resp = await dbParams.queryByKey('lastBackupDate');
+    var resp = await dbParams.queryByKey(AppConstants.lastBackupDateAppParameter);
     return resp != null ? AppParameter.fromMap(resp).getValue() : null;
   }
 

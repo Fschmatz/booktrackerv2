@@ -5,6 +5,7 @@ import '../class/livro.dart';
 import '../enum/situacao_livro.dart';
 import '../redux/selectors.dart';
 import '../service/livro_service.dart';
+import '../main.dart';
 
 class ListaLivroImprimir extends StatefulWidget {
   final bool onlyLidos;
@@ -33,11 +34,11 @@ class _ListaLivroImprimirState extends State<ListaLivroImprimir> {
   void _loadLivros() async {
     await LivroService().loadAllLivrosParaEstatisticas();
 
-    _livrosLidos = await selectListLivroByPaginaAtual(SituacaoLivro.LIDO);
+    _livrosLidos = selectListLivroByPaginaAtual(store.state, SituacaoLivro.LIDO);
 
     if (!widget.onlyLidos) {
-      _livrosLendo = await selectListLivroByPaginaAtual(SituacaoLivro.LENDO);
-      _livrosParaLer = await selectListLivroByPaginaAtual(SituacaoLivro.PARA_LER);
+      _livrosLendo = selectListLivroByPaginaAtual(store.state, SituacaoLivro.LENDO);
+      _livrosParaLer = selectListLivroByPaginaAtual(store.state, SituacaoLivro.PARA_LER);
 
       _listaFormatada += "# Lendo\n";
       for (int i = 0; i < _livrosLendo.length; i++) {

@@ -1,8 +1,9 @@
 import 'package:booktrackerv2/class/livro.dart';
-import 'package:booktrackerv2/enum/situacao_livro.dart';
 import 'package:booktrackerv2/pages/editar_livro.dart';
 import 'package:booktrackerv2/service/livro_service.dart';
+import 'package:booktrackerv2/widgets/capa_livro.dart';
 import 'package:flutter/material.dart';
+
 import 'modal_info_tile.dart';
 
 class ModalOpcoesLivro extends StatelessWidget {
@@ -21,7 +22,8 @@ class ModalOpcoesLivro extends StatelessWidget {
       context: context,
       isScrollControlled: true,
       useSafeArea: true,
-      backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
+      showDragHandle: true,
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
       builder: (BuildContext bottomSheetContext) {
         return ModalOpcoesLivro(livro: livro, isGrid: isGrid);
       },
@@ -30,11 +32,6 @@ class ModalOpcoesLivro extends StatelessWidget {
 
   void _deletar() async {
     await LivroService().deletar(livro);
-  }
-
-  void _executarMudarEstado(SituacaoLivro situacaoLivro, BuildContext context) async {
-    await LivroService().mudarSituacao(livro, situacaoLivro);
-    Navigator.of(context).pop();
   }
 
   void _showAlertDialogOkDelete(BuildContext context) {
@@ -58,86 +55,103 @@ class ModalOpcoesLivro extends StatelessWidget {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+        padding: const EdgeInsets.only(bottom: 24),
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              ListTile(
-                title: Text(
-                  livro.nome,
-                  textAlign: TextAlign.center,
-                  style: styleNomeLivro,
-                ),
-              ),
-              if (isGrid) ...[
-                if (livro.autor != null && livro.autor!.isNotEmpty) ModalInfoTile(label: "Autor:", value: livro.autor!),
-                if (livro.numPaginas != null && livro.numPaginas != 0) ModalInfoTile(label: "Nº de Páginas:", value: livro.numPaginas.toString()),
-              ],
-              if (livro.criadoEm != null) ModalInfoTile(label: "Adicionado em:", value: livro.criadoEm!),
-              if (livro.finalizadoEm != null && livro.isFinalizado()) ModalInfoTile(label: "Finalizado em:", value: livro.finalizadoEm!),
-              const Divider(),
-              Visibility(
-                visible: livro.situacaoLivro != 0,
-                child: ListTile(
-                  leading: const Icon(Icons.book_outlined),
-                  title: const Text(
-                    "Marcar como lendo",
-                  ),
-                  onTap: () {
-                    _executarMudarEstado(SituacaoLivro.LENDO, context);
-                  },
-                ),
-              ),
-              Visibility(
-                visible: livro.situacaoLivro != 1,
-                child: ListTile(
-                  leading: const Icon(Icons.bookmark_outline),
-                  title: const Text(
-                    "Marcar como para ler",
-                  ),
-                  onTap: () {
-                    _executarMudarEstado(SituacaoLivro.PARA_LER, context);
-                  },
-                ),
-              ),
-              Visibility(
-                visible: livro.situacaoLivro != 2,
-                child: ListTile(
-                  leading: const Icon(Icons.task_outlined),
-                  title: const Text(
-                    "Marcar como lido",
-                  ),
-                  onTap: () {
-                    _executarMudarEstado(SituacaoLivro.LIDO, context);
-                  },
-                ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.edit_outlined),
-                title: const Text("Editar"),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => EditarLivro(livro: livro),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CapaLivro(
+                      capa: livro.capa,
+                      width: 65,
+                      height: 95,
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                  );
-                },
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            livro.nome,
+                            style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          if (livro.autor != null && livro.autor!.isNotEmpty) ...[
+                            const SizedBox(height: 6),
+                            Text(
+                              livro.autor!,
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                  ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              ListTile(
-                leading: const Icon(Icons.delete_outline_outlined),
-                title: const Text("Deletar"),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  _showAlertDialogOkDelete(context);
-                },
+              if (isGrid || livro.criadoEm != null)
+                Card(
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                  clipBehavior: Clip.antiAlias,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Column(
+                      children: [
+                        if (isGrid && livro.numPaginas != null && livro.numPaginas != 0)
+                          ModalInfoTile(label: "Nº de Páginas:", value: livro.numPaginas.toString()),
+                        if (livro.criadoEm != null) ModalInfoTile(label: "Adicionado em:", value: livro.criadoEm!),
+                        if (livro.finalizadoEm != null && livro.isFinalizado()) ModalInfoTile(label: "Finalizado em:", value: livro.finalizadoEm!),
+                      ],
+                    ),
+                  ),
+                ),
+              Card(
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                clipBehavior: Clip.antiAlias,
+                color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                child: Column(
+                  children: [
+                    ListTile(
+                      leading: Icon(Icons.edit_outlined),
+                      title: Text("Editar"),
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => EditarLivro(livro: livro),
+                          ),
+                        );
+                      },
+                    ),
+                    Divider(),
+                    ListTile(
+                      leading: Icon(Icons.delete_outline_outlined),
+                      title: Text("Deletar"),
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        _showAlertDialogOkDelete(context);
+                      },
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

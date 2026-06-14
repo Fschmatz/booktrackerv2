@@ -9,19 +9,17 @@ class CardLivroList extends StatelessWidget {
 
   CardLivroList({Key? key, required this.livro}) : super(key: key);
 
-  final BorderRadius _capaBorder = const BorderRadius.only(topLeft: Radius.circular(12), bottomLeft: Radius.circular(12));
-  final BorderRadius _cardBorder = BorderRadius.circular(12);
+  final BorderRadius _capaBorder = const BorderRadius.only(topLeft: Radius.circular(16), bottomLeft: Radius.circular(16));
+  final BorderRadius _cardBorder = BorderRadius.circular(16);
   final double _capaHeight = 135;
   final double _capaWidth = 95;
-  final TextStyle _styleNome = const TextStyle(fontSize: 16, fontWeight: FontWeight.w500);
-  final TextStyle _styleAutorPaginas = const TextStyle(fontSize: 12, fontWeight: FontWeight.w500);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return Card(
-      color: theme.colorScheme.surfaceContainerHighest,
+      color: theme.colorScheme.surfaceContainer,
       margin: const EdgeInsetsGeometry.symmetric(horizontal: 16),
       child: InkWell(
         borderRadius: _cardBorder,
@@ -49,8 +47,8 @@ class CardLivroList extends StatelessWidget {
                   children: [
                     Text(
                       livro.nome,
-                      style: _styleNome,
-                      maxLines: 3,
+                      style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.left,
                     ),
@@ -63,8 +61,8 @@ class CardLivroList extends StatelessWidget {
                         livro.autor ?? "",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: _styleAutorPaginas.copyWith(
-                          color: theme.colorScheme.onSecondaryContainer,
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: theme.colorScheme.onSurfaceVariant,
                         ),
                       ),
                     ),
@@ -74,11 +72,11 @@ class CardLivroList extends StatelessWidget {
                     Visibility(
                       visible: livro.numPaginas != null && livro.numPaginas != 0,
                       child: Text(
+                        "${livro.numPaginas} Páginas",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        "${livro.numPaginas} Páginas",
-                        style: _styleAutorPaginas.copyWith(
-                          color: theme.colorScheme.onSecondaryContainer,
+                        style: theme.textTheme.labelMedium?.copyWith(
+                          color: theme.colorScheme.onSurfaceVariant,
                         ),
                       ),
                     ),

@@ -1,18 +1,29 @@
-class AppDetails {
-  static String versaoApp = "6.1.2";
-  static String nomeApp = "BookTracker Fschmatz";
-  static String appNameHomePage = "BookTracker";
-  static String repositoryLink = "https://github.com/Fschmatz/booktrackerv2";
-  static String backupFileName = "booktracker_backup";
+class AppConstants {
+  // APP PARAMETERS
+  static const String useHomeGridAppParameter = "useHomeGrid";
+  static const String lastBackupDateAppParameter = "lastBackupDate";
 
-  static String changelogUltimaVersao = '''
+  // STRINGS
+  static const String versaoApp = "7.0.0";
+  static const String nomeApp = "BookTracker Fschmatz";
+  static const String appNameHomePage = "BookTracker";
+  static const String repositoryLink = "https://github.com/Fschmatz/booktrackerv2";
+  static const String backupFileName = "booktracker_backup";
+
+  static const String changelogUltimaVersao = '''
 $versaoApp
-- Opção de grid para a home 
-- Mudanças na UI 
+- Material Expressive
+- Flutter 3.44 
+- Alterações no Async Redux
 - Fixes
 ''';
 
-  static String changelogsAntigos = '''
+  static const String changelogsAntigos = '''
+6.1.2
+- Opção de grid para a home 
+- Mudanças na UI 
+- Fixes
+
 6.0.10
 - Async Redux
 - Flutter 3.38

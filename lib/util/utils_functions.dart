@@ -1,10 +1,10 @@
 import 'package:url_launcher/url_launcher.dart';
 
-import 'app_details.dart';
+import 'app_constants.dart';
 
 class UtilsFunctions {
   static openGithubRepository() {
-    launchBrowser(AppDetails.repositoryLink);
+    launchBrowser(AppConstants.repositoryLink);
   }
 
   static launchBrowser(String url) {
