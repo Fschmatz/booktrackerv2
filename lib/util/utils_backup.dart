@@ -2,11 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:booktrackerv2/service/livro_service.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:booktrackerv2/util/toast_utils.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../db/livro_dao.dart';
-
 import '../service/app_parameter_service.dart';
 
 class UtilsBackup {
@@ -80,12 +79,12 @@ class UtilsBackup {
 
       await _saveDataAsJson(combinedData, fileName);
 
-      Fluttertoast.showToast(
-        msg: "Backup completo!",
+      ToastUtils.show(
+        "Backup completo!",
       );
     } else {
-      Fluttertoast.showToast(
-        msg: "Nenhum dado encontrado!",
+      ToastUtils.show(
+        "Nenhum dado encontrado!",
       );
     }
   }
@@ -98,8 +97,8 @@ class UtilsBackup {
 
       await file.writeAsString(json.encode(data));
     } catch (e) {
-      Fluttertoast.showToast(
-        msg: "Erro!",
+      ToastUtils.show(
+        "Erro!",
       );
     }
   }
@@ -131,12 +130,12 @@ class UtilsBackup {
         }
       }
 
-      Fluttertoast.showToast(
-        msg: "Successo!",
+      ToastUtils.show(
+        "Successo!",
       );
     } catch (e) {
-      Fluttertoast.showToast(
-        msg: "Erro!",
+      ToastUtils.show(
+        "Erro!",
       );
     }
   }

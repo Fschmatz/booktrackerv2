@@ -4,7 +4,7 @@ class AppConstants {
   static const String lastBackupDateAppParameter = "lastBackupDate";
 
   // STRINGS
-  static const String versaoApp = "7.0.0";
+  static const String versaoApp = "7.0.1";
   static const String nomeApp = "BookTracker Fschmatz";
   static const String appNameHomePage = "BookTracker";
   static const String repositoryLink = "https://github.com/Fschmatz/booktrackerv2";

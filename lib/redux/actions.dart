@@ -1,6 +1,6 @@
 import 'package:booktrackerv2/class/livro.dart';
-import '../class/app_parameter.dart';
 
+import '../class/app_parameter.dart';
 import '../enum/situacao_livro.dart';
 import '../service/app_parameter_service.dart';
 import '../service/livro_service.dart';
@@ -43,17 +43,29 @@ class LoadListLivroAction extends AppAction {
         List<Livro> livros =
             state.listLendo.isEmpty || forceReload ? await LivroService().queryAllByStateAndConvertToList(SituacaoLivro.LENDO.id) : state.listLendo;
 
-        return state.copyWith(listLendo: livros, currentTab: situacaoLivro);
+        return state.copyWith(listLendo: livros);
       case SituacaoLivro.PARA_LER:
         List<Livro> livros = state.listParaLer.isEmpty || forceReload
             ? await LivroService().queryAllByStateAndConvertToList(SituacaoLivro.PARA_LER.id)
             : state.listParaLer;
-        return state.copyWith(listParaLer: livros, currentTab: situacaoLivro);
+
+        return state.copyWith(listParaLer: livros);
       case SituacaoLivro.LIDO:
         List<Livro> livros =
             state.listLido.isEmpty || forceReload ? await LivroService().queryAllByStateAndConvertToList(SituacaoLivro.LIDO.id) : state.listLido;
 
-        return state.copyWith(listLido: livros, currentTab: situacaoLivro);
+        return state.copyWith(listLido: livros);
     }
+  }
+}
+
+class ChangeTabAction extends AppAction {
+  final SituacaoLivro newTab;
+
+  ChangeTabAction(this.newTab);
+
+  @override
+  Future<AppState> reduce() async {
+    return state.copyWith(currentTab: newTab);
   }
 }

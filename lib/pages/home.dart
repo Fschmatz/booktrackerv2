@@ -1,5 +1,4 @@
 import 'package:animations/animations.dart';
-
 import 'package:booktrackerv2/pages/estatisticas.dart';
 import 'package:booktrackerv2/pages/lista_livro_home.dart';
 import 'package:booktrackerv2/util/app_constants.dart';
@@ -8,11 +7,10 @@ import 'package:flutter/material.dart';
 import '../enum/situacao_livro.dart';
 import '../main.dart';
 import '../redux/actions.dart';
-import '../redux/selectors.dart';
 import '../redux/build_context_extension.dart';
-
-import 'settings.dart';
+import '../redux/selectors.dart';
 import 'novo_livro.dart';
+import 'settings.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
@@ -24,6 +22,7 @@ class Home extends StatelessWidget {
   ];
 
   void _executeOnDestinationSelected(BuildContext context, SituacaoLivro selectedDestination) async {
+    await store.dispatch(ChangeTabAction(selectedDestination));
     await store.dispatch(LoadListLivroAction(selectedDestination));
   }
 

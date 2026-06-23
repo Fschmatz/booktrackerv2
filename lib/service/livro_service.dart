@@ -43,6 +43,10 @@ class LivroService extends StoreService {
     return await dbLivro.findContagemAutoresDistinct();
   }
 
+  Future<Map<String, dynamic>?> getEstatisticasLivro() async {
+    return await dbLivro.getEstatisticasLivro();
+  }
+
   Future<void> loadAllLivrosParaEstatisticas() async {
     await loadLivrosParaEstatisticas();
   }

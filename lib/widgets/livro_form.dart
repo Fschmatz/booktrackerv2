@@ -53,7 +53,7 @@ class LivroForm extends StatelessWidget {
             borderRadius: BorderRadius.circular(24),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -61,20 +61,20 @@ class LivroForm extends StatelessWidget {
                   shape: RoundedRectangleBorder(borderRadius: capaBorder),
                   child: capa == null
                       ? Container(
-                          width: 70,
-                          height: 105,
+                          width: 110,
+                          height: 165,
                           decoration: BoxDecoration(
                             borderRadius: capaBorder,
                             color: theme.colorScheme.surfaceContainerHighest,
                           ),
-                          child: Icon(Icons.image_outlined, color: theme.colorScheme.onSurfaceVariant),
+                          child: Icon(Icons.image_outlined, color: theme.colorScheme.onSurfaceVariant, size: 36),
                         )
                       : ClipRRect(
                           borderRadius: capaBorder,
                           child: Image.memory(
                             capa!,
-                            width: 70,
-                            height: 105,
+                            width: 110,
+                            height: 165,
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -133,7 +133,7 @@ class LivroForm extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 32),
+        const SizedBox(height: 28),
         TextField(
           controller: nomeController,
           maxLength: 200,
@@ -165,12 +165,6 @@ class LivroForm extends StatelessWidget {
             labelText: "Nº de Páginas",
             border: OutlineInputBorder(),
           ),
-        ),
-        const SizedBox(height: 24),
-        FilledButton.icon(
-          onPressed: onSalvar,
-          icon: const Icon(Icons.save_outlined),
-          label: const Text('Salvar'),
         ),
       ],
     );

@@ -132,7 +132,7 @@ class _ConfigsState extends State<Configs> {
                       const SettingsSwitch(
                         title: "Usar grid",
                         parameterKey: AppConstants.useHomeGridAppParameter,
-                        subtitle: 'Mostra os livros em formato de grid na página inicial',
+                        subtitle: 'Exibir os livros em grid na página inicial',
                         defaultValue: false,
                       ),
                     ],

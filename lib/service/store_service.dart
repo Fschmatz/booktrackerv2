@@ -13,8 +13,11 @@ abstract class StoreService {
   }
 
   Future<void> loadLivrosParaEstatisticas() async {
-    await store.dispatchAndWaitAll(
-        [LoadListLivroAction(SituacaoLivro.LIDO, forceReload: true), LoadListLivroAction(SituacaoLivro.PARA_LER, forceReload: true)]);
+    await store.dispatchAndWaitAll([
+      LoadListLivroAction(SituacaoLivro.LENDO, forceReload: true),
+      LoadListLivroAction(SituacaoLivro.PARA_LER, forceReload: true),
+      LoadListLivroAction(SituacaoLivro.LIDO, forceReload: true)
+    ]);
   }
 
   Future<void> loadAllLivros() async {

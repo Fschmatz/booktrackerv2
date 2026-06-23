@@ -103,6 +103,16 @@ class _EditarLivroState extends State<EditarLivro> {
           }
         },
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          if (validarTextFields()) {
+            _atualizarLivro();
+            Navigator.pop(context);
+          }
+        },
+        icon: const Icon(Icons.save_outlined),
+        label: const Text('Salvar'),
+      ),
     );
   }
 }

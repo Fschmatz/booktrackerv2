@@ -69,6 +69,26 @@ class LivroDao {
     return Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(DISTINCT $columnAutor) FROM $table'));
   }
 
+  Future<Map<String, dynamic>?> getEstatisticasLivro() async {
+    Database db = await instance.database;
+    final result = await db.rawQuery('''
+      SELECT 
+        IFNULL(SUM(CASE WHEN $columnSituacaoLivro = 0 THEN 1 ELSE 0 END), 0) AS livrosLendo,
+        IFNULL(SUM(CASE WHEN $columnSituacaoLivro = 1 THEN 1 ELSE 0 END), 0) AS livrosParaLer,
+        IFNULL(SUM(CASE WHEN $columnSituacaoLivro = 2 THEN 1 ELSE 0 END), 0) AS livrosLidos,
+        IFNULL(SUM(CASE WHEN $columnSituacaoLivro = 0 THEN $columnNumPaginas ELSE 0 END), 0) AS paginasLendo,
+        IFNULL(SUM(CASE WHEN $columnSituacaoLivro = 1 THEN $columnNumPaginas ELSE 0 END), 0) AS paginasParaLer,
+        IFNULL(SUM(CASE WHEN $columnSituacaoLivro = 2 THEN $columnNumPaginas ELSE 0 END), 0) AS paginasLidos,
+        COUNT(DISTINCT $columnAutor) AS quantidadeAutores
+      FROM $table
+    ''');
+    
+    if (result.isNotEmpty) {
+      return result.first;
+    }
+    return null;
+  }
+
   Future<List<Map<String, dynamic>>> queryNomeAllLivrosLidos() async {
     Database db = await instance.database;
     return await db.rawQuery('SELECT nome FROM $table WHERE $columnSituacaoLivro=2 ORDER BY $columnNome');

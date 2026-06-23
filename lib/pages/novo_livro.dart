@@ -93,6 +93,16 @@ class _NovoLivroState extends State<NovoLivro> {
           }
         },
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          if (validarTextFields()) {
+            _inserir();
+            Navigator.pop(context);
+          }
+        },
+        icon: const Icon(Icons.save_outlined),
+        label: const Text('Salvar'),
+      ),
     );
   }
 }

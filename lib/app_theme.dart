@@ -1,3 +1,4 @@
+import 'package:booktrackerv2/util/toast_utils.dart';
 import 'package:dynamic_system_colors/dynamic_system_colors.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ class AppTheme extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DynamicColorBuilder(builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
- final lightScheme = lightDynamic ?? ColorScheme.fromSeed(seedColor: Colors.blue);
+      final lightScheme = lightDynamic ?? ColorScheme.fromSeed(seedColor: Colors.blue);
       final darkScheme = darkDynamic ?? ColorScheme.fromSeed(seedColor: Colors.blue, brightness: Brightness.dark);
 
       ThemeData buildTheme(ColorScheme colorScheme) {
@@ -83,11 +84,11 @@ class AppTheme extends StatelessWidget {
         );
       }
 
-
       return MaterialApp(
           debugShowCheckedModeBanner: false,
-         theme: buildTheme(lightScheme),
-        darkTheme: buildTheme(darkScheme),
+          scaffoldMessengerKey: ToastUtils.scaffoldMessengerKey,
+          theme: buildTheme(lightScheme),
+          darkTheme: buildTheme(darkScheme),
           themeMode: EasyDynamicTheme.of(context).themeMode,
           home: Home());
     });
