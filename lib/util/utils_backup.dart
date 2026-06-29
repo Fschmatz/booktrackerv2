@@ -83,7 +83,7 @@ class UtilsBackup {
         "Backup completo!",
       );
     } else {
-      ToastUtils.show(
+      ToastUtils.showErrorMessage(
         "Nenhum dado encontrado!",
       );
     }
@@ -97,7 +97,7 @@ class UtilsBackup {
 
       await file.writeAsString(json.encode(data));
     } catch (e) {
-      ToastUtils.show(
+      ToastUtils.showErrorMessage(
         "Erro!",
       );
     }
@@ -134,7 +134,7 @@ class UtilsBackup {
         "Successo!",
       );
     } catch (e) {
-      ToastUtils.show(
+      ToastUtils.showErrorMessage(
         "Erro!",
       );
     }

@@ -1,13 +1,14 @@
+import 'package:booktrackerv2/util/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../service/livro_service.dart';
-import '../widgets/livro_form.dart';
 import '../class/livro.dart';
 import '../enum/situacao_livro.dart';
+import '../service/livro_service.dart';
 import '../util/utils_functions.dart';
+import '../widgets/livro_form.dart';
 
 class NovoLivro extends StatefulWidget {
   NovoLivro({
@@ -53,6 +54,7 @@ class _NovoLivroState extends State<NovoLivro> {
     );
 
     await LivroService().inserir(novoLivro);
+    ToastUtils.show("Livro adicionado com sucesso!");
   }
 
   bool validarTextFields() {

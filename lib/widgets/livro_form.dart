@@ -36,16 +36,16 @@ class LivroForm extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 8, bottom: 8),
-          child: Text(
-            "Capa",
-            style: theme.textTheme.labelLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: theme.colorScheme.primary,
-            ),
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.only(left: 8, bottom: 8),
+        //   child: Text(
+        //     "Capa",
+        //     style: theme.textTheme.labelLarge?.copyWith(
+        //       fontWeight: FontWeight.bold,
+        //       color: theme.colorScheme.primary,
+        //     ),
+        //   ),
+        // ),
         Card(
           color: theme.colorScheme.surfaceContainerHigh,
           clipBehavior: Clip.antiAlias,

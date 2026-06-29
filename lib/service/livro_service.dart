@@ -19,9 +19,14 @@ class LivroService extends StoreService {
     await loadLivros(SituacaoLivro.fromId(livro.situacaoLivro!));
   }
 
-  Future<void> atualizar(Livro livro) async {
+  Future<void> atualizar(Livro livro, {SituacaoLivro? situacaoAntiga}) async {
     await dbLivro.update(livro.toMap());
-    await loadLivros(SituacaoLivro.fromId(livro.situacaoLivro!));
+
+    if (situacaoAntiga != null && situacaoAntiga.id != livro.situacaoLivro) {
+      await loadLivrosParaAlterarSituacao(situacaoAntiga, SituacaoLivro.fromId(livro.situacaoLivro!));
+    } else {
+      await loadLivros(SituacaoLivro.fromId(livro.situacaoLivro!));
+    }
   }
 
   Future<void> mudarSituacao(Livro livro, SituacaoLivro novaSituacao) async {

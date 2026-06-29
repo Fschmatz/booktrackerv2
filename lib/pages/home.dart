@@ -77,7 +77,7 @@ class Home extends StatelessWidget {
         children: [
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
             child: Row(
               children: _activeDestinations.asMap().entries.map((entry) {
                 final int index = entry.key;

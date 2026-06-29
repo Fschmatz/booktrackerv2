@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../enum/situacao_livro.dart';
+import '../util/toast_utils.dart';
 import '../widgets/livro_form.dart';
 
 class EditarLivro extends StatefulWidget {
@@ -61,7 +63,11 @@ class _EditarLivroState extends State<EditarLivro> {
       capa: widget.livro.capa,
     );
 
-    await LivroService().atualizar(livroEditado);
+    await LivroService().atualizar(
+      livroEditado,
+      situacaoAntiga: SituacaoLivro.fromId(widget.livro.situacaoLivro!),
+    );
+    ToastUtils.show("Livro atualizado com sucesso!");
   }
 
   bool validarTextFields() {

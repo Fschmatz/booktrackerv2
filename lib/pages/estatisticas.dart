@@ -1,13 +1,8 @@
-import 'package:booktrackerv2/class/livro_extension.dart';
-import 'package:booktrackerv2/enum/situacao_livro.dart';
 import 'package:booktrackerv2/service/livro_service.dart';
 import 'package:flutter/material.dart';
 
 import '../class/estatisticas_livro.dart';
 import '../widgets/estatistica_card.dart';
-import '../widgets/estatistica_autores_card.dart';
-import '../main.dart';
-import '../redux/selectors.dart';
 
 class Estatisticas extends StatefulWidget {
   const Estatisticas({Key? key}) : super(key: key);
@@ -51,8 +46,6 @@ class _EstatisticasState extends State<Estatisticas> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     Color accent = Theme.of(context).colorScheme.primary;
@@ -80,11 +73,11 @@ class _EstatisticasState extends State<Estatisticas> {
                   valorLidos: _paginasLidos,
                   accent: accent,
                 ),
-                EstatisticaAutoresCard(
-                  tituloCard: 'Geral',
-                  valor: _quantidadeAutores,
-                  accent: accent,
-                ),
+                // EstatisticaAutoresCard(
+                //   tituloCard: 'Geral',
+                //   valor: _quantidadeAutores,
+                //   accent: accent,
+                // ),
               ],
             ),
     );

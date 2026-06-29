@@ -4,6 +4,7 @@ import 'package:booktrackerv2/service/livro_service.dart';
 import 'package:booktrackerv2/widgets/capa_livro.dart';
 import 'package:flutter/material.dart';
 
+import '../util/toast_utils.dart';
 import 'modal_info_tile.dart';
 
 class ModalOpcoesLivro extends StatelessWidget {
@@ -32,6 +33,7 @@ class ModalOpcoesLivro extends StatelessWidget {
 
   void _deletar() async {
     await LivroService().deletar(livro);
+    ToastUtils.show("Livro removido com sucesso!");
   }
 
   void _showAlertDialogOkDelete(BuildContext context) {
