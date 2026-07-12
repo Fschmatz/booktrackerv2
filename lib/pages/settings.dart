@@ -105,7 +105,7 @@ class _ConfigsState extends State<Configs> {
                   padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
                   child: Text(
                     "Geral",
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.primary,
                         ),
@@ -150,7 +150,7 @@ class _ConfigsState extends State<Configs> {
                   padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
                   child: Text(
                     "Backup e Dados",
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.primary,
                         ),
@@ -238,7 +238,7 @@ class _ConfigsState extends State<Configs> {
                   padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
                   child: Text(
                     "Sobre",
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.primary,
                         ),

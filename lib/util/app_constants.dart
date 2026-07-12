@@ -4,7 +4,7 @@ class AppConstants {
   static const String lastBackupDateAppParameter = "lastBackupDate";
 
   // STRINGS
-  static const String versaoApp = "7.0.2";
+  static const String versaoApp = "7.0.3";
   static const String nomeApp = "BookTracker Fschmatz";
   static const String appNameHomePage = "BookTracker";
   static const String repositoryLink = "https://github.com/Fschmatz/booktrackerv2";
@@ -15,6 +15,7 @@ $versaoApp
 - Material Expressive
 - Flutter 3.44 
 - Alterações no Async Redux
+- Nova lógica de backup
 - Fixes
 ''';
 
