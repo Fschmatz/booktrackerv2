@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../class/estatisticas_livro.dart';
 import '../widgets/estatistica_card.dart';
+import '../widgets/estatistica_geral_card.dart';
 
 class Estatisticas extends StatefulWidget {
   const Estatisticas({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class _EstatisticasState extends State<Estatisticas> {
   int? _paginasParaLer = 0;
   int? _paginasLidos = 0;
   int? _quantidadeAutores = 0;
+  int? _livrosAdicionadosAnoAtual = 0;
 
   @override
   void initState() {
@@ -30,6 +32,7 @@ class _EstatisticasState extends State<Estatisticas> {
 
   Future<void> loadDadosParaEstatisticas() async {
     final mapStats = await LivroService().getEstatisticasLivro();
+
     if (mapStats != null) {
       final stats = EstatisticasLivro.fromMap(mapStats);
       _livrosLendo = stats.livrosLendo;
@@ -38,7 +41,9 @@ class _EstatisticasState extends State<Estatisticas> {
       _paginasLendo = stats.paginasLendo;
       _paginasParaLer = stats.paginasParaLer;
       _paginasLidos = stats.paginasLidos;
-      _quantidadeAutores = stats.quantidadeAutores;
+      _livrosAdicionadosAnoAtual = stats.livrosAdicionadosAnoAtual;
+      // DB CONTA O VALOR VAZIO, QUE ESTÁ CONFIGURADO PARA O LIVRO SEM AUTOR
+      _quantidadeAutores = (stats.quantidadeAutores == 0) ? 0 : (stats.quantidadeAutores - 1);
     }
 
     setState(() {
@@ -57,7 +62,6 @@ class _EstatisticasState extends State<Estatisticas> {
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : ListView(
-              padding: const EdgeInsets.only(top: 16, bottom: 24),
               children: [
                 EstatisticaCard(
                   tituloCard: 'Livros',
@@ -73,11 +77,27 @@ class _EstatisticasState extends State<Estatisticas> {
                   valorLidos: _paginasLidos,
                   accent: accent,
                 ),
-                // EstatisticaAutoresCard(
-                //   tituloCard: 'Geral',
-                //   valor: _quantidadeAutores,
-                //   accent: accent,
-                // ),
+                Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
+                        child: Text('Geral', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600, color: accent)),
+                      ),
+                      EstatisticaGeralCard(
+                        titulo: 'Autores',
+                        icon: Icons.person_outline_outlined,
+                        valor: _quantidadeAutores,
+                      ),
+                      EstatisticaGeralCard(
+                        titulo: 'Livros adicionados no ano atual',
+                        icon: Icons.calendar_today_outlined,
+                        valor: _livrosAdicionadosAnoAtual,
+                      ),
+                    ])),
+                const SizedBox(
+                  height: 50,
+                )
               ],
             ),
     );

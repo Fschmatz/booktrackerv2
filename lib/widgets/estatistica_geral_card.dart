@@ -1,0 +1,47 @@
+import 'package:flutter/material.dart';
+
+class EstatisticaGeralCard extends StatelessWidget {
+  final String titulo;
+  final IconData icon;
+  final int? valor;
+
+  const EstatisticaGeralCard({Key? key, required this.titulo, required this.icon, required this.valor}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      color: cs.surfaceContainerHighest,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Icon(icon, color: cs.onSurface),
+                const SizedBox(width: 16),
+                Text(
+                  titulo,
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        color: cs.onSurface,
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+              ],
+            ),
+            Text(
+              valor.toString(),
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    color: cs.onSurface,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

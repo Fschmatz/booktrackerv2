@@ -2,9 +2,20 @@ class AppConstants {
   // APP PARAMETERS
   static const String useHomeGridAppParameter = "useHomeGrid";
   static const String lastBackupDateAppParameter = "lastBackupDate";
+  static const String showResumePageCardAppParameter = "showResumePageCard";
+  static const String gridSizeAppParameter = "gridSize";
+
+  // VARIOS
+  static const Map<int, double> mapGrid = {
+    1: 0.70,
+    2: 0.68,
+    3: 0.66,
+    4: 0.64,
+    5: 0.62,
+  };
 
   // STRINGS
-  static const String versaoApp = "7.0.3";
+  static const String versaoApp = "7.1.0";
   static const String nomeApp = "BookTracker Fschmatz";
   static const String appNameHomePage = "BookTracker";
   static const String repositoryLink = "https://github.com/Fschmatz/booktrackerv2";
@@ -12,14 +23,19 @@ class AppConstants {
 
   static const String changelogUltimaVersao = '''
 $versaoApp
+- Card de resumo
+- Ajustes de interface
+- Fixes
+''';
+
+  static const String changelogsAntigos = '''
+7.0.3
 - Material Expressive
 - Flutter 3.44 
 - Alterações no Async Redux
 - Nova lógica de backup
 - Fixes
-''';
 
-  static const String changelogsAntigos = '''
 6.1.2
 - Opção de grid para a home 
 - Mudanças na UI 

@@ -29,7 +29,7 @@ class Changelog extends StatelessWidget {
                       Text(
                         "Versão Atual",
                         style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w600,
                               color: Theme.of(context).colorScheme.onPrimaryContainer,
                             ),
                       ),
@@ -47,7 +47,7 @@ class Changelog extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 8),
           Card(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
             child: Padding(
@@ -62,7 +62,7 @@ class Changelog extends StatelessWidget {
                       Text(
                         "Versões Anteriores",
                         style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w600,
                               color: Theme.of(context).colorScheme.onSurface,
                             ),
                       ),

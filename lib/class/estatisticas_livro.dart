@@ -6,6 +6,7 @@ class EstatisticasLivro {
   final int paginasParaLer;
   final int paginasLidos;
   final int quantidadeAutores;
+  final int livrosAdicionadosAnoAtual;
 
   EstatisticasLivro({
     required this.livrosLendo,
@@ -15,6 +16,7 @@ class EstatisticasLivro {
     required this.paginasParaLer,
     required this.paginasLidos,
     required this.quantidadeAutores,
+    required this.livrosAdicionadosAnoAtual,
   });
 
   factory EstatisticasLivro.fromMap(Map<String, dynamic> map) {
@@ -26,6 +28,7 @@ class EstatisticasLivro {
       paginasParaLer: map['paginasParaLer'] ?? 0,
       paginasLidos: map['paginasLidos'] ?? 0,
       quantidadeAutores: map['quantidadeAutores'] ?? 0,
+      livrosAdicionadosAnoAtual: map['livrosAdicionadosAnoAtual'] ?? 0,
     );
   }
 }

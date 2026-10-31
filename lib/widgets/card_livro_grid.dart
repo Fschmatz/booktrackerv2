@@ -16,7 +16,7 @@ class CardLivroGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final BorderRadius cardBorder = BorderRadius.circular(16);
+    final BorderRadius cardBorder = BorderRadius.circular(12);
 
     return Card(
       color: theme.colorScheme.surfaceContainer,

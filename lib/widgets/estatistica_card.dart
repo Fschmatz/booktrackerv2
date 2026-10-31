@@ -18,8 +18,6 @@ class EstatisticaCard extends StatelessWidget {
     required this.accent,
   }) : super(key: key);
 
-
-
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
@@ -32,7 +30,7 @@ class EstatisticaCard extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
-            child: Text(tituloCard, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: accent)),
+            child: Text(tituloCard, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600, color: accent)),
           ),
           Row(
             children: [
@@ -66,7 +64,7 @@ class EstatisticaCard extends StatelessWidget {
             clipBehavior: Clip.antiAlias,
             color: cs.primaryContainer,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -76,18 +74,18 @@ class EstatisticaCard extends StatelessWidget {
                       const SizedBox(width: 16),
                       Text(
                         'Total',
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
                               color: cs.onPrimaryContainer,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w600,
                             ),
                       ),
                     ],
                   ),
                   Text(
                     soma.toString(),
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           color: cs.onPrimaryContainer,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                         ),
                   ),
                 ],

@@ -71,6 +71,7 @@ class LivroDao {
 
   Future<Map<String, dynamic>?> getEstatisticasLivro() async {
     Database db = await instance.database;
+    final anoAtual = DateTime.now().year.toString();
     final result = await db.rawQuery('''
       SELECT 
         IFNULL(SUM(CASE WHEN $columnSituacaoLivro = 0 THEN 1 ELSE 0 END), 0) AS livrosLendo,
@@ -79,9 +80,10 @@ class LivroDao {
         IFNULL(SUM(CASE WHEN $columnSituacaoLivro = 0 THEN $columnNumPaginas ELSE 0 END), 0) AS paginasLendo,
         IFNULL(SUM(CASE WHEN $columnSituacaoLivro = 1 THEN $columnNumPaginas ELSE 0 END), 0) AS paginasParaLer,
         IFNULL(SUM(CASE WHEN $columnSituacaoLivro = 2 THEN $columnNumPaginas ELSE 0 END), 0) AS paginasLidos,
+        IFNULL(SUM(CASE WHEN $columnCriadoEm LIKE '%/' || ? THEN 1 ELSE 0 END), 0) AS livrosAdicionadosAnoAtual,
         COUNT(DISTINCT $columnAutor) AS quantidadeAutores
       FROM $table
-    ''');
+    ''', [anoAtual]);
     
     if (result.isNotEmpty) {
       return result.first;

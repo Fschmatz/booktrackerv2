@@ -93,19 +93,12 @@ class Home extends StatelessWidget {
                     showCheckmark: false,
                     avatar: IconTheme(
                       data: IconThemeData(
-                        color: isSelected ? colorscheme.onPrimaryContainer : colorscheme.onSurfaceVariant,
+                        color: isSelected ? colorscheme.onSecondaryContainer : colorscheme.onSurfaceVariant,
                         size: 18,
                       ),
                       child: Icon(isSelected ? dest.selectedIcon : dest.icon),
                     ),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-                    side: BorderSide.none,
-                    selectedColor: colorscheme.primaryContainer,
-                    backgroundColor: colorscheme.surfaceContainerHigh,
-                    labelStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: isSelected ? colorscheme.onPrimaryContainer : colorscheme.onSurfaceVariant,
-                    ),
+                    selectedColor: colorscheme.secondaryContainer,
                     onSelected: (bool selected) {
                       if (!isSelected) {
                         _executeOnDestinationSelected(context, dest);

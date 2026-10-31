@@ -24,7 +24,7 @@ class ModalOpcoesLivro extends StatelessWidget {
       isScrollControlled: true,
       useSafeArea: true,
       showDragHandle: true,
-      backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+      // backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
       builder: (BuildContext bottomSheetContext) {
         return ModalOpcoesLivro(livro: livro, isGrid: isGrid);
       },
@@ -84,7 +84,7 @@ class ModalOpcoesLivro extends StatelessWidget {
                         children: [
                           Text(
                             livro.nome,
-                            style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -108,7 +108,7 @@ class ModalOpcoesLivro extends StatelessWidget {
               if (isGrid || livro.criadoEm != null)
                 Card(
                   margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                  color: Theme.of(context).colorScheme.surfaceContainerHigh,
                   clipBehavior: Clip.antiAlias,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                   child: Padding(
@@ -126,7 +126,7 @@ class ModalOpcoesLivro extends StatelessWidget {
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 clipBehavior: Clip.antiAlias,
-                color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                color: Theme.of(context).colorScheme.surfaceContainerHigh,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 child: Column(
                   children: [
@@ -146,7 +146,7 @@ class ModalOpcoesLivro extends StatelessWidget {
                     Divider(),
                     ListTile(
                       leading: Icon(Icons.delete_outline_outlined),
-                      title: Text("Deletar"),
+                      title: Text("Excluir"),
                       onTap: () {
                         Navigator.of(context).pop();
                         _showAlertDialogOkDelete(context);

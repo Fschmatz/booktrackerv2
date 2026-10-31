@@ -19,7 +19,6 @@ class CardLivroList extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Card(
-      color: theme.colorScheme.surfaceContainer,
       margin: const EdgeInsetsGeometry.symmetric(horizontal: 16),
       child: InkWell(
         borderRadius: _cardBorder,
@@ -47,7 +46,7 @@ class CardLivroList extends StatelessWidget {
                   children: [
                     Text(
                       livro.nome,
-                      style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                      style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.left,

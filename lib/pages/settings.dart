@@ -2,14 +2,17 @@ import 'package:booktrackerv2/pages/app_info.dart';
 import 'package:booktrackerv2/pages/changelog.dart';
 import 'package:booktrackerv2/pages/lista_livro_imprimir.dart';
 import 'package:booktrackerv2/service/livro_service.dart';
-import 'package:booktrackerv2/util/dialog_select_theme.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 
-import '../../util/app_constants.dart';
-import '../../util/dialog_backup.dart';
-import '../../util/utils_string.dart';
-import '../../widgets/app_parameter_value.dart';
+import '../redux/build_context_extension.dart';
+import '../redux/selectors.dart';
+import '../util/app_constants.dart';
+import '../util/dialog_backup.dart';
+import '../util/dialog_select_grid_size.dart';
+import '../util/dialog_select_theme.dart';
+import '../util/utils_string.dart';
+import '../widgets/app_parameter_value.dart';
 import '../widgets/settings_switch.dart';
 
 class Configs extends StatefulWidget {
@@ -65,6 +68,8 @@ class _ConfigsState extends State<Configs> {
 
   @override
   Widget build(BuildContext context) {
+    final useGrid = context.select((state) => selectParameterValueByKeyAsBoolean(state, AppConstants.useHomeGridAppParameter, defaultValue: false));
+
     return Scaffold(
       appBar: AppBar(title: const Text("Configurações")),
       body: ListView(
@@ -81,7 +86,7 @@ class _ConfigsState extends State<Configs> {
                   Text(
                     AppConstants.nomeApp,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                           color: Theme.of(context).colorScheme.onPrimaryContainer,
                         ),
                   ),
@@ -106,7 +111,7 @@ class _ConfigsState extends State<Configs> {
                   child: Text(
                     "Geral",
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                           color: Theme.of(context).colorScheme.primary,
                         ),
                   ),
@@ -135,6 +140,38 @@ class _ConfigsState extends State<Configs> {
                         subtitle: 'Exibir os livros em grid na página inicial',
                         defaultValue: false,
                       ),
+                      const Divider(),
+                      ListTile(
+                        enabled: useGrid,
+                        onTap: useGrid
+                            ? () => showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return const DialogSelectGridSize(
+                                      parameterKey: AppConstants.gridSizeAppParameter,
+                                      defaultValue: 3,
+                                    );
+                                  },
+                                )
+                            : null,
+                        title: const Text("Livros por linha no grid"),
+                        subtitle: const Row(
+                          children: [
+                            AppParameterValue(
+                              parameterKey: AppConstants.gridSizeAppParameter,
+                              defaultValue: '3',
+                            ),
+                            Text(" livro(s)"),
+                          ],
+                        ),
+                      ),
+                      const Divider(),
+                      const SettingsSwitch(
+                        title: "Exibir card de resumo",
+                        parameterKey: AppConstants.showResumePageCardAppParameter,
+                        subtitle: 'Exibir um card de resumo na página inicial',
+                        defaultValue: false,
+                      ),
                     ],
                   ),
                 ),
@@ -151,7 +188,7 @@ class _ConfigsState extends State<Configs> {
                   child: Text(
                     "Backup e Dados",
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                           color: Theme.of(context).colorScheme.primary,
                         ),
                   ),
@@ -239,7 +276,7 @@ class _ConfigsState extends State<Configs> {
                   child: Text(
                     "Sobre",
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                           color: Theme.of(context).colorScheme.primary,
                         ),
                   ),

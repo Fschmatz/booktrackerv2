@@ -37,3 +37,14 @@ bool selectParameterValueByKeyAsBoolean(AppState state, String key, {bool defaul
 
   return value == "true";
 }
+
+int selectParameterValueByKeyAsInt(AppState state, String key, {int defaultValue = 2}) {
+  String? value = selectParameterValueByKey(state, key);
+
+  if (value == null) {
+    return defaultValue;
+  }
+
+  return int.tryParse(value) ?? defaultValue;
+}
+

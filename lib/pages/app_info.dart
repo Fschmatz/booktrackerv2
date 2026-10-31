@@ -60,7 +60,7 @@ class AppInfo extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
                   child: Text(
                     "Código Fonte",
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: accent),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600, color: accent),
                   ),
                 ),
                 Card(
@@ -85,7 +85,7 @@ class AppInfo extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
                   child: Text(
                     "Quote",
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: accent),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600, color: accent),
                   ),
                 ),
                 Card(

@@ -32,14 +32,14 @@ class EstatisticaMiniCard extends StatelessWidget {
               Text(
                 (value ?? 0).toString(),
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                       color: fg,
                     ),
               ),
               const SizedBox(height: 2),
               Text(
                 label,
-                style: Theme.of(context).textTheme.labelMedium?.copyWith(color: fg.withValues(alpha: 0.75)),
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(color: fg),
               ),
             ],
           ),
