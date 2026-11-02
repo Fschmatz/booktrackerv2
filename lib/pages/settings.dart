@@ -161,7 +161,7 @@ class _ConfigsState extends State<Configs> {
                               parameterKey: AppConstants.gridSizeAppParameter,
                               defaultValue: '3',
                             ),
-                            Text(" livro(s)"),
+                            Text(" livros"),
                           ],
                         ),
                       ),

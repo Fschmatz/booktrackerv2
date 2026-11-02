@@ -24,7 +24,7 @@ class DialogSelectGridSize extends StatelessWidget {
     final int currentVal = int.tryParse(currentValueStr ?? '') ?? defaultValue;
     final Color appAccent = Theme.of(context).colorScheme.primary;
 
-    final sortedKeys = AppConstants.mapGrid.keys.toList()..sort();
+    final sortedKeys = AppConstants.mapGridSizeOptions.keys.toList()..sort();
 
     return AlertDialog(
       title: const Text('Livros por linha no grid'),
@@ -52,7 +52,7 @@ class DialogSelectGridSize extends StatelessWidget {
               return RadioListTile<int>(
                 value: val,
                 activeColor: appAccent,
-                title: Text('$val ${val == 1 ? 'livro' : 'livros'}'),
+                title: Text('$val livros'),
               );
             }).toList(),
           ),

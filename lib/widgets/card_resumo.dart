@@ -4,8 +4,9 @@ import '../class/livro.dart';
 
 class CardResumo extends StatelessWidget {
   final List<Livro> livros;
+  final bool useGrid;
 
-  CardResumo({Key? key, required this.livros}) : super(key: key);
+  CardResumo({Key? key, required this.livros, required this.useGrid}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class CardResumo extends StatelessWidget {
     final int totalLivros = livros.length;
 
     return Card(
-      margin: const EdgeInsetsGeometry.fromLTRB(16, 0, 16, 12),
+      margin: EdgeInsetsGeometry.fromLTRB(16, 0, 16, (useGrid ? 10 : 14)),
       color: backgroundColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(

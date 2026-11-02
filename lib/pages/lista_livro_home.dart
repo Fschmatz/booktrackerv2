@@ -26,7 +26,7 @@ class _ListaLivroHomeState extends State<ListaLivroHome> {
     final showCardResumo =
         context.select((state) => selectParameterValueByKeyAsBoolean(state, AppConstants.showResumePageCardAppParameter, defaultValue: false));
     final gridSize = context.select((state) => selectParameterValueByKeyAsInt(state, AppConstants.gridSizeAppParameter, defaultValue: 3));
-    final double gridAspectRatio = AppConstants.mapGrid[gridSize] ?? 0.66;
+    final double gridAspectRatio = AppConstants.mapGridSizeOptions[gridSize] ?? 0.66;
 
     return ListView(
       shrinkWrap: true,
@@ -35,6 +35,7 @@ class _ListaLivroHomeState extends State<ListaLivroHome> {
         if (showCardResumo) ...[
           CardResumo(
             livros: livros,
+            useGrid: useGrid,
           )
         ],
         useGrid

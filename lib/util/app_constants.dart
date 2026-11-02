@@ -6,16 +6,16 @@ class AppConstants {
   static const String gridSizeAppParameter = "gridSize";
 
   // VARIOS
-  static const Map<int, double> mapGrid = {
-    1: 0.70,
-    2: 0.68,
+  static const Map<int, double> mapGridSizeOptions = {
+    // 1: 0.70,
+    2: 0.685,
     3: 0.66,
-    4: 0.64,
-    5: 0.62,
+    4: 0.645,
+    // 5: 0.62,
   };
 
   // STRINGS
-  static const String versaoApp = "7.1.0";
+  static const String versaoApp = "7.1.1";
   static const String nomeApp = "BookTracker Fschmatz";
   static const String appNameHomePage = "BookTracker";
   static const String repositoryLink = "https://github.com/Fschmatz/booktrackerv2";
