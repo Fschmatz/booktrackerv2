@@ -9,7 +9,6 @@ class AppConstants {
   static const double cardGridBorderRadius = 16;
   static const double cardListBorderRadius = 16;
   static const double cardResumoBorderRadius = 28;
-  static const double cardResumoInnerBorderRadius = 28;
   static const Map<int, double> mapGridSizeOptions = {
     // 1: 0.70,
     2: 0.685,
