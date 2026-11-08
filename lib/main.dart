@@ -3,6 +3,7 @@ import 'package:booktrackerv2/redux/actions.dart';
 import 'package:booktrackerv2/redux/app_state.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:jiffy/jiffy.dart';
 
 import 'app_theme.dart';
 import 'enum/situacao_livro.dart';
@@ -13,6 +14,7 @@ final Store<AppState> store = Store<AppState>(
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Jiffy.setLocale('pt_br');
   PaintingBinding.instance.imageCache.maximumSizeBytes = 1024 * 1024 * 50;
 
   store.dispatch(LoadAppParametersAction());

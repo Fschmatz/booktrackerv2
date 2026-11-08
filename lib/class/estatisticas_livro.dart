@@ -7,6 +7,11 @@ class EstatisticasLivro {
   final int paginasLidos;
   final int quantidadeAutores;
   final int livrosAdicionadosAnoAtual;
+  final int mediaPaginas;
+  final String? menorLivroNome;
+  final int? menorLivroPaginas;
+  final String? maiorLivroNome;
+  final int? maiorLivroPaginas;
 
   EstatisticasLivro({
     required this.livrosLendo,
@@ -17,6 +22,11 @@ class EstatisticasLivro {
     required this.paginasLidos,
     required this.quantidadeAutores,
     required this.livrosAdicionadosAnoAtual,
+    this.mediaPaginas = 0,
+    this.menorLivroNome,
+    this.menorLivroPaginas,
+    this.maiorLivroNome,
+    this.maiorLivroPaginas,
   });
 
   factory EstatisticasLivro.fromMap(Map<String, dynamic> map) {
@@ -29,6 +39,11 @@ class EstatisticasLivro {
       paginasLidos: map['paginasLidos'] ?? 0,
       quantidadeAutores: map['quantidadeAutores'] ?? 0,
       livrosAdicionadosAnoAtual: map['livrosAdicionadosAnoAtual'] ?? 0,
+      mediaPaginas: (map['mediaPaginas'] is num) ? (map['mediaPaginas'] as num).round() : 0,
+      menorLivroNome: map['menorLivroNome'] as String?,
+      menorLivroPaginas: map['menorLivroPaginas'] as int?,
+      maiorLivroNome: map['maiorLivroNome'] as String?,
+      maiorLivroPaginas: map['maiorLivroPaginas'] as int?,
     );
   }
 }

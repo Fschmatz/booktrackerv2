@@ -3,13 +3,19 @@ import 'package:flutter/material.dart';
 class EstatisticaGeralCard extends StatelessWidget {
   final String titulo;
   final IconData icon;
-  final int? valor;
+  final dynamic valor;
 
-  const EstatisticaGeralCard({Key? key, required this.titulo, required this.icon, required this.valor}) : super(key: key);
+  const EstatisticaGeralCard({
+    Key? key,
+    required this.titulo,
+    required this.icon,
+    required this.valor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    final valorStr = valor?.toString() ?? '-';
 
     return Card(
       clipBehavior: Clip.antiAlias,
@@ -32,12 +38,18 @@ class EstatisticaGeralCard extends StatelessWidget {
                 ),
               ],
             ),
-            Text(
-              valor.toString(),
-              style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    color: cs.onSurface,
-                    fontWeight: FontWeight.w600,
-                  ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Text(
+                valorStr,
+                textAlign: TextAlign.end,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: cs.onSurface,
+                      fontWeight: FontWeight.w600,
+                    ),
+              ),
             ),
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:booktrackerv2/class/livro.dart';
+import 'package:booktrackerv2/util/app_constants.dart';
 import 'package:booktrackerv2/widgets/capa_livro.dart';
 import 'package:booktrackerv2/widgets/modal_opcoes_livro.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class CardLivroGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final BorderRadius cardBorder = BorderRadius.circular(12);
+    final BorderRadius cardBorder = BorderRadius.circular(AppConstants.cardGridBorderRadius);
 
     return Card(
       color: theme.colorScheme.surfaceContainer,

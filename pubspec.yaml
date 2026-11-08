@@ -2,7 +2,7 @@ name: booktrackerv2
 description: Tracker para livros
 publish_to: 'none'
 
-version: 7.1.1
+version: 7.1.2
 
 environment:
   sdk: '>=3.2.6 <4.0.0'

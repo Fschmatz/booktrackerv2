@@ -76,7 +76,7 @@ class _ConfigsState extends State<Configs> {
         padding: const EdgeInsets.only(bottom: 24),
         children: <Widget>[
           Card(
-            margin: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+            margin: const EdgeInsets.all(16),
             color: Theme.of(context).colorScheme.primaryContainer,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
             child: Padding(

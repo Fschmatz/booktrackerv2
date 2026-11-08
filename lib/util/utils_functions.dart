@@ -24,4 +24,30 @@ class UtilsFunctions {
     String dateTimeStr = Jiffy.now().format(pattern: 'dd_MM_yyyy_HHmmss');
     return '${name}_$dateTimeStr.json';
   }
+
+  static DateTime? parseData(String? dateStr) {
+    if (dateStr == null || dateStr.trim().isEmpty) return null;
+    try {
+      return Jiffy.parse(dateStr.trim(), pattern: 'dd/MM/yyyy').dateTime;
+    } catch (_) {
+      try {
+        return DateTime.tryParse(dateStr);
+      } catch (_) {
+        return null;
+      }
+    }
+  }
+
+  static String formatTimeAgo(String? dateStr) {
+    if (dateStr == null || dateStr.trim().isEmpty) return '';
+    try {
+      return Jiffy.parse(dateStr.trim(), pattern: 'dd/MM/yyyy').fromNow();
+    } catch (_) {
+      try {
+        return Jiffy.parse(dateStr).fromNow();
+      } catch (_) {
+        return dateStr;
+      }
+    }
+  }
 }

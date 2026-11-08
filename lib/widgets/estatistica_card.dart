@@ -30,7 +30,7 @@ class EstatisticaCard extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
-            child: Text(tituloCard, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600, color: accent)),
+            child: Text(tituloCard, style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w600, color: accent)),
           ),
           Row(
             children: [
@@ -61,6 +61,9 @@ class EstatisticaCard extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(28),
+            ),
             clipBehavior: Clip.antiAlias,
             color: cs.primaryContainer,
             child: Padding(
@@ -76,7 +79,7 @@ class EstatisticaCard extends StatelessWidget {
                         'Total',
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
                               color: cs.onPrimaryContainer,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.bold,
                             ),
                       ),
                     ],
@@ -85,7 +88,7 @@ class EstatisticaCard extends StatelessWidget {
                     soma.toString(),
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           color: cs.onPrimaryContainer,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.bold,
                         ),
                   ),
                 ],

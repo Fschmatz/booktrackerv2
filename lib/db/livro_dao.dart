@@ -81,7 +81,12 @@ class LivroDao {
         IFNULL(SUM(CASE WHEN $columnSituacaoLivro = 1 THEN $columnNumPaginas ELSE 0 END), 0) AS paginasParaLer,
         IFNULL(SUM(CASE WHEN $columnSituacaoLivro = 2 THEN $columnNumPaginas ELSE 0 END), 0) AS paginasLidos,
         IFNULL(SUM(CASE WHEN $columnCriadoEm LIKE '%/' || ? THEN 1 ELSE 0 END), 0) AS livrosAdicionadosAnoAtual,
-        COUNT(DISTINCT $columnAutor) AS quantidadeAutores
+        COUNT(DISTINCT $columnAutor) AS quantidadeAutores,
+        ROUND(AVG(CASE WHEN $columnNumPaginas > 0 THEN $columnNumPaginas ELSE NULL END)) AS mediaPaginas,
+        (SELECT $columnNome FROM $table WHERE $columnNumPaginas > 0 ORDER BY $columnNumPaginas ASC, $columnIdLivro ASC LIMIT 1) AS menorLivroNome,
+        (SELECT $columnNumPaginas FROM $table WHERE $columnNumPaginas > 0 ORDER BY $columnNumPaginas ASC, $columnIdLivro ASC LIMIT 1) AS menorLivroPaginas,
+        (SELECT $columnNome FROM $table WHERE $columnNumPaginas > 0 ORDER BY $columnNumPaginas DESC, $columnIdLivro ASC LIMIT 1) AS maiorLivroNome,
+        (SELECT $columnNumPaginas FROM $table WHERE $columnNumPaginas > 0 ORDER BY $columnNumPaginas DESC, $columnIdLivro ASC LIMIT 1) AS maiorLivroPaginas
       FROM $table
     ''', [anoAtual]);
     

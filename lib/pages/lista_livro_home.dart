@@ -36,6 +36,7 @@ class _ListaLivroHomeState extends State<ListaLivroHome> {
           CardResumo(
             livros: livros,
             useGrid: useGrid,
+            situacaoLivro: widget.situacaoLivro,
           )
         ],
         useGrid

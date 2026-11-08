@@ -22,6 +22,9 @@ class _EstatisticasState extends State<Estatisticas> {
   int? _paginasLidos = 0;
   int? _quantidadeAutores = 0;
   int? _livrosAdicionadosAnoAtual = 0;
+  int _mediaPaginas = 0;
+  String? _menorLivroNome;
+  String? _maiorLivroNome;
 
   @override
   void initState() {
@@ -42,6 +45,9 @@ class _EstatisticasState extends State<Estatisticas> {
       _paginasParaLer = stats.paginasParaLer;
       _paginasLidos = stats.paginasLidos;
       _livrosAdicionadosAnoAtual = stats.livrosAdicionadosAnoAtual;
+      _mediaPaginas = stats.mediaPaginas;
+      _menorLivroNome = stats.menorLivroNome;
+      _maiorLivroNome = stats.maiorLivroNome;
       // DB CONTA O VALOR VAZIO, QUE ESTÁ CONFIGURADO PARA O LIVRO SEM AUTOR
       _quantidadeAutores = (stats.quantidadeAutores == 0) ? 0 : (stats.quantidadeAutores - 1);
     }
@@ -82,7 +88,7 @@ class _EstatisticasState extends State<Estatisticas> {
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
-                        child: Text('Geral', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600, color: accent)),
+                        child: Text('Geral', style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w600, color: accent)),
                       ),
                       EstatisticaGeralCard(
                         titulo: 'Autores',
@@ -94,6 +100,23 @@ class _EstatisticasState extends State<Estatisticas> {
                         icon: Icons.calendar_today_outlined,
                         valor: _livrosAdicionadosAnoAtual,
                       ),
+                      EstatisticaGeralCard(
+                        titulo: 'Média de páginas',
+                        icon: Icons.analytics_outlined,
+                        valor: _mediaPaginas,
+                      ),
+                      if (_menorLivroNome != null)
+                        EstatisticaGeralCard(
+                          titulo: 'Menor livro',
+                          icon: Icons.arrow_downward_rounded,
+                          valor: _menorLivroNome,
+                        ),
+                      if (_maiorLivroNome != null)
+                        EstatisticaGeralCard(
+                          titulo: 'Maior livro',
+                          icon: Icons.arrow_upward_rounded,
+                          valor: _maiorLivroNome,
+                        ),
                     ])),
                 const SizedBox(
                   height: 50,

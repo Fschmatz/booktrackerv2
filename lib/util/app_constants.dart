@@ -6,16 +6,20 @@ class AppConstants {
   static const String gridSizeAppParameter = "gridSize";
 
   // VARIOS
+  static const double cardGridBorderRadius = 16;
+  static const double cardListBorderRadius = 16;
+  static const double cardResumoBorderRadius = 28;
+  static const double cardResumoInnerBorderRadius = 28;
   static const Map<int, double> mapGridSizeOptions = {
     // 1: 0.70,
     2: 0.685,
     3: 0.66,
     4: 0.645,
-    // 5: 0.62,
+    5: 0.625,
   };
 
   // STRINGS
-  static const String versaoApp = "7.1.1";
+  static const String versaoApp = "7.1.2";
   static const String nomeApp = "BookTracker Fschmatz";
   static const String appNameHomePage = "BookTracker";
   static const String repositoryLink = "https://github.com/Fschmatz/booktrackerv2";

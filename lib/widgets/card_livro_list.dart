@@ -1,3 +1,4 @@
+import 'package:booktrackerv2/util/app_constants.dart';
 import 'package:flutter/material.dart';
 
 import '../class/livro.dart';
@@ -9,8 +10,9 @@ class CardLivroList extends StatelessWidget {
 
   CardLivroList({Key? key, required this.livro}) : super(key: key);
 
-  final BorderRadius _capaBorder = const BorderRadius.only(topLeft: Radius.circular(16), bottomLeft: Radius.circular(16));
-  final BorderRadius _cardBorder = BorderRadius.circular(16);
+  final BorderRadius _capaBorder = const BorderRadius.only(
+      topLeft: Radius.circular(AppConstants.cardListBorderRadius), bottomLeft: Radius.circular(AppConstants.cardListBorderRadius));
+  final BorderRadius _cardBorder = BorderRadius.circular(AppConstants.cardListBorderRadius);
   final double _capaHeight = 135;
   final double _capaWidth = 95;
 
@@ -20,6 +22,9 @@ class CardLivroList extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsetsGeometry.symmetric(horizontal: 16),
+      shape: RoundedRectangleBorder(
+        borderRadius: _cardBorder,
+      ),
       child: InkWell(
         borderRadius: _cardBorder,
         onTap: () => ModalOpcoesLivro.show(context, livro, isGrid: false),
