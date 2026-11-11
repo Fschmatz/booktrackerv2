@@ -43,14 +43,16 @@ class _NovoLivroState extends State<NovoLivro> {
   }
 
   void _inserir() async {
+    final String dataAtual = UtilsFunctions.getDataAtualAsString();
     Livro novoLivro = Livro(
       nome: _controllerNomeLivro.text,
       numPaginas: _controllerPaginas.text.isEmpty ? 0 : int.parse(_controllerPaginas.text),
       autor: _controllerAutor.text,
       situacaoLivro: _situacaoLivroSelecionado,
       capa: _capa,
-      criadoEm: UtilsFunctions.getDataAtualAsString(),
-      finalizadoEm: _situacaoLivroSelecionado == SituacaoLivro.LIDO.id ? UtilsFunctions.getDataAtualAsString() : "",
+      criadoEm: dataAtual,
+      lendoEm: _situacaoLivroSelecionado == SituacaoLivro.LENDO.id ? dataAtual : "",
+      finalizadoEm: _situacaoLivroSelecionado == SituacaoLivro.LIDO.id ? dataAtual : "",
     );
 
     await LivroService().inserir(novoLivro);

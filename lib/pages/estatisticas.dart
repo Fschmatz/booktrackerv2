@@ -2,8 +2,8 @@ import 'package:booktrackerv2/service/livro_service.dart';
 import 'package:flutter/material.dart';
 
 import '../class/estatisticas_livro.dart';
-import '../widgets/estatistica_card.dart';
 import '../widgets/estatistica_geral_card.dart';
+import '../widgets/estatistica_livros_paginas_card.dart';
 
 class Estatisticas extends StatefulWidget {
   const Estatisticas({Key? key}) : super(key: key);
@@ -63,24 +63,19 @@ class _EstatisticasState extends State<Estatisticas> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Estatísticas'),
+        title: const Text('Estatísticas do Ano Atual'),       
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : ListView(
               children: [
-                EstatisticaCard(
-                  tituloCard: 'Livros',
-                  valorLendo: _livrosLendo,
-                  valorParaLer: _livrosParaLer,
-                  valorLidos: _livrosLidos,
-                  accent: accent,
-                ),
-                EstatisticaCard(
-                  tituloCard: 'Páginas',
-                  valorLendo: _paginasLendo,
-                  valorParaLer: _paginasParaLer,
-                  valorLidos: _paginasLidos,
+                EstatisticaLivrosPaginasCard(
+                  livrosLendo: _livrosLendo ?? 0,
+                  livrosParaLer: _livrosParaLer ?? 0,
+                  livrosLidos: _livrosLidos ?? 0,
+                  paginasLendo: _paginasLendo ?? 0,
+                  paginasParaLer: _paginasParaLer ?? 0,
+                  paginasLidos: _paginasLidos ?? 0,
                   accent: accent,
                 ),
                 Padding(

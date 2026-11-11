@@ -11,6 +11,7 @@ class Livro {
   int? situacaoLivro;
   Uint8List? capa;
   String? criadoEm;
+  String? lendoEm;
   String? finalizadoEm;
 
   Livro({
@@ -21,6 +22,7 @@ class Livro {
     this.situacaoLivro,
     this.capa,
     this.criadoEm,
+    this.lendoEm,
     this.finalizadoEm,
   });
 
@@ -33,6 +35,7 @@ class Livro {
       situacaoLivro: map[LivroDao.columnSituacaoLivro] as int?,
       capa: map[LivroDao.columnCapa] as Uint8List?,
       criadoEm: map[LivroDao.columnCriadoEm] as String?,
+      lendoEm: map[LivroDao.columnLendoEm] as String?,
       finalizadoEm: map[LivroDao.columnFinalizadoEm] as String?,
     );
   }
@@ -46,6 +49,7 @@ class Livro {
       LivroDao.columnSituacaoLivro: situacaoLivro,
       LivroDao.columnCapa: capa,
       LivroDao.columnCriadoEm: criadoEm,
+      LivroDao.columnLendoEm: lendoEm,
       LivroDao.columnFinalizadoEm: finalizadoEm,
     };
   }
@@ -58,6 +62,7 @@ class Livro {
     int? situacaoLivro,
     Uint8List? capa,
     String? criadoEm,
+    String? lendoEm,
     String? finalizadoEm,
   }) {
     return Livro(
@@ -68,6 +73,7 @@ class Livro {
       situacaoLivro: situacaoLivro ?? this.situacaoLivro,
       capa: capa ?? this.capa,
       criadoEm: criadoEm ?? this.criadoEm,
+      lendoEm: lendoEm ?? this.lendoEm,
       finalizadoEm: finalizadoEm ?? this.finalizadoEm,
     );
   }

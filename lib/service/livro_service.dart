@@ -1,5 +1,6 @@
 import 'package:booktrackerv2/service/store_service.dart';
 
+import '../class/historico_ano.dart';
 import '../class/livro.dart';
 import '../db/livro_dao.dart';
 import '../enum/situacao_livro.dart';
@@ -30,9 +31,11 @@ class LivroService extends StoreService {
   }
 
   Future<void> mudarSituacao(Livro livro, SituacaoLivro novaSituacao) async {
+    final String dataAtual = UtilsFunctions.getDataAtualAsString();
     Livro livroAtualizado = livro.copyWith(
       situacaoLivro: novaSituacao.id,
-      finalizadoEm: novaSituacao == SituacaoLivro.LIDO ? UtilsFunctions.getDataAtualAsString() : "",
+      finalizadoEm: novaSituacao == SituacaoLivro.LIDO ? dataAtual : "",
+      lendoEm: novaSituacao == SituacaoLivro.LENDO ? dataAtual : livro.lendoEm,
     );
 
     await dbLivro.update(livroAtualizado.toMap());
@@ -63,5 +66,23 @@ class LivroService extends StoreService {
   Future<void> deletarLivrosLidos() async {
     await dbLivro.deleteTodosLidos();
     await loadLivros(SituacaoLivro.LIDO);
+  }
+
+  Future<List<HistoricoAno>> getHistoricoAnos() async {
+    final list = await dbLivro.queryHistoricoAnos();
+    return list.map((map) => HistoricoAno.fromMap(map)).toList();
+  }
+
+  Future<List<Livro>> queryLivrosLidosByAno(String ano) async {
+    final list = await dbLivro.queryLivrosLidosByAno(ano);
+    return list.isNotEmpty ? list.map((map) => Livro.fromMap(map)).toList() : [];
+  }
+
+  Future<int> limparCapasAnosAnteriores() async {
+    return await dbLivro.limparCapasAnosAnteriores();
+  }
+
+  Future<int?> contarCapasAnosAnteriores() async {
+    return await dbLivro.contarCapasAnosAnteriores();
   }
 }

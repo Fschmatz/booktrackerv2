@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../enum/situacao_livro.dart';
 import '../util/toast_utils.dart';
+import '../util/utils_functions.dart';
 import '../widgets/livro_form.dart';
 
 class EditarLivro extends StatefulWidget {
@@ -55,12 +56,32 @@ class _EditarLivroState extends State<EditarLivro> {
   }
 
   void _atualizarLivro() async {
+    final String dataAtual = UtilsFunctions.getDataAtualAsString();
+    final bool mudouParaLido = _situacaoLivroSelecionado == SituacaoLivro.LIDO.id && widget.livro.situacaoLivro != SituacaoLivro.LIDO.id;
+    final bool mudouParaLendo = _situacaoLivroSelecionado == SituacaoLivro.LENDO.id && widget.livro.situacaoLivro != SituacaoLivro.LENDO.id;
+
+    String? novoFinalizadoEm = widget.livro.finalizadoEm;
+    if (mudouParaLido) {
+      novoFinalizadoEm = dataAtual;
+    } else if (_situacaoLivroSelecionado == SituacaoLivro.LIDO.id && (novoFinalizadoEm == null || novoFinalizadoEm.isEmpty)) {
+      novoFinalizadoEm = dataAtual;
+    } else if (_situacaoLivroSelecionado != SituacaoLivro.LIDO.id) {
+      novoFinalizadoEm = "";
+    }
+
+    String? novoLendoEm = widget.livro.lendoEm;
+    if (mudouParaLendo) {
+      novoLendoEm = dataAtual;
+    }
+
     Livro livroEditado = widget.livro.copyWith(
       nome: _controllerNomeLivro.text,
       numPaginas: int.tryParse(_controllerPaginas.text) ?? 0,
       autor: _controllerAutor.text,
       situacaoLivro: _situacaoLivroSelecionado,
       capa: widget.livro.capa,
+      finalizadoEm: novoFinalizadoEm,
+      lendoEm: novoLendoEm,
     );
 
     await LivroService().atualizar(

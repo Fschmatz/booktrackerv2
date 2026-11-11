@@ -9,6 +9,7 @@ import '../main.dart';
 import '../redux/actions.dart';
 import '../redux/build_context_extension.dart';
 import '../redux/selectors.dart';
+import 'historico.dart';
 import 'novo_livro.dart';
 import 'settings.dart';
 
@@ -35,41 +36,82 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         title: Text(AppConstants.appNameHomePage),
         actions: [
-          IconButton(
-            tooltip: "Adicionar Livro",
-            icon: const Icon(Icons.add_outlined),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => NovoLivro(),
-                ),
-              );
+          PopupMenuButton<String>(
+            icon: const Icon(Icons.more_vert_outlined),
+            tooltip: "Mais opções",
+            onSelected: (value) {
+              if (value == 'adicionar') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => NovoLivro(),
+                  ),
+                );
+              } else if (value == 'historico') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => const Historico(),
+                  ),
+                );
+              } else if (value == 'estatisticas') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => const Estatisticas(),
+                  ),
+                );
+              } else if (value == 'configuracoes') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => Configs(),
+                  ),
+                );
+              }
             },
-          ),
-          IconButton(
-            tooltip: "Estatísticas",
-            icon: const Icon(Icons.leaderboard_outlined),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => Estatisticas(),
+            itemBuilder: (BuildContext context) => [
+              const PopupMenuItem<String>(
+                value: 'adicionar',
+                child: Row(
+                  children: [
+                    Icon(Icons.add_outlined),
+                    SizedBox(width: 12),
+                    Text('Adicionar Livro'),
+                  ],
                 ),
-              );
-            },
-          ),
-          IconButton(
-            tooltip: "Configurações",
-            icon: const Icon(Icons.settings_outlined),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => Configs(),
+              ),
+              const PopupMenuItem<String>(
+                value: 'historico',
+                child: Row(
+                  children: [
+                    Icon(Icons.history_outlined),
+                    SizedBox(width: 12),
+                    Text('Histórico'),
+                  ],
                 ),
-              );
-            },
+              ),
+              const PopupMenuItem<String>(
+                value: 'estatisticas',
+                child: Row(
+                  children: [
+                    Icon(Icons.leaderboard_outlined),
+                    SizedBox(width: 12),
+                    Text('Estatísticas'),
+                  ],
+                ),
+              ),
+              const PopupMenuItem<String>(
+                value: 'configuracoes',
+                child: Row(
+                  children: [
+                    Icon(Icons.settings_outlined),
+                    SizedBox(width: 12),
+                    Text('Configurações'),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),

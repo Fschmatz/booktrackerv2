@@ -1,11 +1,11 @@
 name: booktrackerv2
 description: Tracker para livros
-publish_to: 'none'
+publish_to: "none"
 
-version: 7.1.2
+version: 7.1.4
 
 environment:
-  sdk: '>=3.2.6 <4.0.0'
+  sdk: ">=3.2.6 <4.0.0"
 
 dependencies:
   flutter:

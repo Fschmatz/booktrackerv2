@@ -1,6 +1,5 @@
 import 'package:booktrackerv2/pages/app_info.dart';
 import 'package:booktrackerv2/pages/changelog.dart';
-import 'package:booktrackerv2/pages/lista_livro_imprimir.dart';
 import 'package:booktrackerv2/service/livro_service.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
@@ -8,12 +7,14 @@ import 'package:flutter/material.dart';
 import '../redux/build_context_extension.dart';
 import '../redux/selectors.dart';
 import '../util/app_constants.dart';
+import '../util/backup_utils.dart';
 import '../util/dialog_backup.dart';
 import '../util/dialog_select_grid_size.dart';
 import '../util/dialog_select_theme.dart';
 import '../util/utils_string.dart';
 import '../widgets/app_parameter_value.dart';
 import '../widgets/settings_switch.dart';
+import 'lista_livro_imprimir.dart';
 
 class Configs extends StatefulWidget {
   Configs({Key? key}) : super(key: key);
@@ -23,8 +24,52 @@ class Configs extends StatefulWidget {
 }
 
 class _ConfigsState extends State<Configs> {
+  bool _restaurandoBackup = false;
+
   void _deletarTodosLidos() async {
     await LivroService().deletarLivrosLidos();
+  }
+
+  void _fazerBackup() async {
+    final bool? confirmar = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return const DialogBackup(
+          isCreateBackup: true,
+        );
+      },
+    );
+
+    if (confirmar == true) {
+      await BackupUtils().backupData();
+    }
+  }
+
+  void _restaurarBackup() async {
+    final bool? confirmar = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return const DialogBackup(
+          isCreateBackup: false,
+        );
+      },
+    );
+
+    if (confirmar == true) {
+      setState(() {
+        _restaurandoBackup = true;
+      });
+
+      try {
+        await BackupUtils().restoreBackupData();
+      } finally {
+        if (mounted) {
+          setState(() {
+            _restaurandoBackup = false;
+          });
+        }
+      }
+    }
   }
 
   String getThemeStringFormatted() {
@@ -69,11 +114,13 @@ class _ConfigsState extends State<Configs> {
   @override
   Widget build(BuildContext context) {
     final useGrid = context.select((state) => selectParameterValueByKeyAsBoolean(state, AppConstants.useHomeGridAppParameter, defaultValue: false));
+    final showResumeCard =
+        context.select((state) => selectParameterValueByKeyAsBoolean(state, AppConstants.showResumePageCardAppParameter, defaultValue: false));
 
     return Scaffold(
       appBar: AppBar(title: const Text("Configurações")),
       body: ListView(
-        padding: const EdgeInsets.only(bottom: 24),
+        padding: const EdgeInsets.only(bottom: 75),
         children: <Widget>[
           Card(
             margin: const EdgeInsets.all(16),
@@ -172,6 +219,14 @@ class _ConfigsState extends State<Configs> {
                         subtitle: 'Exibir um card de resumo na página inicial',
                         defaultValue: false,
                       ),
+                      const Divider(),
+                      SettingsSwitch(
+                        enabled: showResumeCard,
+                        title: "Card de resumo sempre expandido",
+                        parameterKey: AppConstants.expandResumePageCardAppParameter,
+                        subtitle: 'Manter os detalhes do resumo expandidos por padrão',
+                        defaultValue: false,
+                      ),
                     ],
                   ),
                 ),
@@ -198,14 +253,7 @@ class _ConfigsState extends State<Configs> {
                   child: Column(
                     children: [
                       ListTile(
-                        onTap: () => showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return DialogBackup(
-                              isCreateBackup: true,
-                            );
-                          },
-                        ),
+                        onTap: _restaurandoBackup ? null : _fazerBackup,
                         leading: const Icon(Icons.save_outlined),
                         title: const Text("Fazer backup"),
                         subtitle: const Row(
@@ -217,16 +265,17 @@ class _ConfigsState extends State<Configs> {
                       ),
                       const Divider(),
                       ListTile(
-                        onTap: () => showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return DialogBackup(
-                              isCreateBackup: false,
-                            );
-                          },
-                        ),
+                        enabled: !_restaurandoBackup,
+                        onTap: _restaurandoBackup ? null : _restaurarBackup,
                         leading: const Icon(Icons.settings_backup_restore_outlined),
                         title: const Text("Restaurar backup"),
+                        trailing: _restaurandoBackup
+                            ? const SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(strokeWidth: 2.5),
+                              )
+                            : null,
                       ),
                       const Divider(),
                       ListTile(
@@ -240,6 +289,7 @@ class _ConfigsState extends State<Configs> {
                           ),
                         ),
                       ),
+                      /*
                       const Divider(),
                       ListTile(
                         leading: const Icon(Icons.print_outlined),
@@ -260,6 +310,7 @@ class _ConfigsState extends State<Configs> {
                           showDialogConfirmDelete(context);
                         },
                       ),
+                      */
                     ],
                   ),
                 ),

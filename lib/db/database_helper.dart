@@ -6,7 +6,7 @@ import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
   static const _databaseName = "BookTracker.db";
-  static const _databaseVersion = 3;
+  static const _databaseVersion = 4;
 
   // Livros
   static const tableLivros = 'livro';
@@ -17,6 +17,7 @@ class DatabaseHelper {
   static const columnSituacaoLivro = 'situacaoLivro';
   static const columnCapa = 'capa';
   static const columnCriadoEm = 'criadoEm';
+  static const columnLendoEm = 'lendoEm';
   static const columnFinalizadoEm = 'finalizadoEm';
 
   // App Parameters
@@ -58,6 +59,7 @@ class DatabaseHelper {
             $columnSituacaoLivro INTEGER NOT NULL,
             $columnCapa BLOB,
             $columnCriadoEm TEXT,
+            $columnLendoEm TEXT,
             $columnFinalizadoEm TEXT
           )
           ''');
@@ -84,6 +86,10 @@ class DatabaseHelper {
     if (oldVersion < 3) {
       await db.execute('ALTER TABLE $tableLivros ADD COLUMN $columnCriadoEm TEXT');
       await db.execute('ALTER TABLE $tableLivros ADD COLUMN $columnFinalizadoEm TEXT');
+    }
+
+    if (oldVersion < 4) {
+      await db.execute('ALTER TABLE $tableLivros ADD COLUMN $columnLendoEm TEXT');
     }
   }
 }

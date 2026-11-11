@@ -12,6 +12,7 @@ class SettingsSwitch extends StatelessWidget {
   final String? subtitle;
   final String parameterKey;
   final bool defaultValue;
+  final bool enabled;
 
   const SettingsSwitch({
     super.key,
@@ -19,6 +20,7 @@ class SettingsSwitch extends StatelessWidget {
     this.subtitle,
     required this.parameterKey,
     this.defaultValue = true,
+    this.enabled = true,
   });
 
   @override
@@ -29,17 +31,19 @@ class SettingsSwitch extends StatelessWidget {
       title: Text(title),
       subtitle: subtitle != null ? Text(subtitle!) : null,
       value: value,
-      onChanged: (newValue) {
-        StoreProvider.dispatch(
-          context,
-          SaveAppParameterAction(
-            AppParameter(
-              key: parameterKey,
-              value: newValue.toString(),
-            ),
-          ),
-        );
-      },
+      onChanged: enabled
+          ? (newValue) {
+              StoreProvider.dispatch(
+                context,
+                SaveAppParameterAction(
+                  AppParameter(
+                    key: parameterKey,
+                    value: newValue.toString(),
+                  ),
+                ),
+              );
+            }
+          : null,
     );
   }
 }

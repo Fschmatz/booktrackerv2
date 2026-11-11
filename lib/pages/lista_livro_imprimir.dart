@@ -3,14 +3,15 @@ import 'package:flutter/services.dart';
 
 import '../class/livro.dart';
 import '../enum/situacao_livro.dart';
+import '../main.dart';
 import '../redux/selectors.dart';
 import '../service/livro_service.dart';
-import '../main.dart';
 
 class ListaLivroImprimir extends StatefulWidget {
   final bool onlyLidos;
+  final String? ano;
 
-  ListaLivroImprimir({Key? key, required this.onlyLidos}) : super(key: key);
+  ListaLivroImprimir({Key? key, required this.onlyLidos, this.ano}) : super(key: key);
 
   @override
   State<ListaLivroImprimir> createState() => _ListaLivroImprimirState();
@@ -32,9 +33,12 @@ class _ListaLivroImprimirState extends State<ListaLivroImprimir> {
   }
 
   void _loadLivros() async {
-    await LivroService().loadAllLivrosParaEstatisticas();
-
-    _livrosLidos = selectListLivroByPaginaAtual(store.state, SituacaoLivro.LIDO);
+    if (widget.ano != null) {
+      _livrosLidos = await LivroService().queryLivrosLidosByAno(widget.ano!);
+    } else {
+      await LivroService().loadAllLivrosParaEstatisticas();
+      _livrosLidos = selectListLivroByPaginaAtual(store.state, SituacaoLivro.LIDO);
+    }
 
     if (!widget.onlyLidos) {
       _livrosLendo = selectListLivroByPaginaAtual(store.state, SituacaoLivro.LENDO);
@@ -54,7 +58,10 @@ class _ListaLivroImprimirState extends State<ListaLivroImprimir> {
       _listaFormatada += "\n";
     }
 
-    _listaFormatada += "# Lidos\n";
+    if (widget.ano == null) {
+      _listaFormatada += "# Lidos\n";
+    }
+
     for (int i = 0; i < _livrosLidos.length; i++) {
       _listaFormatada += "• " + _livrosLidos[i].nome.toString() + "\n";
     }
@@ -68,7 +75,7 @@ class _ListaLivroImprimirState extends State<ListaLivroImprimir> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lista'),
+        title: Text(widget.ano != null ? 'Lidos em ${widget.ano}' : 'Lista'),
         actions: [
           TextButton(
             child: const Text(
@@ -82,7 +89,7 @@ class _ListaLivroImprimirState extends State<ListaLivroImprimir> {
         ],
       ),
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+        padding: const EdgeInsets.fromLTRB(16, 8, 16, 75),
         children: [
           _loading
               ? const SizedBox.shrink()

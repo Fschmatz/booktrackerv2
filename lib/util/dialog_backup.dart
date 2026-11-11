@@ -1,34 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'backup_utils.dart';
-
-class DialogBackup extends StatefulWidget {
+class DialogBackup extends StatelessWidget {
   final bool isCreateBackup;
 
-  DialogBackup({Key? key, required this.isCreateBackup}) : super(key: key);
-
-  @override
-  State<DialogBackup> createState() => _DialogBackupState();
-}
-
-class _DialogBackupState extends State<DialogBackup> {
-  Future<void> _createBackup() async {
-    await BackupUtils().backupData();
-  }
-
-  Future<void> _restoreFromBackup() async {
-    await BackupUtils().restoreBackupData();
-  }
-
-  Future<void> _executarBackup() async {
-    Navigator.of(context).pop();
-
-    if (widget.isCreateBackup) {
-      _createBackup();
-    } else {
-      _restoreFromBackup();
-    }
-  }
+  const DialogBackup({Key? key, required this.isCreateBackup}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,17 +12,25 @@ class _DialogBackupState extends State<DialogBackup> {
         "Confirmar",
       ),
       content: Text(
-        widget.isCreateBackup ? "Criar backup ?" : "Restaurar backup ?",
+        isCreateBackup ? "Criar backup ?" : "Restaurar backup ?",
       ),
       actions: [
+        TextButton(
+          child: const Text(
+            "Não",
+          ),
+          onPressed: () {
+            Navigator.of(context).pop(false);
+          },
+        ),
         TextButton(
           child: const Text(
             "Sim",
           ),
           onPressed: () {
-            _executarBackup();
+            Navigator.of(context).pop(true);
           },
-        )
+        ),
       ],
     );
   }

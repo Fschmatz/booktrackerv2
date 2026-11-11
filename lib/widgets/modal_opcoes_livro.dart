@@ -118,6 +118,7 @@ class ModalOpcoesLivro extends StatelessWidget {
                         if (isGrid && livro.numPaginas != null && livro.numPaginas != 0)
                           ModalInfoTile(label: "Nº de Páginas:", value: livro.numPaginas.toString()),
                         if (livro.criadoEm != null) ModalInfoTile(label: "Adicionado em:", value: livro.criadoEm!),
+                        if (livro.lendoEm != null && livro.lendoEm!.isNotEmpty) ModalInfoTile(label: "Lendo em:", value: livro.lendoEm!),
                         if (livro.finalizadoEm != null && livro.isFinalizado()) ModalInfoTile(label: "Finalizado em:", value: livro.finalizadoEm!),
                       ],
                     ),

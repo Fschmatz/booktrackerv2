@@ -45,6 +45,12 @@ class BackupUtils {
   /* END PER APP SPECIFIC FUNCTIONS */
 
   Future<void> backupData() async {
+    final int? capasAntigas = await dbLivro.contarCapasAnosAnteriores();
+
+    if (capasAntigas != null && capasAntigas > 0) {
+      await dbLivro.limparCapasAnosAnteriores();
+    }
+
     await AppParameterService().saveLastBackupDate();
 
     List<Map<String, dynamic>> listBooks = await _loadAllBooks();

@@ -3,6 +3,7 @@ class AppConstants {
   static const String useHomeGridAppParameter = "useHomeGrid";
   static const String lastBackupDateAppParameter = "lastBackupDate";
   static const String showResumePageCardAppParameter = "showResumePageCard";
+  static const String expandResumePageCardAppParameter = "expandResumePageCard";
   static const String gridSizeAppParameter = "gridSize";
 
   // VARIOS
@@ -18,7 +19,7 @@ class AppConstants {
   };
 
   // STRINGS
-  static const String versaoApp = "7.1.2";
+  static const String versaoApp = "7.1.4";
   static const String nomeApp = "BookTracker Fschmatz";
   static const String appNameHomePage = "BookTracker";
   static const String repositoryLink = "https://github.com/Fschmatz/booktrackerv2";
@@ -27,7 +28,9 @@ class AppConstants {
   static const String changelogUltimaVersao = '''
 $versaoApp
 - Card de resumo
+- Página do histórico
 - Ajustes de interface
+- Opções de colunas para o grid 
 - Fixes
 ''';
 
